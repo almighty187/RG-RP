@@ -60,14 +60,14 @@
 		1) Helper
 		2) Community Advisor
 		3) Senior Advisor
-		4) Chief Advisor
+		4/2) Chief Advisor
 	3) Famed
 		0) All/undefined
 		1) Old-School
 		2) Chartered Old-School
-		3) Famed
-		4) Famed Commissioner
-		6) Famed Vice-Chairman
+		1) Famed
+		2) Famed Commissioner
+		3) Famed Vice-Chairman
 	4) Newbie
 	5) General
 	6) Account
@@ -117,7 +117,7 @@
 		8) Towing
 		9) Criminal/Gang
 		10) Racing
-	11) Business
+	12) Business
 		1) Gas Station
 		2) Clothing
 		3) Restaurant
@@ -131,12 +131,13 @@
 		11) Sex Shop
 		12) Gym
 		13) Casino
-	12) VIP
+	13) VIP
+		0) All/undefined
 		2) Silver VIP
 		3) Gold VIP
 		4) Platinum VIP
 		5) VIP Moderator
-	13) Other
+	14) Other
 		1) Animation
 		2) Backpack
 		3) Car
