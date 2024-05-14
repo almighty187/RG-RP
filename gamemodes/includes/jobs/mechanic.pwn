@@ -109,6 +109,7 @@ CMD:fix(playerid, params[])
 					SetPVarInt(playerid, "FixVehicleTimer", SetTimerEx("FixVehicle", 15000, false, "ii", playerid, closestcar));
 					TogglePlayerControllable(playerid, 0);
 					ApplyAnimation(playerid, "MISC", "Plunger_01", 4.1, 1, 1, 1, 1, 1, 1);
+					PlayerInfo[playerid][pAnimUse] = 1;
     			}
 				defer Fix_PlayerInVehicleCheck(playerid);
 			}
@@ -126,6 +127,7 @@ public FixVehicle(playerid, vehicleid)
 	ApplyAnimation(playerid, "CARRY", "crry_prtial", 4.0, 0, 0, 0, 0, 0, 1);
 	ClearAnimationsEx(playerid);
 	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+	PlayerInfo[playerid][pAnimUse] = 0;
 	PlayerInfo[playerid][pMechTime] = gettime()+60;
 	SetVehicleHealth(vehicleid, 1000.0);
 	Vehicle_Armor(vehicleid);

@@ -1,43 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Dedicated System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
-/** Austin's DP system **/
-
-
 #include <YSI\y_hooks>
 
 SendDedicatedMessage(color, string[])
@@ -115,11 +75,11 @@ GetDPRankName(playerid)
 	{
 		switch(PlayerInfo[playerid][pAdmin])
 		{
-			case 2: rank = "Junior Admin";
+			case 2: rank = "Trial Admin";
 			case 3: rank = "General Admin";
 			case 4: rank = "Senior Admin";
-			case 1337: rank = "Head Admin";
-			case 99999: rank = "Executive Admin";
+			case 1337: rank = "Lead Admin";
+			case 1338: rank = "Executive Director";
 		}
 	}
 	else 
@@ -139,8 +99,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
 	if(dialogid == DIALOG_LOCKER_DP1)
 	{
-		if(!response) return SendClientMessageEx(playerid, COLOR_GRAD2, "You have exited the locker.");
-		if(!IsPlayerInRangeOfPoint(playerid, 4.0, 166.6046,-2001.0406,3499.6482))  return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not near the DP Locker.");// Need co-ordinates
+		if(!response) return SendServerMessage(playerid, "You have exited the locker.");
+		if(!IsPlayerInRangeOfPoint(playerid, 4.0, 166.6046,-2001.0406,3499.6482))  return SendErrorMessage(playerid, "You are not near the DP Locker.");// Need co-ordinates
 		if(listitem == 0)
 		{
 			new Float:health;
@@ -148,12 +108,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			new hpint = floatround( health, floatround_round );
 			if( hpint >= 100 )
 			{
-				SendClientMessageEx(playerid, COLOR_GREY, "You already have full health.");
+				SendErrorMessage(playerid, "You already have full health.");
 				return 1;
 			}
 			else {
 				SetHealth(playerid, 100);
-				SendClientMessageEx(playerid, COLOR_YELLOW, "[Dedicated Locker] You have used a first aid kit, you now have 100.0 HP.");
+				SendServerMessage(playerid, "[Dedicated Locker] You have used a first aid kit, you now have 100.0 HP.");
 			}
 		}
 		if(listitem == 1)
@@ -162,26 +122,26 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			GetArmour(playerid, armour);
 			if(armour >= 100)
 			{
-				SendClientMessageEx(playerid, COLOR_GREY, "You already have full armor.");
+				SendErrorMessage(playerid, "You already have full armor.");
 				return 1;
 			}
 			else if(GetPlayerCash(playerid) < 10000)
 			{
-				SendClientMessageEx(playerid, COLOR_GREY,"You don't have $10,000");
+				SendErrorMessage(playerid, "You don't have $10,000");
 				return 1;
 			}
 			else 
 			{
 				GivePlayerCash(playerid, -10000);
 				SetArmour(playerid, 100);
-				SendClientMessageEx(playerid, COLOR_YELLOW, "[Dedicated Locker] You paid $10,000 for a kevlar vest.");
+				SendServerMessage(playerid, "[Dedicated Locker] You paid $10,000 for a kevlar vest.");
 			}
 		}
 	}
 	else if(dialogid == DIALOG_LOCKER_DP2)
 	{
-		if(!response) return SendClientMessageEx(playerid, COLOR_GRAD2, "You have exited the locker.");
-		if(!IsPlayerInRangeOfPoint(playerid, 4.0, 166.6046,-2001.0406,3499.6482))  return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not near the DP Locker.");// Need co-ordinates
+		if(!response) return SendServerMessage(playerid, "You have exited the locker.");
+		if(!IsPlayerInRangeOfPoint(playerid, 4.0, 166.6046,-2001.0406,3499.6482))  return SendErrorMessage(playerid, "You are not near the DP Locker.");// Need co-ordinates
 		if(listitem == 0)
 		{
 			new Float:health;
@@ -189,12 +149,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			new hpint = floatround( health, floatround_round );
 			if( hpint >= 100 )
 			{
-				SendClientMessageEx(playerid, COLOR_GREY, "You already have full health.");
+				SendErrorMessage(playerid, "You already have full health.");
 				return 1;
 			}
 			else {
 				SetHealth(playerid, 100);
-				SendClientMessageEx(playerid, COLOR_YELLOW, "[Dedicated Locker] You have used a first aid kit, you now have 100.0 HP.");
+				SendServerMessage(playerid, "[Dedicated Locker] You have used a first aid kit, you now have 100.0 HP.");
 			}
 		}
 		if(listitem == 1)
@@ -203,12 +163,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			GetArmour(playerid, armour);
 			if(armour >= 100)
 			{
-				SendClientMessageEx(playerid, COLOR_GREY, "You already have full armor.");
+				SendErrorMessage(playerid, "You already have full armor.");
 				return 1;
 			}
 			else if(GetPlayerCash(playerid) < 5000 && PlayerInfo[playerid][pDedicatedPlayer] < 3)
 			{
-				SendClientMessageEx(playerid, COLOR_GREY,"You don't have $5,000");
+				SendErrorMessage(playerid, "You don't have $5,000");
 				return 1;
 			}
 			else 
@@ -217,41 +177,41 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				SetArmour(playerid, 100);
 				if(PlayerInfo[playerid][pDedicatedPlayer] < 3)
 				{
-					SendClientMessageEx(playerid, COLOR_YELLOW, "[Dedicated Locker] You paid $5,000 for a kevlar vest.");
+					SendServerMessage(playerid, "[Dedicated Locker] You paid $5,000 for a kevlar vest.");
 				}
 				else
 				{
-					SendClientMessageEx(playerid, COLOR_YELLOW, "[Dedicated Locker] You take a kevlar vest from the locker.");
+					SendServerMessage(playerid, "[Dedicated Locker] You take a kevlar vest from the locker.");
 				}
 			}
 		}
 		if(listitem == 2)
 		{
-			if(PlayerInfo[playerid][pAccountRestricted] != 0) return SendClientMessageEx(playerid, COLOR_GRAD1, "Your account is restricted!");
-			if(PlayerInfo[playerid][pWRestricted] > 0) return SendClientMessageEx(playerid, COLOR_GRAD1, "You can't take weapons out as you're currently weapon restricted!");
+			if(PlayerInfo[playerid][pAccountRestricted] != 0) return SendErrorMessage(playerid, "Your account is restricted!");
+			if(PlayerInfo[playerid][pWRestricted] > 0) return SendErrorMessage(playerid, "You can't take weapons out as you're currently weapon restricted!");
 			ShowPlayerDialogEx(playerid, DIALOG_DEDICATED_WEAPON, DIALOG_STYLE_LIST, "Dedicated Weapon Inventory", "Desert Eagle (Free)\nSemi-Automatic MP5 (Free)\nPump Shotgun (Free)", "Take", "Cancel");
 		}
 	}
 	else if(dialogid == DIALOG_DEDICATED_WEAPON)
 	{
-		if(!response) return SendClientMessageEx(playerid, COLOR_GRAD2, "You have exited the locker.");
-		if(!IsPlayerInRangeOfPoint(playerid, 4.0, 166.6046,-2001.0406,3499.6482))  return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not near the DP Locker.");// Need co-ordinates
+		if(!response) return SendErrorMessage(playerid, "You have exited the locker.");
+		if(!IsPlayerInRangeOfPoint(playerid, 4.0, 166.6046,-2001.0406,3499.6482))  return SendErrorMessage(playerid, "You are not near the DP Locker.");// Need co-ordinates
 		switch(listitem)
 		{
 			case 0: //Deagle
 			{
 				GivePlayerValidWeapon(playerid, 24);
-				SendClientMessageEx(playerid, COLOR_YELLOW, "[Dedicated Locker] You have taken a Desert Eagle from the locker.");
+				SendServerMessage(playerid, "[Dedicated Locker] You have taken a Desert Eagle from the locker.");
 			}
 			case 1: //MP5
 			{
 				GivePlayerValidWeapon(playerid, 29);
-				SendClientMessageEx(playerid, COLOR_YELLOW, "[Dedicated Locker] You have taken a Semi-Automatic MP5 from the locker.");
+				SendServerMessage(playerid, "[Dedicated Locker] You have taken a Semi-Automatic MP5 from the locker.");
 			}
 			case 2: //Shotgun
 			{
 				GivePlayerValidWeapon(playerid, 25);
-				SendClientMessageEx(playerid, COLOR_YELLOW, "[Dedicated Locker] You have taken a Pump Shotgun from the locker.");
+				SendServerMessage(playerid, "[Dedicated Locker] You have taken a Pump Shotgun from the locker.");
 			}
 		}
 

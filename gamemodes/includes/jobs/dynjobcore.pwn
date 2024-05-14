@@ -132,7 +132,7 @@ public UpdateJobPoint(id)
 	JobData[id][jAreaID] = CreateDynamicSphere(JobData[id][jPos][0], JobData[id][jPos][1], JobData[id][jPos][2], 3.0, .worldid = JobData[id][jVw], .interiorid = JobData[id][jInt]);
 	JobData[id][jMapMarker] = CreateDynamicMapIcon(JobData[id][jPos][0], JobData[id][jPos][1], JobData[id][jPos][2], (JobData[id][jMarkerID] < 5 || JobData[id][jMarkerID] > 63) ? 56 : JobData[id][jMarkerID], 0, .streamdistance = 500.0, .style = MAPICON_GLOBAL);
 	JobData[id][jPickupID] = CreateDynamicPickup(1239, 23, JobData[id][jPos][0], JobData[id][jPos][1], JobData[id][jPos][2], .worldid = JobData[id][jVw], .interiorid = JobData[id][jInt], .streamdistance = 200.0);
-	format(szMiscArray, sizeof szMiscArray, "{FFFF00}Job Point ({FFFFFF}ID: %i{FFFF00})\n\nName: {FFFFFF}%s\n{FFFF00}Press {FFFFFF}~k~~CONVERSATION_YES~ {FFFF00}to obtain the job.", id, GetJobName(JobData[id][jType]));
+	format(szMiscArray, sizeof szMiscArray, "{33AA33}Job Point ({FFFFFF}ID: %i{33AA33})\n\nName: {FFFFFF}%s\n{33AA33}Press {FFFFFF}~k~~CONVERSATION_YES~ {33AA33}to obtain the job.", id, GetJobName(JobData[id][jType]));
 	JobData[id][jTextID] = CreateDynamic3DTextLabel(szMiscArray, COLOR_YELLOW, JobData[id][jPos][0], JobData[id][jPos][1], JobData[id][jPos][2]+0.6, 10.0, .testlos = 1, .worldid = JobData[id][jVw], .interiorid = JobData[id][jInt], .streamdistance = 10.0);
 	return 1;
 }
@@ -201,7 +201,7 @@ Job_GetJob(playerid, i)
     if(PlayerInfo[playerid][pJob] == JobData[i][jType] || PlayerInfo[playerid][pJob2] == JobData[i][jType] || PlayerInfo[playerid][pJob3] == JobData[i][jType]) {
     	return SendClientMessageEx(playerid, COLOR_GRAD1, "You already have this job.");
     }
-	if(PlayerInfo[playerid][pJob] == 0) format(szMiscArray, sizeof(szMiscArray), "Would you like to proceed a career as a {FFFF00}%s{FFFFFF}?", GetJobName(JobData[i][jType]));
+	if(PlayerInfo[playerid][pJob] == 0) format(szMiscArray, sizeof(szMiscArray), "Would you like to proceed a career as a {33AA33}%s{FFFFFF}?", GetJobName(JobData[i][jType]));
 	else if(0 < PlayerInfo[playerid][pDonateRank] < 4) format(szMiscArray, sizeof(szMiscArray), "Would you like to proceed a career as a {FFFF00}%s{FFFFFF}? (VIP Job)", GetJobName(JobData[i][jType]));
 	else if(PlayerInfo[playerid][pDonateRank] > 3) format(szMiscArray, sizeof(szMiscArray), "Would you like to proceed a career as a {FFFF00}%s{FFFFFF}? (Platinum VIP Job)", GetJobName(JobData[i][jType]));
 	else if(PlayerInfo[playerid][pFamed] > 0) format(szMiscArray, sizeof(szMiscArray), "Would you like to proceed a career as a {FFFF00}%s{FFFFFF}? (OS/Famed Job)", GetJobName(JobData[i][jType]));

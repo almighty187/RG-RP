@@ -1,41 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-    	    		  Point System (Re-done)
-    			        by Shane Roberts
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 #include <YSI\y_hooks>
 
 CMD:getmats(playerid, params[])
@@ -135,7 +97,7 @@ CMD:getdrugs(playerid, params[]) {
 CMD:pointtime(playerid, params[])
 {
 	new point;
-	if(sscanf(params, "i", point)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /pointtime [pointid]");
+	if(sscanf(params, "i", point)) return SendSyntaxMessage(playerid, "/pointtime [pointid]");
 	if((1 <= point <= MAX_POINTS)) {
 		if(strcmp(DynPoints[point-1][poName], "NULL", true) == 0) return SendClientMessageEx(playerid, COLOR_GRAD1, "This point hasn't officaly been setup yet!");
 		if(DynPoints[point-1][poCapturable] != 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "%s is not ready for takeover.", DynPoints[point-1][poName]);
@@ -150,7 +112,7 @@ CMD:pointtime(playerid, params[])
 CMD:gotodpoint(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1) {
 		new pid;
-		if(sscanf(params, "d", pid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gotodpoint [number]");
+		if(sscanf(params, "d", pid)) return SendSyntaxMessage(playerid, "/gotodpoint [number]");
 		if((1 <= pid <= MAX_POINTS)) {
 			if(DynPoints[pid-1][poPos][0] == 0.0 || DynPoints[pid-1][poPos][1] == 0.0) return SendClientMessageEx(playerid, COLOR_GRAD1, "The selected point ID hasn't been setup!");
 			SetPlayerPos(playerid, DynPoints[pid-1][poPos][0], DynPoints[pid-1][poPos][1], DynPoints[pid-1][poPos][2]);

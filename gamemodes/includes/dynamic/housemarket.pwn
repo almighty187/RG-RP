@@ -174,7 +174,7 @@ CMD:denylisting(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
 	new houseid, reason[64], string[128];
-	if(sscanf(params, "ds[64]", houseid, reason)) return SendClientMessageEx(playerid, COLOR_GREY, "[USAGE]: /denylisting [House ID] [Reason]");
+	if(sscanf(params, "ds[64]", houseid, reason)) return SendSyntaxMessage(playerid, "/denylisting [House ID] [Reason]");
 	if(houseid < 1 || houseid >= MAX_HOUSES)
 	{
 		format(szMiscArray, sizeof(szMiscArray), "The specified house ID must be between 1 and %d.", MAX_HOUSES - 1);
@@ -207,7 +207,7 @@ CMD:approvelisting(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
 	new houseid, seller, string[128];
-	if(sscanf(params, "d", houseid)) return SendClientMessageEx(playerid, COLOR_GREY, "[USAGE]: /approvelisting [House ID]");
+	if(sscanf(params, "d", houseid)) return SendSyntaxMessage(playerid, "/approvelisting [House ID]");
 	if(houseid < 1 || houseid >= MAX_HOUSES)
 	{
 		format(szMiscArray, sizeof(szMiscArray), "The specified house ID must be between 1 and %d.", MAX_HOUSES - 1);
@@ -280,7 +280,7 @@ CMD:adeletelisting(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
 	new houseid, string[128];
-	if(sscanf(params, "d", houseid)) return SendClientMessageEx(playerid, COLOR_GREY, "[USAGE]: /adeletelisting [House ID]");
+	if(sscanf(params, "d", houseid)) return SendSyntaxMessage(playerid, "/adeletelisting [House ID]");
 	if(houseid < 1 || houseid >= MAX_HOUSES)
 	{
 		format(szMiscArray, sizeof(szMiscArray), "The specified house ID must be between 1 and %d.", MAX_HOUSES - 1);
@@ -302,7 +302,7 @@ CMD:listingdetails(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
 	new houseid;
-	if(sscanf(params, "d", houseid)) return SendClientMessageEx(playerid, COLOR_GREY, "[USAGE]: /listingdetails [House ID]");
+	if(sscanf(params, "d", houseid)) return SendSyntaxMessage(playerid, "/listingdetails [House ID]");
 	szMiscArray[0] = 0;
 	if(houseid < 1 || houseid >= MAX_HOUSES)
 	{

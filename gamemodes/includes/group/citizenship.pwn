@@ -1,40 +1,4 @@
 /*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-					Citizenship System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-/*
 NationSel_InitNationNameText(Text:txtInit)
 {
   	TextDrawUseBox(txtInit, 0);
@@ -264,7 +228,7 @@ CMD:apply(playerid, params[])
 	new choice[3];
 	if(sscanf(params, "s[3]", choice))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /apply [SA|NR]");
+		SendSyntaxMessage(playerid, "/apply [SA|NR]");
 		return 1;
 	}
 	if(PlayerInfo[playerid][pFreezeBank] || PlayerInfo[playerid][pFreezeHouse] || PlayerInfo[playerid][pFreezeCar]) {
@@ -303,10 +267,10 @@ CMD:deport(playerid, params[])
 	if((0 <= PlayerInfo[playerid][pLeader] < MAX_GROUPS) && arrGroupData[PlayerInfo[playerid][pLeader]][g_iGroupType] == GROUP_TYPE_GOV)
 	{
    		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /deport [player]");
-		if(!IsPlayerConnected(giveplayerid)) SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
-		else if(!ProxDetectorS(5.0, playerid, giveplayerid)) SendClientMessageEx(playerid, COLOR_GREY, "You are not close enough to the deportee.");
-		else if(PlayerInfo[playerid][pNation] == 0 && PlayerInfo[giveplayerid][pNation] == 0) SendClientMessageEx(playerid, COLOR_GREY, "You can't deport a citizen of San Andreas!");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/deport [player]");
+		if(!IsPlayerConnected(giveplayerid)) SendErrorMessage(playerid, "Invalid player specified.");
+		else if(!ProxDetectorS(5.0, playerid, giveplayerid)) SendErrorMessage(playerid, "You are not close enough to the deportee.");
+		else if(PlayerInfo[playerid][pNation] == 0 && PlayerInfo[giveplayerid][pNation] == 0) SendErrorMessage(playerid, "You can't deport a citizen of San Andreas!");
 		else
 		{
 			format(string, sizeof(string), "* You deported %s!", GetPlayerNameEx(giveplayerid));
@@ -333,7 +297,7 @@ CMD:deport(playerid, params[])
 						SetPlayerFacingAngle(giveplayerid, 180.0);
 					}
 				}
-				SendClientMessageEx(giveplayerid, COLOR_RED, "You have been deported back to New Robada.");
+				SendServerMessage(giveplayerid, "You have been deported back to New Robada.");
 			}
 			else if(PlayerInfo[playerid][pNation] == 1 && PlayerInfo[giveplayerid][pNation] == 0)
 			{
@@ -350,7 +314,7 @@ CMD:deport(playerid, params[])
 						SetPlayerFacingAngle(giveplayerid, 90.0);
 					}
 				}
-				SendClientMessageEx(giveplayerid, COLOR_RED, "You have been deported back to San Andreas.");
+				SendServerMessage(giveplayerid, "You have been deported back to San Andreas.");
 			}
 			else if(PlayerInfo[playerid][pNation] == 0 && PlayerInfo[giveplayerid][pNation] == 0)
 			{
@@ -368,7 +332,7 @@ CMD:deport(playerid, params[])
 					}
 				}
 				PlayerInfo[giveplayerid][pNation] = 2;
-				SendClientMessageEx(giveplayerid, COLOR_RED, "You were deported from your country. You have lost your citizenship.");
+				SendServerMessage(giveplayerid, "You were deported from your country. You have lost your citizenship.");
 			}
 			else if(PlayerInfo[playerid][pNation] == 1 && PlayerInfo[giveplayerid][pNation] == 1)
 			{
@@ -386,11 +350,11 @@ CMD:deport(playerid, params[])
 					}
 				}
 				PlayerInfo[giveplayerid][pNation] = 2;
-				SendClientMessageEx(giveplayerid, COLOR_RED, "You were deported from your country. You have lost your citizenship.");
+				SendServerMessage(giveplayerid, "You were deported from your country. You have lost your citizenship.");
 			}
 	    }
 	}
-	else SendClientMessage(playerid, COLOR_GREY, "You are not the leader of a Government agency.");
+	else SendErrorMessage(playerid, "You are not the leader of a Government agency.");
 	return 1;
 }
 

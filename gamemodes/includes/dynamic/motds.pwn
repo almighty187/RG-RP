@@ -1,45 +1,8 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-					Dynamic MOTD System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 CMD:motd(playerid, params[])
 {
     if(PlayerInfo[playerid][pAdmin] >= 1337)
     {
-		if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /motd [message]");
+		if(isnull(params)) return SendSyntaxMessage(playerid, "/motd [message]");
 		new string[128];
     	format(string, sizeof(string), "AdmCmd: %s has changed the global motd to: %s.", GetPlayerNameEx(playerid), params);
 		ABroadCast( COLOR_LIGHTRED, string, 4);
@@ -54,14 +17,14 @@ CMD:amotd(playerid, params[])
 {
     if(PlayerInfo[playerid][pAdmin] >= 1337)
     {
-		if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /amotd [message]");
+    	if(sscanf(params, "s[128]", params)) return SendSyntaxMessage(playerid, "/amotd [message]");
+		//if(isnull(params)) return SendSyntaxMessage(playerid, "/amotd [message]");
 		new string[128];
 		format(AdminMOTD, sizeof(AdminMOTD), "%s", params);
 		format(string, sizeof(string), "AdmCmd: %s has changed the admin motd to: %s.", GetPlayerNameEx(playerid), params);
 		ABroadCast( COLOR_LIGHTRED, string, 4);
 		SendClientMessageEx(playerid, COLOR_WHITE, "You've adjusted the Admin MOTD.");
 		g_mysql_SaveMOTD();
-		//IRC_SetChannelTopic(BotID[0], IRC_CHANNEL_ADMIN, AdminMOTD);
 	}
 	return 1;
 }
@@ -70,7 +33,7 @@ CMD:vipmotd(playerid, params[])
 {
     if(PlayerInfo[playerid][pAdmin] >= 1337)
     {
-		if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /vipmotd [message]");
+		if(isnull(params)) return SendSyntaxMessage(playerid, "/vipmotd [message]");
 		new string[128];
 		format(VIPMOTD, sizeof(VIPMOTD), "%s", params);
 		format(string, sizeof(string), "AdmCmd: %s has changed the VIP motd to: %s.", GetPlayerNameEx(playerid), params);
@@ -81,24 +44,24 @@ CMD:vipmotd(playerid, params[])
 	return 1;
 }
 
-CMD:advisormotd(playerid, params[])
+CMD:helpermotd(playerid, params[])
 {
     if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pHelper] >= 4 || PlayerInfo[playerid][pPR] > 0)
     {
-		if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /advisormotd [message]");
+		if(isnull(params)) return SendSyntaxMessage(playerid, "/advisormotd [message]");
 		new string[128];
 		format(CAMOTD, sizeof(CAMOTD), "%s", params);
 		if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pPR] > 0)
 		{
-			format(string, sizeof(string), "AdmCmd: %s has changed the Advisor motd to: %s.", GetPlayerNameEx(playerid), params);
+			format(string, sizeof(string), "AdmCmd: %s has changed the Helper motd to: %s.", GetPlayerNameEx(playerid), params);
 			ABroadCast( COLOR_LIGHTRED, string, 4);
 		}
 		else if(PlayerInfo[playerid][pHelper] >= 4)
 		{
-		    format(string, sizeof(string), "CACmd: %s has changed the Advisor motd to: %s.", GetPlayerNameEx(playerid), params);
+		    format(string, sizeof(string), "CACmd: %s has changed the Helper motd to: %s.", GetPlayerNameEx(playerid), params);
 			CBroadCast( COLOR_YELLOW, string, 2);
 		}
-		SendClientMessageEx(playerid, COLOR_WHITE, "You've adjusted the Advisor MOTD.");
+		SendClientMessageEx(playerid, COLOR_WHITE, "You've adjusted the Helper MOTD.");
 		g_mysql_SaveMOTD();
 	}
 	return 1;
@@ -106,9 +69,9 @@ CMD:advisormotd(playerid, params[])
 
 CMD:pmotd(playerid, params[])
 {
-    if(PlayerInfo[playerid][pAdmin] >= 99999 || PlayerInfo[playerid][pShopTech] >= 3 || PlayerInfo[playerid][pPR] >= 2)
+    if(PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pShopTech] >= 3 || PlayerInfo[playerid][pPR] >= 2)
     {
-		if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /pmotd [message/off]");
+		if(isnull(params)) return SendSyntaxMessage(playerid, "/pmotd [message/off]");
 		new string[128];
 		if(strcmp(params, "off", true) == 0)
 		{
@@ -139,7 +102,7 @@ CMD:gmotd(playerid, params[])
 		iSlot;
 
 	if (0 <= iGroupID < MAX_GROUPS) {
-		if(sscanf(params, "ds[128]", iSlot, string)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gmotd [motd slot] [message]");
+		if(sscanf(params, "ds[128]", iSlot, string)) return SendSyntaxMessage(playerid, "/gmotd [motd slot] [message]");
 		if(strlen(string) > 128) return SendClientMessageEx( playerid, COLOR_GRAD1, "That MOTD is too long, please refrain from using more than 128 characters." );
 		if (1 <= iSlot <= 3) {
 		    strmid(gMOTD[iGroupID][iSlot-1], string, 0, strlen(string), 128);
@@ -162,7 +125,7 @@ CMD:prisonermotd(playerid, params[])
 	if(!IsADocGuard(playerid)) return SendClientMessageEx(playerid, COLOR_GREY, "You must be a DOC Guard to use this command.");
 
 	if (0 <= iGroupID < MAX_GROUPS) {
-		if(sscanf(params, "ds[128]", iSlot, string)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /prisonermotd [motd slot] [message]");
+		if(sscanf(params, "ds[128]", iSlot, string)) return SendSyntaxMessage(playerid, "/prisonermotd [motd slot] [message]");
 		if(strlen(string) > 128) return SendClientMessageEx( playerid, COLOR_GRAD1, "That MOTD is too long, please refrain from using more than 128 characters." );
 		if (1 <= iSlot <= 3) {
 		    strmid(prisonerMOTD[iSlot-1], string, 0, strlen(string), 128);
@@ -199,7 +162,7 @@ CMD:viewmotd(playerid, params[])
 			SendClientMessageEx(playerid, arrGroupData[PlayerInfo[playerid][pMember]][g_hDutyColour] * 256 + 255, gMOTD[PlayerInfo[playerid][pMember]][i]);
 		}
 	}
-	if(strcmp(option, "advisor", true) == 0 && PlayerInfo[playerid][pHelper] >= 1) return SendClientMessageEx(playerid, TEAM_AZTECAS_COLOR, CAMOTD);
+	if(strcmp(option, "helper", true) == 0 && PlayerInfo[playerid][pHelper] >= 1) return SendClientMessageEx(playerid, TEAM_AZTECAS_COLOR, CAMOTD);
 	if(strcmp(option, "admin", true) == 0 && PlayerInfo[playerid][pAdmin] > 1) return SendClientMessageEx(playerid, COLOR_YELLOW, AdminMOTD);
 	if(strcmp(option, "prisoner", true) == 0 && strfind(PlayerInfo[playerid][pPrisonReason], "[IC]", true) != -1 || strcmp(option, "prisoner", true) == 0 && IsADocGuard(playerid))
 	{

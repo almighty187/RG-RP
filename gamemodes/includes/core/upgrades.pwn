@@ -258,7 +258,7 @@ LevelCheck(playerid)
 	return 1;
 }
 
-/*
+
 CMD:upgrade(playerid, params[])
 {
 	if(isnull(params))
@@ -663,4 +663,4 @@ CMD:upgrade(playerid, params[])
 		return 1;
 	}
 	return 1;
-}*/
+}

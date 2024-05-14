@@ -1,39 +1,29 @@
 /*
 
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
+
+		  _____     _____       _____    _____
+		 |  __ \   / ____|  _  |  __ \  |  __ \
+		 | |__) | | |  __  (_) | |__) | | |__) |
+		 |  _  /  | | |_ |     |  _  /  |  ___/
+		 | | \ \  | |__| |  _  | | \ \  | |
+		 |_|  \_\  \_____| (_) |_|  \_\ |_|
+
+
+
+//--------------------------------[helpcmds.pawn]-------------------------------
 
 						Help Commands
 
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
+						Rebound Gaming
+	(created by Rebound Gaming Development Team)
 
-	* Copyright (c) 2016, Next Generation Gaming, LLC
+	* Copyright (c) 2024, Rebound Gaming
 	*
 	* All rights reserved.
 	*
 	* Redistribution and use in source and binary forms, with or without modification,
 	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
+	
 	Types/Subtypes
 	1) Administrator
 		0) All/undefined
@@ -44,7 +34,7 @@
 		5) General Administrator
 		6) Assistant Shift Manager
 		7) Senior Administrator
-		8) Head Administrator
+		8) Lead Administrator
 		9) Executive Administrator
 		10) SA-MP Operations
 		11) Human Resources
@@ -55,19 +45,19 @@
 		16) Shop Technician
 		17) Public Relations
 		18) Ban Appealer
-	2) Advisor
+	2) Helper
 		0) All/undefined
 		1) Helper
-		2) Community Advisor
-		3) Senior Advisor
-		4/2) Chief Advisor
+		2) Community Helper
+		3) Senior Helper
+		4) Head Helper
 	3) Famed
 		0) All/undefined
 		1) Old-School
 		2) Chartered Old-School
-		1) Famed
-		2) Famed Commissioner
-		3) Famed Vice-Chairman
+		3) Famed
+		4) Famed Commissioner
+		6) Famed Vice-Chairman
 	4) Newbie
 	5) General
 	6) Account
@@ -78,23 +68,29 @@
 		2) Lawyer
 		3) Whore
 		4) Drug Dealer
-		5) [UNDEFINED]
+		5) Paper Boy
 		6) [UNDEFINED]
 		7) Mechanic
 		8) Bodyguard
 		9) Arms Dealer
-		10) Car Dealer
+		10) Street Sweeper
 		11) [UNDEFINED]
 		12) Boxer
 		13) [UNDEFINED]
 		14) Drug Smuggler
-		15) Paper Boy
-		16) Trucker
+		15) [UNDEFINED]
+		16) [UNDEFINED]
 		17) Taxi Driver
 		18) Craftsman
 		19) Bartender
 		20) Shipment Contractor
 		21) Pizza Boy
+		22) [UNDEFINED]
+		23) [UNDEFINED]
+		24) [UNDEFINED]
+		25) [UNDEFINED]
+		26) [UNDEFINED]
+		27) Garbage Man
 	10) Group
 		1) LEA/Cops
 		2) Hitman
@@ -132,7 +128,6 @@
 		12) Gym
 		13) Casino
 	13) VIP
-		0) All/undefined
 		2) Silver VIP
 		3) Gold VIP
 		4) Platinum VIP
@@ -148,6 +143,7 @@
 		8) Rent
 		9) Toy
 		10) Voucher
+		11) Park Meter
 */
 
 #include <YSI\y_hooks>
@@ -225,7 +221,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 8: Help_ListCat(playerid, DIALOG_HELPCATSHOP, response, listitem);
 					case 9: Help_ListCat(playerid, DIALOG_HELPCATJOB, response, listitem);
 					case 10: Help_ListCat(playerid, DIALOG_HELPCATGROUP, response, listitem);
-					case 12: Help_ListCat(playerid, DIALOG_HELPCATBUSINESS, response, listitem);
+					case 11: Help_ListCat(playerid, DIALOG_HELPCATBUSINESS, response, listitem);
 					case 13: Help_ListCat(playerid, DIALOG_HELPCATVIP, response, listitem);
 					case 14: Help_ListCat(playerid, DIALOG_HELPCATOTHER, response, listitem);
 				}
@@ -499,7 +495,7 @@ stock Help_ListCat(playerid, dialogid = DIALOG_HELPCATMAIN, response = 0, listit
 				format(string, sizeof(string), "HelpResultCat%i", j);
 				SetPVarInt(playerid, string, 4);
 				j++;
-				format(szMiscArray, sizeof(szMiscArray), "%sJunior Administrator\n", szMiscArray);
+				format(szMiscArray, sizeof(szMiscArray), "%sTrial Administrator\n", szMiscArray);
 			}
 			if(Help_Perm(playerid, 1, 5, 1))
 			{
@@ -527,14 +523,14 @@ stock Help_ListCat(playerid, dialogid = DIALOG_HELPCATMAIN, response = 0, listit
 				format(string, sizeof(string), "HelpResultCat%i", j);
 				SetPVarInt(playerid, string, 8);
 				j++;
-				format(szMiscArray, sizeof(szMiscArray), "%sHead Administrator\n", szMiscArray);
+				format(szMiscArray, sizeof(szMiscArray), "%sLead Administrator\n", szMiscArray);
 			}
 			if(Help_Perm(playerid, 1, 9, 1))
 			{
 				format(string, sizeof(string), "HelpResultCat%i", j);
 				SetPVarInt(playerid, string, 9);
 				j++;
-				format(szMiscArray, sizeof(szMiscArray), "%sExecutive Administrator\n", szMiscArray);
+				format(szMiscArray, sizeof(szMiscArray), "%sManagement\n", szMiscArray);
 			}
 			if(Help_Perm(playerid, 1, 10, 1))
 			{
@@ -640,21 +636,21 @@ stock Help_ListCat(playerid, dialogid = DIALOG_HELPCATMAIN, response = 0, listit
 				format(string, sizeof(string), "HelpResultCat%i", j);
 				SetPVarInt(playerid, string, 2);
 				j++;
-				format(szMiscArray, sizeof(szMiscArray), "%Community Advisor\n", szMiscArray);
+				format(szMiscArray, sizeof(szMiscArray), "%Community Helper\n", szMiscArray);
 			}
 			if(Help_Perm(playerid, 2, 3, 3))
 			{
 				format(string, sizeof(string), "HelpResultCat%i", j);
 				SetPVarInt(playerid, string, 3);
 				j++;
-				format(szMiscArray, sizeof(szMiscArray), "%Senior Advisor\n", szMiscArray);
+				format(szMiscArray, sizeof(szMiscArray), "%Senior Helper\n", szMiscArray);
 			}
 			if(Help_Perm(playerid, 2, 4, 4))
 			{
 				format(string, sizeof(string), "HelpResultCat%i", j);
 				SetPVarInt(playerid, string, 4);
 				j++;
-				format(szMiscArray, sizeof(szMiscArray), "%sChief Advisor\n", szMiscArray);
+				format(szMiscArray, sizeof(szMiscArray), "%sHead Helper\n", szMiscArray);
 			}
 			Help_GenerateCMDList(playerid, 3, j, 2, 0);
 			if(!isnull(szMiscArray)) ShowPlayerDialogEx(playerid, DIALOG_HELPCATADVISOR, DIALOG_STYLE_LIST, "Help System", szMiscArray, "Select", "Cancel");
@@ -836,11 +832,10 @@ stock Help_ListCat(playerid, dialogid = DIALOG_HELPCATMAIN, response = 0, listit
 			}
 			if(Help_Perm(playerid, 9, 5, 0))
 			{
-				// Job 5 is undefined; Modify if one is added!
 				format(string, sizeof(string), "HelpResultCat%i", j);
 				SetPVarInt(playerid, string, 5);
 				j++;
-				format(szMiscArray, sizeof(szMiscArray), "%s[PLACEHOLDER]\n", szMiscArray);
+				format(szMiscArray, sizeof(szMiscArray), "%sPaper Boy\n", szMiscArray);
 			}
 			if(Help_Perm(playerid, 9, 6, 0))
 			{
@@ -876,7 +871,7 @@ stock Help_ListCat(playerid, dialogid = DIALOG_HELPCATMAIN, response = 0, listit
 				format(string, sizeof(string), "HelpResultCat%i", j);
 				SetPVarInt(playerid, string, 10);
 				j++;
-				format(szMiscArray, sizeof(szMiscArray), "%sCar Dealer\n", szMiscArray);
+				format(szMiscArray, sizeof(szMiscArray), "%sStreet Sweeper\n", szMiscArray);
 			}
 			if(Help_Perm(playerid, 9, 11, 0))
 			{
@@ -956,6 +951,54 @@ stock Help_ListCat(playerid, dialogid = DIALOG_HELPCATMAIN, response = 0, listit
 				SetPVarInt(playerid, string, 21);
 				j++;
 				format(szMiscArray, sizeof(szMiscArray), "%sPizza Boy\n", szMiscArray);
+			}
+			if(Help_Perm(playerid, 9, 22, 0))
+			{
+				// Job 22 is undefined; Modify if one is added!
+				format(string, sizeof(string), "HelpResultCat%i", j);
+				SetPVarInt(playerid, string, 22);
+				j++;
+				format(szMiscArray, sizeof(szMiscArray), "%s[PLACEHOLDER]\n");
+			}
+			if(Help_Perm(playerid, 9, 23, 0))
+			{
+				// Job 23 is undefined; Modify if one is added!
+				format(string, sizeof(string), "HelpResultCat%i", j);
+				SetPVarInt(playerid, string, 23);
+				j++;
+				format(szMiscArray, sizeof(szMiscArray), "%s[PLACEHOLDER]\n");
+			}
+			if(Help_Perm(playerid, 9, 24, 0))
+			{
+				// Job 24 is undefined; Modify if one is added!
+				format(string, sizeof(string), "HelpResultCat%i", j);
+				SetPVarInt(playerid, string, 24);
+				j++;
+				format(szMiscArray, sizeof(szMiscArray), "%s[PLACEHOLDER]\n");
+			}
+			if(Help_Perm(playerid, 9, 25, 0))
+			{
+				// Job 25 is undefined; Modify if one is added!
+				format(string, sizeof(string), "HelpResultCat%i", j);
+				SetPVarInt(playerid, string, 25);
+				j++;
+				format(szMiscArray, sizeof(szMiscArray), "%s[PLACEHOLDER]\n");
+			}
+			if(Help_Perm(playerid, 9, 26, 0))
+			{
+				// Job 26 is undefined; Modify if one is added!
+				format(string, sizeof(string), "HelpResultCat%i", j);
+				SetPVarInt(playerid, string, 26);
+				j++;
+				format(szMiscArray, sizeof(szMiscArray), "%s[PLACEHOLDER]\n");
+			}
+			if(Help_Perm(playerid, 9, 27, 0))
+			{
+				// Job 27 is undefined; Modify if one is added!
+				format(string, sizeof(string), "HelpResultCat%i", j);
+				SetPVarInt(playerid, string, 27);
+				j++;
+				format(szMiscArray, sizeof(szMiscArray), "%sGarbage Man\n", szMiscArray);
 			}
 			Help_GenerateCMDList(playerid, 3, -1, 9, 0);
 			if(!isnull(szMiscArray)) ShowPlayerDialogEx(playerid, DIALOG_HELPCATJOB, DIALOG_STYLE_LIST, "Help System", szMiscArray, "Select", "Cancel");
@@ -1150,6 +1193,13 @@ stock Help_ListCat(playerid, dialogid = DIALOG_HELPCATMAIN, response = 0, listit
 				j++;
 				format(szMiscArray, sizeof(szMiscArray), "%sVoucher\n", szMiscArray);
 			}
+			if(Help_Perm(playerid, 14, 11, 1))
+			{
+				format(string, sizeof(string), "HelpResultCat%i", j);
+				SetPVarInt(playerid, string, 11);
+				j++;
+				format(szMiscArray, sizeof(szMiscArray), "%sPark Meter\n", szMiscArray);
+			}
 			Help_GenerateCMDList(playerid, 3, -1, 14, 0);
 			if(!isnull(szMiscArray)) ShowPlayerDialogEx(playerid, DIALOG_HELPCATOTHER, DIALOG_STYLE_LIST, "Help System", szMiscArray, "Select", "Cancel");
 			else ShowPlayerDialogEx(playerid, DIALOG_HELPCATMAIN, DIALOG_STYLE_MSGBOX, "Help System", "No commands found for this category.", "Go Back", "");
@@ -1329,11 +1379,11 @@ stock Help_Perm(playerid, type, subtype, level)
 		if(subtype == 0 && PlayerInfo[playerid][pHelper] >= level) return 1;
 		// Helper
 		else if(subtype == 1 && PlayerInfo[playerid][pHelper] >= level) return 1;
-		// Community Advisor
+		// Community Helper
 		else if(subtype == 2 && PlayerInfo[playerid][pHelper] >= level) return 1;
-		// Senior Advisor
+		// Senior Helper
 		else if(subtype == 3 && PlayerInfo[playerid][pHelper] >= level) return 1;
-		// Chief Advisor
+		// Head Helper
 		else if(subtype == 4 && PlayerInfo[playerid][pHelper] >= level) return 1;
 	}
 	// Famed

@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Famed System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 stock IsFamedVeh(carid)
 {
 	for(new i = 0; i < sizeof(FamedVehicles); i++)
@@ -131,7 +94,7 @@ CMD:fc(playerid, params[]) {
 	if(PlayerInfo[playerid][pFamed] >= 1 || PlayerInfo[playerid][pAdmin] >= 2) {
 		if(PlayerInfo[playerid][pJailTime] && strfind(PlayerInfo[playerid][pPrisonReason], "[OOC]", true) != -1) return SendClientMessageEx(playerid, COLOR_GREY, "OOC prisoners are restricted to only speak in /b");
 		if(isnull(params)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /fc [message]");
+			SendSyntaxMessage(playerid, "/fc [message]");
 		}
 		else if(gettime() < GetPVarInt(playerid, "timeFamed")) {
 
@@ -142,10 +105,10 @@ CMD:fc(playerid, params[]) {
 			SendClientMessageEx(playerid, COLOR_GREY, szMessage);
 		}
 		else if(PlayerInfo[playerid][pToggledChats][8] == 1) {
-		    SendClientMessageEx(playerid, COLOR_GREY, "You have the famed chat toggled - /togfamed to enable it.");
+		    SendServerMessage(playerid, "You have the famed chat toggled - /togfamed to enable it.");
 		}
 		else if(PlayerInfo[playerid][pFMuted] != 0) {
-			SendClientMessageEx(playerid, COLOR_GREY, "You are muted from the famed chat channel.");
+			SendErrorMessage(playerid, "You are muted from the famed chat channel.");
 		}
 		else {
 
@@ -163,7 +126,7 @@ CMD:fc(playerid, params[]) {
 			SendFamedMessage(COLOR_FAMED, szMessage);
 		}
 	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD1, "You're not a famed member!");
+	else return SendErrorMessage(playerid, "You're not a famed member!");
 	return 1;
 }
 
@@ -182,7 +145,7 @@ CMD:fmute(playerid, params[])
 		        if(targetid != INVALID_PLAYER_ID)
 		        {
 			        if((PlayerInfo[targetid][pFamed] > PlayerInfo[playerid][pFamed] &&  PlayerInfo[playerid][pAdmin] < 2) || PlayerInfo[targetid][pAdmin] > 1)
-		 				return SendClientMessageEx(playerid, COLOR_GRAD1, "You cannot use this command on this person!");
+		 				return SendErrorMessage(playerid, "You cannot use this command on this person!");
 
 					PlayerInfo[targetid][pFMuted] = 1;
 					format(string, sizeof(string), "You were muted from the famed channel by %s, reason: %s. You may appeal this mute at www.ng-gaming.net/forums", GetPlayerNameEx(playerid), reason);
@@ -194,11 +157,11 @@ CMD:fmute(playerid, params[])
 					Log("logs/admin.log", string);
 				}
 			}
-			else return SendClientMessageEx(playerid, COLOR_GRAD1, "This person is already muted from the famed channel!");
+			else return SendErrorMessage(playerid, "This person is already muted from the famed channel!");
 		}
-		else return SendClientMessageEx(playerid, COLOR_GRAD1, "Invalid player specified.");
+		else return SendErrorMessage(playerid, "Invalid player specified.");
 	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD1, "You're not authorized to use this command!");
+	else return SendErrorMessage(playerid, "You're not authorized to use this CMD.");
 	return 1;
 }
 
@@ -217,7 +180,7 @@ CMD:funmute(playerid, params[])
 		        if(targetid != INVALID_PLAYER_ID)
 		        {
 			        if(PlayerInfo[targetid][pFamed] > PlayerInfo[playerid][pFamed] || PlayerInfo[targetid][pAdmin] > PlayerInfo[playerid][pAdmin])
-		 				return SendClientMessageEx(playerid, COLOR_GRAD1, "You cannot use this command on this person!");
+		 				return SendErrorMessage(playerid, "You cannot use this command on this person!");
 
 					PlayerInfo[targetid][pFMuted] = 0;
 					format(string, sizeof(string), "You were unmuted from the famed channel by %s, reason: %s.", GetPlayerNameEx(playerid), reason);
@@ -229,11 +192,11 @@ CMD:funmute(playerid, params[])
 					Log("logs/admin.log", string);
 				}
 			}
-			else return SendClientMessageEx(playerid, COLOR_GRAD1, "This person is not muted from the famed channel!");
+			else return SendErrorMessage(playerid, "This person is not muted from the famed channel!");
 		}
-		else return SendClientMessageEx(playerid, COLOR_GRAD1, "Invalid player specified.");
+		else return SendErrorMessage(playerid, "Invalid player specified.");
 	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD1, "You're not authorized to use this command!");
+	else return SendErrorMessage(playerid, "You're not authorized to use this CMD.");
 	return 1;
 }
 
@@ -248,14 +211,14 @@ CMD:setfamed(playerid, params[])
 			SendClientMessageEx(playerid, COLOR_GRAD2, "(5) Famed Moderator - (6) Vice-Chairman - (7) Chairman");
 			return 1;
 		}
-		if(level > 7) return SendClientMessageEx(playerid, COLOR_GRAD2, "Valid Famed levels are 1-7.");
+		if(level > 7) return SendServerMessage(playerid, "Valid Famed levels are 1-7.");
 		if(IsPlayerConnected(targetid))
 		{
 		    if(targetid != INVALID_PLAYER_ID)
 		    {
 		
 			    if(PlayerInfo[targetid][pFamed] > PlayerInfo[playerid][pFamed])
-			        return SendClientMessageEx(playerid, COLOR_GRAD1, "You cannot use this command on this person!");
+			        return SendErrorMessage(playerid, "You cannot use this command on this person!");
 
 				PlayerInfo[targetid][pFamed] = level;
 				format(string, sizeof(string), "AdmCmd: %s has set %s famed level to %d.", GetPlayerNameEx(playerid), GetPlayerNameEx(targetid), level);
@@ -268,9 +231,9 @@ CMD:setfamed(playerid, params[])
 				SendClientMessageEx(targetid, COLOR_LIGHTBLUE, string);
 			}
 		}
-		else return SendClientMessageEx(playerid, COLOR_GRAD1, "Invalid player specified.");
+		else return SendErrorMessage(playerid, "Invalid player specified.");
 	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD1, "You're not authorized to use this command!");
+	else return SendErrorMessage(playerid, "You're not authorized to use this CMD.");
 	return 1;
 }
 
@@ -285,7 +248,7 @@ CMD:osetfamed(playerid, params[])
         new targetid = ReturnUser(pname);
 		if(IsPlayerConnected(targetid))
 		{
-		    return SendClientMessageEx(playerid, COLOR_WHITE, "This player is connected, please use /setfamed");
+		    return SendServerMessage(playerid, "This player is connected, please use /setfamed");
 		}
 		else {
 		    new
@@ -305,7 +268,7 @@ CMD:osetfamed(playerid, params[])
  			SendClientMessageEx(playerid, COLOR_YELLOW, "Please wait...");
  		}
  	}
- 	else return SendClientMessageEx(playerid, COLOR_GRAD1, "You're not authorized to use this command!");
+ 	else return SendErrorMessage(playerid, "You're not authorized to use this CMD.");
  	return 1;
 }
 
@@ -315,7 +278,7 @@ CMD:flocker(playerid, params[]) {
 
 CMD:famedlocker(playerid, params[]) {
     #if defined zombiemode
-	if(zombieevent == 1 && GetPVarType(playerid, "pIsZombie")) return SendClientMessageEx(playerid, COLOR_GREY, "Zombies can't use this.");
+	if(zombieevent == 1 && GetPVarType(playerid, "pIsZombie")) return SendErrorMessage(playerid, "Zombies can't use this.");
 	#endif
 	if(IsPlayerInRangeOfPoint(playerid, 4.0, 900.5656, 1429.6812, -82.3250))
 	{
@@ -331,20 +294,20 @@ CMD:famedlocker(playerid, params[]) {
             case 7: ShowPlayerDialogEx(playerid, DIALOG_LOCKER_FAMED, DIALOG_STYLE_LIST, "Famed Chairman Locker", "First Aid Kit (Free)\nKevlar Vest (Free)\nWeapons (Free)\nChange Skin (Free)\nJob Center\nFamed Color", "Select", "Cancel");
 		}
 	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD1, "You're not at the famed locker!");
+	else return SendErrorMessage(playerid, "You're not at the famed locker!");
 	return 1;
 }
 
 CMD:famedplate(playerid, params[])
 {
 	if(PlayerInfo[playerid][pFamed] < 1)
-		return SendClientMessageEx(playerid, COLOR_GRAD1, "You're not part of famed!");
+		return SendErrorMessage(playerid, "You're not part of famed!");
 		
 	new string[128], Float: vHealth, inpveh;
 	if(IsPlayerConnected(playerid))
 	{
 	    if(isnull(params))
-	        return SendClientMessageEx(playerid, COLOR_GREY, "Usage: /famedplate [os/cos/famed/remove]");
+	        return SendSyntaxMessage(playerid, "/famedplate [os/cos/famed/remove]");
 
 		inpveh = false;
 	    for(new d = 0 ; d < MAX_PLAYERVEHICLES; d++)
@@ -355,7 +318,7 @@ CMD:famedplate(playerid, params[])
 				inpveh = 1;
 	                
     			if(vHealth < 800)
-       				return SendClientMessageEx(playerid, COLOR_LIGHTRED, "Please repair your vehicle before replacing your plate.");
+       				return SendErrorMessage(playerid, "Please repair your vehicle before replacing your plate.");
        				
     			if(strcmp(params, "os", true) == 0)
     			{
@@ -387,12 +350,12 @@ CMD:famedplate(playerid, params[])
 					cmd_park(playerid, params); //Save a few lines of code here xD
 	            }
 	            else
-	                return SendClientMessageEx(playerid, COLOR_GREY, "Usage: /famedplate [os/cos/famed/remove]");
+	                return SendSyntaxMessage(playerid, "/famedplate [os/cos/famed/remove]");
 			}
 		}
 		
 		if(inpveh == 0)
-		    return SendClientMessageEx(playerid, COLOR_GRAD2, "You're not inside a vehicle that you own!");
+		    return SendErrorMessage(playerid, "You're not inside a vehicle that you own!");
 	}
 	return 1;
 }
@@ -425,6 +388,6 @@ CMD:fmembers(playerid, params[])
 		ShowPlayerDialogEx(playerid, 0, DIALOG_STYLE_TABLIST_HEADERS, "Online Famed Members", string, "Close", "");
 	}
 	else
-		return SendClientMessageEx(playerid, COLOR_GRAD1, "You're not authorized to use this command!");
+		return SendErrorMessage(playerid, "You're not authorized to use this CMD.");
 	return 1;
 }

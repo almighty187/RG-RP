@@ -1,3 +1,29 @@
+/*
+
+
+		  _____     _____       _____    _____
+		 |  __ \   / ____|  _  |  __ \  |  __ \
+		 | |__) | | |  __  (_) | |__) | | |__) |
+		 |  _  /  | | |_ |     |  _  /  |  ___/
+		 | | \ \  | |__| |  _  | | \ \  | |
+		 |_|  \_\  \_____| (_) |_|  \_\ |_|
+
+
+
+//--------------------------------[bank.PWN]------------------------------------
+
+					Bank System
+
+				Rebound Gaming
+	(created by Rebound Gaming Development Team)
+
+	* Copyright (c) 2024, Rebound Gaming
+	*
+	* All rights reserved.
+	*
+	* Redistribution and use in source and binary forms, with or without modification,
+	* are not permitted in any case.
+*/
 #include <YSI\y_hooks>
 
 #define BANK					10004

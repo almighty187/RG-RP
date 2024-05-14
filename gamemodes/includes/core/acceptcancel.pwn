@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-				  Accept / Cancel Commands
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 CMD:accept(playerid, params[])
 {
 	if(restarting) return SendClientMessageEx(playerid, COLOR_GRAD2, "Transactions are currently disabled due to the server being restarted for maintenance.");
@@ -46,7 +9,7 @@ CMD:accept(playerid, params[])
 	if(HungerPlayerInfo[playerid][hgInEvent] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "   You cannot do this while being in the Hunger Games Event!");
     if(IsPlayerConnected(playerid)) {
         if(isnull(params)) {
-            SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /accept [name]");
+            SendSyntaxMessage(playerid, "/accept [name]");
             SendClientMessageEx(playerid, COLOR_GREY, "Available names: Sex, Mats, Crack, Cannabis, Weapon, Craft, Repair, Lawyer, Bodyguard, Job, Live, Refill");
             SendClientMessageEx(playerid, COLOR_GREY, "Available names: Firework, Group, Boxing, Medic, Mechanic, Ticket, Car, Death, Backpack");
             SendClientMessageEx(playerid, COLOR_GREY, "Available names: Business, Item, Offer, Heroin, Rawopium, Syringes, Rimkit, Voucher, Kiss, RenderAid, Frisk");
@@ -1335,7 +1298,7 @@ CMD:accept(playerid, params[])
         else if(strcmp(params, "lawyer", true) == 0) {
             if(sscanf(params, "u", giveplayerid))
             {
-                SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /accept lawyer [player]");
+                SendSyntaxMessage(playerid, "/accept lawyer [playerid/PartOfName]");
                 return 1;
             }
             if (IsACop(playerid)) {
@@ -2363,7 +2326,7 @@ CMD:cancel(playerid, params[])
 	if(sscanf(params, "s[32]", choice))
 	{
 		SendClientMessageEx(playerid, COLOR_WHITE, "|__________________ Cancel __________________|");
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /cancel [name]");
+		SendSyntaxMessage(playerid, "/cancel [name]");
 		SendClientMessageEx(playerid, COLOR_GREY, "Available names: Sex, Mats, Cannabis, Crack, Weapon, Craft, Repair, Lawyer, Bodyguard, Live, Refill, Car, Boxing");
 		SendClientMessageEx(playerid, COLOR_GREY, "Available names: Taxi, Bus, Medic, Mechanic, Ticket, Witness, Marriage, Drink, House, Shipment, Help, Firstaid, Garbage");
 		SendClientMessageEx(playerid, COLOR_GREY, "Available names: FoodOffer, RenderAid, DrugRun");
@@ -2590,7 +2553,7 @@ CMD:refill(playerid, params[])
 		return SendClientMessageEx(playerid, COLOR_GRAD1,string);
 	}
 	new giveplayerid, money;
-	if(sscanf(params, "ud", giveplayerid, money)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /refill [player] [price]");
+	if(sscanf(params, "ud", giveplayerid, money)) return SendSyntaxMessage(playerid, "/refill [playerid/PartOfName] [price]");
 
 	if(!(money >= 1 && money < 100000))
 	{
@@ -2678,7 +2641,7 @@ CMD:repair(playerid, params[])
 		return SendClientMessageEx(playerid, COLOR_GRAD1, "You can't use this while in an event.");
 	}
 	new giveplayerid, money;
-	if(sscanf(params, "ud", giveplayerid, money)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /repair [player] [price]");
+	if(sscanf(params, "ud", giveplayerid, money)) return SendSyntaxMessage(playerid, "/repair [playerid/PartOfName] [price]");
 
 	if(PlayerInfo[playerid][pTire] > 0)
 	{

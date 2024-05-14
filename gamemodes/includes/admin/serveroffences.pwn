@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-					Server Offences System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 #include <YSI\y_hooks>
 
 CMD:prison(playerid, params[])
@@ -42,7 +5,7 @@ CMD:prison(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 2 || PlayerInfo[playerid][pWatchdog] >= 2)
 	{
 		new giveplayerid, minutes, reason[64];
-		if(sscanf(params, "uds[64]", giveplayerid, minutes, reason)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /prison [player] [minutes] [reason]");
+		if(sscanf(params, "uds[64]", giveplayerid, minutes, reason)) return SendSyntaxMessage(playerid, "/prison [playerid/PartOfName] [minutes] [reason]");
 
 		if(giveplayerid != INVALID_PLAYER_ID)
 		{
@@ -50,7 +13,7 @@ CMD:prison(playerid, params[])
 			if(PrisonPlayer(playerid, giveplayerid, reason, minutes, .custom=1) == 0) return 1;
 		}
 	}
-	else SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	else SendClientMessage(playerid, COLOR_LIGHTRED, "You are not authorized to use this CMD.");
 	return 1;
 }
 
@@ -99,7 +62,7 @@ CMD:reverse(playerid, params[])
 			for(new z = 0; z < 12; z++) PlayerInfo[giveplayerid][pJailedWeapons][z] = 0;
 			SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "Your punishment has been reversed by the administrator who jailed you.");
 		}
-		else SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /reverse [playerid] [reason]");
+		else SendSyntaxMessage(playerid, "/reverse [playerid/PartOfName] [reason]");
 	}
 	else SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use this command.");
 	return 1;
@@ -115,7 +78,7 @@ CMD:dprison(playerid, params[])
 			if(mintues > 120) return SendClientMessageEx(playerid, COLOR_WHITE, "Time cannot be above 120 minutes.");
 			if(PrisonPlayer(playerid, giveplayerid, "Violation of DGA Policies", .time=mintues, .custom=1) == 0) return 1;
 		}
-		else SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /dprison [playerid] [time]");
+		else SendSyntaxMessage(playerid, "/dprison [playerid/PartOfName] [time]");
 	}
 	else SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use this command!");
 	return 1;

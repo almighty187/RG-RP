@@ -3,11 +3,30 @@
 hook OnGameModeInit() {
 	
 	print("[Streamer] Loading Dynamic Buttons...");
+	//Fire Station Button Garage
+	FireStationButtons[0] = CreateButton(1293.2930,-1353.8500,14.2566,268.7207);
+	FireStationButtons[1] = CreateButton(1293.4449,-1353.8057,14.1252,88.7286);
+	FireStationButtons[2] = CreateButton(1332.0400,-1311.0250,18.9971,180.7015);
+	FireStationButtons[3] = CreateButton(1329.9519,-1311.1698,18.9971,2.6658);
+	FireStationButtons[4] = CreateButton(1332.6576,-1353.9181,14.5477,88.4672);
+	FireStationButtons[5] = CreateButton(1332.4105,-1353.7677,14.5477,267.7716);
+	//Hospital Button
+	HospitalRightDoor[0] = CreateButton(2376.5720,2652.7625,8001.9141,273.6574);
+	HospitalRightDoor[1] = CreateButton(2376.7104,2652.8284,8001.9141,89.3900);
+	HospitalLeftDoor[0] = CreateButton(2387.9241,2652.9995,8001.9302,89.6871);
+	HospitalLeftDoor[1] = CreateButton(2387.7830,2652.9958,8001.9302,270.1812);
 
+    //LSPD Buttons
+    LSPDButtons[1] = CreateButton(1615.7600,1604.4185,11.2540,178.4525);
+    LSPDButtons[0] = CreateButton(1614.7122,1603.9988,11.2540,266.5272);
+	rightdoor = CreateButton(1619.5283,1594.5840,11.5076,0.00000000);
+	leftdoor = CreateButton(1619.5336,1579.4185,11.3036,178.0000); 
+	rightdoorout = CreateButton(1619.5304,1594.7502,11.3294,180.0000);
+	leftdoorout = CreateButton(1619.5289,1579.2380,11.4162,0.0000);
     /* LSPD buttons */
- 	eastin = CreateButton(253.44921875,110.59960938,1003.79998779,90.00000000); //object(fire_break) (1)
-	westout = CreateButton(239.79492188,116.18457031,1003.87286377,90.00000000); //object(fire_break) (2)
-	westin = CreateButton(239.32031250,116.27441406,1003.87286377,270.00000000); //object(fire_break) (3)
+ 	eastin = CreateButton(253.44921875,110.59960938,1003.79998779,90.00000000); 
+	westout = CreateButton(239.79492188,116.18457031,1003.87286377,90.00000000); 
+	westin = CreateButton(239.32031250,116.27441406,1003.87286377,270.00000000); 
 	eastout = CreateButton(253.00000000,110.59960938,1003.79998779,270.00000000); //
 	elevator = CreateButton(275.83984375,120.94921875,1005.12280273,90.00000000); //object(kmb_keypad) (1)
 	cctvin = CreateButton(264.55566406,115.97949219,1005.12280273,179.99450684); //object(kmb_keypad) (2)

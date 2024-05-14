@@ -371,7 +371,7 @@ CMD:floorpass(playerid, params[])
 	new floor, tmp[24];
 	if(sscanf(params, "is[24]", floor, tmp))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /floorpass [floor] [pass]");
+		SendSyntaxMessage(playerid, "/floorpass [floor] [pass]");
 		return 1;
 	}
 	new string[128];
@@ -393,7 +393,7 @@ CMD:floorpassr(playerid, params[])
 	new floor;
 	if(sscanf(params, "i", floor))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /floorpassr [floor]");
+		SendSyntaxMessage(playerid, "/floorpassr [floor]");
 		return 1;
 	}
 	new string[128];
@@ -430,7 +430,7 @@ CMD:floornamer(playerid, params[])
 	new floor;
 	if(sscanf(params, "i", floor))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /floornamer [floor]");
+		SendSyntaxMessage(playerid, "/floornamer [floor]");
 		return 1;
 	}
 	new string[128];
@@ -465,7 +465,7 @@ CMD:floorname(playerid, params[])
 	new floor, tmp[24];
 	if(sscanf(params, "is[24]", floor, tmp))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /floorname [floor] [name]");
+		SendSyntaxMessage(playerid, "/floorname [floor] [name]");
 		return 1;
 	}
 	new string[128];

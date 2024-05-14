@@ -1,42 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-    	    		  Drug System (Revision)
-    			        by Winterfield
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
-
 #include <YSI\y_hooks>
 
 new dr_iPlayerTimeStamp[MAX_PLAYERS];
@@ -46,7 +7,7 @@ CMD:odrughelp(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_WHITE,"-----------------------------------------------------------------------------------");
 	SendClientMessageEx(playerid, COLOR_GREY, "GENERAL: /mydrugs, /usedrug, /buypot, /buyopium, /plantpot, /plantopium, /pickplant, /checkplant /makeheroin");
 	if(IsACop(playerid)) SendClientMessageEx(playerid, COLOR_GREY, "POLICE: /destroyplant, /searchcar");
-	if(IsAdminLevel(playerid, ADMIN_JUNIOR, 0)) SendClientMessageEx(playerid, COLOR_GREY, "ADMINISTRATOR: /adestroyplant");
+	if(IsAdminLevel(playerid, ADMIN_TRIAL, 0)) SendClientMessageEx(playerid, COLOR_GREY, "ADMINISTRATOR: /adestroyplant");
 	SendClientMessageEx(playerid, COLOR_WHITE,"-----------------------------------------------------------------------------------");
 	return 1;
 }
@@ -67,7 +28,7 @@ CMD:checkdrugs(playerid, params[])
 	if (PlayerInfo[playerid][pAdmin] >= 2)
 	{
 		new giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /checkdrugs [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/checkdrugs [playerid/PartOfName]");
 		if(IsPlayerConnected(giveplayerid))
 		{
 			new string[450];
@@ -658,7 +619,7 @@ CMD:adestroyplant(playerid, params[])
 			iTargetID;
 
 		if(sscanf(params, "u", iTargetID)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /adestroyplant [player]");
+			SendSyntaxMessage(playerid, "/adestroyplant [playerid/PartOfName]");
 		}
 		else if(IsPlayerConnected(iTargetID)) {
 

@@ -1,47 +1,10 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Bodyguard System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 CMD:frisk(playerid, params[])
 {
 	if(IsACop(playerid) || PlayerInfo[playerid][pJob] == 8 || PlayerInfo[playerid][pJob2] == 8 || PlayerInfo[playerid][pJob3] == 8)
 	{
 		new giveplayerid;
 		if(sscanf(params, "u", giveplayerid)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /frisk [player]");
+			SendSyntaxMessage(playerid, "/frisk [playerid/PartOfName]");
 			return 1;
 		}
 		/*if(sscanf(params, "ud", giveplayerid, storageid)) {
@@ -60,26 +23,26 @@ CMD:frisk(playerid, params[])
 		{
 			if (ProxDetectorS(8.0, playerid, giveplayerid))
 			{
-				if(giveplayerid == playerid) { SendClientMessageEx(playerid, COLOR_GREY, "You cannot frisk yourself!"); return 1; }
+				if(giveplayerid == playerid) { SendErrorMessage(playerid, "You cannot frisk yourself!"); return 1; }
 				if(PlayerInfo[giveplayerid][pAdmin] >= 2 && !PlayerInfo[giveplayerid][pTogReports]) return 1;
 
 				PlayerFriskPlayer(playerid, giveplayerid); // It did a frisk ... why request?
 			}
 			else
 			{
-				SendClientMessageEx(playerid, COLOR_GREY, "That person isn't near you.");
+				SendErrorMessage(playerid, "That person isn't near you.");
 			}
 
 		}
 		else
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
+			SendErrorMessage(playerid, "Invalid player specified.");
 			return 1;
 		}
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "   You're not a law enforcement officer, or a bodyguard!");
+		SendErrorMessage(playerid, "You're not a law enforcement officer, or a bodyguard!");
 		return 1;
 	}
 	return 1;
@@ -155,17 +118,17 @@ CMD:guard(playerid, params[])
 	if(HungerPlayerInfo[playerid][hgInEvent] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "   You cannot do this while being in the Hunger Games Event!");
 	if(PlayerInfo[playerid][pJob] != 8 && PlayerInfo[playerid][pJob2] != 8 && PlayerInfo[playerid][pJob3] != 8)
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "You're not a bodyguard.");
+		SendErrorMessage(playerid, "You're not a bodyguard.");
 		return 1;
 	}
 	if(GetPVarInt(playerid, "WatchingTV")) return SendClientMessageEx(playerid, COLOR_GREY, "You can not do this while watching TV!");
 	if(GetPVarType(playerid, "IsInArena"))
 	{
-		SendClientMessageEx(playerid, COLOR_WHITE, "You can't do this while being in an arena!");
+		SendErrorMessage(playerid, "You can't do this while being in an arena!");
 		return 1;
 	}
 	new string[128], giveplayerid, money;
-	if(sscanf(params, "ud", giveplayerid, money)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /guard [player] [price]");
+	if(sscanf(params, "ud", giveplayerid, money)) return SendSyntaxMessage(playerid, "/guard [playerid/PartOfName] [price]");
 	if (GetPVarInt(playerid, "GuardTimer") > 0)
 	{
 		format(string, sizeof(string), "   You must wait %d seconds before selling another vest.", GetPVarInt(playerid, "GuardTimer"));
@@ -180,7 +143,7 @@ CMD:guard(playerid, params[])
 		{
 			if(giveplayerid == playerid)
 			{
-				SendClientMessageEx(playerid, COLOR_GREY, "You can't /guard yourself.");
+				SendErrorMessage(playerid, "You can't /guard yourself.");
 				return 1;
 			}
 
@@ -194,13 +157,13 @@ CMD:guard(playerid, params[])
 		}
 		else
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "That person isn't near you.");
+			SendErrorMessage(playerid, "That person isn't near you.");
 		}
 
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
+		SendErrorMessage(playerid, "Invalid player specified.");
 	}
 	return 1;
 }

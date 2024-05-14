@@ -14,7 +14,7 @@ RebuildParkingMeter(meterid)
 	if(IsValidDynamic3DTextLabel(ParkingMeterInformation[meterid][ParkingMeterText])) DestroyDynamic3DTextLabel(ParkingMeterInformation[meterid][ParkingMeterText]);
 	if(ParkingMeterInformation[meterid][MeterActive] == 1)
 	{
-		format(string, sizeof(string), "{FFFFFF}Parking Meter {AFAFAF}(ID: %d)\n{FFFFFF}Meter Rate: {AFAFAF}$%s Per 5 Minutes\n{FFFFFF}Current Vehicle: {AFAFAF}Vacant\n{FFFFFF}Time Remaining: {AFAFAF}N/A", meterid, number_format(ParkingMeterInformation[meterid][MeterRate]));
+		format(string, sizeof(string), "{FFFFFF}Parking Meter {AFAFAF}(ID: %d)\n{FFFFFF}Meter Rate: {AFAFAF}$%s Per 5 Minutes\n{FFFFFF}Current Vehicle: {AFAFAF}Vacant\n{FFFFFF}Time Remaining: {AFAFAF}N/A\n\n{FFFFFF}Use /meterhelp", meterid, number_format(ParkingMeterInformation[meterid][MeterRate]));
 		ParkingMeterInformation[meterid][ParkingMeterObject] = CreateDynamicObject(1270, ParkingMeterInformation[meterid][MeterPosition][0], ParkingMeterInformation[meterid][MeterPosition][1], ParkingMeterInformation[meterid][MeterPosition][2], ParkingMeterInformation[meterid][MeterPosition][3], ParkingMeterInformation[meterid][MeterPosition][4], ParkingMeterInformation[meterid][MeterPosition][5], 0, 0);
 		ParkingMeterInformation[meterid][ParkingMeterText] = CreateDynamic3DTextLabel(string, COLOR_WHITE, ParkingMeterInformation[meterid][MeterPosition][0], ParkingMeterInformation[meterid][MeterPosition][1], ParkingMeterInformation[meterid][MeterPosition][2] + 0.5, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, 0, 0);
 	}
@@ -278,7 +278,7 @@ CMD:editmeterposition(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
 	if(GetPlayerInterior(playerid) != 0 || GetPlayerVirtualWorld(playerid) != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot use this command inside an interior or virtual world.");
 	new meterid, vehicleid, Float:position[4], name[10], string[128];
-	if(sscanf(params, "ds[10]", meterid, name)) return SendClientMessageEx(playerid, COLOR_GREY, "[USAGE]: /editmeterposition [Meter ID] [Type (Meter, Parked, ToMe)]");
+	if(sscanf(params, "ds[10]", meterid, name)) return SendSyntaxMessage(playerid, "/editmeterposition [Meter ID] [Type (Meter, Parked, ToMe)]");
 	if(meterid <= 0 || meterid >= MAX_PARKING_METERS)
 	{
 		format(string, sizeof(string), "The specified parking meter ID must be between 1 and %s.", number_format(MAX_PARKING_METERS - 1));
@@ -343,7 +343,7 @@ CMD:createmeter(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
 	if(GetPlayerInterior(playerid) != 0 || GetPlayerVirtualWorld(playerid) != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot use this command inside an interior or virtual world.");
 	new rate, meterid, Float:range, Float:position[4], string[128];
-	if(sscanf(params, "df", rate, range)) return SendClientMessageEx(playerid, COLOR_GREY, "[USAGE]: /createmeter [Rate] [Range]");
+	if(sscanf(params, "df", rate, range)) return SendSyntaxMessage(playerid, "/createmeter [Rate] [Range]");
 	if(rate < 1 || rate > 250000) return SendClientMessageEx(playerid, COLOR_GREY, "The specified rate cannot be under $1 or over $250,000.");
 	if(range < 3.5 || range > 25.0) return SendClientMessageEx(playerid, COLOR_GREY, "The specified range cannot be under 3.5 meters or over 25 meters.");
 	meterid = -1;
@@ -388,7 +388,7 @@ CMD:setmeterrange(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
 	new meterid, Float:range, string[128];
-	if(sscanf(params, "df", meterid, range)) return SendClientMessageEx(playerid, COLOR_GREY, "[USAGE]: /setmeterrange [Meter ID] [Range]");
+	if(sscanf(params, "df", meterid, range)) return SendSyntaxMessage(playerid, "/setmeterrange [Meter ID] [Range]");
 	if(meterid <= 0 || meterid >= MAX_PARKING_METERS)
 	{
 		format(string, sizeof(string), "The specified parking meter ID must be between 1 and %s.", number_format(MAX_PARKING_METERS - 1));
@@ -416,7 +416,7 @@ CMD:setmeterrate(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
 	new meterid, rate, string[128];
-	if(sscanf(params, "dd", meterid, rate)) return SendClientMessageEx(playerid, COLOR_GREY, "[USAGE]: /setmeterrate [Meter ID] [Rate]");
+	if(sscanf(params, "dd", meterid, rate)) return SendSyntaxMessage(playerid, "/setmeterrate [Meter ID] [Rate]");
 	if(meterid <= 0 || meterid >= MAX_PARKING_METERS)
 	{
 		format(string, sizeof(string), "The specified parking meter ID must be between 1 and %s.", number_format(MAX_PARKING_METERS - 1));
@@ -445,7 +445,7 @@ CMD:deletemeter(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
 	new meterid, string[128];
-	if(sscanf(params, "d", meterid)) return SendClientMessageEx(playerid, COLOR_GREY, "[USAGE]: /deletemeter [Meter ID]");
+	if(sscanf(params, "d", meterid)) return SendSyntaxMessage(playerid, "/deletemeter [Meter ID]");
 	if(meterid <= 0 || meterid >= MAX_PARKING_METERS)
 	{
 		format(string, sizeof(string), "The specified parking meter ID must be between 1 and %s.", number_format(MAX_PARKING_METERS - 1));
@@ -475,7 +475,7 @@ CMD:gotometer(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
 	new meterid, string[128];
-	if(sscanf(params, "d", meterid)) return SendClientMessageEx(playerid, COLOR_GREY, "[USAGE]: /gotometer [Meter ID]");
+	if(sscanf(params, "d", meterid)) return SendSyntaxMessage(playerid, "/gotometer [Meter ID]");
 	if(meterid <= 0 || meterid >= MAX_PARKING_METERS)
 	{
 		format(string, sizeof(string), "The specified parking meter ID must be between 1 and %s.", number_format(MAX_PARKING_METERS - 1));

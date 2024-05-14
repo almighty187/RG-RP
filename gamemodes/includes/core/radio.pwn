@@ -897,7 +897,7 @@ CMD:audiourl(playerid, params[])
 
         new range;
         if(sscanf(params, "d", range)) {
-            SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /audiourl [range].");
+            SendSyntaxMessage(playerid, "/audiourl [range].");
             return 1;
         }
 
@@ -924,7 +924,7 @@ CMD:music(playerid, params[])
 		new choice[32];
 		if(sscanf(params, "s[32]", choice))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /music [name]");
+			SendSyntaxMessage(playerid, "/music [name]");
 			SendClientMessageEx(playerid, COLOR_GREY, "Available names: On, Off, Next");
 			return 1;
 		}

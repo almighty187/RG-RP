@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Watchdog System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 CMD:nextwatch(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] >= 2) return SendClientMessageEx(playerid, COLOR_GRAD1, "Please use /spec to avoid issues.");
@@ -65,7 +28,7 @@ CMD:watchspec(playerid, params[])
 	{
 		new giveplayerid;
 		if(GetPVarInt(playerid, "StartedWatching") == 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "WATCHDOG: You already started watching.");
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GRAD1, "USAGE: /watchspec [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/watchspec [playerid/PartOfName]");
 		if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_GRAD1, "You cannot spectate yourself!");
 		if(PlayerInfo[giveplayerid][pWatchlist] == 0) return SendClientMessageEx(playerid, COLOR_GRAD1, "This player is not on the watchlist!");
 		
@@ -138,7 +101,7 @@ CMD:dmrmute(playerid, params[])
 	if (PlayerInfo[playerid][pAdmin] >= 3)
 	{
 		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /dmrmute [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/dmrmute [playerid/PartOfName]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -167,7 +130,7 @@ CMD:dmrmute(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+		SendClientMessage(playerid, COLOR_LIGHTRED, "You are not authorized to use this CMD.");
 	}
 	return 1;
 }
@@ -223,7 +186,7 @@ CMD:watchlistadd(playerid, params[])
 	if(PlayerInfo[playerid][pWatchdog] >= 4 || PlayerInfo[playerid][pAdmin] >= 1337)
 	{
 		new points = 0, days, giveplayerid, string[128];
-		if(sscanf(params, "ddI(0)", giveplayerid, days, points)) return SendClientMessageEx(playerid, COLOR_GRAD1, "USAGE: /watchlistadd [playerid] [days] [points (optional)]");
+		if(sscanf(params, "ddI(0)", giveplayerid, days, points)) return SendSyntaxMessage(playerid, "/watchlistadd [playerid] [days] [points (optional)]");
 		
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -255,7 +218,7 @@ CMD:watchlistremove(playerid, params[])
 	if(PlayerInfo[playerid][pWatchdog] >= 4 || PlayerInfo[playerid][pAdmin] >= 1337)
 	{
 		new giveplayerid, string[128];
-		if(sscanf(params, "d", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GRAD1, "USAGE: /watchlistremove [playerid]");
+		if(sscanf(params, "d", giveplayerid)) return SendSyntaxMessage(playerid, "/watchlistremove [playerid]");
 		
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -283,7 +246,7 @@ CMD:restrictaccount(playerid, params[])
 	if(PlayerInfo[playerid][pWatchdog] >= 3 || PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1)
 	{
 		new giveplayerid, reason[64], string[128];
-		if(sscanf(params, "ds[64]", giveplayerid, reason)) return SendClientMessageEx(playerid, COLOR_GRAD1, "USAGE: /restrictaccount [playerid] [reason]");
+		if(sscanf(params, "ds[64]", giveplayerid, reason)) return SendSyntaxMessage(playerid, "/restrictaccount [playerid] [reason]");
 		
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -319,7 +282,7 @@ CMD:unrestrictaccount(playerid, params[])
 	if(PlayerInfo[playerid][pWatchdog] >= 3 || PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1)
 	{
 		new giveplayerid, string[128];
-		if(sscanf(params, "d", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GRAD1, "USAGE: /unrestrictaccount [playerid]");
+		if(sscanf(params, "d", giveplayerid)) return SendSyntaxMessage(playerid, "/unrestrictaccount [playerid]");
 		
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -419,7 +382,7 @@ CMD:wd(playerid, params[])
 				}
 			}
 		}
-		else return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /wd [watchdog chat]");
+		else return SendSyntaxMessage(playerid, "/wd [watchdog chat]");
 	}
 	else return SendClientMessageEx(playerid, COLOR_GRAD1, "You're not authorized to use this command!");
 	return true;
@@ -431,7 +394,7 @@ CMD:refer(playerid, params[])
 	new reason[100];
 	if(PlayerInfo[playerid][pWatchdog] < 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "You're not authorized to use this command!");
 	if(!GetPVarType(playerid, "SpectatingWatch")) return SendClientMessageEx(playerid, COLOR_GRAD2, "You can only use this command when you are spectating someone!");
-	if(sscanf(params, "s[100]", reason)) return SendClientMessageEx(playerid, COLOR_GRAD1, "USAGE: /refer [details]");
+	if(sscanf(params, "s[100]", reason)) return SendSyntaxMessage(playerid, "/refer [details]");
 	if(PlayerInfo[playerid][pRMuted] != 0) return ShowPlayerDialogEx(playerid,7955,DIALOG_STYLE_MSGBOX,"Report blocked","You are blocked from submitting any reports!\n\nTips when reporting:\n- Report what you need, not who you need.\n- Be specific, report exactly what you need.\n- Do not make false reports.\n- Do not flame admins.\n- Report only for in-game items.\n- For shop orders use the /shoporder command","Close", "");
  	if(GetPVarType(playerid, "HasReport")) return SendClientMessageEx(playerid, COLOR_GREY, "You can only have 1 active report at a time.");
 	JustReported[playerid] = 25;
@@ -455,7 +418,7 @@ CMD:wdwhitelist(playerid, params[])
 		new string[128], query[256], giveplayer[MAX_PLAYER_NAME], ip[16];
 		if(sscanf(params, "s[24]s[16]", giveplayer, ip))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /wdwhitelist [watchdog name] [IP]");
+			SendSyntaxMessage(playerid, "/wdwhitelist [watchdog name] [IP]");
 			return 1;
 		}
 
@@ -490,11 +453,11 @@ CMD:watchlist(playerid, params[])
 }
 
 CMD:makewatchdog(playerid, params[])  {
-	if(PlayerInfo[playerid][pAdmin] < 1337 && PlayerInfo[playerid][pWatchdog] < 3) return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	if(PlayerInfo[playerid][pAdmin] < 1337 && PlayerInfo[playerid][pWatchdog] < 3) return SendClientMessage(playerid, COLOR_LIGHTRED, "You are not authorized to use this CMD.");
 	new ivalue, iTargetID;
-	if(sscanf(params, "ui", iTargetID, ivalue)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /makewatchdog [player] [level]");
+	if(sscanf(params, "ui", iTargetID, ivalue)) return SendSyntaxMessage(playerid, "/makewatchdog [playerid/PartOfName] [level]");
 	if(!IsPlayerConnected(iTargetID)) return SendClientMessageEx(playerid, COLOR_GRAD2, "Invalid player specified.");
-	if(PlayerInfo[iTargetID][pHelper] >= 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "You cannot make Advisors Watchdogs!");
+	if(PlayerInfo[iTargetID][pHelper] >= 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "You cannot make Helper's Watchdogs!");
 	if(PlayerInfo[iTargetID][pWatchdog] == ivalue) return SendClientMessageEx(playerid, COLOR_GREY, "This person already has this watchdog level.");
 	if(PlayerInfo[playerid][pWatchdog] == 3 && ivalue >= 4) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot promote players to Watchdog Level 4+.");
 	new szRank[128];

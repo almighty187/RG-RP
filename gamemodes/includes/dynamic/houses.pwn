@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-				Dynamic Housing System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 #include <YSI\y_hooks>
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
@@ -76,7 +39,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 	}
 	return 0;
 }
-
+stock IsValidHouseID(id)
+{
+	if(id == INVALID_HOUSE_ID) return 0;
+	else if(id >= 0 && id < MAX_HOUSES && HouseInfo[id][hExteriorX] != 0.0) return 1;
+	return 0;
+}
 stock SaveHouse(houseid) {
 
 	szMiscArray[0] = 0;
@@ -353,7 +321,7 @@ public OnLoadHouse(index)
 
 		cache_get_value_name_int(row, "Lights", HouseInfo[index][h_iLights]);
 		
-		if(HouseInfo[index][hExteriorX] != 0.0) ReloadHousePickup(index);
+		if(HouseInfo[index][hExteriorX] != 0.0) ReloadHousePickup(index); ReloadHousePickup2(index);
 		if(HouseInfo[index][hClosetX] != 0.0) HouseInfo[index][hClosetTextID] = CreateDynamic3DTextLabel("Closet\n/closet to use", 0xFFFFFF88, HouseInfo[index][hClosetX], HouseInfo[index][hClosetY], HouseInfo[index][hClosetZ]+0.5,10.0, .testlos = 1, .worldid = HouseInfo[index][hIntVW], .interiorid = HouseInfo[index][hIntIW], .streamdistance = 10.0);
 		if(HouseInfo[index][hMailX] != 0.0) RenderHouseMailbox(index);
 		if(HouseInfo[index][hSignExpire] != 0 && gettime() >= HouseInfo[index][hSignExpire]) 
@@ -469,14 +437,21 @@ public OnLoadHouses()
 
 stock ReloadHouseText(houseid)
 {
-	new string[128];
-	if(HouseInfo[houseid][hOwned])
+	if (HouseInfo[houseid][hOwned] == 0) {
+	    DestroyDynamic3DTextLabel(HouseInfo[houseid][hTextID]);
+	    HouseInfo[houseid][hTextID] = CreateDynamic3DTextLabel("{FFFFFF}[{339900}Property{FFFFFF}]", 0x00AE00FF, HouseInfo[houseid][hExteriorX], HouseInfo[houseid][hExteriorY], HouseInfo[houseid][hExteriorZ] + 0.75, 25.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, HouseInfo[houseid][hExtVW], HouseInfo[houseid][hExtIW], -1, 100.0);
+	} else if (HouseInfo[houseid][hOwned] == 1) {
+	    DestroyDynamic3DTextLabel(HouseInfo[houseid][hTextID]);
+	    HouseInfo[houseid][hTextID] = CreateDynamic3DTextLabel("{FFFFFF}[{FF6347}Property{FFFFFF}]", 0x00AE00FF, HouseInfo[houseid][hExteriorX], HouseInfo[houseid][hExteriorY], HouseInfo[houseid][hExteriorZ] + 0.75, 25.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, HouseInfo[houseid][hExtVW], HouseInfo[houseid][hExtIW], -1, 100.0);
+	}
+
+	/*if(HouseInfo[houseid][hOwned])
 	{
 		if(HouseInfo[houseid][hRentable]) format(string, sizeof(string), "This house is owned by\n%s\nRent: $%s\nLevel: %d\nID: %d\nType /rentroom to rent a room", StripUnderscore(HouseInfo[houseid][hOwnerName]), number_format(HouseInfo[houseid][hRentFee]), HouseInfo[houseid][hLevel], houseid);
 		else format(string, sizeof(string), "This house is owned by\n%s\nLevel: %d\nID: %d", StripUnderscore(HouseInfo[houseid][hOwnerName]), HouseInfo[houseid][hLevel], houseid);
 	}
-	else format(string, sizeof(string), "This house is\n for sale!\n Description: %s\nCost: $%s\n Level: %d\nID: %d\nTo buy this house type /buyhouse", HouseInfo[houseid][hDescription], number_format(HouseInfo[houseid][hValue]), HouseInfo[houseid][hLevel], houseid);
-	UpdateDynamic3DTextLabelText(HouseInfo[houseid][hTextID], HouseInfo[houseid][hInactive] ? COLOR_LIGHTBLUE : COLOR_GREEN, string);
+	else format(string, sizeof(string), "This house is for sale!\n\n Description: %s\nCost: $%s\n Level: %d\nID: %d\nTo buy this house type /buyhouse", HouseInfo[houseid][hDescription], number_format(HouseInfo[houseid][hValue]), HouseInfo[houseid][hLevel], houseid);
+	UpdateDynamic3DTextLabelText(HouseInfo[houseid][hTextID], HouseInfo[houseid][hInactive] ? COLOR_LIGHTBLUE : COLOR_GREEN, string);*/
 }
 
 stock ReloadHousePickup(houseid)
@@ -490,7 +465,23 @@ stock ReloadHousePickup(houseid)
 
 	if(HouseInfo[houseid][hExteriorX] == 0.0) return 1;
 	new string[128];
-	if(HouseInfo[houseid][hOwned])
+	if (HouseInfo[houseid][hOwned] == 0) {
+	    DestroyDynamic3DTextLabel(HouseInfo[houseid][hTextID]);
+	    HouseInfo[houseid][hTextID] = CreateDynamic3DTextLabel("{FFFFFF}[{339900}Property{FFFFFF}]", 0x00AE00FF, HouseInfo[houseid][hExteriorX], HouseInfo[houseid][hExteriorY], HouseInfo[houseid][hExteriorZ] + 0.75, 25.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, HouseInfo[houseid][hExtVW], HouseInfo[houseid][hExtIW], -1, 100.0);
+	} else if (HouseInfo[houseid][hOwned] == 1) {
+	    DestroyDynamic3DTextLabel(HouseInfo[houseid][hTextID]);
+	    HouseInfo[houseid][hTextID] = CreateDynamic3DTextLabel("{FFFFFF}[{FF6347}Property{FFFFFF}]", 0x00AE00FF, HouseInfo[houseid][hExteriorX], HouseInfo[houseid][hExteriorY], HouseInfo[houseid][hExteriorZ] + 0.75, 25.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, HouseInfo[houseid][hExtVW], HouseInfo[houseid][hExtIW], -1, 100.0);
+	}
+	/*
+	if(HouseInfo[houseid][hOwned] == 0)
+ 	{
+  		CreateDynamic3DTextLabel("{FFFFFF}[{339900}Property{FFFFFF}]", 0x00AE00FF, HouseInfo[houseid][hExteriorX], HouseInfo[houseid][hExteriorY], HouseInfo[houseid][hExteriorZ]+0.75, 25.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, HouseInfo[houseid][hExtVW], HouseInfo[houseid][hExtIW], -1, 100.0);
+    }
+    else if(HouseInfo[houseid][hOwned] == 1)
+    {
+    	CreateDynamic3DTextLabel("{FFFFFF}[{339900}Property{FFFFFF}]", 0x00AE00FF, HouseInfo[houseid][hExteriorX], HouseInfo[houseid][hExteriorY], HouseInfo[houseid][hExteriorZ]+0.75, 25.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, HouseInfo[houseid][hExtVW], HouseInfo[houseid][hExtIW], -1, 100.0);
+	}*/
+	/*if(HouseInfo[houseid][hOwned])
 	{
 		if(HouseInfo[houseid][hRentable])
 			format(string, sizeof(string), "This house is owned by\n%s\nRent: $%s\nLevel: %d\nID: %d\nType /rentroom to rent a room", StripUnderscore(HouseInfo[houseid][hOwnerName]), number_format(HouseInfo[houseid][hRentFee]), HouseInfo[houseid][hLevel], houseid);
@@ -498,8 +489,8 @@ stock ReloadHousePickup(houseid)
 			format(string, sizeof(string), "This house is owned by\n%s\nLevel: %d\nID: %d", StripUnderscore(HouseInfo[houseid][hOwnerName]), HouseInfo[houseid][hLevel], houseid);
 	}
 	else
-		format(string, sizeof(string), "This house is\n for sale!\n Description: %s\nCost: $%s\n Level: %d\nID: %d\nTo buy this house type /buyhouse", HouseInfo[houseid][hDescription], number_format(HouseInfo[houseid][hValue]), HouseInfo[houseid][hLevel], houseid);
-
+		format(string, sizeof(string), "This house is for sale!\n\n Description: %s\nCost: $%s\n Level: %d\nID: %d\nTo buy this house type /buyhouse", HouseInfo[houseid][hDescription], number_format(HouseInfo[houseid][hValue]), HouseInfo[houseid][hLevel], houseid);
+ 	*/
 	HouseInfo[houseid][hTextID] = CreateDynamic3DTextLabel(string, HouseInfo[houseid][hInactive] ? COLOR_LIGHTBLUE : COLOR_GREEN, HouseInfo[houseid][hExteriorX], HouseInfo[houseid][hExteriorY], HouseInfo[houseid][hExteriorZ]+0.5,10.0, .testlos = 1, .worldid = HouseInfo[houseid][hExtVW], .interiorid = HouseInfo[houseid][hExtIW], .streamdistance = 10.0);
 	HouseInfo[houseid][hPickupID] = CreateDynamicPickup(HouseInfo[houseid][hInactive] ? 1272 : 1273, 23, HouseInfo[houseid][hExteriorX], HouseInfo[houseid][hExteriorY], HouseInfo[houseid][hExteriorZ], .worldid = HouseInfo[houseid][hExtVW], .interiorid = HouseInfo[houseid][hExtIW]);
 	HouseInfo[houseid][hPickupID_int] = CreateDynamicPickup(1559, 23, HouseInfo[houseid][hInteriorX], HouseInfo[houseid][hInteriorY], HouseInfo[houseid][hInteriorZ], .worldid = HouseInfo[houseid][hIntVW], .interiorid = HouseInfo[houseid][hIntIW]);
@@ -515,6 +506,24 @@ stock ReloadHousePickup(houseid)
 	
 	Streamer_SetIntData(STREAMER_TYPE_AREA, HouseInfo[houseid][hAreaID][0], E_STREAMER_EXTRA_ID, houseid);
 	Streamer_SetIntData(STREAMER_TYPE_AREA, HouseInfo[houseid][hAreaID][1], E_STREAMER_EXTRA_ID, houseid);
+	return 1;
+}
+stock ReloadHousePickup2(houseid)
+{
+	if(HouseInfo[houseid][hOwned] == 0)
+ 	{
+ 	    DestroyDynamicPickup(HouseInfo[houseid][hPickupID]);
+ 	    DestroyDynamicMapIcon(HouseInfo[houseid][hMapIcon]);
+		HouseInfo[houseid][hPickupID] = CreateDynamicPickup(1273, 23, HouseInfo[houseid][hExteriorX], HouseInfo[houseid][hExteriorY], HouseInfo[houseid][hExteriorZ], .worldid = HouseInfo[houseid][hExtVW], .interiorid = HouseInfo[houseid][hExtIW]);
+		HouseInfo[houseid][hMapIcon] = CreateDynamicMapIcon(HouseInfo[houseid][hExteriorX], HouseInfo[houseid][hExteriorY], HouseInfo[houseid][hExteriorZ], 31, COLOR_YELLOW, -1, -1, -1, 80.0);
+	}
+	else if(HouseInfo[houseid][hOwned] == 1)
+ 	{
+ 	    DestroyDynamicPickup(HouseInfo[houseid][hPickupID]);
+ 	    DestroyDynamicMapIcon(HouseInfo[houseid][hMapIcon]);
+		HouseInfo[houseid][hPickupID] = CreateDynamicPickup(19522, 23, HouseInfo[houseid][hExteriorX], HouseInfo[houseid][hExteriorY], HouseInfo[houseid][hExteriorZ], .worldid = HouseInfo[houseid][hExtVW], .interiorid = HouseInfo[houseid][hExtIW]);
+		HouseInfo[houseid][hMapIcon] = CreateDynamicMapIcon(HouseInfo[houseid][hExteriorX], HouseInfo[houseid][hExteriorY], HouseInfo[houseid][hExteriorZ], 32, COLOR_YELLOW, -1, -1, -1, 80.0);
+	}
 	return 1;
 }
 
@@ -671,6 +680,7 @@ CMD:buyhouse(playerid, params[])
 					PlayerInfo[playerid][pVW] = HouseInfo[h][hIntVW];
 					SetPlayerVirtualWorld(playerid,HouseInfo[h][hIntVW]);
 					ReloadHouseText(h);
+					ReloadHousePickup2(h);
 					format(string,sizeof(string),"%s(%d) (IP: %s) has bought house ID %d for $%d.",GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), GetPlayerIpEx(playerid),h,HouseInfo[h][hValue]);
 					Log("logs/house.log", string);
 					if(HouseInfo[h][hCustomInterior] == 1) Player_StreamPrep(playerid, HouseInfo[h][hInteriorX],HouseInfo[h][hInteriorY],HouseInfo[h][hInteriorZ], FREEZE_TIME);
@@ -934,7 +944,7 @@ CMD:goinhouse(playerid, params[])
 	return 1;
 }
 
-CMD:gotohouse(playerid, params[])
+/*CMD:gotohouse(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pShopTech] >= 1)
 	{
@@ -957,7 +967,7 @@ CMD:gotohouse(playerid, params[])
 		PlayerInfo[playerid][pInt] = 0;
 	}
 	return 1;
-}
+}*/
 
 CMD:hnext(playerid, params[])
 {
@@ -1032,7 +1042,6 @@ CMD:hedit(playerid, params[])
 		HouseInfo[houseid][hExpire] = 0;
 		HouseInfo[houseid][hCounter] = 0;
 		SaveHouse(houseid);
-
 		format(string, sizeof(string), "%s has edited HouseID %d's Ignore state to %d.", GetPlayerNameEx(playerid), houseid, HouseInfo[houseid][hIgnore]);
 		Log("logs/hedit.log", string);
 	}
@@ -1191,7 +1200,6 @@ CMD:hedit(playerid, params[])
 		format(string, sizeof(string), "You have set the houses price to $%d.", amount );
 		SendClientMessageEx(playerid, COLOR_WHITE, string);
 		ReloadHouseText(houseid);
-
 		format(string, sizeof(string), "%s has edited HouseID %d's Price to $%d.", GetPlayerNameEx(playerid), amount);
 		Log("logs/hedit.log", string);
 	}
@@ -1215,11 +1223,11 @@ CMD:hedit(playerid, params[])
 				SendClientMessageEx(playerid, COLOR_WHITE, "You have set the house's class to 3 (High)" );
 			}
 		}
-		if(HouseInfo[houseid][hOwned] ==0)
+		/*if(HouseInfo[houseid][hOwned] ==0)
 		{
 			format(string, sizeof(string), "This home is\n for sale!\n Description: %s\nCost: $%d\n Level: %d\nID: %d\nTo buy this house type /buyhouse",HouseInfo[houseid][hDescription],HouseInfo[houseid][hValue],HouseInfo[houseid][hLevel],houseid);
 			UpdateDynamic3DTextLabelText(HouseInfo[houseid][hTextID], COLOR_GREEN, string);
-		}
+		}*/
 
 		format(string, sizeof(string), "%s has edited HouseID %d's Class to %d.", GetPlayerNameEx(playerid), houseid, amount);
 		Log("logs/hedit.log", string);
@@ -1322,11 +1330,11 @@ CMD:shophouse(playerid, params[])
 				SendClientMessageEx(playerid, COLOR_WHITE, "You have set the house's class to 3 (High)" );
 			}
 		}
-		if(HouseInfo[houseid][hOwned] ==0)
+		/*if(HouseInfo[houseid][hOwned] ==0)
 		{
 			format(string, sizeof(string), "This home is\n for sale!\n Description: %s\nCost: $%d\n Level: %d\nID: %d\nTo buy this house type /buyhouse",HouseInfo[houseid][hDescription],HouseInfo[houseid][hValue],HouseInfo[houseid][hLevel],houseid);
 			UpdateDynamic3DTextLabelText(HouseInfo[houseid][hTextID], COLOR_GREEN, string);
-		}
+		}*/
 	}
 	SaveHouse(houseid);
 	format(string, sizeof(string), "[SHOPHOUSE] %s modified %s on house %d to %d - Invoice %s", GetPlayerNameEx(playerid), choice, houseid, amount, invoice);

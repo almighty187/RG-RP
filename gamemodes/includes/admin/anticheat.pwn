@@ -64,7 +64,7 @@ public sobeitCheck(playerid)
 
         if(pX != cX && pY != cY && pZ != cZ && hX != cX1 && hY != cY1 && hZ != cZ1)
         {
-            SendClientMessageEx(playerid, COLOR_RED, "You have failed the player account check, please relog and try again!");
+            SendErrorMessage(playerid, "You have failed the player account check, please relog and try again!");
             IsPlayerFrozen[playerid] = 0;
             DeletePVar(playerid,"FrontVectorX");
             DeletePVar(playerid,"FrontVectorY");
@@ -97,7 +97,7 @@ public sobeitCheck(playerid)
 		    mysql_format(MainPipeline, szString, sizeof(szString), "INSERT INTO `sobeitkicks` (sqlID, Kicks) VALUES (%d, 1) ON DUPLICATE KEY UPDATE Kicks = Kicks + 1", GetPlayerSQLId(playerid));
 			mysql_tquery(MainPipeline, szString, "OnQueryFinish", "ii", SENDDATA_THREAD, playerid);
 
-			SendClientMessageEx(playerid, COLOR_RED, "The hacking tool 's0beit' is not allowed on this server, please uninstall it.");
+			SendErrorMessage(playerid, "The hacking tool 's0beit' is not allowed on this server, please uninstall it.");
    			format(szString, sizeof(szString), "%s(%d) (IP: %s) has logged into the server with s0beit installed.", GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), IP);
    			Log("logs/sobeit.log", szString);
    			IsPlayerFrozen[playerid] = 0;
@@ -106,7 +106,7 @@ public sobeitCheck(playerid)
 
 	}
 	
-	if(playerTabbed[playerid] > 2) { SendClientMessageEx(playerid, COLOR_RED, "You have failed the account check, please relog."), SetTimerEx("KickEx", 1000, 0, "i", playerid); }
+	if(playerTabbed[playerid] > 2) { SendErrorMessage(playerid, "You have failed the account check, please relog."), SetTimerEx("KickEx", 1000, 0, "i", playerid); }
 
 	if(PlayerInfo[playerid][pVW] > 0 || PlayerInfo[playerid][pInt] > 0) HideNoticeGUIFrame(playerid);
 	sobeitCheckvar[playerid] = 1;

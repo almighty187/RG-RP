@@ -1,46 +1,9 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						24/7 Items
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 /*CMD:tie(playerid, params[])
 {
 	if(PlayerInfo[playerid][pRope] > 0)
 	{
 		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /tie [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/tie [player]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -52,7 +15,7 @@
 			if(PlayerCuffed[giveplayerid] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't tie a cuffed/tazed player.");
 			if(PlayerInfo[giveplayerid][pJailTime] > 0)
 			{
-				SendClientMessageEx(playerid, COLOR_WHITE, "You can't tie a prisoned player." );
+				SendSyntaxMessage(playerid, "You can't tie a prisoned player." );
 				return 1;
 			}
 			if( PlayerInfo[playerid][pRope] == 0 )
@@ -117,7 +80,7 @@
 CMD:untie(playerid, params[])
 {
 	new string[128], giveplayerid;
-	if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /untie [player]");
+	if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/untie [player]");
 
 	if(IsPlayerConnected(giveplayerid))
 	{
@@ -162,19 +125,19 @@ CMD:tie(playerid, params[])
 	if(PlayerInfo[playerid][pRope] > 0)
 	{
 		new id;
-		if(sscanf(params, "u", id)) return SendClientMessageEx(playerid, COLOR_WHITE, "SYNTAX: /tie [playerid]");
+		if(sscanf(params, "u", id)) return SendSyntaxMessage(playerid, "/tie [playerid/PartOfName]");
 
 		if(IsPlayerConnected(id))
 		{
-			if(PlayerTied[id] > 0) return SendClientMessageEx(playerid, -1, "That player is already tied.");
-			if(GetPVarInt(playerid, "Injured") || PlayerCuffed[playerid] > 0 || GetPVarInt(playerid, "IsInArena") || GetPVarInt(playerid, "EventToken") != 0 || PlayerInfo[playerid][pHospital] > 0) return SendClientMessageEx(playerid, -1, "You cannot do this right now!");
-			if(PlayerCuffed[id] != 0) return SendClientMessageEx(playerid, -1, "You cannot do this to them right now.");
+			if(PlayerTied[id] > 0) return  SendErrorMessage(playerid,"That player is already tied.");
+			if(GetPVarInt(playerid, "Injured") || PlayerCuffed[playerid] > 0 || GetPVarInt(playerid, "IsInArena") || GetPVarInt(playerid, "EventToken") != 0 || PlayerInfo[playerid][pHospital] > 0) return  SendErrorMessage(playerid,"You cannot do this right now!");
+			if(PlayerCuffed[id] != 0) return  SendErrorMessage(playerid,"You cannot do this to them right now.");
 
 			if(ProxDetectorS(8.0, playerid, id))
 			{
 				szMiscArray[0] = 0;
 
-				if(id == playerid) return SendClientMessageEx(playerid, -1, "You cannot tie yourself!");
+				if(id == playerid) return  SendErrorMessage(playerid,"You cannot tie yourself!");
 				if(GetPVarInt(id, "Injured") == 1) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot tie someone in a injured state.");
 				if(GetPlayerSpecialAction(id) != SPECIAL_ACTION_HANDSUP) return SendClientMessage(playerid, -1, "This player is not restrained.");
 
@@ -188,29 +151,29 @@ CMD:tie(playerid, params[])
 				PlayerTied[id] = 1;
 				PlayerInfo[playerid][pRope]--;
 			}
-			else return SendClientMessageEx(playerid, -1, "That person isn't near you.");
+			else return  SendErrorMessage(playerid,"That person isn't near you.");
 		}
-		else return SendClientMessageEx(playerid, -1, "That player is not connected.");
+		else return  SendErrorMessage(playerid,"That player is not connected.");
 	}
-	else SendClientMessageEx(playerid, -1, "You do not have any rope!");
+	else  SendErrorMessage(playerid,"You do not have any rope!");
 	return 1;
 }
 
 CMD:untie(playerid, params[])
 {
 	new id;
-	if(sscanf(params, "u", id)) return SendClientMessageEx(playerid, COLOR_WHITE, "SYNTAX: /untie [playerid]");
+	if(sscanf(params, "u", id)) return SendSyntaxMessage(playerid, "/untie [playerid/PartOfName]");
 
 	if(IsPlayerConnected(id))
 	{
-		if(PlayerTied[id] == 0) return SendClientMessageEx(playerid, -1, "That player isn't tied.");
-		if(GetPVarInt(playerid, "Injured") || PlayerCuffed[playerid] > 0 || GetPVarInt(playerid, "IsInArena") || GetPVarInt(playerid, "EventToken") != 0 || PlayerInfo[playerid][pHospital] > 0) return SendClientMessageEx(playerid, -1, "You cannot do this right now!");
+		if(PlayerTied[id] == 0) return  SendErrorMessage(playerid,"That player isn't tied.");
+		if(GetPVarInt(playerid, "Injured") || PlayerCuffed[playerid] > 0 || GetPVarInt(playerid, "IsInArena") || GetPVarInt(playerid, "EventToken") != 0 || PlayerInfo[playerid][pHospital] > 0) return  SendErrorMessage(playerid,"You cannot do this right now!");
 
 		if(ProxDetectorS(8.0, playerid, id))
 		{
 			szMiscArray[0] = 0;
 
-			if(id == playerid) return SendClientMessageEx(playerid, -1, "You cannot untie yourself!");
+			if(id == playerid) return  SendErrorMessage(playerid,"You cannot untie yourself!");
 
 			format(szMiscArray, sizeof(szMiscArray), "* %s has untied %s.", GetPlayerNameEx(playerid), GetPlayerNameEx(id));
 			ProxDetector(30.0, playerid, szMiscArray, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
@@ -218,9 +181,9 @@ CMD:untie(playerid, params[])
 			SetPlayerSpecialAction(id,SPECIAL_ACTION_NONE);
 			PlayerTied[id] = 0;
 		}
-		else return SendClientMessageEx(playerid, -1, "That person isn't near you.");
+		else return  SendErrorMessage(playerid,"That person isn't near you.");
 	}
-	else SendClientMessageEx(playerid, -1, "That player is not connected.");
+	else  SendErrorMessage(playerid,"That player is not connected.");
 	return 1;
 }
 
@@ -229,12 +192,12 @@ CMD:blindfold(playerid, params[])
 	if(PlayerInfo[playerid][pRags] > 0)
 	{
 		new id;
-		if(sscanf(params, "u", id)) return SendClientMessage(playerid, COLOR_WHITE, "SYNTAX: /blindfold [playerid]");
+		if(sscanf(params, "u", id)) return SendClientMessage(playerid, COLOR_WHITE, "SYNTAX: /blindfold [playerid/PartOfName]");
 
 		if(IsPlayerConnected(id))
 		{
-			if(PlayerTied[id] == 0) return SendClientMessageEx(playerid, -1, "The person you are trying to blindfold must be tied.");
-			if(GetPVarInt(playerid, "Injured") || PlayerCuffed[playerid] > 0 || GetPVarInt(playerid, "IsInArena") || GetPVarInt(playerid, "EventToken") != 0 || PlayerInfo[playerid][pHospital] > 0) return SendClientMessageEx(playerid, -1, "You cannot do this right now!");
+			if(PlayerTied[id] == 0) return  SendErrorMessage(playerid,"The person you are trying to blindfold must be tied.");
+			if(GetPVarInt(playerid, "Injured") || PlayerCuffed[playerid] > 0 || GetPVarInt(playerid, "IsInArena") || GetPVarInt(playerid, "EventToken") != 0 || PlayerInfo[playerid][pHospital] > 0) return  SendErrorMessage(playerid,"You cannot do this right now!");
 
 			if(ProxDetectorS(8.0, playerid, id))
 			{
@@ -244,7 +207,7 @@ CMD:blindfold(playerid, params[])
 					{
 						szMiscArray[0] = 0;
 
-						if(id == playerid) return SendClientMessageEx(playerid, -1, "You cannot blindfold yourself!");
+						if(id == playerid) return  SendErrorMessage(playerid,"You cannot blindfold yourself!");
 
 						format(szMiscArray, sizeof(szMiscArray), "* %s has placed a rag around %s's head, blinding them.", GetPlayerNameEx(playerid), GetPlayerNameEx(id));
 						ProxDetector(30.0, playerid, szMiscArray, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
@@ -257,7 +220,7 @@ CMD:blindfold(playerid, params[])
 					{
 						szMiscArray[0] = 0;
 
-						if(id == playerid) return SendClientMessageEx(playerid, -1, "You cannot unblindfold yourself!");
+						if(id == playerid) return  SendErrorMessage(playerid,"You cannot unblindfold yourself!");
 
 						format(szMiscArray, sizeof(szMiscArray), "* %s has removed the rag around %s's head.", GetPlayerNameEx(playerid), GetPlayerNameEx(id));
 						ProxDetector(30.0, playerid, szMiscArray, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
@@ -267,11 +230,11 @@ CMD:blindfold(playerid, params[])
 					}
 				}
 			}
-			else return SendClientMessageEx(playerid, -1, "That person isn't near you.");
+			else return  SendErrorMessage(playerid,"That person isn't near you.");
 		}
-		else return SendClientMessageEx(playerid, -1, "That player is not connected.");
+		else return  SendErrorMessage(playerid,"That player is not connected.");
 	}
-	else SendClientMessage(playerid, COLOR_WHITE, "You do not have any rags!");
+	else  SendErrorMessage(playerid,"You do not have any rags!");
 	return 1;
 }
 
@@ -342,7 +305,7 @@ CMD:paintcar(playerid, params[]) {
 	new iPaintID;
 	if(!IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_GRAD2, "You're not in a vehicle.");
 	if(PlayerInfo[playerid][pSpraycan] == 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "Your spraycan is empty.");
-	if(sscanf(params, "i", iPaintID)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /paintcar [0-6] (3 to remove a paintjob)");
+	if(sscanf(params, "i", iPaintID)) return SendSyntaxMessage(playerid, "/paintcar [0-6] (3 to remove a paintjob)");
 	if(!(0 <= iPaintID <= 6)) return SendClientMessageEx(playerid, COLOR_GRAD2, "The specified paint job ID must be between 0 and 6.");
 	
 	for(new i = 0; i < MAX_PLAYERVEHICLES; i++)

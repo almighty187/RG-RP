@@ -1477,7 +1477,7 @@ NatDis_EditZones(playerid, iZoneTypeID) {
 
 CMD:natdis(playerid, params[])
 {
-	if(!IsAdminLevel(playerid, ADMIN_EXECUTIVE)) return 1;
+	if(!IsAdminLevel(playerid, ADMIN_LEAD)) return 1;
 	NatDis_MainMenu(playerid);
 	return 1;
 }

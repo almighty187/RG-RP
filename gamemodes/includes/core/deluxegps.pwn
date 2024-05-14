@@ -1,42 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-
-	Developers:
-		(***) Austin
-		(***) Connor
-		(***) Jingles
-
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
 #include <YSI\y_hooks>
 
 #define		DIALOG_GPS_ONE				9800
@@ -235,7 +196,7 @@ CMD:map(playerid, params[]) {
 	return 1;
 }
 
-CMD:mygps(playerid, params[]) {
+/*CMD:mygps(playerid, params[]) {
 	if(CheckPointCheck(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "Please ensure that your current checkpoint is destroyed first (you either have material packages, or another existing checkpoint).");
 	ShowPlayerDialogEx(playerid, DIALOG_GPS_ONE, DIALOG_STYLE_LIST, "Doodle Maps | Main Menu", "Businesses\n\
 		Jobs\n\
@@ -245,7 +206,7 @@ CMD:mygps(playerid, params[]) {
 		Door Address\n", "Okay", "Cancel");
 	
 	return 1;
-}
+}*/
 
 hook OnPlayerEnterCheckpoint(playerid)
 {
@@ -754,16 +715,16 @@ Map_ShowBusinesses(playerid, btype)
 
 Map_ShowJobs(playerid, iJobType)
 {
-	if(!(1 <= iJobType < MAX_JOBPOINTS)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid job type specified.");
+	if(!(1 <= iJobType < MAX_JOBPOINTS)) return SendErrorMessage(playerid, "Invalid job type specified.");
 	for(new i; i < MAX_JOBPOINTS; ++i) {
 		if(JobData[i][jType] == iJobType) {
 			gPlayerCheckpointStatus[playerid] = CHECKPOINT_JOB;
 			SetPVarInt(playerid, "gpsJob", i);
 			SetPlayerCheckpoint(playerid, JobData[i][jPos][0], JobData[i][jPos][1], JobData[i][jPos][2], 5.0);
-			SendClientMessage(playerid, COLOR_YELLOW, "A checkpoint has been marked on your map.");
+			SendClientMessage(playerid, COLOR_RG, "A checkpoint has been marked on your map.");
 			return 1;
 		}
 	}
-	SendClientMessage(playerid, COLOR_GRAD1, "Applications are currently closed for that job.");
+	SendErrorMessage(playerid, "Applications are currently closed for that job.");
 	return 1;
 }

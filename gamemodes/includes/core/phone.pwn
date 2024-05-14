@@ -151,7 +151,7 @@ CMD:colorcar(playerid, params[]) {
 	new iColors[2];
 	if(!IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_GRAD2, "You're not in a vehicle.");
 	else if(PlayerInfo[playerid][pSpraycan] == 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "Your spraycan is empty.");
-	if(sscanf(params, "ii", iColors[0], iColors[1])) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /colorcar [ID 1] [ID 2]. Colors must be an ID.");
+	if(sscanf(params, "ii", iColors[0], iColors[1])) return SendSyntaxMessage(playerid, "/colorcar [ID 1] [ID 2]. Colors must be an ID.");
 	else if((PlayerInfo[playerid][pDonateRank] == 0) && (iColors[0] > 127 || iColors[1] > 127)) return SendClientMessageEx(playerid, COLOR_GREY, "Only VIPs can use special color IDs above 127.");
 	else if(!(0 <= iColors[0] <= 255 && 0 <= iColors[1] <= 255)) return SendClientMessageEx(playerid, COLOR_GRAD2, "Invalid color specified (IDs start at 0, and end at 255).");
 	new szMessage[60];
@@ -198,7 +198,7 @@ CMD:number(playerid, params[]) {
 			iTarget;
 
 		if(sscanf(params, "u", iTarget)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /number [player]");
+			SendSyntaxMessage(playerid, "/number [player]");
 		}
 		else if(IsPlayerConnected(iTarget)) {
 			new
@@ -227,7 +227,7 @@ CMD:tempnumber(playerid, params[]){
 			return 1;
 		}
         if(sscanf(params, "i", num) && TempNumber[playerid] == 0)
-			return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /tempnumber [number]");
+			return SendSyntaxMessage(playerid, "/tempnumber [number]");
 
 		if(strlen(params) > 10 || strlen(params) < 2) 
 			return SendClientMessage(playerid, COLOR_GREY, "The temporary phone number can only be between 2 and 10 digits long.");
@@ -279,7 +279,7 @@ CMD:setautoreply(playerid, params[])
 
 	if(isnull(params))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /setautoreply [text]");
+		SendSyntaxMessage(playerid, "/setautoreply [text]");
 		return 1;
 	}
 
@@ -301,7 +301,7 @@ CMD:call(playerid, params[])
 {
 	new string[128], phonenumb;
 
-	if(sscanf(params, "d", phonenumb)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /call [phonenumber]");
+	if(sscanf(params, "d", phonenumb)) return SendSyntaxMessage(playerid, "/call [phonenumber]");
 
 	if(PlayerInfo[playerid][pJailTime] > 0 && !GetPVarType(playerid, "PayPhone"))
 	{
@@ -528,7 +528,7 @@ CMD:sms(playerid, params[])
 	szMiscArray[0] = 0;
 
 	new phonenumb, text[100];
-	if(sscanf(params, "ds[100]", phonenumb, text)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: (/t)ext [phonenumber] [text chat]");
+	if(sscanf(params, "ds[100]", phonenumb, text)) return SendSyntaxMessage(playerid, "(/t)ext [phonenumber] [text chat]");
 
 	if(Spectating[playerid] == 0 || !GetPVarType(playerid, "FlyMode"))
 	{

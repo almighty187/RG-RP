@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Toy System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 stock CompleteToyTrade(playerid)
 {
 	new string[156],
@@ -220,7 +183,7 @@ stock ShowEditMenu(playerid)
 	if(IsPlayerInAnyVehicle(playerid) && PlayerToyInfo[playerid][iIndex][ptSpecial] == 2)
 		return ShowPlayerDialogEx(playerid, 0, DIALOG_STYLE_MSGBOX, "Edit your toy", "You cannot edit toys while you are inside a vehicle!", "Okay", "");
 	new toycount = GetFreeToySlot(playerid);
-	if(toycount == -1) return SendClientMessageEx(playerid, COLOR_GRAD1, "You currently have 10 objects attached, please deattach an object.");
+	if(toycount == -1) return SendServerMessage(playerid, "You currently have 10 objects attached, please deattach an object.");
 	if(toycount == 9 && PlayerInfo[playerid][pBEquipped]) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot attach an object to slot 10 since you have a backpack equipped.");
 	PlayerHoldingObject[playerid][toycount] = iIndex;
 	SetPlayerAttachedObject(playerid, toycount, PlayerToyInfo[playerid][iIndex][ptModelID],
@@ -305,12 +268,12 @@ AttachToy(playerid, toyid, msg = 1)
 	new toycount = GetFreeToySlot(playerid);
 	if(toycount == -1)
 	{
-		if(msg) return SendClientMessageEx(playerid, COLOR_GRAD1, "You cannot attach more than 10 objects.");
+		if(msg) return SendErrorMessage(playerid, "You cannot attach more than 10 objects.");
 		else return 1;
 	}
 	if(toycount == 9 && PlayerInfo[playerid][pBEquipped])
 	{
-		if(msg) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot attach an object to slot 10 since you have a backpack equipped.");
+		if(msg) return SendErrorMessage(playerid, "You cannot attach an object to slot 10 since you have a backpack equipped.");
 		else return 1;
 	}
 
@@ -361,7 +324,7 @@ stock player_remove_vip_toys(iTargetID)
 			}
 		}
 	}
-	SendClientMessageEx(iTargetID, COLOR_WHITE, "All accessories/toys that were property of your former employer have been removed.");
+	SendServerMessage(iTargetID, "All accessories/toys that were property of your former employer have been removed.");
 	return 1;
 }
 
@@ -369,12 +332,12 @@ CMD:shopvest(playerid, params[])
 {
 	if (PlayerInfo[playerid][pShopTech] < 1 && PlayerInfo[playerid][pAdmin] < 1338)
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, " You are not allowed to use this command.");
+		SendErrorMessage(playerid, "You are not allowed to use this CMD.");
 		return 1;
 	}
 
 	new string[128], giveplayerid, slot, invoice[64];
-	if(sscanf(params, "uds[64]", giveplayerid, slot, invoice)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /shopvest [player] [slot(0-9)] [invoice #]");
+	if(sscanf(params, "uds[64]", giveplayerid, slot, invoice)) return SendSyntaxMessage(playerid, "/shopvest [player] [slot(0-9)] [invoice #]");
 
 	PlayerToyInfo[giveplayerid][slot][ptModelID] = 19142;
 	PlayerToyInfo[giveplayerid][slot][ptBone] = 1;
@@ -397,7 +360,7 @@ CMD:listtoys(playerid, params[]) {
 		new giveplayerid, string[64];
 		szMiscArray[0] = 0;
 		if(sscanf(params, "u", giveplayerid)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /listtoys [player]");
+			SendSyntaxMessage(playerid, "/listtoys [player]");
 		}
 		else if(IsPlayerConnected(giveplayerid))
 		{
@@ -433,12 +396,12 @@ CMD:shoplaser(playerid, params[])
 {
 	if (PlayerInfo[playerid][pShopTech] < 1 && PlayerInfo[playerid][pAdmin] < 1338)
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, " You are not allowed to use this command.");
+		SendErrorMessage(playerid, "You are not allowed to use this CMD.");
 		return 1;
 	}
 
 	new string[128], giveplayerid, slot, color[32], invoice[64];
-	if(sscanf(params, "udss[64]", giveplayerid, slot, color, invoice)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /shoplaser [player] [slot(0-9)] [red/green/orange/yellow/pink/blue] [invoice #]");
+	if(sscanf(params, "udss[64]", giveplayerid, slot, color, invoice)) return SendSyntaxMessage(playerid, "/shoplaser [player] [slot(0-9)] [red/green/orange/yellow/pink/blue] [invoice #]");
 
 	if(strcmp(color,"red",true) == 0)
 	{
@@ -498,7 +461,7 @@ CMD:giveobject(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 4)
 	{
 		new giveplayerid, object;
-		if(sscanf(params, "ud", giveplayerid, object)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /giveobject [player] [object]");
+		if(sscanf(params, "ud", giveplayerid, object)) return SendSyntaxMessage(playerid, "/giveobject [player] [object]");
 		if(!IsPlayerConnected(giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified");
 		szMiscArray[0] = 0;
 		SetPVarInt(playerid, "giveplayeridtoy", giveplayerid);
@@ -525,7 +488,7 @@ CMD:giveobject(playerid, params[])
    		ShowPlayerDialogEx(playerid, GIVETOY, DIALOG_STYLE_LIST, "Select a slot", szMiscArray, "Select", "Cancel");
 	}
 	else {
-		return SendClientMessageEx(playerid, COLOR_GRAD1, "You're not authorized to use this command!");
+		return SendErrorMessage(playerid, "You're not authorized to use this CMD.");
 	}
 	return 1;
 }
@@ -538,7 +501,7 @@ CMD:shopobject(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+		SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 		return 1;
 	}
 	return 1;
@@ -550,7 +513,7 @@ CMD:buytoys(playerid, params[])
 	{
 		if(PlayerInfo[playerid][pDonateRank] < 3)
 		{
-			SendClientMessageEx(playerid, COLOR_WHITE, "* You are not a Gold or Platinum VIP!");
+			SendErrorMessage(playerid, "You are not a Gold or Platinum VIP!");
 		}
 		else
 		{
@@ -561,15 +524,15 @@ CMD:buytoys(playerid, params[])
 	{
 		new biz = InBusiness(playerid);
 	   	if (biz == INVALID_BUSINESS_ID || Businesses[biz][bType] != BUSINESS_TYPE_CLOTHING) {
-	        SendClientMessageEx(playerid, COLOR_GRAD2, "   You are not in a clothing shop!");
+	        SendErrorMessage(playerid, "You are not in a clothing shop!");
 	        return 1;
 	    }
 		if (Businesses[biz][bInventory] < 1) {
-	    	SendClientMessageEx(playerid, COLOR_GRAD2, "   Store does not have any clothes!");
+	    	SendErrorMessage(playerid, "Store does not have any clothes!");
 		    return 1;
 		}
 		if (!Businesses[biz][bStatus]) {
-		    SendClientMessageEx(playerid, COLOR_GRAD2, "   This clothing store is closed!");
+		    SendErrorMessage(playerid, "This clothing store is closed!");
 		    return 1;
 		}
 		ShowPlayerDialogEx( playerid, BUYTOYS, DIALOG_STYLE_MSGBOX, "Toy Store", "Welcome to the toy store! Here you can buy accessories to attach to your player.\n\nFirst, we will choose a slot to store the toy in.","Continue", "Cancel" );
@@ -599,7 +562,7 @@ CMD:otoyhelp(playerid, params[])
 
 CMD:toys(playerid, params[])
 {
-	if(GetPVarInt(playerid, "EventToken" ) == 1 || PlayerInfo[playerid][pJailTime] != 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "You cannot use this command at the moment.");
+	if(GetPVarInt(playerid, "EventToken" ) == 1 || PlayerInfo[playerid][pJailTime] != 0) return SendErrorMessage(playerid, "You cannot use this command at the moment.");
 	ShowPlayerDialogEx( playerid, TOYS, DIALOG_STYLE_LIST, "Toy Menu", "Attach/Dettach a Toy\nEdit a Toy\nDelete a Toy","Select", "Cancel" );
 	return 1;
 }
@@ -607,10 +570,10 @@ CMD:toys(playerid, params[])
 CMD:wt(playerid, params[])
 {
 	new toyslot;
-	if(sscanf(params, "d", toyslot)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /wt [toyslot]");
+	if(sscanf(params, "d", toyslot)) return SendSyntaxMessage(playerid, "/wt [toyslot]");
 
-	if(toyslot < 1 || toyslot > MAX_PLAYERTOYS+1) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /wt [toyslot]");
-	if(GetPVarInt(playerid, "EventToken" ) == 1 || PlayerInfo[playerid][pJailTime] != 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "You cannot use this command at the moment.");
+	if(toyslot < 1 || toyslot > MAX_PLAYERTOYS+1) return SendSyntaxMessage(playerid, "/wt [toyslot]");
+	if(GetPVarInt(playerid, "EventToken" ) == 1 || PlayerInfo[playerid][pJailTime] != 0) return SendErrorMessage(playerid, "You cannot use this command at the moment.");
 
 	for(new i; i < 10; i++)
 	{
@@ -632,7 +595,7 @@ CMD:wt(playerid, params[])
 	if(PlayerToyInfo[playerid][toyslot-1][ptModelID] != 0 && PlayerToyInfo[playerid][toyslot-1][ptSpecial] != 2)
 	{
 		new toycount = GetFreeToySlot(playerid);
-		if(PlayerInfo[playerid][pBEquipped] && toycount == 9) return SendClientMessageEx(playerid, COLOR_GRAD2, "You cannot use attach this toy since you have your backpack equipped.");
+		if(PlayerInfo[playerid][pBEquipped] && toycount == 9) return SendErrorMessage(playerid, "You cannot use attach this toy since you have your backpack equipped.");
 		PlayerHoldingObject[playerid][toycount] = toyslot;
 		SetPlayerAttachedObject(playerid, toycount,
 			PlayerToyInfo[playerid][toyslot-1][ptModelID],
@@ -654,9 +617,9 @@ CMD:wt(playerid, params[])
 CMD:dt(playerid, params[])
 {
 	new toyslot;
-	if(sscanf(params, "d", toyslot)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /dt [toyslot]");
+	if(sscanf(params, "d", toyslot)) return SendSyntaxMessage(playerid, "/dt [toyslot]");
 
-	if(toyslot < 1 || toyslot > MAX_PLAYERTOYS) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /dt [toyslot]");
+	if(toyslot < 1 || toyslot > MAX_PLAYERTOYS) return SendSyntaxMessage(playerid, "/dt [toyslot]");
 
 
 	for(new i; i < 10; i++)
@@ -678,7 +641,7 @@ CMD:dt(playerid, params[])
 
 CMD:wat(playerid, params[])
 {
-	if(GetPVarInt(playerid, "EventToken" ) == 1 || PlayerInfo[playerid][pJailTime] != 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "You cannot use this command at the moment");
+	if(GetPVarInt(playerid, "EventToken" ) == 1 || PlayerInfo[playerid][pJailTime] != 0) return SendErrorMessage(playerid, "You cannot use this command at the moment");
 	new count = 0;
 	SendClientMessageEx(playerid, COLOR_WHITE, "* Attached max toys allowed.");
 	for(new x;x<MAX_PLAYERTOYS;x++)
@@ -721,19 +684,19 @@ CMD:dat(playerid, params[])
 CMD:selltoy(playerid, params[])
 {
 	new name[24], targetid, cost;
-	if(GetPVarType(playerid, "ttBuyer")) return SendClientMessageEx(playerid, COLOR_GREY, "You're already trading with someone else.");
-	if(GetPVarType(playerid, "IsInArena")) return SendClientMessageEx(playerid,COLOR_GREY,"You cannot do this while being in an arena!");
-   	if(GetPVarInt( playerid, "EventToken") != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use this while you're in an event.");
-	if(PlayerCuffed[playerid] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use this while being cuffed.");
-    if(GetPVarInt(playerid, "WatchingTV")) return SendClientMessageEx(playerid, COLOR_GREY, "You can not do this while watching TV!");
-    if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid,COLOR_GREY,"You can not do this while in jail or prison!");
-    if(IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot do this right now.");
+	if(GetPVarType(playerid, "ttBuyer")) return SendErrorMessage(playerid, "You're already trading with someone else.");
+	if(GetPVarType(playerid, "IsInArena")) return SendErrorMessage(playerid, "You cannot do this while being in an arena!");
+   	if(GetPVarInt( playerid, "EventToken") != 0) return SendErrorMessage(playerid, "You can't use this while you're in an event.");
+	if(PlayerCuffed[playerid] != 0) return SendErrorMessage(playerid, "You can't use this while being cuffed.");
+    if(GetPVarInt(playerid, "WatchingTV")) return SendErrorMessage(playerid, "You can not do this while watching TV!");
+    if(PlayerInfo[playerid][pJailTime] > 0) return SendErrorMessage(playerid, "You can not do this while in jail or prison!");
+    if(IsPlayerInAnyVehicle(playerid)) return SendErrorMessage(playerid, "You cannot do this right now.");
 	if(sscanf(params, "ud", targetid, cost)) return SendClientMessageEx(playerid, COLOR_GRAD1, "USAGE: /selltoy [playerid] [price]");
-	if(!IsPlayerConnected(targetid)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
-	if(targetid == playerid) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot use this command on yourself.");
-	if(!ProxDetectorS(5.0, playerid, targetid)) return SendClientMessageEx(playerid, COLOR_GREY, "This player is not near you.");
-	if(InsideTradeToys[targetid] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "This person is currently trading at the moment, please try again later.");
-	if(cost < 1 || cost > 1000000000) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot sell a toy for less than $1.");
+	if(!IsPlayerConnected(targetid)) return SendErrorMessage(playerid, "Invalid player specified.");
+	if(targetid == playerid) return SendErrorMessage(playerid, "You cannot use this command on yourself.");
+	if(!ProxDetectorS(5.0, playerid, targetid)) return SendErrorMessage(playerid, "This player is not near you.");
+	if(InsideTradeToys[targetid] == 1) return SendErrorMessage(playerid, "This person is currently trading at the moment, please try again later.");
+	if(cost < 1 || cost > 1000000000) return SendErrorMessage(playerid, "You cannot sell a toy for less than $1.");
 
 	SetPVarInt(targetid, "ttSeller", playerid);
 	SetPVarInt(playerid, "ttBuyer", targetid);

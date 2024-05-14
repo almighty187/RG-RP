@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Shipment System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 #include <YSI\y_hooks>
 
 forward HijackTruck(playerid);
@@ -60,7 +23,7 @@ public HijackTruck(playerid)
 			TruckUsed[playerid] = INVALID_VEHICLE_ID;
 			gPlayerCheckpointStatus[playerid] = CHECKPOINT_NONE;
  			DisablePlayerCheckpoint(playerid);
-            SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* You failed to hijack the shipment.");
+            SendServerMessage(playerid, "You failed to hijack the shipment.");
 			return 1;
         }
 
@@ -73,7 +36,7 @@ public HijackTruck(playerid)
 				TruckUsed[i] = INVALID_VEHICLE_ID;
 				DisablePlayerCheckpoint(i);
 				gPlayerCheckpointStatus[i] = CHECKPOINT_NONE;
-				SendClientMessageEx(i, COLOR_WHITE, "Your shipment delivery has failed. Your shipment was Hijacked.");
+				SendServerMessage(playerid, "Your shipment delivery has failed. Your shipment was Hijacked.");
 			}
 		}	
 
@@ -93,41 +56,41 @@ public HijackTruck(playerid)
 					}
 				}
 				case 1: {
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"You hijacked a shipment of food & beverages.");
+					SendServerMessage(playerid, "You hijacked a shipment of food & beverages.");
 					SetPlayerCheckpoint(playerid, TruckerDropoffs[route][PosX], TruckerDropoffs[route][PosY], TruckerDropoffs[route][PosZ], 5);
 				}
 				case 2:
 				{
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"You hijacked a shipment of clothing.");
+					SendServerMessage(playerid, "You hijacked a shipment of clothing.");
 					SetPlayerCheckpoint(playerid, TruckerDropoffs[route][PosX], TruckerDropoffs[route][PosY], TruckerDropoffs[route][PosZ], 5);
 				}
 				case 3:
 				{
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"You hijacked a shipment of materials.");
+					SendServerMessage(playerid, "You hijacked a shipment of materials.");
 					SetPlayerCheckpoint(playerid, TruckerDropoffs[route][PosX], TruckerDropoffs[route][PosY], TruckerDropoffs[route][PosZ], 5);
 				}
 				case 4:
 				{
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* You hijacked a shipment of stolen 24/7 items - watch out for law enforcement!");
+					SendServerMessage(playerid, "You hijacked a shipment of stolen 24/7 items - watch out for law enforcement!");
 					SetPlayerCheckpoint(playerid, TruckerDropoffs[route][PosX], TruckerDropoffs[route][PosY], TruckerDropoffs[route][PosZ], 5);
 				}
 				case 5:
 				{
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* You hijacked a shipment of weapons - watch out for law enforcement!");
+					SendServerMessage(playerid, "You hijacked a shipment of weapons - watch out for law enforcement!");
 					SetPlayerCheckpoint(playerid, TruckerDropoffs[route][PosX], TruckerDropoffs[route][PosY], TruckerDropoffs[route][PosZ], 5);
 				}
 				case 6:
 				{
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"You hijacked a shipment of drugs - watch out for law enforcement!");
+					SendServerMessage(playerid, "You hijacked a shipment of drugs - watch out for law enforcement!");
 					SetPlayerCheckpoint(playerid, TruckerDropoffs[route][PosX], TruckerDropoffs[route][PosY], TruckerDropoffs[route][PosZ], 5);
 				}
 				case 7:
 				{
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"You hijacked a shipment of illegal materials - watch out for law enforcement!");
+					SendServerMessage(playerid, "You hijacked a shipment of illegal materials - watch out for law enforcement!");
 					SetPlayerCheckpoint(playerid, TruckerDropoffs[route][PosX], TruckerDropoffs[route][PosY], TruckerDropoffs[route][PosZ], 5);
 				}
 			}
-			SendClientMessageEx(playerid, COLOR_REALRED, "WARNING: Watch out for Truck hijackers, they can hijack your truck and get away with the goods.");
+			SendServerMessage(playerid, "Watch out for Truck hijackers, they can hijack your truck and get away with the goods.");
 		}
 		else
 		{
@@ -135,44 +98,44 @@ public HijackTruck(playerid)
 			new route = TruckRoute[vehicleid];
 			switch(TruckContents{vehicleid}) {
 				case 1: {
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"You hijacked a shipment of food & beverages.");
+					SendServerMessage(playerid, "You hijacked a shipment of food & beverages.");
 					SetPlayerCheckpoint(playerid, BoatDropoffs[route][PosX], BoatDropoffs[route][PosY], BoatDropoffs[route][PosZ], 5);
 				}
 				case 2:
 				{
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"You hijacked a shipment of clothing.");
+					SendServerMessage(playerid, "You hijacked a shipment of clothing.");
 					SetPlayerCheckpoint(playerid, BoatDropoffs[route][PosX], BoatDropoffs[route][PosY], BoatDropoffs[route][PosZ], 5);
 				}
 				case 3:
 				{
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"You hijacked a shipment of materials.");
+					SendServerMessage(playerid, "You hijacked a shipment of materials.");
 					SetPlayerCheckpoint(playerid, BoatDropoffs[route][PosX], BoatDropoffs[route][PosY], BoatDropoffs[route][PosZ], 5);
 				}
 				case 4:
 				{
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* You hijacked a shipment of stolen 24/7 items - watch out for law enforcement!");
+					SendServerMessage(playerid, "You hijacked a shipment of stolen 24/7 items - watch out for law enforcement!");
 					SetPlayerCheckpoint(playerid, BoatDropoffs[route][PosX], BoatDropoffs[route][PosY], BoatDropoffs[route][PosZ], 5);
 				}
 				case 5:
 				{
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* You hijacked a shipment of weapons - watch out for law enforcement!");
+					SendServerMessage(playerid, "You hijacked a shipment of weapons - watch out for law enforcement!");
 					SetPlayerCheckpoint(playerid, BoatDropoffs[route][PosX], BoatDropoffs[route][PosY], BoatDropoffs[route][PosZ], 5);
 				}
 				case 6:
 				{
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"You hijacked a shipment of drugs - watch out for law enforcement!");
+					SendServerMessage(playerid, "You hijacked a shipment of drugs - watch out for law enforcement!");
 					SetPlayerCheckpoint(playerid, BoatDropoffs[route][PosX], BoatDropoffs[route][PosY], BoatDropoffs[route][PosZ], 5);
 				}
 				case 7:
 				{
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"You hijacked a shipment of illegal materials - watch out for law enforcement!");
+					SendServerMessage(playerid, "You hijacked a shipment of illegal materials - watch out for law enforcement!");
 					SetPlayerCheckpoint(playerid, BoatDropoffs[route][PosX], BoatDropoffs[route][PosY], BoatDropoffs[route][PosZ], 5);
 				}
-				default: return SendClientMessageEx(playerid, COLOR_GRAD2, "This vehicle is not loaded with hijackable goods.");
+				default: return SendErrorMessage(playerid, "This vehicle is not loaded with hijackable goods.");
 			}
-			SendClientMessageEx(playerid, COLOR_REALRED, "WARNING: Watch out for boat hijackers, they can hijack your boat and get away with the goods.");
+			SendServerMessage(playerid, "WARNING: Watch out for boat hijackers, they can hijack your boat and get away with the goods.");
 		}
-		SendClientMessageEx(playerid, COLOR_WHITE, "Deliver the goods to the specified location (see checkpoint on radar).");
+		SendServerMessage(playerid, "Deliver the goods to the specified location (see checkpoint on radar).");
 	}
 	return 1;
 }
@@ -210,40 +173,40 @@ public LoadTruckOld(playerid)
 			// 7 = illegal materials
 			if(truckdeliver == 1)
 			{
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Your Truck was filled with food & beverages.");
+				SendServerMessage(playerid, "Your Truck was filled with food & beverages.");
 				SetPlayerCheckpoint(playerid, TruckerDropoffs[route][PosX], TruckerDropoffs[route][PosY], TruckerDropoffs[route][PosZ], 5);
 			}
 			else if(truckdeliver == 2)
 			{
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Your Truck was filled with clothing.");
+				SendServerMessage(playerid, "Your Truck was filled with clothing.");
 				SetPlayerCheckpoint(playerid, TruckerDropoffs[route][PosX], TruckerDropoffs[route][PosY], TruckerDropoffs[route][PosZ], 5);
 			}
 			else if(truckdeliver == 3)
 			{
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Your Truck was filled with materials.");
+				SendServerMessage(playerid, "Your Truck was filled with materials.");
 				SetPlayerCheckpoint(playerid, TruckerDropoffs[route][PosX], TruckerDropoffs[route][PosY], TruckerDropoffs[route][PosZ], 5);
 			}
 			else if(truckdeliver == 4)
 			{
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Your Truck was filled with 24/7 items.");
+				SendServerMessage(playerid, "Your Truck was filled with 24/7 items.");
 				SetPlayerCheckpoint(playerid, TruckerDropoffs[route][PosX], TruckerDropoffs[route][PosY], TruckerDropoffs[route][PosZ], 5);
 			}
 			else if(truckdeliver == 5)
 			{
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Your Truck was filled with weapons.");
+				SendServerMessage(playerid, "Your Truck was filled with weapons.");
 				SetPlayerCheckpoint(playerid, TruckerDropoffs[route][PosX], TruckerDropoffs[route][PosY], TruckerDropoffs[route][PosZ], 5);
 			}
 			else if(truckdeliver == 6)
 			{
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Your Truck was filled with drugs.");
+				SendServerMessage(playerid, "Your Truck was filled with drugs.");
 				SetPlayerCheckpoint(playerid, TruckerDropoffs[route][PosX], TruckerDropoffs[route][PosY], TruckerDropoffs[route][PosZ], 5);
 			}
 			else if(truckdeliver == 7)
 			{
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Your Truck was filled with illegal materials.");
+				SendServerMessage(playerid, "Your Truck was filled with illegal materials.");
 				SetPlayerCheckpoint(playerid, TruckerDropoffs[route][PosX], TruckerDropoffs[route][PosY], TruckerDropoffs[route][PosZ], 5);
 			}
-			SendClientMessageEx(playerid, COLOR_REALRED, "WARNING: Watch out for Truck hijackers, they can hijack your truck and get away with the goods.");
+			SendServerMessage(playerid, "WARNING: Watch out for Truck hijackers, they can hijack your truck and get away with the goods.");
 		}
 		else
 		{
@@ -252,46 +215,46 @@ public LoadTruckOld(playerid)
 
 			if(truckdeliver == 1)
 			{
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Your Boat was filled with food & beverages.");
+				SendServerMessage(playerid, "Your Boat was filled with food & beverages.");
 				SetPlayerCheckpoint(playerid, BoatDropoffs[route][PosX], BoatDropoffs[route][PosY], BoatDropoffs[route][PosZ], 5);
 			}
 			else if(truckdeliver == 2)
 			{
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Your Boat was filled with clothing.");
+				SendServerMessage(playerid, "Your Boat was filled with clothing.");
 				SetPlayerCheckpoint(playerid, BoatDropoffs[route][PosX], BoatDropoffs[route][PosY], BoatDropoffs[route][PosZ], 5);
 			}
 			else if(truckdeliver == 3)
 			{
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Your Boat was filled with materials.");
+				SendServerMessage(playerid, "Your Boat was filled with materials.");
 				SetPlayerCheckpoint(playerid, BoatDropoffs[route][PosX], BoatDropoffs[route][PosY], BoatDropoffs[route][PosZ], 5);
 			}
 			else if(truckdeliver == 4)
 			{
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Your Boat was filled with 24/7 items.");
+				SendServerMessage(playerid, "Your Boat was filled with 24/7 items.");
 				SetPlayerCheckpoint(playerid, BoatDropoffs[route][PosX], BoatDropoffs[route][PosY], BoatDropoffs[route][PosZ], 5);
 			}
 			else if(truckdeliver == 5)
 			{
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Your Boat was filled with weapons.");
+				SendServerMessage(playerid, "Your Boat was filled with weapons.");
 				SetPlayerCheckpoint(playerid, BoatDropoffs[route][PosX], BoatDropoffs[route][PosY], BoatDropoffs[route][PosZ], 5);
 			}
 			else if(truckdeliver == 6)
 			{
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Your Boat was filled with drugs.");
+				SendServerMessage(playerid, "Your Boat was filled with drugs.");
 				SetPlayerCheckpoint(playerid, BoatDropoffs[route][PosX], BoatDropoffs[route][PosY], BoatDropoffs[route][PosZ], 5);
 			}
 			else if(truckdeliver == 7)
 			{
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Your Boat was filled with illegal materials.");
+				SendServerMessage(playerid, "Your Boat was filled with illegal materials.");
 				SetPlayerCheckpoint(playerid, BoatDropoffs[route][PosX], BoatDropoffs[route][PosY], BoatDropoffs[route][PosZ], 5);
 			}
-			SendClientMessageEx(playerid, COLOR_REALRED, "WARNING: Watch out for boat hijackers, they can hijack your boat and get away with the goods.");
+			SendServerMessage(playerid, "WARNING: Watch out for boat hijackers, they can hijack your boat and get away with the goods.");
 		}
 		if(truckdeliver >= 5)
 		{
-			SendClientMessageEx(playerid, COLOR_REALRED, "WARNING #2: You are transporting illegal goods so watch out for law enforcement.");
+			SendServerMessage(playerid, "WARNING #2: You are transporting illegal goods so watch out for law enforcement.");
 		}
-		SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Deliver the goods to the specified location (see checkpoint on radar).");
+		SendServerMessage(playerid, "HINT: Deliver the goods to the specified location (see checkpoint on radar).");
 		SetPVarInt(playerid, "tpTruckRunTimer", 30);
 		SetTimerEx("OtherTimerEx", 1000, false, "ii", playerid, TYPE_TPTRUCKRUNTIMER);
 	}
@@ -321,17 +284,17 @@ public LoadTruck(playerid)
 
 		gPlayerCheckpointStatus[playerid] = CHECKPOINT_DELIVERY;
 
-		format(string, sizeof(string), "* Your Truck was filled with %s", GetInventoryType(business));
+		format(string, sizeof(string), "Your Truck was filled with %s", GetInventoryType(business));
 		SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
 
         SetPlayerCheckpoint(playerid, Businesses[business][bSupplyPos][0], Businesses[business][bSupplyPos][1], Businesses[business][bSupplyPos][2], 10.0);
 
-		SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Deliver the goods to the specified location (see checkpoint on radar).");
-		SendClientMessageEx(playerid, COLOR_REALRED, "WARNING: Watch out for truck hijackers, they can hijack your truck and get away with the goods.");
+		SendServerMessage(playerid, "HINT: Deliver the goods to the specified location (see checkpoint on radar).");
+		SendServerMessage(playerid, "WARNING: Watch out for truck hijackers, they can hijack your truck and get away with the goods.");
 
 		if (Businesses[business][bType] == BUSINESS_TYPE_GUNSHOP)
 		{
-			SendClientMessageEx(playerid, COLOR_REALRED, "WARNING #2: You are transporting illegal goods so watch out for law enforcement.");
+			SendServerMessage(playerid, "WARNING #2: You are transporting illegal goods so watch out for law enforcement.");
 		}
 		else if (Businesses[business][bType] == BUSINESS_TYPE_GASSTATION)
 		{
@@ -457,7 +420,7 @@ CMD:checkcargo(playerid, params[])
 {
 	if(PlayerInfo[playerid][pJob] != 20 && PlayerInfo[playerid][pJob2] != 20 && PlayerInfo[playerid][pJob3] != 20 && !IsACop(playerid))
 	{
-        SendClientMessageEx(playerid, COLOR_GRAD2, "You are not a Shipment Contractor or a Cop!");
+        SendErrorMessage(playerid, "You are not a Shipment Contractor or a Cop!");
         return 1;
 	}
 
@@ -467,14 +430,14 @@ CMD:checkcargo(playerid, params[])
 	{
 		if(IsPlayerInAnyVehicle(playerid))
 		{
-			SendClientMessageEx(playerid, COLOR_GRAD1, "You cannot search the contents of this vehicle while inside a vehicle.");
+			SendErrorMessage(playerid, "You cannot search the contents of this vehicle while inside a vehicle.");
 			return 1;
 		}
 		new engine,lights,alarm,doors,bonnet,boot,objective;
 		GetVehicleParamsEx(closestcar,engine,lights,alarm,doors,bonnet,boot,objective);
 		if(boot == VEHICLE_PARAMS_OFF || boot == VEHICLE_PARAMS_UNSET)
 		{
-			SendClientMessageEx(playerid, COLOR_GRAD1, "The vehicle's trunk must be opened in order to search it.");
+			SendErrorMessage(playerid, "The vehicle's trunk must be opened in order to search it.");
 			return 1;
 		}
 
@@ -483,7 +446,7 @@ CMD:checkcargo(playerid, params[])
      	SendClientMessageEx(playerid, COLOR_GREEN,"_______________ SHIPMENT CONTRACTOR LOAD SHEET _______________");
 		if(IsPlayerInVehicle(playerid, closestcar))
   		{
-    		SendClientMessageEx(playerid, COLOR_WHITE, "There is a person in that truck. In order to check the content of the truck, the driver must be removed.");
+    		SendErrorMessage(playerid, "There is a person in that truck. In order to check the content of the truck, the driver must be removed.");
       		return 1;
 		}
 		new iTruckContents = TruckContents{closestcar};
@@ -511,37 +474,37 @@ CMD:checkcargo(playerid, params[])
 
 		if(IsACop(playerid))
 		{
-			SendClientMessageEx(playerid, COLOR_YELLOW, "To remove the illegal goods, type /clearcargo near the truck.");
+			SendErrorMessage(playerid, "To remove the illegal goods, type /clearcargo near the truck.");
 		}
 
 		if(PlayerInfo[playerid][pJob] == 20 || PlayerInfo[playerid][pJob2] == 20 || PlayerInfo[playerid][pJob3] == 20)
 		{
 			if(TruckDeliveringTo[closestcar] > 0 && TruckUsed[playerid] == INVALID_VEHICLE_ID)
 			{
-				SendClientMessageEx(playerid, COLOR_YELLOW, "To deliver the goods, type /hijackcargo as the driver.");
+				SendErrorMessage(playerid, "To deliver the goods, type /hijackcargo as the driver.");
 			}
 			else if(TruckUsed[playerid] == INVALID_VEHICLE_ID)
 			{
-				SendClientMessageEx(playerid, COLOR_YELLOW, "To get goods, type /loadshipment as the driver.");
+				SendServerMessage(playerid, "To get goods, type /loadshipment as the driver.");
 			}
 			else if(TruckUsed[playerid] == closestcar && gPlayerCheckpointStatus[playerid] == CHECKPOINT_RETURNTRUCK)
 			{
-				SendClientMessageEx(playerid, COLOR_YELLOW, "This is your Shipment Transport Vehicle. You have not returned it to the docks yet for your pay.");
+				SendServerMessage(playerid, "This is your Shipment Transport Vehicle. You have not returned it to the docks yet for your pay.");
 			}
 			else if(TruckUsed[playerid] == closestcar)
 			{
-				SendClientMessageEx(playerid, COLOR_YELLOW, "This is your Shipment Transport Vehicle. You have not delivered your goods yet.");
+				SendServerMessage(playerid, "This is your Shipment Transport Vehicle. You have not delivered your goods yet.");
 			}
 			else if(TruckUsed[playerid] != INVALID_VEHICLE_ID)
 			{
-				SendClientMessageEx(playerid, COLOR_YELLOW, "You are already on another delivery. Type /cancel shipment to cancel that delivery.");
+				SendErrorMessage(playerid, "You are already on another delivery. Type /cancel shipment to cancel that delivery.");
 			}
 		}
      	SendClientMessageEx(playerid, COLOR_GREEN,"_________________________________________________________");
     }
 	else
 	{
- 		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not near a Shipment Transport Vehicle.");
+ 		SendErrorMessage(playerid, "You are not near a Shipment Transport Vehicle.");
  	}
     return 1;
 }
@@ -557,35 +520,35 @@ CMD:hijackcargo(playerid, params[])
 	        {
          		if(GetPVarInt(playerid, "LoadTruckTime") > 0)
 	            {
-	                SendClientMessageEx(playerid, COLOR_WHITE, "You are currently loading your Truck!");
+	                SendErrorMessage(playerid, "You are currently loading your Truck!");
 					return 1;
 	            }
 	            if(TruckUsed[playerid] != INVALID_VEHICLE_ID)
 	            {
-	                SendClientMessageEx(playerid, COLOR_WHITE, "You are already on another delivery, type /cancel shipment to cancel that delivery.");
+	                SendErrorMessage(playerid, "You are already on another delivery, type /cancel shipment to cancel that delivery.");
 					return 1;
 	            }
 				if(TruckDeliveringTo[vehicleid] == 0 && TruckContents{vehicleid} == 0)
 				{
-				    SendClientMessageEx(playerid, COLOR_WHITE, "This Truck is empty, it does not contain any goods!");
+				    SendErrorMessage(playerid, "This Truck is empty, it does not contain any goods!");
 				    return 1;
 				}
-				if(IsPlayerInRangeOfPoint(playerid, 65, -1572.767822, 81.137527, 3.554687))
+				if(IsPlayerInRangeOfPoint(playerid, 80, 2416.8245, -2087.0129, 12.3977))
 				{
-				    SendClientMessageEx(playerid, COLOR_WHITE, "You can not hijack when that close to the San Fierro Docks!");
+				    SendErrorMessage(playerid, "You can not hijack when that close to the Willowfield Truck Depot!");
 					return 1;
 				}
 				if(!IsABoat(vehicleid))
 				{
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* You are now attempting to hijack the truck, please wait....");
+					SendServerMessage(playerid, "You are now attempting to hijack the truck, please wait....");
 				} 
 				else 
 				{
 					if(PlayerInfo[playerid][pTruckSkill] >= 200)
 					{
-						SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* You are now attempting to hijack the boat, please wait....");
+						SendServerMessage(playerid, "You are now attempting to hijack the boat, please wait....");
 					}
-					else return SendClientMessageEx(playerid, COLOR_WHITE, "Water shipments are restricted to Level 4+ Shipment Contracter.");
+					else return SendServerMessage(playerid, "Water shipments are restricted to Level 4+ Shipment Contracter.");
 				}
 
 				TogglePlayerControllable(playerid, 0);
@@ -594,11 +557,11 @@ CMD:hijackcargo(playerid, params[])
 				SetPVarInt(playerid, "LoadTruckTime", 10);
 				SetTimerEx("HijackTruck", 1000, 0, "dd", playerid);
 	        }
-	        else return SendClientMessageEx(playerid, COLOR_WHITE, "Please ensure that your current checkpoint is destroyed first (you either have material packages, or another existing checkpoint).");
+	        else return SendServerMessage(playerid, "Please ensure that your current checkpoint is destroyed first (you either have material packages, or another existing checkpoint).");
 	    }
-	    else return SendClientMessageEx(playerid, COLOR_GREY, "You are not driving a Shipment Transport Vehicle!");
+	    else return SendServerMessage(playerid, "You are not driving a Shipment Transport Vehicle!");
 	}
-	else return SendClientMessageEx(playerid, COLOR_GREY, "You are not a Shipment Contractor!");
+	else return SendServerMessage(playerid, "You are not a Shipment Contractor!");
 	return 1;
 }
 
@@ -613,41 +576,41 @@ CMD:loadshipment(playerid, params[])
 	        {
 	            if(GetPVarInt(playerid, "LoadTruckTime") > 0)
 	            {
-	                SendClientMessageEx(playerid, COLOR_WHITE, "You are currently loading the Shipment!");
+	                SendServerMessage(playerid, "You are currently loading the Shipment!");
 					return 1;
 	            }
 	            if(TruckUsed[playerid] != INVALID_VEHICLE_ID)
 	            {
-	                SendClientMessageEx(playerid, COLOR_WHITE, "You are already on another delivery, type /cancel shipment to cancel that delivery.");
+	                SendServerMessage(playerid, "You are already on another delivery, type /cancel shipment to cancel that delivery.");
 					return 1;
 	            }
 				if(TruckContents{vehicleid} != 0)
 				{
-				    return SendClientMessageEx(playerid, COLOR_GRAD2, "That vehicle is already loaded.");
+				    return SendServerMessage(playerid, "That vehicle is already loaded.");
 				}
 				if(TruckDeliveringTo[vehicleid] != INVALID_BUSINESS_ID && TruckContents{vehicleid} == 0)
 				{
-				    return SendClientMessageEx(playerid, COLOR_GRAD2, "That vehicle is already loaded.");
+				    return SendServerMessage(playerid, "That vehicle is already loaded.");
 				}
 				if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 440 || GetVehicleModel(GetPlayerVehicleID(playerid)) == 413) // Level Three Vehicle Check
 				{
 					if(PlayerInfo[playerid][pTruckSkill] < 100) 
 					{
-						return SendClientMessageEx(playerid, COLOR_GRAD2, "Only level 3 Shipment Contractors may use this vehicle.");
+						return SendServerMessage(playerid, "Only level 3 Shipment Contractors may use this vehicle.");
 					}
 				}
 				if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 482) // Level Five Vehicle Check
 				{
 					if(PlayerInfo[playerid][pTruckSkill] < 400)  
 					{
-						return SendClientMessageEx(playerid, COLOR_GRAD2, "Only level 5 Shipment Contractors may use this vehicle.");
+						return SendServerMessage(playerid, "Only level 5 Shipment Contractors may use this vehicle.");
 					}
 				}
 	            if(!IsABoat(vehicleid))
 	            {
-		            SetPlayerCheckpoint(playerid,-1572.767822, 81.137527, 3.554687, 4);
-		            GameTextForPlayer(playerid, "~w~Waypoint set ~r~San Fierro Docks", 5000, 1);
-		            SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Pick up some goods to transport with your Truck at San Fierro Docks (see checkpoint on radar).");
+		            SetPlayerCheckpoint(playerid,2432.0771,-2114.6887,13.6101, 4);
+		            GameTextForPlayer(playerid, "~w~Waypoint set ~r~Willowfield Truck Depot", 5000, 1);
+		            SendServerMessage(playerid, "Pick up some goods to transport with your Truck at Willowfield Truck Depot (see checkpoint on radar).");
 				}
 				else
 				{
@@ -655,17 +618,17 @@ CMD:loadshipment(playerid, params[])
 					{
 						SetPlayerCheckpoint(playerid,2098.6543,-104.3568,-0.4820, 4);
 						GameTextForPlayer(playerid, "~w~Waypoint set ~r~Palamino Docks", 5000, 1);
-						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Pick up some goods to transport with your Boat at Palamino Docks (see checkpoint on radar).");
+						SendServerMessage(playerid, "Pick up some goods to transport with your Boat at Palamino Docks (see checkpoint on radar).");
 					}
 					else return SendClientMessageEx(playerid, COLOR_WHITE, "Water shipments are restricted to Level 4+ Shipment Contracter.");
 				}
 				gPlayerCheckpointStatus[playerid] = CHECKPOINT_LOADTRUCK;
 	        }
-	        else return SendClientMessageEx(playerid, COLOR_WHITE, "Please ensure that your current checkpoint is destroyed first (you either have material packages, or another existing checkpoint).");
+	        else return SendServerMessage(playerid, "Please ensure that your current checkpoint is destroyed first (you either have material packages, or another existing checkpoint).");
 	    }
-	    else return SendClientMessageEx(playerid, COLOR_GREY, "You are not driving a Shipment Transport Vehicle!");
+	    else return SendErrorMessage(playerid, "You are not driving a Shipment Transport Vehicle!");
 	}
-	else return SendClientMessageEx(playerid, COLOR_GREY, "You are not a Shipment Contractor!");
+	else return SendErrorMessage(playerid, "You are not a Shipment Contractor!");
 	return 1;
 }
 

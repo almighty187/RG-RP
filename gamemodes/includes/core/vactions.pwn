@@ -56,6 +56,7 @@ PlayAnimEx(playerid, animlib[], animname[], Float:fDelta, loop, lockx, locky, fr
 	if(!IsPlayerIdle(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "You must stop your current animation!");
 	gPlayerUsingLoopingAnim[playerid] = 1;
 	IsDoingAnim[playerid] = 1;
+	PlayerInfo[playerid][pAnimUse] = 1;
 	ApplyAnimation(playerid, animlib, animname, fDelta, loop, lockx, locky, freeze, time, forcesync);
 	if(!GetPVarType(playerid, "togAnimHelper")) TextDrawShowForPlayer(playerid,txtAnimHelper);
 	return 1;
@@ -63,6 +64,7 @@ PlayAnimEx(playerid, animlib[], animname[], Float:fDelta, loop, lockx, locky, fr
 
 StopLoopingAnim(playerid)
 {
+    PlayerInfo[playerid][pAnimUse] = 0;
 	gPlayerUsingLoopingAnim[playerid] = 0;
     ApplyAnimation(playerid, "CARRY", "crry_prtial", 4.0, 0, 0, 0, 0, 0, 1);
 }
@@ -196,7 +198,7 @@ CMD:stopani(playerid, params[])
 CMD:shakehand(playerid, params[])
 {
 	new string[128], giveplayerid, style;
-	if(sscanf(params, "ud", giveplayerid, style)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /shakehand [player] [style (1-8)]");
+	if(sscanf(params, "ud", giveplayerid, style)) return SendSyntaxMessage(playerid, "/shakehand [playerid/PartOfName] [style (1-8)]");
 
 	if(IsPlayerConnected(giveplayerid) || (PlayerInfo[giveplayerid][pAdmin] >= 2 && PlayerInfo[playerid][pTogReports] == 0))
 	{
@@ -232,7 +234,7 @@ CMD:shakehand(playerid, params[])
 		}
 		else
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /shakehand [player] [style (1-8)]");
+			SendSyntaxMessage(playerid, "/shakehand [playerid/PartOfName] [style (1-8)]");
 		}
 	}
 	else

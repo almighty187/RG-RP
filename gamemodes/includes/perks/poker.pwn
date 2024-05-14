@@ -73,7 +73,7 @@ hook OnPlayerDisconnect(playerid, reason) {
 
 			new tmpString[64];
 			format(tmpString, sizeof(tmpString), "Poker Table %d", tableid);
-			Update3DTextLabelText(PokerTable[tableid][pkrText3DID], COLOR_YELLOW, tmpString);
+			Update3DTextLabelText(PokerTable[tableid][pkrText3DID], COLOR_RG, tmpString);
 
 			ResetPokerTable(tableid);
 		}
@@ -643,7 +643,7 @@ PlacePokerTable(tableid, skipmisc, Float:x, Float:y, Float:z, Float:rx, Float:ry
 	// Create 3D Text Label
 	new szString[64];
 	format(szString, sizeof(szString), "Poker Table %d", tableid);
-	PokerTable[tableid][pkrText3DID] = Create3DTextLabel(szString, COLOR_YELLOW, x, y, z+1.3, DRAWDISTANCE_POKER_MISC, virtualworld, 0);
+	PokerTable[tableid][pkrText3DID] = Create3DTextLabel(szString, COLOR_RG, x, y, z+1.3, DRAWDISTANCE_POKER_MISC, virtualworld, 0);
 
 	return tableid;
 }
@@ -656,7 +656,7 @@ DestroyPokerTable(tableid)
 			if(GetPVarInt(i, "pkrTableID")-1 == tableid)
 			{
 				LeavePokerTable(i);
-				SendClientMessageEx(i, COLOR_YELLOW, "The poker table owner has destroyed the table.");
+				SendClientMessageEx(i, COLOR_RG, "The poker table owner has destroyed the table.");
 			}
 		}	
 
@@ -1695,7 +1695,7 @@ LeavePokerTable(playerid) {
 
 		new tmpString[64];
 		format(tmpString, sizeof(tmpString), "Poker Table %d", tableid);
-		Update3DTextLabelText(PokerTable[tableid][pkrText3DID], COLOR_YELLOW, tmpString);
+		Update3DTextLabelText(PokerTable[tableid][pkrText3DID], COLOR_RG, tmpString);
 
 		ResetPokerTable(tableid);
 	}
@@ -1748,8 +1748,8 @@ LeavePokerTable(playerid) {
 
 CMD:jointable(playerid, params[])
 {
-	if(PlayerInfo[playerid][pConnectHours] < 5) {
-	    SendClientMessageEx(playerid, COLOR_GREY, "You need 5 playing hours to join a poker table.");
+	if(PlayerInfo[playerid][pConnectHours] < 2) {
+	    SendClientMessageEx(playerid, COLOR_GREY, "You need 2 playing hours to join a poker table.");
 	    return 1;
 	}
 	if(GetPVarType(playerid, "pkrTableID") == 0) {
@@ -1759,7 +1759,7 @@ CMD:jointable(playerid, params[])
 					if(!strcmp(params, PokerTable[t][pkrPass], false, 32)) {
 						JoinPokerTable(playerid, t);
 					} else {
-						return SendClientMessage(playerid, COLOR_WHITE, "Usage: /jointable (password)");
+						return SendSyntaxMessage(playerid, "/jointable (password)");
 					}
 				} else {
 					JoinPokerTable(playerid, t);
@@ -1804,7 +1804,7 @@ CMD:placetable(playerid, params[])
 		}	
 
 		format(szMiscArray, sizeof(szMiscArray), "%s has placed a poker table!", GetPlayerNameEx(playerid));
-	    ProxDetector(30.0, playerid, szMiscArray, COLOR_YELLOW,COLOR_YELLOW,COLOR_YELLOW,COLOR_YELLOW,COLOR_YELLOW);
+	    ProxDetector(30.0, playerid, szMiscArray, COLOR_RG,COLOR_RG,COLOR_RG,COLOR_RG,COLOR_RG);
 
 	    new Float:fPos[4];
 	    GetPlayerPos(playerid, fPos[0], fPos[1], fPos[2]);

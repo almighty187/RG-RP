@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Report System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 forward ReplyTimer(reportid);
 public ReplyTimer(reportid)
 {
@@ -200,7 +163,7 @@ CMD:clearallreports(playerid, params[])
         ABroadCast(COLOR_LIGHTRED, string, 2);
     }
     else {
-        SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+        SendClientMessage(playerid, COLOR_LIGHTRED, "You are not authorized to use this CMD.");
     }
     return 1;
 }
@@ -210,7 +173,7 @@ CMD:checkreportcount(playerid, params[])
     if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1)
 	{
 		new string[128], adminname[MAX_PLAYER_NAME], tdate[11];
-		if(sscanf(params, "s[24]s[11]", adminname, tdate)) return SendClientMessageEx(playerid, COLOR_WHITE, "USAGE: /checkreportcount [admin name] [date (YYYY-MM-DD)]");
+		if(sscanf(params, "s[24]s[11]", adminname, tdate)) return SendSyntaxMessage(playerid, "/checkreportcount [admin name] [date (YYYY-MM-DD)]");
 		new giveplayerid = ReturnUser(adminname);
 		if(IsPlayerConnected(giveplayerid) && PlayerInfo[giveplayerid][pAdmin] >= 2)
 		{
@@ -311,7 +274,7 @@ CMD:rmute(playerid, params[])
 	if (PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pAP] >= 2 || PlayerInfo[playerid][pHR] >= 3)
 	{
 		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /rmute [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /rmute [playerid/PartOfName]");
 		if(PlayerInfo[giveplayerid][pAdmin] > 1) return SendClientMessageEx(playerid, COLOR_GREY, "You can't report mute an Admin.");
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -340,7 +303,7 @@ CMD:rmute(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+		SendClientMessage(playerid, COLOR_LIGHTRED, "You are not authorized to use this CMD.");
 	}
 	return 1;
 }
@@ -350,7 +313,7 @@ CMD:rto(playerid, params[])
 	if (PlayerInfo[playerid][pAdmin] >= 3)
 	{
 		new string[512], giveplayerid, reason[64];
-		if(sscanf(params, "us[64]", giveplayerid, reason)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /rto [player] [reason]");
+		if(sscanf(params, "us[64]", giveplayerid, reason)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /rto [playerid/PartOfName] [reason]");
 		if(PlayerInfo[giveplayerid][pAdmin] > 1) return SendClientMessageEx(playerid, COLOR_GREY, "You can't report mute an Admin.");
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -457,7 +420,7 @@ CMD:rto(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+		SendClientMessage(playerid, COLOR_LIGHTRED, "You are not authorized to use this CMD.");
 	}
 	return 1;
 }
@@ -467,7 +430,7 @@ CMD:rtoreset(playerid, params[])
 	if (PlayerInfo[playerid][pAdmin] >= 3)
 	{
 		new string[128], giveplayerid, reason[64];
-		if(sscanf(params, "us[64]", giveplayerid, reason)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /rtoreset [player] [reason]");
+		if(sscanf(params, "us[64]", giveplayerid, reason)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /rtoreset [playerid/PartOfName] [reason]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -492,7 +455,7 @@ CMD:rtoreset(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+		SendClientMessage(playerid, COLOR_LIGHTRED, "You are not authorized to use this CMD.");
 	}
 	return 1;
 }
@@ -644,9 +607,9 @@ CMD:sta(playerid, params[])
 			DeletePVar(Reports[reportid][ReportFrom], "AlertType");
 			if(AlertTime[Reports[reportid][ReportFrom]] != 0) AlertTime[Reports[reportid][ReportFrom]] = 0;
 		}
-		if(Advisors < 1)
+		if(Helpers < 1)
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "There are no Advisors On Duty at the moment, try again later!");
+			SendClientMessageEx(playerid, COLOR_GREY, "There are no Helpers On Duty at the moment, try again later!");
 			return 1;
 		}
 

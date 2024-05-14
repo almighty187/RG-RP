@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Storage System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 #include <YSI\y_hooks>
 
 stock ShowStorageEquipDialog(playerid)
@@ -1751,7 +1714,7 @@ CMD:trunkput(playerid, params[])
 	if(GetPVarInt(playerid, "EMSAttempt") != 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "You can't use this command!");
 
 	new string[128], weaponchoice[32], slot;
-	if(sscanf(params, "s[32]D(0)", weaponchoice, slot)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /trunkput [weapon] [slot]");
+	if(sscanf(params, "s[32]D(0)", weaponchoice, slot)) return SendSyntaxMessage(playerid, "/trunkput [weapon] [slot]");
 
 	new pvid = -1, Float: x, Float: y, Float: z;
 
@@ -2064,7 +2027,7 @@ CMD:trunktake(playerid, params[]) {
 						format(szMessage, sizeof(szMessage), "Slot %d: %s", s+1, szWeapon);
 						SendClientMessageEx(playerid, COLOR_WHITE, szMessage);
 					}
-					return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /trunktake [slot]");
+					return SendSyntaxMessage(playerid, "/trunktake [slot]");
 				}
 				else if(GetVehicleModel(PlayerVehicleInfo[playerid][d][pvId]) == 481 || GetVehicleModel(PlayerVehicleInfo[playerid][d][pvId]) == 509) {
 					return SendClientMessageEx(playerid,COLOR_GREY,"That vehicle doesn't have a trunk.");
@@ -2123,7 +2086,7 @@ CMD:storegun(playerid, params[])
 		if(GetPVarInt( playerid, "EventToken") != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use this while you're in an event.");
 		if(GetPVarType(playerid, "PlayerCuffed") || GetPVarInt(playerid, "pBagged") >= 1 || GetPVarType(playerid, "Injured") || GetPVarType(playerid, "IsFrozen")) return SendClientMessage(playerid, COLOR_GRAD2, "You can't do that at this time!");
 		new string[128], weaponchoice[32], slot;
-		if(sscanf(params, "s[32]d", weaponchoice, slot)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /storegun [weapon] [slot]");
+		if(sscanf(params, "s[32]d", weaponchoice, slot)) return SendSyntaxMessage(playerid, "/storegun [weapon] [slot]");
 
 		for(new i; i < MAX_HOUSES; i++)
 		{
@@ -2316,7 +2279,7 @@ CMD:getgun(playerid, params[])
 						}
 					}
 					SendClientMessageEx(playerid, COLOR_GREEN, "________________________________________________");
-					SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /getgun [slot]");
+					SendSyntaxMessage(playerid, "/getgun [slot]");
 					return 1;
 				}
 
@@ -2915,7 +2878,7 @@ CMD:drop(playerid, params[])
 	new string[128], amount, choice[32];
 	if(sscanf(params, "s[32]D(0)", choice, amount))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /drop [name] [(optional) amount]");
+		SendSyntaxMessage(playerid, "/drop [name] [(optional) amount]");
 		SendClientMessageEx(playerid, COLOR_GREY, "Available names: Weapons, Materials, Packages, Radio, Pizza, Syringes, Backpack, Phone");
 		SendClientMessageEx(playerid, COLOR_GREY, "Available names: Pot, Crack, Meth, Ecstasy, Heroin");
 		return 1;
@@ -3135,7 +3098,7 @@ CMD:drop(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /drop [name] [(optional) amount]");
+		SendSyntaxMessage(playerid, "/drop [name] [(optional) amount]");
 		SendClientMessageEx(playerid, COLOR_GREY, "Available names: Weapons, Materials, Packages, Radio, Pizza, Syringes, Backpack, Phone");
 		return SendClientMessageEx(playerid, COLOR_GREY, "Available names: Pot, Crack, Meth, Ecstasy, Heroin");
 	}
@@ -3147,7 +3110,7 @@ CMD:show(playerid, params[])
 	new string[128], giveplayerid, choice[32];
 	if(sscanf(params, "us[32]", giveplayerid, choice))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /show [player] [name]");
+		SendSyntaxMessage(playerid, "/show [playerid/PartOfName] [name]");
 		SendClientMessageEx(playerid, COLOR_GREY, "Available names: Pot, Crack, Meth, Ecstasy, Heroin, Materials, Credits");
 		return 1;
 	}
@@ -3304,7 +3267,7 @@ CMD:sell(playerid, params[])
 	new string[128], giveplayerid, choice[32], amount, price;
     if(sscanf(params, "us[32]dd", giveplayerid, choice, amount, price))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /sell [player] [name] [amount] [price]");
+		SendSyntaxMessage(playerid, "/sell [playerid/PartOfName] [name] [amount] [price]");
 		SendClientMessageEx(playerid, COLOR_GREY, "Available names: Pot, Crack, Materials, Firework, Syringes, Rawopium, Heroin, RimKit, Carvoucher, PVIPVoucher");
 		return 1;
 	}

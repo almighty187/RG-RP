@@ -1,41 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Casefile System
-							Winterfield
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 #include <YSI\y_hooks>
 
 CMD:casefile(playerid, params[])
@@ -92,7 +54,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if(strlen(inputtext) == 0)
 				{
-					SendClientMessage(playerid, -1, "You have reset the casefile name.");
+					SendServerMessage(playerid, "You have reset the casefile name.");
 					DeletePVar(playerid, "CasefileName");
 				}
 				szMiscArray[0] = 0;
@@ -113,7 +75,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(strlen(inputtext) == 0)
 				{
 					DeletePVar(playerid, "CasefileInfo");
-					return SendClientMessage(playerid, -1, "You have reset the casefile information.");
+					return SendServerMessage(playerid, "You have reset the casefile information.");
 				}
 				else if(strlen(inputtext) < 257)
 				{
@@ -173,7 +135,7 @@ public OnCasefileName(playerid)
 		else 
 		{
 			DeletePVar(playerid, "CasefileName");
-			return SendClientMessageEx(playerid, COLOR_WHITE, "This name does not exist.");
+			return SendErrorMessage(playerid, "This name does not exist.");
 		}
 	}
 	else DeletePVar(playerid, "CasefileName");
@@ -216,7 +178,7 @@ public OnCasefileList(playerid)
 				SendClientMessageEx(playerid, COLOR_GREY, szMiscArray);
 			}
 		}
-		else return SendClientMessageEx(playerid, COLOR_WHITE, "Your group does not have any casefiles.");
+		else return SendErrorMessage(playerid, "Your group does not have any casefiles.");
 	}
 	return 1;
 }

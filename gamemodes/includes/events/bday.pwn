@@ -1,49 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-
-	Developers:
-		(***) Austin
-
-
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-	-- 
-
-	This is a module, not a filterscript.
-
-	VERSION: 0.1
-
-*/
-
 new Float:_t_Pos[3];
 new _t_zone;
 new Float:_t_scatter[7][3] = {
@@ -84,10 +38,10 @@ _t_ableTo(playerid)
 	}
 	new animlib[32],tmp[32];
 	GetAnimationName(GetPlayerAnimationIndex(playerid),animlib,32,tmp,32);
-	if(!strcmp(animlib, "SWIM")) return SendClientMessageEx(playerid, COLOR_GRAD2, "You cannot use this command while swimming!"), 0;
+	if(!strcmp(animlib, "SWIM")) return SendErrorMessage(playerid, "You cannot use this command while swimming!"), 0;
 	if(IsPlayerInAnyVehicle(playerid) == 1)
 	{
-		SendClientMessage(playerid, COLOR_GRAD2, "You cannot use this whilst in a vehicle.");
+		SendErrorMessage(playerid, "You cannot use this whilst in a vehicle.");
 		return 0;
 	}
 	new string[128];
@@ -121,11 +75,11 @@ CMD:dig(playerid, params[])
 			_t_resetTreasure();
 		}
 		else {
-			SendClientMessageEx(playerid, COLOR_GRAD2, "Sorry! Seems you did not find it this time around.");
+			SendErrorMessage(playerid, "Sorry! Seems you did not find it this time around.");
 		}
 	}
 	else {
-		SendClientMessageEx(playerid, COLOR_GRAD2, "You must be in the digging area at the beach to use this command!");
+		SendErrorMessage(playerid, "You must be in the digging area at the beach to use this command!");
 	}
 	return 1;
 }

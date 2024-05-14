@@ -13,7 +13,7 @@ CMD:watch(playerid, params[])
 	if(isnull(params))
 	{
 	    // VIP gold room needs to be fixed
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /watch [location] (or /watch off)");
+		SendSyntaxMessage(playerid, "/watch [location] (or /watch off)");
 		SendClientMessageEx(playerid, COLOR_GRAD2, "General locations: gym, lspd, allsaints, countygen, grove, tgb, bank, motel, cityhall, mall");
         SendClientMessageEx(playerid, COLOR_GRAD2, "VIP locations: lsvip, sfvip, loungeview1, loungeview2, goldlounge, vipgarage");
         SendClientMessageEx(playerid, COLOR_GRAD2, "Point locations: mp1, df, mf1, dh, mp2, cl, mf2, sfd, ffc");

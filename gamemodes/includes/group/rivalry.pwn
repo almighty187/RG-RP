@@ -89,7 +89,7 @@ Rivalry_Toggle(playerid, bool:bState) {
 
 CMD:aviewrivals(playerid, params[]) {
 
-	if(!IsAdminLevel(playerid, ADMIN_GENERAL)) return 1;
+	if(!IsAdminLevel(playerid, ADMIN_GAME)) return 1;
 	szMiscArray[0] = 0;
 	szMiscArray = "Gang\tRival";
 	for(new i; i < MAX_GROUP_RIVALS; ++i) {
