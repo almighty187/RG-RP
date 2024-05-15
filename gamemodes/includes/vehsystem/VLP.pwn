@@ -188,6 +188,7 @@ CMD:pickveh(playerid, params[])
 					ShowVLPTextDraws(playerid, vehicleid);
 					GetVehicleZAngle(vehicleid, a);
 					SetPlayerFacingAngle(playerid, a-90);
+					PlayerInfo[playerid][pAnimUse] = 1;
 					ApplyAnimation(playerid, "COP_AMBIENT", "Copbrowse_loop", 4.1, 1, 0, 0, 0, 0, 1);
 					new ip[MAX_PLAYER_NAME], ip2[MAX_PLAYER_NAME];
 					GetPlayerIp(playerid, ip, sizeof(ip));
@@ -258,6 +259,7 @@ CMD:cracktrunk(playerid, params[])
 			ShowVLPTextDraws(playerid, vehicleid, 1);
 			GetVehicleZAngle(vehicleid, z);
 			SetPlayerFacingAngle(playerid, z);
+			PlayerInfo[playerid][pAnimUse] = 1;
 			ApplyAnimation(playerid, "COP_AMBIENT", "Copbrowse_loop", 4.1, 1, 0, 0, 0, 0, 1);
 			if(GetPVarType(playerid, "LockPickVehicleSQLId")) {
 				new ip[MAX_PLAYER_NAME];
@@ -302,6 +304,7 @@ CMD:stoplockpick(playerid, params[])
 			PlayerVehicleInfo[GetPVarInt(playerid, "LockPickPlayer")][slot][pvBeingPickLocked] = 0;
 			PlayerVehicleInfo[GetPVarInt(playerid, "LockPickPlayer")][slot][pvBeingPickLockedBy] = INVALID_PLAYER_ID;
 		}
+		PlayerInfo[playerid][pAnimUse] = 0;
 		DeletePVar(playerid, "LockPickVehicle");
 		DeletePVar(playerid, "LockPickPlayer");
 		DestroyVLPTextDraws(playerid);
@@ -317,6 +320,7 @@ CMD:stopcracking(playerid, params[])
 		DeletePVar(playerid, "AttemptingCrackTrunk");
 		DeletePVar(playerid, "CrackTrunkCountdown");
 		DestroyVLPTextDraws(playerid);
+		PlayerInfo[playerid][pAnimUse] = 0;
 		ClearAnimationsEx(playerid, 1);
 		SendClientMessageEx(playerid, COLOR_WHITE, "You have successfully prevented yourself from this lock pick.");
 	}
