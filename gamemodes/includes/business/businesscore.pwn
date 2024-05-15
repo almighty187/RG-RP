@@ -1,45 +1,8 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Business System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 #include <YSI\y_hooks>
 
 hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
 
-	if(newkeys & KEY_YES && InBusiness(playerid) != INVALID_BUSINESS_ID) {
+	if(newkeys & KEY_NO && InBusiness(playerid) != INVALID_BUSINESS_ID) {
 		if(IsAt247(playerid)) return cmd_buy(playerid, "");
 		else if(IsAtRestaurant(playerid)) return cmd_buyfood(playerid, "");
 		else if(IsAtClothingStore(playerid)) return cmd_buyclothes(playerid, "");
@@ -476,37 +439,50 @@ stock CreateDynamicGasPump(iPlayerID = INVALID_PLAYER_ID, iBusiness, iPump)
 		Businesses[iBusiness][GasPumpAngle][iPump] = arr_fPos[3];
 	}
 	new szLabel[148];
-	Businesses[iBusiness][GasPumpObjectID][iPump] = CreateDynamicObject(1676, Businesses[iBusiness][GasPumpPosX][iPump], Businesses[iBusiness][GasPumpPosY][iPump], Businesses[iBusiness][GasPumpPosZ][iPump], 0, 0, Businesses[iBusiness][GasPumpAngle][iPump], .worldid = 0, .streamdistance = 100);
-	format(szLabel, sizeof(szLabel), "{33AA33}Gas Pump\nID: %d\n{FFFF00}Type '/refuel' to refill your vehicle's tank.", iPump);
-	Businesses[iBusiness][GasPumpInfoTextID][iPump] = CreateDynamic3DTextLabel(szLabel, COLOR_YELLOW, Businesses[iBusiness][GasPumpPosX][iPump], Businesses[iBusiness][GasPumpPosY][iPump], Businesses[iBusiness][GasPumpPosZ][iPump] - 0.3, 10.00);
+	Businesses[iBusiness][GasPumpObjectID][iPump] = CreateDynamicObject(3465, Businesses[iBusiness][GasPumpPosX][iPump], Businesses[iBusiness][GasPumpPosY][iPump], Businesses[iBusiness][GasPumpPosZ][iPump], 0, 0, Businesses[iBusiness][GasPumpAngle][iPump], .worldid = 0, .streamdistance = 100);
+	format(szLabel, sizeof(szLabel), "{33AA33}Gas Pump\nID: %d\n{0022aa}Type '/refuel' to refill your vehicle's tank.", iPump);
+	Businesses[iBusiness][GasPumpInfoTextID][iPump] = CreateDynamic3DTextLabel(szLabel, COLOR_WHITE, Businesses[iBusiness][GasPumpPosX][iPump], Businesses[iBusiness][GasPumpPosY][iPump], Businesses[iBusiness][GasPumpPosZ][iPump] - 0.3, 10.00);
 	format(szLabel, sizeof(szLabel), "Price Per Gallon: $%.2f\nThis Sale: $0.00\nGallons: 0.000\nGas Available: %.2f/%.2f gallons", Businesses[iBusiness][bGasPrice], Businesses[iBusiness][GasPumpGallons][iPump], Businesses[iBusiness][GasPumpCapacity][iPump]);
-	Businesses[iBusiness][GasPumpSaleTextID][iPump] = CreateDynamic3DTextLabel(szLabel, COLOR_YELLOW, Businesses[iBusiness][GasPumpPosX][iPump], Businesses[iBusiness][GasPumpPosY][iPump], Businesses[iBusiness][GasPumpPosZ][iPump] + 0.7, 10.00);
+	Businesses[iBusiness][GasPumpSaleTextID][iPump] = CreateDynamic3DTextLabel(szLabel, COLOR_WHITE, Businesses[iBusiness][GasPumpPosX][iPump], Businesses[iBusiness][GasPumpPosY][iPump], Businesses[iBusiness][GasPumpPosZ][iPump] + 0.7, 10.00);
 }
 
 stock RefreshBusinessPickup(i)
 {
-	DestroyDynamic3DTextLabel(Businesses[i][bDoorText]);
-  	DestroyDynamic3DTextLabel(Businesses[i][bStateText]);
+	//DestroyDynamic3DTextLabel(Businesses[i][bDoorText]);
+  	//DestroyDynamic3DTextLabel(Businesses[i][bStateText]);
   	DestroyDynamic3DTextLabel(Businesses[i][bSupplyText]);
 
   	#if defined TEXTLABEL_DEBUG
-	Streamer_SetIntData(STREAMER_TYPE_3D_TEXT_LABEL, Businesses[i][bDoorText], E_STREAMER_EXTRA_ID, 2);
-	Streamer_SetIntData(STREAMER_TYPE_3D_TEXT_LABEL, Businesses[i][bStateText], E_STREAMER_EXTRA_ID, 3);
+	//Streamer_SetIntData(STREAMER_TYPE_3D_TEXT_LABEL, Businesses[i][bDoorText], E_STREAMER_EXTRA_ID, 2);
+	//Streamer_SetIntData(STREAMER_TYPE_3D_TEXT_LABEL, Businesses[i][bStateText], E_STREAMER_EXTRA_ID, 3);
 	Streamer_SetIntData(STREAMER_TYPE_3D_TEXT_LABEL, Businesses[i][bSupplyText], E_STREAMER_EXTRA_ID, 4);
 	#endif
 
 
-  	DestroyDynamicPickup(Businesses[i][bPickup]);
+  	//DestroyDynamicPickup(Businesses[i][bPickup]);
   	DestroyDynamicPickup(Businesses[i][bPickup_int]);
+  	DestroyDynamicMapIcon(Businesses[i][bMIcon]);
+  	CreateDynamicMapIcon(Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2], Businesses[i][bMapIcon], COLOR_YELLOW);
   	if(IsValidDynamicArea(Businesses[i][bAreaID][0])) DestroyDynamicArea(Businesses[i][bAreaID][0]);
   	if(IsValidDynamicArea(Businesses[i][bAreaID][1])) DestroyDynamicArea(Businesses[i][bAreaID][1]);
     
     if (!(Businesses[i][bExtPos][0] == 0.0 && Businesses[i][bExtPos][1] == 0.0 && Businesses[i][bExtPos][2] == 0.0)) {
 
-		Businesses[i][bPickup] = CreateDynamicPickup(GetBusinessDefaultPickup(i), 23, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2]);
+		//Businesses[i][bPickup] = CreateDynamicPickup(GetBusinessDefaultPickup(i), 23, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2]);
 		Businesses[i][bAreaID][0] = CreateDynamicSphere(Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2], 2.5);
 
-        if (Businesses[i][bOwner] < 1) {
+        if (Businesses[i][bOwned] == 0) {
+			DestroyDynamicPickup(Businesses[i][bPickup]);
+        	Businesses[i][bPickup] = CreateDynamicPickup(1274, 23, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2]);
+	    	DestroyDynamic3DTextLabel(Businesses[i][bDoorText]);
+	    	Businesses[i][bDoorText] = CreateDynamic3DTextLabel("{FFFFFF}[{3366FF}Business{FFFFFF}]", 0x0080FFFF, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2] + 0.75, 25.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1, 100.0);
+        } else if (Businesses[i][bOwned] == 1) {
+        	DestroyDynamicPickup(Businesses[i][bPickup]);
+            Businesses[i][bPickup] = CreateDynamicPickup(1239, 23, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2]);
+	    	DestroyDynamic3DTextLabel(Businesses[i][bDoorText]);
+	    	Businesses[i][bDoorText] = CreateDynamic3DTextLabel("{FFFFFF}[{3366FF}Business{FFFFFF}]", 0x0080FFFF, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2] + 0.75, 25.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1, 100.0);
+ 		}
+        /*if (Businesses[i][bOwner] < 1) {
 			format(szMiscArray,sizeof(szMiscArray),"%s\n\nBusiness For Sale!\nCost: %s\nID: %d", GetBusinessTypeName(Businesses[i][bType]), number_format(Businesses[i][bValue]), i);
 		}
 		else {
@@ -518,7 +494,7 @@ stock RefreshBusinessPickup(i)
 			}
 		}
 		Businesses[i][bDoorText] =	CreateDynamic3DTextLabel(szMiscArray, BUSINESS_NAME_COLOR, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2] + 0.85, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1);
-		Businesses[i][bStateText] =	CreateDynamic3DTextLabel((Businesses[i][bStatus]) ? ("Open") : ("Closed"), (Businesses[i][bStatus]) ? BUSINESS_OPEN_COLOR : BUSINESS_CLOSED_COLOR, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2] + 1.05, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1);
+		Businesses[i][bStateText] =	CreateDynamic3DTextLabel((Businesses[i][bStatus]) ? ("Open") : ("Closed"), (Businesses[i][bStatus]) ? BUSINESS_OPEN_COLOR : BUSINESS_CLOSED_COLOR, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2] + 1.05, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1);*/
 		if(Businesses[i][bSupplyPos][0] != 0.0)
 		{
 			format(szMiscArray,sizeof(szMiscArray),"%s\nSupply Delivery Point", Businesses[i][bName]);
@@ -547,7 +523,7 @@ stock RefreshBusinessPickup(i)
 }
 
 
-stock GetBusinessDefaultPickup(business)
+/*stock GetBusinessDefaultPickup(business)
 {
 	switch (Businesses[business][bType]) {
 		case BUSINESS_TYPE_GASSTATION: return 1650;
@@ -566,7 +542,7 @@ stock GetBusinessDefaultPickup(business)
 		default: return 1274;
 	}
 	return 1318;
-}
+}*/
 
 stock GetBusinessRankName(rank)
 {
@@ -600,6 +576,7 @@ stock GetBusinessTypeName(type)
 		case 11: string = "Sex Shop";
 		case 12: string = "Gym";
 		case 13: string = "Casino";
+		case 14: string = "Fast Food";
 		default: string = "Undefined";
 	}
 	return string;
@@ -733,7 +710,7 @@ public GasPumpSaleTimer(playerid, iBusinessID, iPumpID)
 	Businesses[iBusinessID][GasPumpSalePrice][iPumpID] += fPumpAmount * Businesses[iBusinessID][bGasPrice];
 
 	format(szSaleText,sizeof(szSaleText),"Price Per Gallon: $%.2f\nThis Sale: $%.2f\nGallons: %.3f\nGas Available: %.2f/%.2f gallons", Businesses[iBusinessID][bGasPrice], Businesses[iBusinessID][GasPumpSalePrice][iPumpID], Businesses[iBusinessID][GasPumpSaleGallons][iPumpID], Businesses[iBusinessID][GasPumpGallons][iPumpID], Businesses[iBusinessID][GasPumpCapacity][iPumpID]);
-	UpdateDynamic3DTextLabelText(Businesses[iBusinessID][GasPumpSaleTextID][iPumpID], COLOR_YELLOW, szSaleText);
+	UpdateDynamic3DTextLabelText(Businesses[iBusinessID][GasPumpSaleTextID][iPumpID], COLOR_WHITE, szSaleText);
 	return 1;
 }
 
@@ -1213,10 +1190,10 @@ CMD:entrancefee(playerid, params[])
 	else {
 		new amount;
 		if(sscanf(params, "d", amount)) {
-			return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /entrancefee [Price]");
+			return SendSyntaxMessage(playerid, "/entrancefee [Price]");
 		}
-		else if(amount < 0 || amount > 10000) {
-			return SendClientMessageEx(playerid, COLOR_GREY, "The price can't be set the price below $0 and above $10,000.");
+		else if(amount < 0 || amount > 500) {
+			return SendClientMessageEx(playerid, COLOR_GREY, "The price can't be set the price below $0 and above $500.");
 		}
 
 		else {
@@ -1248,7 +1225,7 @@ CMD:editcarprice(playerid, params[])
 	else {
 		new vehicleid, amount;
 		if(sscanf(params, "dd", vehicleid, amount)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editcarprice [VehicleID] [Price]");
+			SendSyntaxMessage(playerid, "/editcarprice [VehicleID] [Price]");
 		}
 		else if(PlayerInfo[playerid][pBusiness] != GetCarBusiness(vehicleid)) {
 			SendClientMessageEx(playerid, COLOR_GREY, "That vehicle is not part of your dealership.");
@@ -1281,7 +1258,7 @@ CMD:deletecdveh(playerid, params[]) {
 			iVehicle;
 
 		if(sscanf(params, "ii", iBusiness, iVehicle )) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /deletecdveh [business ID] [model id]");
+			SendSyntaxMessage(playerid, "/deletecdveh [business ID] [model id]");
 		}
 		else if(Businesses[iBusiness][bType] != BUSINESS_TYPE_NEWCARDEALERSHIP && Businesses[iBusiness][bType] != BUSINESS_TYPE_OLDCARDEALERSHIP) {
 			SendClientMessageEx(playerid, COLOR_GRAD2, "Business is not a car dealership!");
@@ -1323,7 +1300,7 @@ CMD:createcdveh(playerid, params[]) {
 			iColors[2];
 
 		if(sscanf(params, "iiii", iBusiness, iVehicle, iColors[0], iColors[1])) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /createcdveh [business ID] [model id] [color 1] [color 2]");
+			SendSyntaxMessage(playerid, "/createcdveh [business ID] [model id] [color 1] [color 2]");
 		}
 		else if(!(400 <= iVehicle <= 611)) {
 			SendClientMessageEx(playerid, COLOR_GRAD2, "Invalid model specified (model IDs start at 400, and end at 611).");
@@ -1378,7 +1355,7 @@ CMD:switchbiz(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 3 || PlayerInfo[playerid][pBM] >= 1)
 	{
 		new string[128], bizid;
-		if(sscanf(params, "d", bizid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /switchbiz [bizid]");
+		if(sscanf(params, "d", bizid)) return SendSyntaxMessage(playerid, "/switchbiz [bizid]");
 		if(bizid < 1 || bizid > MAX_BUSINESSES) return SendClientMessageEx(playerid, COLOR_WHITE, "Invalid business ID.");
 		format(string, sizeof(string), "You have switched to business ID %d (%s).", bizid, Businesses[bizid][bName]);
 		SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
@@ -1401,7 +1378,7 @@ CMD:brenewal(playerid, params[])
 			months;
 
 		if(sscanf(params, "dddd", iBusiness, iType, months, iOrderID)) {
-		    SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /brenewal [Business ID] [Type (1-3)] [Months] [OrderID]");
+		    SendSyntaxMessage(playerid, "/brenewal [Business ID] [Type (1-3)] [Months] [OrderID]");
 		}
 		else if(!IsValidBusinessID(iBusiness)) {
 		    SendClientMessageEx(playerid, COLOR_GREY, "Invalid business ID");
@@ -1433,7 +1410,7 @@ CMD:shopbusiness(playerid, params[])
 	new string[128], choice[32], businessid, amount, invoice[64];
 	if(sscanf(params, "s[32]dDs[64]", choice, businessid, amount, invoice))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /shopbusiness [name] [business ID] [Amount] [invoice #]");
+		SendSyntaxMessage(playerid, "/shopbusiness [name] [business ID] [Amount] [invoice #]");
 		SendClientMessageEx(playerid, COLOR_GREY, "Available names: Exterior, Interior, SupplyPoint, Price, Type, Inventory, InventoryCapacity, Delete");
 		SendClientMessageEx(playerid, COLOR_GREY, "Available names: CustomInterior, CustomExterior, Months, VW, grade");
 		return 1;
@@ -1609,7 +1586,7 @@ CMD:shopbusinessname(playerid, params[])
 	}
 
 	new string[128], houseid, ownername, invoice[64];
-	if(sscanf(params, "dus[64]", houseid, ownername, invoice)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /shopbusinessname [Business ID] [Player] [invoice]");
+	if(sscanf(params, "dus[64]", houseid, ownername, invoice)) return SendSyntaxMessage(playerid, "/shopbusinessname [Business ID] [playerid/PartOfName] [invoice]");
 
 	if(!IsPlayerConnected(ownername)) {
     	return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
@@ -1654,7 +1631,7 @@ CMD:buyclothes(playerid, params[])
     new string[64];
     format(string, sizeof(string), "Note: Clothes changes cost %s", number_format(Businesses[biz][bItemPrices][0]));
     SetPVarInt(playerid, "SkinChangeCost", Businesses[biz][bItemPrices][0]);
-	SendClientMessageEx(playerid, COLOR_YELLOW, string);
+	SendClientMessageEx(playerid, COLOR_WHITE, string);
 	if(PlayerInfo[playerid][mInventory][13] && PlayerInfo[playerid][pDonateRank] < 2) SendClientMessageEx(playerid, -1, "You have Restricted Skin tokens in your inventory, if you select a restricted skin you will use a token and no additional fees will come.");
 	ShowModelSelectionMenu(playerid, SkinList, "Change your clothes.");
 	return 1;
@@ -1720,7 +1697,7 @@ CMD:binvite(playerid, params[]) {
 			string[128];
 
 		if(sscanf(params, "u", iTargetID)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /binvite [player]");
+			SendSyntaxMessage(playerid, "/binvite [playerid/PartOfName]");
 		}
 		else if(IsPlayerConnected(iTargetID)) {
 		    if (iTargetID != playerid) {
@@ -1756,7 +1733,7 @@ CMD:buninvite(playerid, params[]) {
 			iGroupID = PlayerInfo[playerid][pBusiness];
 
 		if(sscanf(params, "u", iTargetID)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /buninvite [player]");
+			SendSyntaxMessage(playerid, "/buninvite [playerid/PartOfName]");
 		}
 		else if(IsPlayerConnected(iTargetID)) {
 			if(iGroupID == PlayerInfo[iTargetID][pBusiness]) {
@@ -1796,7 +1773,7 @@ CMD:buninvite(playerid, params[]) {
 CMD:bouninvite(playerid, params[])
 {
 	new name[32], query[128];
-	if (sscanf(params, "s[32]", name)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /bouninvite [account name]");
+	if (sscanf(params, "s[32]", name)) return SendSyntaxMessage(playerid, "/bouninvite [account name]");
     if(PlayerInfo[playerid][pBusiness] == INVALID_BUSINESS_ID) {
 		SendClientMessageEx(playerid, COLOR_GREY, "You don't own a business.");
 		return 1;
@@ -1819,7 +1796,7 @@ CMD:bgiverank(playerid, params[])
 		return SendClientMessageEx(playerid, COLOR_GREY, "You are not in a business!");
 	}
 	if(sscanf(params, "ud", targetid, rank)) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /bgiverank [player] [rank]");
+		return SendSyntaxMessage(playerid, "/bgiverank [playerid/PartOfName] [rank]");
 	}
 	else if (PlayerInfo[playerid][pBusinessRank] < Businesses[PlayerInfo[playerid][pBusiness]][bMinGiveRankRank]) {
 		return SendClientMessageEx(playerid, COLOR_GREY, "Your rank is not high enough for promoting or demoting someone!");
@@ -1882,7 +1859,7 @@ CMD:bsafe(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_GREY, "You don't own a business.");
 		return 1;
 	}
-	else if(!IsPlayerInRangeOfPoint(playerid, 25.0, Businesses[PlayerInfo[playerid][pBusiness]][bIntPos][0], Businesses[PlayerInfo[playerid][pBusiness]][bIntPos][1], Businesses[PlayerInfo[playerid][pBusiness]][bIntPos][2])) {
+	else if(!IsPlayerInRangeOfPoint(playerid, 100.0, Businesses[PlayerInfo[playerid][pBusiness]][bIntPos][0], Businesses[PlayerInfo[playerid][pBusiness]][bIntPos][1], Businesses[PlayerInfo[playerid][pBusiness]][bIntPos][2])) {
 		SendClientMessageEx(playerid, COLOR_GREY, "You need to be inside your business to access your business safe.");
 		return 1;
 	}
@@ -1893,7 +1870,7 @@ CMD:bsafe(playerid, params[])
 	else {
 	    new choice[10], Amount, string[256];
 	    if(sscanf(params, "s[10]D", choice, Amount)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /bsafe [name] [amount]");
+			SendSyntaxMessage(playerid, "/bsafe [name] [amount]");
 			SendClientMessageEx(playerid, COLOR_GREY, "Available names: Balance, Withdraw, Deposit");
 			return 1;
 		}
@@ -1929,10 +1906,10 @@ CMD:bsafe(playerid, params[])
 		    if(GetPlayerCash(playerid) >= Amount) {
 		    	format(string, sizeof(string), "You have deposited $%s into your business safe.", number_format(Amount));
 		    	SendClientMessageEx(playerid, COLOR_WHITE, string);
+		    	Businesses[PlayerInfo[playerid][pBusiness]][bSafeBalance] += Amount;
 		    	format(string, sizeof(string), "Business(%d) Safe Balance: $%s", PlayerInfo[playerid][pBusiness], number_format(Businesses[PlayerInfo[playerid][pBusiness]][bSafeBalance]));
 		    	SendClientMessageEx(playerid, COLOR_WHITE, string);
 		    	format(string,sizeof(string),"%s(%d) (IP: %s) has deposited $%s into their business safe (BusinessID - %d)[PT: $%s][NT: $%s]",GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), GetPlayerIpEx(playerid), number_format(Amount), PlayerInfo[playerid][pBusiness], number_format(Businesses[PlayerInfo[playerid][pBusiness]][bSafeBalance]), number_format(Businesses[PlayerInfo[playerid][pBusiness]][bSafeBalance] + Amount));
-		    	Businesses[PlayerInfo[playerid][pBusiness]][bSafeBalance] += Amount;
 				Log("logs/business.log", string);
 		   		GivePlayerCash(playerid, -Amount);
 		   		SaveBusiness(PlayerInfo[playerid][pBusiness]);
@@ -1958,9 +1935,9 @@ CMD:bedit(playerid, params[])
 	new choice[32], businessid, amount, string[128];
 	if(sscanf(params, "s[32]dD(0)", choice, businessid, amount))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /bedit [name] [businessid] [amount]");
+		SendSyntaxMessage(playerid, "/bedit [name] [businessid] [amount]");
 		SendClientMessageEx(playerid, COLOR_GREY, "Available names: Exterior, Interior, SupplyPoint, Price, Type, Inventory, InventoryCapacity, SafeBalance, Delete");
-		SendClientMessageEx(playerid, COLOR_GREY, "Available names: CustomInterior, CustomExterior, Months, GymEntryFee, GymType, VW, Grade, MaxLevel");
+		SendClientMessageEx(playerid, COLOR_GREY, "Available names: CustomInterior, CustomExterior, Months, GymEntryFee, GymType, VW, Grade, MaxLevel, Icon");
 		return 1;
 	}
 
@@ -2002,6 +1979,7 @@ CMD:bedit(playerid, params[])
 		GetPlayerPos(playerid, Businesses[businessid][bExtPos][0], Businesses[businessid][bExtPos][1], Businesses[businessid][bExtPos][2]);
 		GetPlayerFacingAngle(playerid, Businesses[businessid][bExtPos][3]);
 		SendClientMessageEx(playerid, COLOR_WHITE, "You have changed the exterior!");
+		RefreshBusinessPickup(businessid);
 		format(string, sizeof(string), "%s has changed BusinessID %d's Exterior to X:%f Y:%f Z:%f", GetPlayerNameEx(playerid), businessid, Businesses[businessid][bExtPos][0], Businesses[businessid][bExtPos][1],Businesses[businessid][bExtPos][2]);
 		Log("logs/bedit.log", string);
 	}
@@ -2145,7 +2123,22 @@ CMD:bedit(playerid, params[])
 		format(string, sizeof(string), "%s has changed BusinessID %i's gym type to %i.", GetPlayerNameEx(playerid), businessid, amount);
 		Log("logs/bedit.log", string);
 	}
-
+	else if(strcmp(choice, "icon", true) == 0)
+	{
+ 		if(Businesses[businessid][bMapIcon] >= 1) DestroyDynamicMapIcon(Businesses[businessid][bMIcon]);
+		Businesses[businessid][bMapIcon] = amount;
+		if(amount > 0)
+		{
+			Businesses[businessid][bMIcon]=CreateDynamicMapIcon(Businesses[businessid][bExtPos][0], Businesses[businessid][bExtPos][1], Businesses[businessid][bExtPos][2], Businesses[businessid][bMapIcon], COLOR_YELLOW);
+		}
+		format(string, sizeof(string), "You have changed the MapIcon to %d.", amount);
+		SendClientMessageEx(playerid, COLOR_WHITE, string);
+		SaveBusiness(businessid);
+		RefreshBusinessPickup(businessid);
+		format(string, sizeof(string), "%s has edited Business %d's MapIcon.", GetPlayerNameEx(playerid), businessid);
+		Log("logs/bedit.log", string);
+		return 1;
+	}
 	else if(!strcmp(choice, "delete", true))
 	{
 		Businesses[businessid][bExtPos][0] = 0;
@@ -2189,7 +2182,7 @@ CMD:bname(playerid, params[])
 		new name[40], businessid;
 
 		if(sscanf(params, "ds[40]", businessid, name)) {
-			return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /bname [business id] [name]");
+			return SendSyntaxMessage(playerid, "/bname [business id] [name]");
 		}
 		else if (!IsValidBusinessID(businessid)) {
 			return SendClientMessageEx(playerid, COLOR_GREY, "Invalid business specified.");
@@ -2261,12 +2254,12 @@ CMD:bnear(playerid, params[])
 	return 1;
 }
 
-CMD:gotobiz(playerid, params[])
+/*CMD:gotobiz(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pShopTech] >= 1 || PlayerInfo[playerid][pBM] >= 1)
 	{
 		new id;
-		if(sscanf(params, "d", id)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gotobiz [business id]");
+		if(sscanf(params, "d", id)) return SendSyntaxMessage(playerid, "/gotobiz [business id]");
 		if(!IsValidBusinessID(id)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid business ID specified.");
 		if (Businesses[id][bExtPos][0] == 0.0) return SendClientMessageEx(playerid, COLOR_GREY, "No exterior set for this business.");
 		GameTextForPlayer(playerid, "~w~Teleporting", 5000, 1);
@@ -2282,7 +2275,7 @@ CMD:gotobiz(playerid, params[])
 	    SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command.");
 	}
 	return 1;
-}
+}*/
 
 
 CMD:goinbiz(playerid, params[])
@@ -2290,7 +2283,7 @@ CMD:goinbiz(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pShopTech] >= 1 || PlayerInfo[playerid][pBM] >= 1)
 	{
 		new id;
-		if(sscanf(params, "d", id)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /goinbiz [businessid]");
+		if(sscanf(params, "d", id)) return SendSyntaxMessage(playerid, "/goinbiz [businessid]");
 		if(!IsValidBusinessID(id)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid business ID specified.");
 		if (Businesses[id][bExtPos][0] == 0.0) return SendClientMessageEx(playerid, COLOR_GREY, "No interior set for this business.");
 		SetPlayerInterior(playerid,Businesses[id][bInt]);
@@ -2314,9 +2307,10 @@ CMD:asellbiz(playerid, params[])
 	}
 
 	new string[128], biz;
-	if(sscanf(params, "d", biz)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /asellbiz [business id]");
+	if(sscanf(params, "d", biz)) return SendSyntaxMessage(playerid, "/asellbiz [business id]");
 
 	Businesses[biz][bOwner] = -1;
+	Businesses[biz][bOwned] = 0;
 	SaveBusiness(biz);
 	RefreshBusinessPickup(biz);
 	new ip[16];
@@ -2384,7 +2378,7 @@ CMD:asellbiz(playerid, params[])
 	    SendClientMessageEx(playerid, COLOR_WHITE, "You need to be at your business in order to sell it.");
 	    return 1;
     }
-}
+}*/
 
 CMD:buybiz(playerid, params[])
 {
@@ -2406,6 +2400,7 @@ CMD:buybiz(playerid, params[])
 			strcpy(Businesses[i][bOwnerName], GetPlayerNameEx(playerid), MAX_PLAYER_NAME);
 			PlayerInfo[playerid][pBusiness] = i;
 			PlayerInfo[playerid][pBusinessRank] = 5;
+			Businesses[i][bOwned] = 1;
 			SendClientMessageEx(playerid, COLOR_WHITE, "Congratulations on your new purchase!");
 			SendClientMessageEx(playerid, COLOR_WHITE, "Type /help to review the business help section!");
 			SaveBusiness(i);
@@ -2419,7 +2414,7 @@ CMD:buybiz(playerid, params[])
 	}
 	return SendClientMessageEx(playerid, COLOR_WHITE, "You're not near a business!");
 }
-*/
+
 
 CMD:creategaspump(playerid, params[])
 {
@@ -2427,7 +2422,7 @@ CMD:creategaspump(playerid, params[])
     if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pBM] >= 1) {
 
 		if(sscanf(params, "d", iBusinessID)) {
-			return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /creategaspump [business id]");
+			return SendSyntaxMessage(playerid, "/creategaspump [business id]");
 		}
 		else
 		{
@@ -2467,7 +2462,7 @@ CMD:editgaspump(playerid, params[])
     }
 
 	if(sscanf(params, "dds[9]F(0)", iBusinessID, iPumpID, szName, fValue)) {
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editgaspump [business id] [pump id] [name] [value]");
+		SendSyntaxMessage(playerid, "/editgaspump [business id] [pump id] [name] [value]");
 		SendClientMessageEx(playerid, COLOR_GREY, "Available Names: Capacity, Gas, Position");
 	}
 
@@ -2526,7 +2521,7 @@ CMD:deletegaspump(playerid, params[])
     }
     new businessid, id, string[128];
 	if(sscanf(params, "dd", businessid, id)) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /deletegaspump [business id] [pump id]");
+		return SendSyntaxMessage(playerid, "/deletegaspump [business id] [pump id]");
 	}
 	if(!IsValidBusinessID(businessid) || id < 0 || id >= MAX_BUSINESS_GAS_PUMPS || Businesses[businessid][GasPumpPosX][id] == 0) {
 		return SendClientMessageEx(playerid, COLOR_GREY, "No gas pump found with that ID.");
@@ -2569,7 +2564,7 @@ CMD:addmaterials(playerid, params[])
 		return SendClientMessageEx(playerid, COLOR_GREY, "Command not available for this type of business.");
 	}
 	if(sscanf(params, "d", amount) || amount < 0) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /addmaterials [amount]");
+		return SendSyntaxMessage(playerid, "/addmaterials [amount]");
 	}
 	if (amount > PlayerInfo[playerid][pMats]) {
 		return SendClientMessageEx(playerid, COLOR_GREY, "You don't have that many materials.");
@@ -2597,7 +2592,7 @@ CMD:addmaterials(playerid, params[])
 	}
 	new buyerid, weapon;
 	if (sscanf(params, "uk<sweapon>", buyerid, weapon)) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /offergun [player] [weapon name]");
+		return SendSyntaxMessage(playerid, "/offergun [playerid/PartOfName] [weapon name]");
 	}
 	if (!IsPlayerConnected(buyerid)) {
 		return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified!");
@@ -2768,7 +2763,7 @@ CMD:bizfind(playerid, params[])
 	    new iBusinessID, string[128];
 	    if(sscanf(params, "d", iBusinessID))
 	    {
-	        return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /bizfind [business id]");
+	        return SendSyntaxMessage(playerid, "/bizfind [business id]");
 	    }
 		if(IsValidBusinessID(iBusinessID))
 		{
@@ -2815,7 +2810,7 @@ CMD:offeritem(playerid, params[])
 		return SendClientMessageEx(playerid, COLOR_GREY, "You are not working for a 24/7 store!");
 	}
 	if (sscanf(params, "uk<storeitem>", buyerid, item))	{
-	    SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /offeritem [Player] [Item]");
+	    SendSyntaxMessage(playerid, "/offeritem [playerid/PartOfName] [Item]");
 	    SendClientMessageEx(playerid, COLOR_GREY, "Items - cellphone, phonebook, dice, condom, musicplayer, rope, cigar, sprunk, lock, spraycan, radio, camera, lotteryticket,");
 	    return SendClientMessageEx(playerid, COLOR_GREY, "checkbook, paper, industriallock, elock, standardcaralarm, helmet");
 	}
@@ -2864,7 +2859,7 @@ CMD:resupply(playerid, params[])
 	new year, month, day;
 	if (sscanf(params, "d", amount))
 	{
-		return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /resupply [amount]");
+		return SendSyntaxMessage(playerid, "/resupply [amount]");
 	}
 	if (PlayerInfo[playerid][pBusiness] == INVALID_BUSINESS_ID) {
 	    return SendClientMessageEx(playerid, COLOR_GREY, "You don't own a business.");
@@ -2994,7 +2989,7 @@ CMD:minrank(playerid, params[])
 	}
 	if (sscanf(params, "ds[32]", rank, command))
 	{
-		return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /minrank [rank] [invite/giverank/supply]");
+		return SendSyntaxMessage(playerid, "/minrank [rank] [invite/giverank/supply]");
 	}
 	if(rank < 0 || rank > 5)
 	{
@@ -3028,7 +3023,7 @@ CMD:bizradio(playerid, params[])
 	if (!IsValidBusinessID(iBusinessID)) return SendClientMessageEx(playerid, COLOR_GRAD2, "You're not an employee of a business!");
 	else if(iBusinessID == INVALID_BUSINESS_ID) return SendClientMessageEx(playerid, COLOR_GRAD2, "You're not an employee of a business!");
 	if(PlayerTied[playerid] != 0 || PlayerCuffed[playerid] != 0 || PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "You cannot do this at this time.");
-	if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /b(iz)r(radio) [biz chat]");
+	if(isnull(params)) return SendSyntaxMessage(playerid, "/b(iz)r(radio) [biz chat]");
 
 	format(string, sizeof(string), "(radio) %s", params);
 	SetPlayerChatBubble(playerid,string,COLOR_WHITE,15.0,5000);
@@ -3058,7 +3053,7 @@ CMD:employeepayset(playerid, params[])
 	        format(string,sizeof(string), "Rank %d (%s): $%s", i, GetBusinessRankName(i), number_format(Businesses[PlayerInfo[playerid][pBusiness]][bRankPay][i]));
 		    SendClientMessageEx(playerid, COLOR_WHITE, string);
 	    }
-		return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /employeepayset [rank] [amount]");
+		return SendSyntaxMessage(playerid, "/employeepayset [rank] [amount]");
 	}
 	if (rank < 0 || rank > 4)
 	{
@@ -3224,6 +3219,7 @@ public BusinessesLoadQueryFinish()
 	{
 		cache_get_value_name(i, "Name", Businesses[i][bName], MAX_BUSINESS_NAME);
 		cache_get_value_name_int(i, "OwnerID", Businesses[i][bOwner]);
+		cache_get_value_name_int(i, "Owned", Businesses[i][bOwned]);
 		cache_get_value_name(i, "Username", Businesses[i][bOwnerName], MAX_PLAYER_NAME);
 		cache_get_value_name_int(i, "Type", Businesses[i][bType]);
 		cache_get_value_name_int(i, "Value", Businesses[i][bValue]);
@@ -3264,6 +3260,8 @@ public BusinessesLoadQueryFinish()
 		cache_get_value_name_int(i, "Months", Businesses[i][bMonths]);
 		cache_get_value_name_int(i, "GymEntryFee", Businesses[i][bGymEntryFee]);
 		cache_get_value_name_int(i, "GymType", Businesses[i][bGymType]);
+		cache_get_value_name_int(i, "MapIcon", Businesses[i][bMapIcon]);
+		if(Businesses[i][bMapIcon] > 0) Businesses[i][bMIcon]=CreateDynamicMapIcon(Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2], Businesses[i][bMapIcon], COLOR_YELLOW);
 
 		if (Businesses[i][bOrderState] == 2) {
 		    Businesses[i][bOrderState] = 1;
@@ -3370,10 +3368,10 @@ stock SaveBusiness(id)
 	mysql_format(MainPipeline, query, sizeof(query), "UPDATE `businesses` SET ");
 
 	mysql_format(MainPipeline, query, sizeof(query), "%s \
-	`Name` = '%e', `Type` = %d, `Value` = %d, `OwnerID` = %d, `Months` = %d, `SafeBalance` = %d, `Inventory` = %d, `InventoryCapacity` = %d, `Status` = %d, `Level` = %d, \
+	`Name` = '%e', `Type` = %d, `Value` = %d, `OwnerID` = %d, `Owned` = %d, `Months` = %d, `SafeBalance` = %d, `Inventory` = %d, `InventoryCapacity` = %d, `Status` = %d, `Level` = %d, \
 	`LevelProgress` = %d, `AutoSale` = %d, `OrderDate` = '%s', `OrderAmount` = %d, `OrderBy` = '%e', `OrderState` = %d, `TotalSales` = %d, ",
 	query,
-	Businesses[id][bName], Businesses[id][bType], Businesses[id][bValue], Businesses[id][bOwner], Businesses[id][bMonths], Businesses[id][bSafeBalance], Businesses[id][bInventory], Businesses[id][bInventoryCapacity], Businesses[id][bStatus], Businesses[id][bLevel],
+	Businesses[id][bName], Businesses[id][bType], Businesses[id][bValue], Businesses[id][bOwner], Businesses[id][bOwned], Businesses[id][bMonths], Businesses[id][bSafeBalance], Businesses[id][bInventory], Businesses[id][bInventoryCapacity], Businesses[id][bStatus], Businesses[id][bLevel],
 	Businesses[id][bLevelProgress], Businesses[id][bAutoSale], Businesses[id][bOrderDate], Businesses[id][bOrderAmount], Businesses[id][bOrderBy], Businesses[id][bOrderState], Businesses[id][bTotalSales]);
 
 	mysql_format(MainPipeline, query, sizeof(query), "%s \
@@ -3390,9 +3388,9 @@ stock SaveBusiness(id)
 	for (new i; i < MAX_BUSINESS_GAS_PUMPS; i++) mysql_format(MainPipeline, query, sizeof(query), "%s `GasPump%dPosX` = %f, `GasPump%dPosY` = %f, `GasPump%dPosZ` = %f, `GasPump%dAngle` = %f, `GasPump%dModel` = %d, `GasPump%dCapacity` = %f, `GasPump%dGas` = %f, ", query, i+1, Businesses[id][GasPumpPosX][i],	i+1, Businesses[id][GasPumpPosY][i], i+1, Businesses[id][GasPumpPosZ][i], i+1, Businesses[id][GasPumpAngle][i], i+1, 1646,i+1, Businesses[id][GasPumpCapacity],	i+1, Businesses[id][GasPumpGallons]);
 
 	mysql_format(MainPipeline, query, sizeof(query), "%s \
-	`Pay` = %d, `GasPrice` = %f, `MinInviteRank` = %d, `MinSupplyRank` = %d, `MinGiveRankRank` = %d, `MinSafeRank` = %d, `GymEntryFee` = %d, `GymType` = %d, `TotalProfits` = %d, `MaxLevel` = %d WHERE `Id` = %d",
+	`Pay` = %d, `GasPrice` = %f, `MinInviteRank` = %d, `MinSupplyRank` = %d, `MinGiveRankRank` = %d, `MinSafeRank` = %d, `GymEntryFee` = %d, `GymType` = %d,`MapIcon` = %d, `TotalProfits` = %d, `MaxLevel` = %d WHERE `Id` = %d",
 	query,
-	Businesses[id][bAutoPay], Businesses[id][bGasPrice], Businesses[id][bMinInviteRank], Businesses[id][bMinSupplyRank], Businesses[id][bMinGiveRankRank], Businesses[id][bMinSafeRank], Businesses[id][bGymEntryFee], Businesses[id][bGymType], Businesses[id][bTotalProfits], Businesses[id][bMaxLevel], id+1);
+	Businesses[id][bAutoPay], Businesses[id][bGasPrice], Businesses[id][bMinInviteRank], Businesses[id][bMinSupplyRank], Businesses[id][bMinGiveRankRank], Businesses[id][bMinSafeRank], Businesses[id][bGymEntryFee], Businesses[id][bGymType], Businesses[id][bMapIcon], Businesses[id][bTotalProfits], Businesses[id][bMaxLevel], id+1);
 
 	mysql_tquery(MainPipeline, query, "OnQueryFinish", "i", SENDDATA_THREAD);
 

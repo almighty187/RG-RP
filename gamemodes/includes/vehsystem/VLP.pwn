@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						VLP System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 UpdateVLPTextDraws(playerid, vehicleid, TYPE = 0) {
 	new tdMessage[9 + MAX_ZONE_NAME], tdCarLocation[MAX_ZONE_NAME], Float:CarPos[3];
 	GetVehiclePos(vehicleid, CarPos[0], CarPos[1], CarPos[2]);
@@ -66,7 +29,7 @@ DestroyVLPTextDraws(playerid) {
 }
 
 //Vehicle Lock Pick Textdraws
-/*CreateVLPTextDraws(playerid)
+CreateVLPTextDraws(playerid)
 {
 	VLPTextDraws[playerid][0] = CreatePlayerTextDraw(playerid, 638.264770, 390.386749, "Attempting to lock pick vehicle");
 	PlayerTextDrawLetterSize(playerid, VLPTextDraws[playerid][0], 0.449999, 1.600000);
@@ -119,9 +82,9 @@ DestroyVLPTextDraws(playerid) {
 	PlayerTextDrawBackgroundColor(playerid, VLPTextDraws[playerid][3], 51);
 	PlayerTextDrawFont(playerid, VLPTextDraws[playerid][3], 1);
 	PlayerTextDrawSetProportional(playerid, VLPTextDraws[playerid][3], 1);
-}*/
+}
 
-/*ShowVLPTextDraws(playerid, vehicleid, TYPE = 0) {
+ShowVLPTextDraws(playerid, vehicleid, TYPE = 0) {
 	CreateVLPTextDraws(playerid);
 	new tdMessage[9 + MAX_ZONE_NAME], tdCarLocation[MAX_ZONE_NAME], Float:CarPos[3];
 	GetVehiclePos(vehicleid, CarPos[0], CarPos[1], CarPos[2]);
@@ -147,7 +110,7 @@ DestroyVLPTextDraws(playerid) {
 	}
 	for(new i = 0; i < 4; i++)
 		PlayerTextDrawShow(playerid, VLPTextDraws[playerid][i]);
-}*/
+}
 
 CMD:pickvehicle(playerid, params[])
 {
@@ -156,7 +119,6 @@ CMD:pickvehicle(playerid, params[])
 
 CMD:pickveh(playerid, params[])
 {
-	/*
 	new szMessage[150], Float: vehSize[3], Float: Pos[3], Float:a, success;
 
 	if(gettime() < PlayerInfo[playerid][pLockPickTime]) {
@@ -247,14 +209,13 @@ CMD:pickveh(playerid, params[])
 	else {
 		return SendClientMessageEx(playerid, COLOR_WHITE, "You need to be next to the drivers door in order to lock pick it.");
 	}
-	*/
-	SendClientMessageEx(playerid, COLOR_WHITE, "This command has been disabled temporaly disabled due to an unknown issue.");
-	SendClientMessageEx(playerid, COLOR_WHITE, "Please do not report about this being disabled, we are testing something.");
+
+	//SendClientMessageEx(playerid, COLOR_WHITE, "This command has been disabled temporaly disabled due to an unknown issue.");
+	//SendClientMessageEx(playerid, COLOR_WHITE, "Please do not report about this being disabled, we are testing something.");
 	return 1;
 }
 CMD:cracktrunk(playerid, params[])
 {
-	/*
 	if(PlayerInfo[playerid][pWRestricted] || PlayerInfo[playerid][pConnectHours] < 2) return SendClientMessageEx(playerid, COLOR_GRAD1, "You cannot use this command while having a weapon restriction.");
 	new szMessage[150], Float: x, Float: y, Float: z;
 
@@ -318,9 +279,9 @@ CMD:cracktrunk(playerid, params[])
 	}
 	else {
 		return SendClientMessageEx(playerid, COLOR_WHITE, "You need to be at the back of the car that you lock picked.");
-	}*/
-	SendClientMessageEx(playerid, COLOR_WHITE, "This command has been disabled temporaly disabled due to an unknown issue.");
-	SendClientMessageEx(playerid, COLOR_WHITE, "Please do not report about this being disabled, we are testing something.");
+	}
+	//SendClientMessageEx(playerid, COLOR_WHITE, "This command has been disabled temporaly disabled due to an unknown issue.");
+	//SendClientMessageEx(playerid, COLOR_WHITE, "Please do not report about this being disabled, we are testing something.");
 	return 1;
 }
 

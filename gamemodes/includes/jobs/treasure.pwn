@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Treasure System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 FoundTreasure(playerid)
 {
 	new szMessage[128];
@@ -90,7 +53,7 @@ FoundTreasure(playerid)
 	        }
 	        else
 	        {
-	            SendClientMessageEx(playerid, COLOR_WHITE, "You did not discover anything.");
+	            SendServerMessage(playerid, "You did not discover anything.");
 
 	            format(szMessage, 128, "%s's metal detector has seemed to malfunctioned", GetPlayerNameEx(playerid));
   				ProxDetector(30.0, playerid, szMessage, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
@@ -173,7 +136,7 @@ FoundTreasure(playerid)
 	        }
 	        else
 	        {
-	            SendClientMessageEx(playerid, COLOR_WHITE, "You did not discover anything.");
+	            SendServerMessage(playerid, "You did not discover anything.");
 
 	            format(szMessage, 128, "%s's metal detector has seemed to malfunctioned", GetPlayerNameEx(playerid));
   				ProxDetector(30.0, playerid, szMessage, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
@@ -256,7 +219,7 @@ FoundTreasure(playerid)
 	        }
 	        else
 	        {
-	            SendClientMessageEx(playerid, COLOR_WHITE, "You did not discover anything.");
+	            SendServerMessage(playerid, "You did not discover anything.");
 
 	            format(szMessage, 128, "%s's metal detector has seemed to malfunctioned", GetPlayerNameEx(playerid));
   				ProxDetector(30.0, playerid, szMessage, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
@@ -350,7 +313,7 @@ FoundTreasure(playerid)
 	        }
 	        else
 	        {
-	            SendClientMessageEx(playerid, COLOR_WHITE, "You did not discover anything.");
+	            SendServerMessage(playerid, "You did not discover anything.");
 
 	            format(szMessage, 128, "%s's metal detector has seemed to malfunctioned", GetPlayerNameEx(playerid));
   				ProxDetector(30.0, playerid, szMessage, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
@@ -364,16 +327,16 @@ FoundTreasure(playerid)
 CMD:search(playerid, params[])
 {
 	if(PlayerInfo[playerid][pJob] != 22 && PlayerInfo[playerid][pJob2] != 22 && PlayerInfo[playerid][pJob3] != 22) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "You are not a treasure hunter.");
+		return SendErrorMessage(playerid, "You are not a treasure hunter.");
 	}
 	else if(PlayerInfo[playerid][pMetalDetector] == 0) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "You don't have a metal detector. You can recieve one from a craftsman.");
+		return SendErrorMessage(playerid, "You don't have a metal detector. You can recieve one from a craftsman.");
 	}
 	else if(IsPlayerInAnyVehicle(playerid)) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "You are not allowed to metal detect while in a vehicle. " );
+		return SendErrorMessage(playerid, "You are not allowed to metal detect while in a vehicle. " );
 	}
 	else if(gettime()-GetPVarInt(playerid, "LastScan") < GetPVarInt(playerid, "ScanReload")) {
-		return SendClientMessageEx(playerid, COLOR_GRAD2, "Your metal detector is still charging.");
+		return SendErrorMessage(playerid, "Your metal detector is still charging.");
 	}
 
 	else if(!GetPVarType(playerid, "HiddenTreasure")) { // New Treasure
@@ -389,7 +352,7 @@ CMD:search(playerid, params[])
    		PlayerInfo[playerid][pMetalDetector]--;
 
    		if(PlayerInfo[playerid][pMetalDetector] == 1) {
-			SendClientMessageEx(playerid, COLOR_WHITE, "INFO: You only have 1 metal detector charge left.");
+			SendServerMessage(playerid, "INFO: You only have 1 metal detector charge left.");
 		}
 
         SetPlayerCheckpoint(playerid,HiddenTreasure[GetPVarInt(playerid, "HiddenTreasure")][0], HiddenTreasure[GetPVarInt(playerid, "HiddenTreasure")][1], HiddenTreasure[GetPVarInt(playerid, "HiddenTreasure")][2], 3);
@@ -424,24 +387,24 @@ CMD:search(playerid, params[])
   	    DeletePVar(playerid, "HiddenTreasure");
 
   	    if(PlayerInfo[playerid][pMetalDetector] == 1) {
-			SendClientMessageEx(playerid, COLOR_WHITE, "INFO: You only have 1 metal detector charge left.");
+			SendServerMessage(playerid, "INFO: You only have 1 metal detector charge left.");
 		}
 
   	    if(PlayerInfo[playerid][pTreasureSkill] == 25) {
-  	        SendClientMessageEx(playerid, COLOR_WHITE, "* Your Treasure Hunting Skill is now Level 2, the time it takes for your metal detector to charge is now 15 seconds!");
+  	        SendServerMessage(playerid, "* Your Treasure Hunting Skill is now Level 2, the time it takes for your metal detector to charge is now 15 seconds!");
   	    }
   	    if(PlayerInfo[playerid][pTreasureSkill] == 150) {
-  	        SendClientMessageEx(playerid, COLOR_WHITE, "* Your Treasure Hunting Skill is now Level 3, your chance to find a rare is now 10%!");
+  	        SendServerMessage(playerid, "* Your Treasure Hunting Skill is now Level 3, your chance to find a rare is now 10%!");
   	    }
   	    if(PlayerInfo[playerid][pTreasureSkill] == 300) {
-  	        SendClientMessageEx(playerid, COLOR_WHITE, "* Your Treasure Hunting Skill is now Level 4, the time it takes for your metal detector to charge is now 10 seconds!");
+  	        SendServerMessage(playerid, "* Your Treasure Hunting Skill is now Level 4, the time it takes for your metal detector to charge is now 10 seconds!");
   	    }
   	    if(PlayerInfo[playerid][pTreasureSkill] == 600) {
-  	        SendClientMessageEx(playerid, COLOR_WHITE, "* Your Treasure Hunting Skill is now Level 5, your chance to find a rare is now 20%!");
+  	        SendServerMessage(playerid, "* Your Treasure Hunting Skill is now Level 5, your chance to find a rare is now 20%!");
   	    }
    	}
     else {
-    	SendClientMessageEx(playerid, COLOR_GREY, "You are not at a beach.");
+    	SendErrorMessage(playerid, "You are not at a beach.");
     }
 	return 1;
 }
@@ -457,10 +420,10 @@ CMD:selltreasure(playerid, params[])
 		return 1;
 	}
 	else if(!IsPlayerInRangeOfPoint(playerid, 3 , 164.9517, -1779.5931, 4.3000)) {
-	    return SendClientMessageEx(playerid, COLOR_GREY, "You are not at a treasure sell point.");
+	    return SendErrorMessage(playerid, "You are not at a treasure sell point.");
 	}
 	else if(amount < 0) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "You can't sell negative of an item.");
+		return SendErrorMessage(playerid, "You can't sell negative of an item.");
 	}
 	new szMessage[128];
 	if(strcmp(choice, "junkmetal", true) == 0) {
@@ -472,7 +435,7 @@ CMD:selltreasure(playerid, params[])
 	        SaveTreasureInventory(playerid);
 	    }
 	    else {
-	        SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough of that item to sell.");
+	        SendErrorMessage(playerid, "You don't have enough of that item to sell.");
 	    }
 	}
 	else if(strcmp(choice, "newcoin", true) == 0) {
@@ -484,7 +447,7 @@ CMD:selltreasure(playerid, params[])
 	        SaveTreasureInventory(playerid);
 	    }
 	    else {
-	        SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough of that item to sell.");
+	        SendErrorMessage(playerid, "You don't have enough of that item to sell.");
 	    }
 	}
 	else if(strcmp(choice, "oldcoin", true) == 0) {
@@ -496,7 +459,7 @@ CMD:selltreasure(playerid, params[])
 	        SaveTreasureInventory(playerid);
 	    }
 	    else {
-	        SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough of that item to sell.");
+	        SendErrorMessage(playerid, "You don't have enough of that item to sell.");
 	    }
 	}
 	else if(strcmp(choice, "brokenwatch", true) == 0) {
@@ -508,7 +471,7 @@ CMD:selltreasure(playerid, params[])
 	        SaveTreasureInventory(playerid);
 	    }
 	    else {
-	        SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough of that item to sell.");
+	        SendErrorMessage(playerid, "You don't have enough of that item to sell.");
 	    }
 	}
 	else if(strcmp(choice, "oldkey", true) == 0) {
@@ -520,7 +483,7 @@ CMD:selltreasure(playerid, params[])
 	        SaveTreasureInventory(playerid);
 	    }
 	    else {
-	        SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough of that item to sell.");
+	        SendErrorMessage(playerid, "You don't have enough of that item to sell.");
 	    }
 	}
 	else if(strcmp(choice, "goldwatch", true) == 0) {
@@ -532,7 +495,7 @@ CMD:selltreasure(playerid, params[])
 	        SaveTreasureInventory(playerid);
 	    }
 	    else {
-	        SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough of that item to sell.");
+	        SendErrorMessage(playerid, "You don't have enough of that item to sell.");
 	    }
 	}
 	else if(strcmp(choice, "goldnugget", true) == 0) {
@@ -544,7 +507,7 @@ CMD:selltreasure(playerid, params[])
 	        SaveTreasureInventory(playerid);
 	    }
 	    else {
-	        SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough of that item to sell.");
+	        SendErrorMessage(playerid, "You don't have enough of that item to sell.");
 	    }
 	}
 	else if(strcmp(choice, "silvernugget", true) == 0) {
@@ -556,7 +519,7 @@ CMD:selltreasure(playerid, params[])
 	        SaveTreasureInventory(playerid);
 	    }
 	    else {
-	        SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough of that item to sell.");
+	        SendErrorMessage(playerid, "You don't have enough of that item to sell.");
 	    }
 	}
 	else if(strcmp(choice, "treasurechest", true) == 0) {
@@ -568,7 +531,7 @@ CMD:selltreasure(playerid, params[])
 	        SaveTreasureInventory(playerid);
 	    }
 	    else {
-	        SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough of that item to sell.");
+	        SendErrorMessage(playerid, "You don't have enough of that item to sell.");
 	    }
 	}
 	return 1;

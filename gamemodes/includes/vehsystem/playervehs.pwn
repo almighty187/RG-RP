@@ -187,7 +187,7 @@ stock DestroyPlayerVehicle(playerid, playervehicleid)
 		mysql_tquery(MainPipeline, query, "OnQueryFinish", "ii", SENDDATA_THREAD, playerid);
 		PlayerVehicleInfo[playerid][playervehicleid][pvSlotId] = 0;
 
-		//g_mysql_SaveVehicle(playerid, playervehicleid);
+		g_mysql_SaveVehicle(playerid, playervehicleid);
 	}
 }
 
@@ -234,7 +234,7 @@ stock LoadPlayerVehicles(playerid, logoff = 0) {
 						PlayerVehicleInfo[playerid][v][pvCrashY] = 0.0;
 						PlayerVehicleInfo[playerid][v][pvCrashZ] = 0.0;
 						PlayerVehicleInfo[playerid][v][pvCrashAngle] = 0.0;
-						SendClientMessageEx(playerid, COLOR_WHITE, "Your vehicles have been restored to their last known location from your previous timeout.");
+						SendServerMessage(playerid, "Your vehicles have been restored to their last known location from your previous timeout.");
 					}
 				}
 				else if(PlayerVehicleInfo[playerid][v][pvSpawned] != 0) {
@@ -545,8 +545,8 @@ public ParkVehicle(playerid, ownerid, vehicleid, d, Float:X, Float:Y, Float:Z)
 	{
 	    new Float:x, Float:y, Float:z, Float:angle, Float:health, string[29 + (MAX_PLAYER_NAME * 2)];
 	    GetVehicleHealth(vehicleid, health);
-     	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return SendClientMessageEx(playerid, COLOR_GREY, "You must be in the driver seat.");
-     	if(health < 800) return SendClientMessageEx(playerid, COLOR_GREY, " Your vehicle is too damaged to park it.");
+     	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return SendServerMessage(playerid, "You must be in the driver seat.");
+     	if(health < 800) return SendErrorMessage(playerid, "Your vehicle is too damaged to park it.");
 		if(ownerid != INVALID_PLAYER_ID)
 	    {
 			GetVehiclePos(vehicleid, x, y, z);
@@ -573,7 +573,7 @@ public ParkVehicle(playerid, ownerid, vehicleid, d, Float:X, Float:Y, Float:Z)
 	}
 	else
 	{
-	    SendClientMessage(playerid, COLOR_WHITE, "Vehicle did not park because you moved!");
+	    SendErrorMessage(playerid, "Vehicle did not park because you moved!");
 	}
 	return 1;
 }

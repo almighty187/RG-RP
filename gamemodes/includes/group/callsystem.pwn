@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-					Call System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 #include <YSI\y_hooks>
 
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
@@ -346,13 +309,13 @@ AcceptCall_Group(playerid, callid) {
 	{
 		new string[128];
 
-		if(callid < 0 || callid > 999) return SendClientMessageEx(playerid, COLOR_GREY, "   Call number cannot be below 0 or above 999!");
-		if(Calls[callid][BeingUsed] == 0) return SendClientMessageEx(playerid, COLOR_GREY, "   There is no pending call with that number!");
-		if(playerid == Calls[callid][CallFrom]) return SendClientMessageEx(playerid, COLOR_GREY, "   You can't accept your own call!");
+		if(callid < 0 || callid > 999) return SendErrorMessage(playerid, "Call number cannot be below 0 or above 999!");
+		if(Calls[callid][BeingUsed] == 0) return SendErrorMessage(playerid, "There is no pending call with that number!");
+		if(playerid == Calls[callid][CallFrom]) return SendErrorMessage(playerid, "You can't accept your own call!");
 		if(((Calls[callid][Type] == 0 || Calls[callid][Type] == 4) && !IsACop(playerid)) || (Calls[callid][Type] == 1 && !IsAMedic(playerid)) || (Calls[callid][Type] == 2 && !IsACop(playerid)) || (Calls[callid][Type] == 3 && !IsACop(playerid) && !IsATowman(playerid))) return SendClientMessageEx(playerid, COLOR_GREY, "   You cannot answer this call!");
 		if(!IsPlayerConnected(Calls[callid][CallFrom]))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "   The caller has disconnected!");
+			SendServerMessage(playerid, "The caller has disconnected!");
 			Calls[callid][CallFrom] = INVALID_PLAYER_ID;
 			Calls[callid][BeingUsed] = 0;
 			return 1;
@@ -379,7 +342,7 @@ AcceptCall_Group(playerid, callid) {
 									GetVehiclePos(PlayerVehicleInfo[targetid][targetslot][pvId], carPos[0], carPos[1], carPos[2]);
 									if(CheckPointCheck(playerid))
 									{
-										return SendClientMessageEx(playerid, COLOR_WHITE, "Please ensure that your current checkpoint is destroyed first (you either have material packages, or another existing checkpoint).");
+										return SendServerMessage(playerid, "Please ensure that your current checkpoint is destroyed first (you either have material packages, or another existing checkpoint).");
 									}
 									else
 									{
@@ -395,13 +358,13 @@ AcceptCall_Group(playerid, callid) {
 										SetPVarInt(playerid, "TrackVehicleBurglary", 120);
 										SetPVarInt(playerid, "CallId", callid);
 										SetPlayerCheckpoint(playerid, carPos[0], carPos[1], carPos[2], 15.0);
-										SendClientMessageEx(playerid, COLOR_WHITE, "Hint: Make your way to the checkpoint to find the vehicle(Will only last 2 minutes)!");
+										SendServerMessage(playerid, "Hint: Make your way to the checkpoint to find the vehicle(Will only last 2 minutes)!");
 									}
 								}
 								else if(PlayerVehicleInfo[targetid][targetslot][pvImpounded]) SendClientMessageEx(playerid, COLOR_WHITE, "You can not track an impounded vehicle.");
 								else if(PlayerVehicleInfo[targetid][targetslot][pvDisabled] == 1) SendClientMessageEx(playerid, COLOR_WHITE, "You can not track a disabled vehicle.");
 								else if(PlayerVehicleInfo[targetid][targetslot][pvSpawned] == 0) SendClientMessageEx(playerid, COLOR_WHITE, "You can not track a stored vehicle.");
-								else SendClientMessageEx(playerid, COLOR_WHITE, "You can not track a non-existent vehicle.");
+								else SendErrorMessage(playerid, "You can not track a non-existent vehicle.");
 							}
 						}
 					}
@@ -444,7 +407,7 @@ AcceptCall_Group(playerid, callid) {
 				return 1;
 			}
 		}
-		return SendClientMessageEx(playerid, COLOR_GREY, "   This call is not within your jurisdiction!");
+		return SendErrorMessage(playerid, "This call is not within your jurisdiction!");
 	}
 	return 1;
 }
@@ -453,13 +416,13 @@ AcceptCall_Business(playerid, callid) {
 
 	if(0 <= PlayerInfo[playerid][pBusiness] < MAX_BUSINESSES) {
 			
-		if(callid < 0 || callid > 999) return SendClientMessageEx(playerid, COLOR_GREY, "   Call number cannot be below 0 or above 999!");
-		if(Calls[callid][BeingUsed] == 0) return SendClientMessageEx(playerid, COLOR_GREY, "   There is no pending call with that number!");
+		if(callid < 0 || callid > 999) return SendServerMessage(playerid, "Call number cannot be below 0 or above 999!");
+		if(Calls[callid][BeingUsed] == 0) return SendServerMessage(playerid, "There is no pending call with that number!");
 		if(playerid == Calls[callid][CallFrom]) return SendClientMessageEx(playerid, COLOR_GREY, "   You can't accept your own call!");
 		if(Calls[callid][Type] != 7) return SendClientMessageEx(playerid, COLOR_GREY, "   You cannot answer this call!");
 		if(!IsPlayerConnected(Calls[callid][CallFrom]))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "   The caller has disconnected!");
+			SendServerMessage(playerid, "The caller has disconnected!");
 			Calls[callid][CallFrom] = INVALID_PLAYER_ID;
 			Calls[callid][BeingUsed] = 0;
 			return 1;
@@ -513,13 +476,13 @@ IgnoreCall_Group(playerid, callid) {
 	{
 		new string[128];
 
-		if(callid < 0 || callid > 999) return SendClientMessageEx(playerid, COLOR_GREY, "   Call number cannot be below 0 or above 999!");
-		if(Calls[callid][BeingUsed] == 0) return SendClientMessageEx(playerid, COLOR_GREY, "   There is no pending call with that number!");
-		if(playerid == Calls[callid][CallFrom]) return SendClientMessageEx(playerid, COLOR_GREY, "   You can't drop your own call!");
+		if(callid < 0 || callid > 999) return SendServerMessage(playerid, "Call number cannot be below 0 or above 999!");
+		if(Calls[callid][BeingUsed] == 0) return SendServerMessage(playerid, "There is no pending call with that number!");
+		if(playerid == Calls[callid][CallFrom]) return SendServerMessage(playerid, "You can't drop your own call!");
 		if((Calls[callid][Type] == 0 && !IsACop(playerid)) || (Calls[callid][Type] == 1 && !IsAMedic(playerid)) || (Calls[callid][Type] == 2 && !IsACop(playerid)) || (Calls[callid][Type] == 3 && !IsACop(playerid) && !IsATowman(playerid))) return SendClientMessageEx(playerid, COLOR_GREY, "   You cannot answer this call!");
 		if(!IsPlayerConnected(Calls[callid][CallFrom]))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "   The caller has disconnected!");
+			SendServerMessage(playerid, "The caller has disconnected!");
 			Calls[callid][CallFrom] = INVALID_PLAYER_ID;
 			Calls[callid][BeingUsed] = 0;
 			return 1;
@@ -546,7 +509,7 @@ IgnoreCall_Group(playerid, callid) {
 			strmid(Calls[callid][Description], "None", 0, 4, 4);
 			return 1;
 		}
-		return SendClientMessageEx(playerid, COLOR_GREY, "   This call is not within your jurisdiction!");
+		return SendErrorMessage(playerid, "This call is not within your jurisdiction!");
 	}
 	return 1;
 }
@@ -557,13 +520,13 @@ IgnoreCall_Business(playerid, callid) {
 	{
 		new string[128];
 
-		if(callid < 0 || callid > 999) return SendClientMessageEx(playerid, COLOR_GREY, "   Call number cannot be below 0 or above 999!");
-		if(Calls[callid][BeingUsed] == 0) return SendClientMessageEx(playerid, COLOR_GREY, "   There is no pending call with that number!");
-		if(playerid == Calls[callid][CallFrom]) return SendClientMessageEx(playerid, COLOR_GREY, "   You can't drop your own call!");
-		if(Calls[callid][Type] != 7) return SendClientMessageEx(playerid, COLOR_GREY, "   You cannot ignore this call!");
+		if(callid < 0 || callid > 999) return SendServerMessage(playerid, "Call number cannot be below 0 or above 999!");
+		if(Calls[callid][BeingUsed] == 0) return SendServerMessage(playerid, "There is no pending call with that number!");
+		if(playerid == Calls[callid][CallFrom]) return SendServerMessage(playerid, "You can't drop your own call!");
+		if(Calls[callid][Type] != 7) return SendServerMessage(playerid, "You cannot ignore this call!");
 		if(!IsPlayerConnected(Calls[callid][CallFrom]))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "   The caller has disconnected!");
+			SendServerMessage(playerid, "The caller has disconnected!");
 			Calls[callid][CallFrom] = INVALID_PLAYER_ID;
 			Calls[callid][BeingUsed] = 0;
 			return 1;
@@ -590,7 +553,7 @@ IgnoreCall_Business(playerid, callid) {
 			strmid(Calls[callid][Description], "None", 0, 4, 4);
 			return 1;
 		}
-		return SendClientMessageEx(playerid, COLOR_GREY, "   This call is not within your jurisdiction!");
+		return SendErrorMessage(playerid, "This call is not within your jurisdiction!");
 	}
 	return 1;
 }

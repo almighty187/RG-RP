@@ -1,39 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Licensing System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
 #include <YSI\y_hooks>
 
 #define DMV_MAIN 10026
@@ -42,8 +6,8 @@
 new DMVPointArea;
 
 hook OnGameModeInit() {
-	CreateDynamic3DTextLabel("To pay your tickets or\nrelease your cars, press Y.",COLOR_YELLOW,833.60, 3.23, 1004.17+0.6,4.0);
-	DMVPointArea = CreateDynamicSphere(833.60, 3.23, 1004.17, 3.0);
+	CreateDynamic3DTextLabel("To pay your tickets or\nrelease your cars, press Y.",COLOR_YELLOW,1123.1129, -1408.7600, 2001.0859+0.6,4.0);
+	DMVPointArea = CreateDynamicSphere(1123.1129, -1408.7600, 2001.0859, 3.0);
 
 	return 1;
 }
@@ -53,7 +17,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
 	if(newkeys & KEY_YES) {
 
 		if(IsPlayerInDynamicArea(playerid, DMVPointArea)) ShowDMVMenu(playerid);
-		else if(IsPlayerInRangeOfPoint(playerid, 2.0, 833.60, 3.23, 1004.17)) ShowDMVMenu(playerid);
+		else if(IsPlayerInRangeOfPoint(playerid, 2.0, 1123.1129, -1408.7600, 2001.0859)) ShowDMVMenu(playerid);
 	}
 	return 1;
 }
@@ -70,17 +34,17 @@ CMD:revokelicense(playerid, params[])
 			return 1;
 		}
 
-		if (playerid == giveplayerid) return SendClientMessageEx(playerid, COLOR_GRAD2, "You can't revoke your own licenses!");
+		if (playerid == giveplayerid) return SendErrorMessage(playerid, "You can't revoke your own licenses!");
 
 		if((IsPlayerConnected(giveplayerid)) && giveplayerid != INVALID_PLAYER_ID)
 		{
-			if(GetPVarInt(playerid, "Injured") != 0) return SendClientMessageEx (playerid, COLOR_GRAD2, "You cannot do this at this time.");
-			if(!ProxDetectorS(8.0, playerid, giveplayerid)) return SendClientMessageEx (playerid, COLOR_GRAD2, "You aren't near that person!");
+			if(GetPVarInt(playerid, "Injured") != 0) return SendErrorMessage(playerid, "You cannot do this at this time.");
+			if(!ProxDetectorS(8.0, playerid, giveplayerid)) return SendErrorMessage(playerid, "You aren't near that person!");
 			switch(type)
 			{
 				case 1:
 				{
-					if(PlayerInfo[giveplayerid][pCarLic] == 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "This person has no driver's license to revoke.");
+					if(PlayerInfo[giveplayerid][pCarLic] == 0) return SendErrorMessage(playerid, "This person has no driver's license to revoke.");
 
 					GetPlayerGroupInfo(playerid, sz_FacInfo[0], sz_FacInfo[1], sz_FacInfo[2]);
 					format(string,sizeof(string),"The %s has revoked your driver's license, reason: %s.", sz_FacInfo[2], reason);
@@ -96,7 +60,7 @@ CMD:revokelicense(playerid, params[])
 				}
 				case 2:
 				{
-					if(PlayerInfo[giveplayerid][pBoatLic] == 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "This person has no boating license to revoke.");
+					if(PlayerInfo[giveplayerid][pBoatLic] == 0) return SendErrorMessage(playerid, "This person has no boating license to revoke.");
 
 					GetPlayerGroupInfo(playerid, sz_FacInfo[0], sz_FacInfo[1], sz_FacInfo[2]);
 					format(string,sizeof(string),"The %s has revoked your boater's license, reason: %s.", sz_FacInfo[2], reason);
@@ -112,7 +76,7 @@ CMD:revokelicense(playerid, params[])
 				}
 				case 3:
 				{
-					if(PlayerInfo[giveplayerid][pFlyLic] == 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "This person has no pilot license to revoke.");
+					if(PlayerInfo[giveplayerid][pFlyLic] == 0) return SendErrorMessage(playerid, "This person has no pilot license to revoke.");
 
 					GetPlayerGroupInfo(playerid, sz_FacInfo[0], sz_FacInfo[1], sz_FacInfo[2]);
 					format(string,sizeof(string),"The %s has revoked your pilot's license, reason: %s.", sz_FacInfo[2], reason);
@@ -145,10 +109,10 @@ CMD:revokelicense(playerid, params[])
 				}
 			}
 		}
-		SendClientMessageEx(playerid, COLOR_GRAD2, "Invalid player specified.");
+		SendErrorMessage(playerid, "Invalid player specified.");
 		return 1;
 	}
-	SendClientMessageEx(playerid, COLOR_GRAD2, "You're not authorised to do this.");
+	SendErrorMessage(playerid, "You're not authorised to do use this CMD.");
 	return 1;
 }
 
@@ -166,7 +130,7 @@ CMD:givelicense(playerid, params[])
 
 		if(!IsPlayerConnected(giveplayerid))
 		{
-			SendClientMessageEx(playerid, COLOR_GRAD2, "Invalid player specified.");
+			SendErrorMessage(playerid, "Invalid player specified.");
 			return 1;
 		}
 
@@ -176,7 +140,7 @@ CMD:givelicense(playerid, params[])
 			{
 				if(PlayerInfo[giveplayerid][pCarLic] > 0)
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD2, "This person already has a driver's license.");
+					SendErrorMessage(playerid, "This person already has a driver's license.");
 					return 1;
 				}
 				format(string, sizeof(string), "You have given a driver's license to %s.",GetPlayerNameEx(giveplayerid));
@@ -192,7 +156,7 @@ CMD:givelicense(playerid, params[])
 			{
 				if(PlayerInfo[giveplayerid][pBoatLic] == 1)
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD2, "This person already has a boating license.");
+					SendErrorMessage(playerid, "This person already has a boating license.");
 					return 1;
 				}
 				format(string, sizeof(string), "You have given a boating license to %s.",GetPlayerNameEx(giveplayerid));
@@ -208,7 +172,7 @@ CMD:givelicense(playerid, params[])
 			{
 				if(PlayerInfo[giveplayerid][pFlyLic] == 1)
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD2, "This person already has a pilot license.");
+					SendErrorMessage(playerid, "This person already has a pilot license.");
 					return 1;
 				}
 				format(string, sizeof(string), "You have given a pilot license to %s.",GetPlayerNameEx(giveplayerid));
@@ -224,7 +188,7 @@ CMD:givelicense(playerid, params[])
 			{
 				if(PlayerInfo[giveplayerid][pTaxiLicense] == 1)
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD2, "This person already has a taxi license.");
+					SendErrorMessage(playerid, "This person already has a taxi license.");
 					return 1;
 				}
 				format(string, sizeof(string), "You have given a taxi license to %s.",GetPlayerNameEx(giveplayerid));
@@ -243,7 +207,7 @@ CMD:givelicense(playerid, params[])
 			}
 		}
 	}
-	else SendClientMessageEx(playerid, COLOR_GREY, "You're not authorised to use this command.");
+	else SendErrorMessage(playerid, "You're not authorised to use this CMD.");
 	return 1;
 }
 
@@ -263,7 +227,7 @@ CMD:droplicense(playerid, params[])
 		{
 			if(PlayerInfo[playerid][pCarLic] == 0)
 			{
-				SendClientMessageEx(playerid, COLOR_GRAD2, "You don't have a driver's license to drop.");
+				SendErrorMessage(playerid, "You don't have a driver's license to drop.");
 				return 1;
 			}
 			format(string, sizeof(string), "You have dropped your driver's license.");
@@ -275,7 +239,7 @@ CMD:droplicense(playerid, params[])
 		{
 			if(PlayerInfo[playerid][pBoatLic] == 0)
 			{
-				SendClientMessageEx(playerid, COLOR_GRAD2, "You don't have a boating license to drop.");
+				SendErrorMessage(playerid, "You don't have a boating license to drop.");
 				return 1;
 			}
 			format(string, sizeof(string), "You have dropped your boating license.");
@@ -287,7 +251,7 @@ CMD:droplicense(playerid, params[])
 		{
 			if(PlayerInfo[playerid][pFlyLic] == 0)
 			{
-				SendClientMessageEx(playerid, COLOR_GRAD2, "You don't have a pilot license to drop.");
+				SendErrorMessage(playerid, "You don't have a pilot license to drop.");
 				return 1;
 			}
 			format(string, sizeof(string), "You have dropped your pilot license.");
@@ -299,7 +263,7 @@ CMD:droplicense(playerid, params[])
 		{
 			if(PlayerInfo[playerid][pTaxiLicense] == 0)
 			{
-				SendClientMessageEx(playerid, COLOR_GRAD2, "You don't have a taxi license to drop.");
+				SendErrorMessage(playerid, "You don't have a taxi license to drop.");
 				return 1;
 			}
 			format(string, sizeof(string), "You have dropped your taxi license.");
@@ -471,7 +435,7 @@ ShowDMVMenu(playerid, menu = 0, iTargetID = INVALID_PLAYER_ID) {
 					else format(szMiscArray, sizeof(szMiscArray), "%s\n%s", szMiscArray, VehicleName[PlayerVehicleInfo[iTargetID][i][pvModelId] - 400]);
 				}
 				else if(PlayerVehicleInfo[iTargetID][i][pvImpounded]) {
-					format(szMiscArray, sizeof(szMiscArray), "%s\n%s (impounded - $%i release)", szMiscArray, VehicleName[PlayerVehicleInfo[iTargetID][i][pvModelId] - 400], (PlayerVehicleInfo[iTargetID][i][pvPrice] / 20) + PlayerVehicleInfo[iTargetID][i][pvTicket] + (PlayerInfo[iTargetID][pLevel] * 3000));
+					format(szMiscArray, sizeof(szMiscArray), "%s\n%s (impounded - $%i release)", szMiscArray, VehicleName[PlayerVehicleInfo[iTargetID][i][pvModelId] - 400], (PlayerVehicleInfo[iTargetID][i][pvPrice] / 30) + PlayerVehicleInfo[iTargetID][i][pvTicket] + (PlayerInfo[iTargetID][pLevel] * 5000));
 					++iCount;
 				}
 				else format(szMiscArray, sizeof(szMiscArray), "%s\nNone", szMiscArray);

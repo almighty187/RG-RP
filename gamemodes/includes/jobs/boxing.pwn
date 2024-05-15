@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Boxing System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 /*CMD:setchamp(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] >= 4)
@@ -73,7 +36,7 @@ CMD:boxstats(playerid, params[])
 {
 	if(PlayerInfo[playerid][pJob] != 12 && PlayerInfo[playerid][pJob2] != 12 && PlayerInfo[playerid][pJob3] != 12)
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "   You are not a Boxer!");
+		SendErrorMessage(playerid, "You are not a Boxer!");
 		return 1;
 	}
 
@@ -120,16 +83,16 @@ CMD:train(playerid, params[])
 	{
 		if(PlayerInfo[playerid][pDonateRank] >= 1)
 		{
-			ShowPlayerDialogEx(playerid, FIGHTMENU, DIALOG_STYLE_LIST, "Fighting Moves", "Boxing		$40000\nElbow		$40000\nKneehead	$40000\nKung-Fu	$40000\nGrabKick	$40000\nNormal", "Learn", "Cancel");
+			ShowPlayerDialogEx(playerid, FIGHTMENU, DIALOG_STYLE_LIST, "Fighting Moves", "Boxing		$4000\nElbow		$5000\nKneehead	$8000\nKung-Fu	$6000\nGrabKick	$7000\nNormal", "Learn", "Cancel");
 		}
 		else
 		{
-			ShowPlayerDialogEx(playerid, FIGHTMENU, DIALOG_STYLE_LIST, "Fighting Moves", "Boxing		$50000\nElbow		$50000\nKneehead	$50000\nKung-Fu	$50000\nGrabKick	$50000\nNormal", "Learn", "Cancel");
+			ShowPlayerDialogEx(playerid, FIGHTMENU, DIALOG_STYLE_LIST, "Fighting Moves", "Boxing		$2000\nElbow		$3000\nKneehead	$5000\nKung-Fu	$4000\nGrabKick	$5000\nNormal", "Learn", "Cancel");
 		}
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD2, " You are not at the learning area! (Inside gym)");
+		SendErrorMessage(playerid, "You are not at the learning area! (Inside gym)");
 	}
 	return 1;
 }
@@ -138,17 +101,17 @@ CMD:fight(playerid, params[])
 {
 	if(PlayerInfo[playerid][pJob] != 12 && PlayerInfo[playerid][pJob2] != 12 && PlayerInfo[playerid][pJob3] != 12)
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "   You are not a Boxer!");
+		SendErrorMessage(playerid, "You are not a Boxer!");
 		return 1;
 	}
 	if(InRing > 0)
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "   There is already a Fight going on, wait for it to Finish!");
+		SendErrorMessage(playerid, "There is already a Fight going on, wait for it to Finish!");
 		return 1;
 	}
 	if(PlayerBoxing[playerid] > 0)
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "   You are already Fighting!");
+		SendErrorMessage(playerid, "You are already Fighting!");
 		return 1;
 	}
 
@@ -170,20 +133,20 @@ CMD:fight(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid, COLOR_GRAD2," You are not at the Gym!");
+				SendErrorMessage(playerid, " You are not at the Gym!");
 				return 1;
 			}
 		}
 		else
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "That person isn't near you.");
+			SendErrorMessage(playerid, "That person isn't near you.");
 			return 1;
 		}
 
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
+		SendErrorMessage(playerid, "Invalid player specified.");
 		return 1;
 	}
 	return 1;

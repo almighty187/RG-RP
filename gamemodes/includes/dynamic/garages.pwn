@@ -85,7 +85,7 @@ CMD:changegaragepass(playerid, params[])
 		{
 			if(sscanf(params, "s[24]", garagepass))
 			{
-				SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /changegaragepass [pass]");
+				SendSyntaxMessage(playerid, "/changegaragepass [pass]");
 				SendClientMessageEx(playerid, COLOR_WHITE, "To remove the password on the door set the password to 'none'.");
 				return 1;
 			}
@@ -160,6 +160,7 @@ CMD:garageedit(playerid, params[])
 		GarageInfo[garageid][gar_ExteriorVW] = GetPlayerVirtualWorld(playerid);
 		GarageInfo[garageid][gar_ExteriorInt] = GetPlayerInterior(playerid);
 		SendClientMessageEx(playerid, COLOR_WHITE, "You have changed the exterior!");
+		DestroyDynamicPickup(GarageInfo[garageid][gar_PickupID]);
 		CreateGarage(garageid);
 		format(string, sizeof(string), "%s has edited Garage ID: %d's Exterior.", GetPlayerNameEx(playerid), garageid);
 		Log("logs/garage.log", string);
@@ -341,7 +342,7 @@ CMD:agaragepass(playerid, params[])
 		garageid,
 		garagepass[24];
 
-	if(sscanf(params, "ds[24]", garageid, garagepass)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /agaragepass [garageid] [pass]"), SendClientMessageEx(playerid, COLOR_WHITE, "To remove the password on the garage set the password to 'none' ");
+	if(sscanf(params, "ds[24]", garageid, garagepass)) return SendSyntaxMessage(playerid, "/agaragepass [garageid] [pass]"), SendClientMessageEx(playerid, COLOR_WHITE, "To remove the password on the garage set the password to 'none' ");
 	format(GarageInfo[garageid][gar_Pass], 24, "%s", garagepass);
 	SendClientMessageEx(playerid, COLOR_WHITE, "You have changed the password of that garage.");
 	SaveGarage(garageid);
@@ -379,7 +380,7 @@ CMD:goingarage(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pShopTech] >= 1)
 	{
 		new string[48], garage;
-		if(sscanf(params, "d", garage)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /goingarage [garageid]");
+		if(sscanf(params, "d", garage)) return SendSyntaxMessage(playerid, "/goingarage [garageid]");
 		if(garage < 0 || garage >= MAX_GARAGES)
 		{
 			format(string, sizeof(string), "Garage ID must be between 0 and %d.", MAX_GARAGES - 1);
@@ -401,7 +402,7 @@ CMD:gotogarage(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pShopTech] >= 1)
 	{
 		new string[48], garage;
-		if(sscanf(params, "d", garage)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gotogarage [garageid]");
+		if(sscanf(params, "d", garage)) return SendSyntaxMessage(playerid, "/gotogarage [garageid]");
 		if(garage < 0 || garage >= MAX_GARAGES)
 		{
 			format(string, sizeof(string), "GarageID must be between 0 and %d.", MAX_GARAGES - 1);
@@ -423,7 +424,7 @@ CMD:garagestatus(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1 && PlayerInfo[playerid][pShopTech] < 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command.");
 	new garageid;
-	if(sscanf(params, "i", garageid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /garagestatus [garageid]");
+	if(sscanf(params, "i", garageid)) return SendSyntaxMessage(playerid, "/garagestatus [garageid]");
 	new string[128];
 	format(string,sizeof(string),"|___________ Garage Status (ID: %d) ___________|", garageid);
 	SendClientMessageEx(playerid, COLOR_GREEN, string);
@@ -591,6 +592,7 @@ stock SaveGarage(garageid)
 
 stock CreateGarage(garageid)
 {
+    if(IsValidDynamicPickup(GarageInfo[garageid][gar_PickupID])) DestroyDynamicPickup(GarageInfo[garageid][gar_PickupID]);
 	if(IsValidDynamic3DTextLabel(GarageInfo[garageid][gar_TextID])) DestroyDynamic3DTextLabel(GarageInfo[garageid][gar_TextID]), GarageInfo[garageid][gar_TextID] = Text3D:-1;
 	if(GarageInfo[garageid][gar_ExteriorX] == 0.0) return 1;
 	new string[128];
@@ -605,6 +607,8 @@ stock CreateGarage(garageid)
 
 	Streamer_SetIntData(STREAMER_TYPE_AREA, GarageInfo[garageid][gar_AreaID], E_STREAMER_EXTRA_ID, garageid);
 	Streamer_SetIntData(STREAMER_TYPE_AREA, GarageInfo[garageid][gar_AreaID_int], E_STREAMER_EXTRA_ID, garageid);
+
+	GarageInfo[garageid][gar_PickupID] = CreateDynamicPickup(19130, 23, GarageInfo[garageid][gar_ExteriorX], GarageInfo[garageid][gar_ExteriorY], GarageInfo[garageid][gar_ExteriorZ], GarageInfo[garageid][gar_ExteriorVW]);
 
 	format(szMiscArray, sizeof(szMiscArray), "[Garage] Created Garage: %d | Exterior Area ID: %d | Interior Area ID: %d", garageid, GarageInfo[garageid][gar_AreaID], GarageInfo[garageid][gar_AreaID_int]);
 	Log("debug/door_garage.log", szMiscArray);

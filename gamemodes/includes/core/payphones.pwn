@@ -293,7 +293,7 @@ PayPhone_Save(i, Float:X, Float:Y, Float:Z, Float:RZ, iVW, iINT) {
 
 CMD:phones(playerid, params[]) {
 
-	if(!IsAdminLevel(playerid, ADMIN_GENERAL)) return 1;
+	if(!IsAdminLevel(playerid, ADMIN_GAME)) return 1;
 
 	szMiscArray[0] = 0;
 

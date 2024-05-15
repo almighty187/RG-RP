@@ -157,6 +157,66 @@ public DragPlayer(dragger, dragee)
 forward CuffTackled(playerid, giveplayerid);
 public CuffTackled(playerid, giveplayerid)
 {
+    new string[128];
+    if (!GetPVarType(giveplayerid, "IsTackled"))
+    {
+        return SendClientMessageEx(playerid, COLOR_GRAD1, "The suspect has escaped your tackle.  Tackle or Taze him again or get them to comply!");
+    }
+    if (GetPVarType(giveplayerid, "TackledResisting"))
+    {
+        if (GetPVarInt(giveplayerid, "TackledResisting") == 1) // complying
+        {
+            if (GetPVarType(giveplayerid, "IsTackled"))
+            {
+                return CuffTacklee(playerid, giveplayerid);
+            }
+        }
+        if (GetPVarInt(giveplayerid, "TackledResisting") == 2) // resisting
+        {
+            new copcount;
+            foreach(new j: Player)
+            {
+                if (ProxDetectorS(4.0, giveplayerid, j) && IsACop(j) && j != giveplayerid)
+                {
+                    copcount++;
+                }
+            }
+            format(string, sizeof(string), "* %s pushes and attempts to resist %s.", GetPlayerNameEx(giveplayerid), GetPlayerNameEx(playerid));
+            ProxDetector(30.0, giveplayerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+            new cuffchance = random(11);
+            if (copcount >= 2 && copcount < 5) cuffchance = random(6);
+            else if (copcount >= 5) cuffchance = 1;
+            switch (cuffchance)
+            {
+                case 0..4: // success
+                {
+                    return CuffTacklee(playerid, giveplayerid);
+                }
+                default: // fail
+                {
+                    format(string, sizeof(string), "* %s pushes %s aside and is able to escape.", GetPlayerNameEx(giveplayerid), GetPlayerNameEx(playerid));
+                    ProxDetector(30.0, giveplayerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+                    TogglePlayerControllable(playerid, 0);
+                    ApplyAnimation(playerid, "SWEET", "Sweet_injuredloop", 4.0, 1, 1, 1, 1, 0, 1);
+                    SetTimerEx("CopGetUp", 3500, 0, "i", playerid);
+                    ClearTackle(giveplayerid);
+                }
+            }
+        }
+    }
+    else if (!GetPVarType(giveplayerid, "TackledResisting")) // Player hasn't chosen between resisting and complying
+    {
+        // Show dialog or perform some action to prompt the player for a choice
+        // This is where the recursion happens, but we need to add a condition to stop it
+        ShowPlayerDialogEx(giveplayerid, -1, DIALOG_STYLE_LIST, "Close", "Close", "Close", "Close");
+        SetPVarInt(giveplayerid, "TackledResisting", 2);
+        return 1; // Return here to avoid further execution of the function
+    }
+    return 1;
+}
+/*
+public CuffTackled(playerid, giveplayerid)
+{
 	new string[128];
 	if(!GetPVarType(giveplayerid, "IsTackled"))
 	{
@@ -211,7 +271,7 @@ public CuffTackled(playerid, giveplayerid)
 		CuffTackled(playerid, giveplayerid);
 	}
 	return 1;
-}
+}*/
 
 forward CopGetUp(playerid);
 public CopGetUp(playerid)

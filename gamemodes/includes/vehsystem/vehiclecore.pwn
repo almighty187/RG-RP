@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Vehicle Functions
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 stock vehicle_lock_doors(vehicle) {
 
 	new
@@ -161,6 +124,24 @@ stock IsInGarbageTruck(id)
 	for(new i = 0; i < sizeof(GarbageVehicles); i++)
 	{
 		if(id == GarbageVehicles[i]) return 1;
+	}
+	return 0;
+}
+
+stock IsInPaperBike(id)
+{
+	for(new i = 0; i < sizeof(PaperVehicles); i++)
+	{
+		if(id == PaperVehicles[i]) return 1;
+	}
+	return 0;
+}
+
+stock IsInSweeperCar(id)
+{
+	for(new i = 0; i < sizeof(SweeperVehicles); i++)
+	{
+		if(id == SweeperVehicles[i]) return 1;
 	}
 	return 0;
 }
@@ -1548,6 +1529,17 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 	szMiscArray[0] = 0;
 	IsPlayerEntering{playerid} = true;
 	Seatbelt[playerid] = 0;
+	PlayerInfo[playerid][pSpeedo] = 1;
+	ShowVehicleHUDForPlayer(playerid);
+    if (!ispassenger) // Check if the player is the driver
+    {
+        SendServerMessage(playerid, "Press ~k~~CONVERSATION_NO~ to start engine");
+
+        if (PlayerInfo[playerid][pLevel] == 1)
+        {
+            SendServerMessage(playerid, "[TIP] Use /car to see all vehicle commands");
+        }
+    }
 	if(InsideTut{playerid} > 0)
 	{
 		if(GetPVarType(playerid, "Autoban")) return 1;
@@ -1609,7 +1601,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 		PlayerPlaySound(playerid, 1130, slx, sly, slz+1.3);
 		RemovePlayerFromVehicle(playerid);
 		defer NOPCheck(playerid);
-		SendClientMessageEx(playerid, COLOR_GRAD2, "You need to be in a Pizzaboy when delivering pizzas!");
+		SendErrorMessage(playerid, "You need to be in a Pizzaboy when delivering pizzas!");
 		return 1;
 	}
 	if(!ispassenger)
@@ -1622,7 +1614,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 			SetPlayerPos(playerid, slx, sly, slz+1.3);
 			RemovePlayerFromVehicle(playerid);
 			defer NOPCheck(playerid);
-			return SendClientMessageEx(playerid, COLOR_GRAD2, "You cannot drive any vehicles while your account is restricted!");
+			return SendErrorMessage(playerid, "You cannot drive any vehicles while your account is restricted!");
 		}
 		if(IsVIPcar(vehicleid))
 		{
@@ -1634,7 +1626,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 				PlayerPlaySound(playerid, 1130, slx, sly, slz+1.3);
 			    RemovePlayerFromVehicle(playerid);
 			    defer NOPCheck(playerid);
-			    SendClientMessageEx(playerid, COLOR_GRAD2, "You are not a VIP, this is a vehicle from the VIP Garage!");
+			    SendErrorMessage(playerid, "You are not a VIP, this is a vehicle from the VIP Garage!");
 			}
 		}
 		else if(IsWeaponizedVehicle(GetVehicleModel(vehicleid)))
@@ -1664,7 +1656,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 						PlayerPlaySound(playerid, 1130, slx, sly, slz+1.3);
 					    RemovePlayerFromVehicle(playerid);
 					    defer NOPCheck(playerid);
-					    SendClientMessageEx(playerid, COLOR_GRAD2, "This is a Old-School+ Vehicle, therefore you may not drive this.");
+					    SendErrorMessage(playerid, "This is a Old-School+ Vehicle, therefore you may not drive this.");
 					}
 				}
 				else if(IsCOSModel(vehicleid))
@@ -1677,7 +1669,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 						PlayerPlaySound(playerid, 1130, slx, sly, slz+1.3);
 					    RemovePlayerFromVehicle(playerid);
 					    defer NOPCheck(playerid);
-					    SendClientMessageEx(playerid, COLOR_GRAD2, "This is a Chartered Old-School+ Vehicle, therefore you may not drive this.");
+					    SendErrorMessage(playerid, "This is a Chartered Old-School+ Vehicle, therefore you may not drive this.");
 					}
 				}
 				else if(IsFamedModel(vehicleid))
@@ -1690,7 +1682,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 						PlayerPlaySound(playerid, 1130, slx, sly, slz+1.3);
 					    RemovePlayerFromVehicle(playerid);
 					    defer NOPCheck(playerid);
-					    SendClientMessageEx(playerid, COLOR_GRAD2, "This is a Famed+ Vehicle, therefore you may not drive this.");
+					    SendErrorMessage(playerid, "This is a Famed+ Vehicle, therefore you may not drive this.");
 					}
 				}
 			}
@@ -1705,7 +1697,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 				PlayerPlaySound(playerid, 1130, slx, sly, slz+1.3);
 			    RemovePlayerFromVehicle(playerid);
 			    defer NOPCheck(playerid);
-			    SendClientMessageEx(playerid, COLOR_GRAD2, "You are not a Pizza Boy!");
+			    SendErrorMessage(playerid, "You are not a Pizza Boy!");
 			}
 		}
 
@@ -1733,7 +1725,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 				if(iTruckContents == 0)
 				{ format(truckcontentname, sizeof(truckcontentname), "%s",  GetInventoryType(TruckDeliveringTo[vehicleid])); }
 				format(string, sizeof(string), "SHIPMENT CONTRACTOR: (Vehicle registration: %s %d) - (Content: %s{FFFF00})", GetVehicleName(vehicleid), vehicleid, truckcontentname);
-				SendClientMessageEx(playerid, COLOR_YELLOW, string);
+				SendClientMessageEx(playerid, COLOR_GREEN, string);
 
 				if(IsACop(playerid))
 				{
@@ -1741,23 +1733,23 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 				}
 				if(TruckDeliveringTo[vehicleid] != INVALID_BUSINESS_ID && TruckUsed[playerid] == INVALID_VEHICLE_ID)
 				{
-					SendClientMessageEx(playerid, COLOR_YELLOW, "SHIPMENT CONTRACTOR JOB: To deliver the goods type /hijackcargo as the driver.");
+					SendClientMessageEx(playerid, COLOR_GREEN, "SHIPMENT CONTRACTOR JOB: To deliver the goods type /hijackcargo as the driver.");
 				}
 				else if(TruckUsed[playerid] == INVALID_VEHICLE_ID)
 				{
-    				SendClientMessageEx(playerid, COLOR_YELLOW, "SHIPMENT CONTRACTOR JOB: To get goods type /loadshipment as the driver.");
+    				SendClientMessageEx(playerid, COLOR_GREEN, "SHIPMENT CONTRACTOR JOB: To get goods type /loadshipment as the driver.");
 				}
 				else if(TruckUsed[playerid] == vehicleid && gPlayerCheckpointStatus[playerid] == CHECKPOINT_RETURNTRUCK)
 				{
-					SendClientMessageEx(playerid, COLOR_YELLOW, "SHIPMENT CONTRACTOR JOB: This is your shipment, you have not returned it to the docks yet for your pay.");
+					SendClientMessageEx(playerid, COLOR_GREEN, "SHIPMENT CONTRACTOR JOB: This is your shipment, you have not returned it to the docks yet for your pay.");
 				}
 				else if(TruckUsed[playerid] == vehicleid)
    				{
-      				SendClientMessageEx(playerid, COLOR_YELLOW, "SHIPMENT CONTRACTOR JOB: This is your shipment, you have not delivered your goods yet.");
+      				SendClientMessageEx(playerid, COLOR_GREEN, "SHIPMENT CONTRACTOR JOB: This is your shipment, you have not delivered your goods yet.");
      			}
 				else if(TruckUsed[playerid] != INVALID_VEHICLE_ID)
    				{
-      				SendClientMessageEx(playerid, COLOR_YELLOW, "SHIPMENT CONTRACTOR JOB: You are already on another delivery, type /cancel shipment to cancel that delivery.");
+      				SendClientMessageEx(playerid, COLOR_GREEN, "SHIPMENT CONTRACTOR JOB: You are already on another delivery, type /cancel shipment to cancel that delivery.");
      			}
 			}
 		    else if(!IsABoat(vehicleid))
@@ -1767,8 +1759,36 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 				GetPlayerPos(playerid, slx, sly, slz);
 				SetPlayerPos(playerid, slx, sly, slz);
 			    defer NOPCheck(playerid);
-			    SendClientMessageEx(playerid, COLOR_GRAD2, "You are not a Shipment Contractor!");
+			    SendErrorMessage(playerid, "You are not a Shipment Contractor!");
 			}
+		}
+		else if(IsInPaperBike(vehicleid))
+		{
+			if(PlayerInfo[playerid][pJob] == 5 || PlayerInfo[playerid][pJob2] == 5 || PlayerInfo[playerid][pJob3] == 5)
+			{
+			}
+		    else
+			{
+		        SendErrorMessage(playerid, "You are not a Paper Boy!");
+		        RemovePlayerFromVehicle(playerid);
+		        new Float:slx, Float:sly, Float:slz;
+				GetPlayerPos(playerid, slx, sly, slz);
+				SetPlayerPos(playerid, slx, sly, slz);
+		    }
+		}
+		else if(IsInSweeperCar(vehicleid))
+		{
+			if(PlayerInfo[playerid][pJob] == 10 || PlayerInfo[playerid][pJob2] == 10 || PlayerInfo[playerid][pJob3] == 10)
+			{
+			}
+		    else
+			{
+		        SendErrorMessage(playerid, "You are not a Street Sweeper!");
+		        RemovePlayerFromVehicle(playerid);
+		        new Float:slx, Float:sly, Float:slz;
+				GetPlayerPos(playerid, slx, sly, slz);
+				SetPlayerPos(playerid, slx, sly, slz);
+		    }
 		}
 		else if(IsInGarbageTruck(vehicleid))
 		{
@@ -1777,7 +1797,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 			}
 		    else
 			{
-		        SendClientMessageEx(playerid,COLOR_GREY,"   You are not a Garbage Man!");
+		        SendErrorMessage(playerid, "You are not a Garbage Man!");
 		        RemovePlayerFromVehicle(playerid);
 		        new Float:slx, Float:sly, Float:slz;
 				GetPlayerPos(playerid, slx, sly, slz);
@@ -1795,7 +1815,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 					GetPlayerPos(playerid, slx, sly, slz);
 					SetPlayerPos(playerid, slx, sly, slz);
 					defer NOPCheck(playerid);
-					SendClientMessageEx(playerid,COLOR_GREY,"You don't have a pilot license!");
+					SendErrorMessage(playerid, "You don't have a pilot license!");
 				}
 	  		}
 		}
@@ -1811,7 +1831,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 			}
 		    else
 			{
-		        SendClientMessageEx(playerid,COLOR_GREY,"   You are not a Taxi/Bus Driver!");
+		        SendErrorMessage(playerid, "You are not a Taxi/Bus Driver!");
 		        RemovePlayerFromVehicle(playerid);
 		        new Float:slx, Float:sly, Float:slz;
 				GetPlayerPos(playerid, slx, sly, slz);
@@ -1822,7 +1842,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 		{
 			if(!IsATaxiDriver(playerid))
 			{
-				SendClientMessageEx(playerid,COLOR_GREY,"   You are not part of a transportation department!");
+				SendErrorMessage(playerid, "You are not part of a transportation department!");
 				RemovePlayerFromVehicle(playerid);
 				new Float:slx, Float:sly, Float:slz;
 				GetPlayerPos(playerid, slx, sly, slz);
@@ -1857,7 +1877,7 @@ CMD:car(playerid, params[])
 	new string[128], choice[8], id;
 	if(sscanf(params, "s[8]D(0)", choice, id))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /car [name]");
+		SendSyntaxMessage(playerid, "/car [name]");
 		SendClientMessageEx(playerid, COLOR_GREY, "Available names: Status, Engine, Lights, Trunk, Hood, Fuel, Window [0-3], Windows");
 		return 1;
 	}
@@ -1899,7 +1919,7 @@ CMD:car(playerid, params[])
 			new vehicleid = GetPlayerVehicleID(playerid);
 			if(GetVehicleModel(vehicleid) == 481 || GetVehicleModel(vehicleid) == 509 || GetVehicleModel(vehicleid) == 510 || IsAPlane(vehicleid) || IsABike(vehicleid))
 			{
-				return SendClientMessageEx(playerid,COLOR_WHITE,"This command can't be used in this vehicle.");
+				return SendErrorMessage(playerid, "This command can't be used in this vehicle.");
 			}
 			SetVehicleHood(vehicleid, playerid);
 		}
@@ -1910,7 +1930,7 @@ CMD:car(playerid, params[])
 			{
 				if(GetVehicleModel(closestcar) == 481 || GetVehicleModel(closestcar) == 509 || GetVehicleModel(closestcar) == 510 || IsAPlane(closestcar) || IsABike(closestcar))
 				{
-					return SendClientMessageEx(playerid,COLOR_WHITE,"This command can't be used on this vehicle.");
+					return SendErrorMessage(playerid, "This command can't be used on this vehicle.");
 				}
 				SetVehicleHood(closestcar, playerid);
 			}
@@ -1923,7 +1943,7 @@ CMD:car(playerid, params[])
 			new vehicleid = GetPlayerVehicleID(playerid);
 			if(GetVehicleModel(vehicleid) == 481 || GetVehicleModel(vehicleid) == 509 || GetVehicleModel(vehicleid) == 510)
 			{
-				return SendClientMessageEx(playerid,COLOR_WHITE,"This command can't be used in this vehicle.");
+				return SendErrorMessage(playerid, "This command can't be used in this vehicle.");
 			}
 			if(CarryCrate[playerid] != -1) return SendClientMessageEx(playerid,COLOR_WHITE,"You need both hands to open the car trunk!"); 
 			SetVehicleTrunk(vehicleid, playerid);
@@ -1935,7 +1955,7 @@ CMD:car(playerid, params[])
 			{
 				if(GetVehicleModel(closestcar) == 481 || GetVehicleModel(closestcar) == 509 || GetVehicleModel(closestcar) == 510)
 				{
-					return SendClientMessageEx(playerid,COLOR_WHITE,"This command can't be used on this vehicle.");
+					return SendErrorMessage(playerid, "This command can't be used on this vehicle.");
 				}
 				if(CarryCrate[playerid] != -1) return SendClientMessageEx(playerid,COLOR_WHITE,"You need both hands to open the car trunk!"); 
 				SetVehicleTrunk(closestcar, playerid);
@@ -2120,14 +2140,14 @@ CMD:lock(playerid, params[])
    	        }
    	        else
    	        {
-            	SendClientMessageEx(playerid, COLOR_GRAD2, "You are not near your vehicle!");
+            	SendErrorMessage(playerid, "You are not near your vehicle!");
 	            return 1;
    	        }
        	}
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD2, " You do not have a lock!");
+		SendErrorMessage(playerid, "You do not have a lock!");
 		return 1;
  	}
 	return 1;
@@ -2164,40 +2184,6 @@ CMD:vstorage(playerid, params[])
 	else { return SendClientMessageEx(playerid, COLOR_GRAD2, "Your vehicle assets have been frozen by the Judiciary.  Consult your local courthouse to have this cleared"); }
 	return 1;
 }
-/*
-CMD:vstorage(playerid, params[])
-{
-	if(PlayerTied[playerid] != 0 || PlayerCuffed[playerid] != 0 || PlayerInfo[playerid][pJailTime] > 0 || GetPVarInt(playerid, "Injured")) return SendClientMessageEx(playerid, COLOR_GRAD2, "You cannot do this at this time.");
-	if(PlayerInfo[playerid][pFreezeCar] == 0 || PlayerInfo[playerid][pAdmin] >= 2)
-	{
-		szMiscArray[0] = 0;
-		new icount = GetPlayerVehicleSlots(playerid);
-		new szCarLocation[MAX_ZONE_NAME];
-		for(new i, iModelID; i < icount; i++)
-		{
-			if((iModelID = PlayerVehicleInfo[playerid][i][pvModelId] - 400) >= 0) 
-			{
-				Get3DZone(PlayerVehicleInfo[playerid][i][pvPosX], PlayerVehicleInfo[playerid][i][pvPosY], PlayerVehicleInfo[playerid][i][pvPosZ], szCarLocation, sizeof(szCarLocation));
-				if(PlayerVehicleInfo[playerid][i][pvImpounded]) {
-					format(szMiscArray, sizeof(szMiscArray), "%s\n%s (impounded) | Location: DMV", szMiscArray, VehicleName[iModelID]);
-				}
-				else if(PlayerVehicleInfo[playerid][i][pvDisabled]) {
-					format(szMiscArray, sizeof(szMiscArray), "%s\n%s (disabled) | Location: Unknown", szMiscArray, VehicleName[iModelID]);
-				}
-				else if(!PlayerVehicleInfo[playerid][i][pvSpawned]) {
-					format(szMiscArray, sizeof(szMiscArray), "%s\n%s (stored)", szMiscArray, VehicleName[iModelID]);
-				}
-				else format(szMiscArray, sizeof(szMiscArray), "%s\n%s (spawned) | Location: %s", szMiscArray, VehicleName[iModelID], szCarLocation);
-			}
-			else strcat(szMiscArray, "\nEmpty");
-		}
-		format(szMiscArray, sizeof(szMiscArray), "%s\n{40FFFF}Additional Vehicle Slot {FFD700}(Credits: %s){A9C4E4}", szMiscArray, number_format(ShopItems[23][sItemPrice]));
-		ShowPlayerDialogEx(playerid, VEHICLESTORAGE, DIALOG_STYLE_LIST, "Vehicle storage", szMiscArray, "(De)spawn", "Cancel");
-	}
-	else { return SendClientMessageEx(playerid, COLOR_GRAD2, "Your vehicle assets have been frozen by the Judiciary.  Consult your local courthouse to have this cleared"); }
-	return 1;
-}*/
-
 CMD:trackcar(playerid, params[])
 {
     if(GetPVarType(playerid, "RentedVehicle")) {
@@ -2229,7 +2215,6 @@ CMD:trackcar(playerid, params[])
 	}
 	return 1;
 }
-
 CMD:unmodcar(playerid, params[]) {
 	for(new d = 0; d < MAX_PLAYERVEHICLES; d++) if(IsPlayerInVehicle(playerid, PlayerVehicleInfo[playerid][d][pvId])) {
 		new modList[512], string[16];
@@ -2246,7 +2231,7 @@ CMD:unmodcar(playerid, params[]) {
 		}
 		if (count == 0)
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, " This vehicle does not have any modifications.");
+			SendErrorMessage(playerid, "This vehicle does not have any modifications.");
 			return 1;
 		}
 		format(modList, sizeof(modList), "%s\nAll", modList);
@@ -2256,7 +2241,7 @@ CMD:unmodcar(playerid, params[]) {
 		SetPVarInt(playerid, "modCount", count);
 		return ShowPlayerDialogEx(playerid, UNMODCARMENU, DIALOG_STYLE_LIST, "Remove Modifications", modList, "Select", "Cancel");
 	}
-	SendClientMessageEx(playerid, COLOR_GREY, " You need to be inside a vehicle that you own.");
+	SendErrorMessage(playerid, "You need to be inside a vehicle that you own.");
  	return 1;
 }
 
@@ -2458,7 +2443,6 @@ CMD:seatbelt(playerid, params[])
     }
 	else return 1;
 	ProxChatBubble(playerid, szMiscArray);
-    // ProxDetector(30.0, playerid, szMiscArray, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
     return 1;
 }
 
@@ -2467,7 +2451,7 @@ CMD:cb(playerid, params[]) return cmd_checkbelt(playerid, params);
 CMD:checkbelt(playerid, params[])
 {
 	new giveplayerid;
-	if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /checkbelt [player]");
+	if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/checkbelt [player]");
 
     if(GetPlayerState(giveplayerid) == PLAYER_STATE_ONFOOT)
 	{
@@ -2490,7 +2474,6 @@ CMD:checkbelt(playerid, params[])
             SendClientMessageEx(playerid,COLOR_WHITE,string);
 
             format(string, sizeof(string), "* %s peers through the window at %s, checking to see if they are wearing a seatbelt.", GetPlayerNameEx(playerid),GetPlayerNameEx(giveplayerid));
-            // ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
             ProxChatBubble(playerid, string);
         }
     }
@@ -2503,7 +2486,7 @@ CMD:givekeys(playerid, params[])
 	new
 		giveplayerid;
 
-    if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /givekeys [player]");
+    if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/givekeys [player]");
     if(IsPlayerConnected(giveplayerid))
 	{
         if(playerid == giveplayerid) return 1;
@@ -2571,7 +2554,7 @@ CMD:sellmycar(playerid, params[])
             if(health < 500) return SendClientMessageEx(playerid, COLOR_GREY, " Your vehicle is too damaged to sell it.");
 
             new string[144], giveplayerid, price, alarmstring[9], lockstring[11], worklockstring[10];
-			if(sscanf(params, "ud", giveplayerid, price)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /sellmycar [player] [price]");
+			if(sscanf(params, "ud", giveplayerid, price)) return SendSyntaxMessage(playerid, "/sellmycar [player] [price]");
 
             if(price < 1 || price > 1000000000) return SendClientMessageEx(playerid, COLOR_GREY, "Price must be higher than 0 and less than 1,000,000,000.");
             if(PlayerInfo[giveplayerid][pLevel] == 1)
@@ -2591,12 +2574,12 @@ CMD:sellmycar(playerid, params[])
             }*/ // Uncomment to disallow the sale of weaponized vehicles. 
 			if(gettime()-GetPVarInt(playerid, "LastTransaction") < 60)
 			{
-				SendClientMessageEx(playerid, COLOR_GRAD2, "You can only sell a car once every 60 seconds, please wait!");
+				SendErrorMessage(playerid, "You can only sell a car once every 60 seconds, please wait!");
 				return 1;
 			}
 			if(PlayerVehicleInfo[playerid][d][pvTicket] > 0)
 			{
-			    SendClientMessageEx(playerid, COLOR_GREY, "Your vehicle currently has unpaid tickets, you need to pay them before selling.");
+			    SendErrorMessage(playerid, "Your vehicle currently has unpaid tickets, you need to pay them before selling.");
 			    return 1;
 			}
             if(!IsPlayerConnected(giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "Player is currently not connected to the server.");
@@ -2604,8 +2587,8 @@ CMD:sellmycar(playerid, params[])
 		 	{
 		 	    if(PlayerInfo[giveplayerid][pFreezeCar] == 1)
 	 		    {
-	            	SendClientMessageEx(giveplayerid, COLOR_WHITE, "ERROR: Your car assets are frozen, you cannot buy a car!");
-	            	SendClientMessageEx(playerid, COLOR_WHITE, "ERROR: Their car assets are frozen, they cannot buy a car!");
+	            	SendErrorMessage(playerid, "Your car assets are frozen, you cannot buy a car!");
+	            	SendErrorMessage(playerid, "Their car assets are frozen, they cannot buy a car!");
 	            	return 1;
 				}
 				if(IsWeaponizedVehicle(PlayerVehicleInfo[playerid][d][pvModelId]))
@@ -2644,12 +2627,12 @@ CMD:sellmycar(playerid, params[])
             }
             else
 			{
-                SendClientMessageEx(playerid, COLOR_GREY, "That person is not near you.");
+                SendErrorMessage(playerid, "That person is not near you.");
                 return 1;
             }
         }
     }
-    SendClientMessageEx(playerid, COLOR_GREY, " You need to be inside a vehicle that you own.");
+    SendErrorMessage(playerid, "You need to be inside a vehicle that you own.");
     return 1;
 }
 
@@ -2694,7 +2677,7 @@ CMD:pvlock(playerid, params[])
                 }
                 else
 				{
-                    SendClientMessageEx(playerid, COLOR_GREY, " You don't have a lock system installed on this vehicle.");
+                    SendErrorMessage(playerid, "You don't have a lock system installed on this vehicle.");
 					return 1;
                 }
             }
@@ -2706,11 +2689,11 @@ CMD:pvlock(playerid, params[])
         if(IsPlayerInRangeOfPoint(playerid, 3.0, x, y, z))
 		{
 			if(PlayerVehicleInfo[playerid][d][pvLocksLeft] <= 0) {
-				SendClientMessageEx(playerid, COLOR_GREY, "The lock has been damaged as result of a lock pick, please buy a new one!");
+				SendErrorMessage(playerid, "The lock has been damaged as result of a lock pick, please buy a new one!");
 				return 1;
 			}
 			if(PlayerVehicleInfo[playerid][d][pvBeingPickLocked]) {
-				SendClientMessageEx(playerid, COLOR_GREY, "This vehicle cannot be locked/unlocked right now.");
+				SendErrorMessage(playerid, "This vehicle cannot be locked/unlocked right now.");
 				return 1;
 			}
             if(PlayerVehicleInfo[playerid][d][pvLock] > 0 && PlayerVehicleInfo[playerid][d][pvLocked] == 0)
@@ -2730,11 +2713,11 @@ CMD:pvlock(playerid, params[])
                 return 1;
 
             }
-            SendClientMessageEx(playerid, COLOR_GREY, " You don't have a lock system installed on this vehicle.");
+            SendErrorMessage(playerid, "You don't have a lock system installed on this vehicle.");
             return 1;
         }
     }
-    SendClientMessageEx(playerid, COLOR_GREY, " You are not near any vehicle that you own.");
+    SendErrorMessage(playerid, "You are not near any vehicle that you own.");
     return 1;
 }
 
@@ -2797,18 +2780,18 @@ CMD:oldcar(playerid, params[])
 CMD:userimkit(playerid, params[])
 {
 	if(PlayerInfo[playerid][pRimMod] == 0)
-	    return SendClientMessageEx(playerid, COLOR_GREY, "You don't have any rim modification kits.");
+	    return SendErrorMessage(playerid, "You don't have any rim modification kits.");
 
     if(!IsPlayerInAnyVehicle(playerid))
- 		return SendClientMessageEx(playerid, COLOR_GREY, "You aren't in a vehicle.");
+ 		return SendErrorMessage(playerid, "You aren't in a vehicle.");
 
  	if(PlayerInfo[playerid][pJob] != 7 && PlayerInfo[playerid][pJob2] != 7 && PlayerInfo[playerid][pJob3] != 7) 
- 		return SendClientMessageEx(playerid, COLOR_GREY, "You must be a mechanic to use this command.");
+ 		return SendErrorMessage(playerid, "You must be a mechanic to use this command.");
 	
 	new iVeh = GetPlayerVehicleID(playerid);
 	new iModel  = GetVehicleModel(iVeh);
 
-	if(IsRestrictedVehicle(iModel)) return SendClientMessageEx(playerid, COLOR_GREY, "This vehicle cannot have rims applied to it");
+	if(IsRestrictedVehicle(iModel)) return SendErrorMessage(playerid, "This vehicle cannot have rims applied to it");
 
     if(InvalidModCheck(iModel, 1025))
 	{
@@ -2820,14 +2803,13 @@ CMD:userimkit(playerid, params[])
 				return 1;
 			}
 		}
-		SendClientMessageEx(playerid, COLOR_GREY, "You need to be inside a vehicle that you own.");
+		SendErrorMessage(playerid, "You need to be inside a vehicle that you own.");
 		return 1;
 	}
 	else
 	{
-	    SendClientMessageEx(playerid, COLOR_GREY, "This vehicle can't be modded.");
+	    SendErrorMessage(playerid, "This vehicle can't be modded.");
 	}
-
 	return 1;
 }
 
@@ -2839,12 +2821,12 @@ CMD:eject(playerid, params[])
 		State=GetPlayerState(playerid);
 		if(State!=PLAYER_STATE_DRIVER)
 		{
-			SendClientMessageEx(playerid,COLOR_GREY,"   You can only eject people as the driver!");
+			SendErrorMessage(playerid, "You can only eject people as the driver!");
 			return 1;
 		}
 
 		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /eject [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/eject [player]");
 
 		new test;
 		test = GetPlayerVehicleID(playerid);
@@ -2869,19 +2851,19 @@ CMD:eject(playerid, params[])
 				}
 				else
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "   That person is not in your Car!");
+					SendErrorMessage(playerid, "That person is not in your Car!");
 					return 1;
 				}
 			}
 		}
 		else
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, " Invalid ID/Name!");
+			SendErrorMessage(playerid, "Invalid ID/Name!");
 		}
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "   You need to be in a Vehicle to use this!");
+		SendErrorMessage(playerid, "You need to be in a Vehicle to use this!");
 	}
 	return 1;
 }

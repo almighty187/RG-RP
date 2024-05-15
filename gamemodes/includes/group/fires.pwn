@@ -37,7 +37,8 @@
 
 #include <YSI\y_hooks>
 
-#define			MAX_FIRES				100
+
+
 #define			MAX_FIRE_HEALTH			1000
 #define 		MAX_FIRE_AREAS			3
 #define 		MAX_FIRE_TYPES			3
@@ -59,8 +60,21 @@ new Float:fire_fRandomLocations[10][3] = {
 	{1730.1848, -2335.4980, 13.5469}
 };
 
-/*
-task FireTask[60000]() { // 300000
+forward FireTimmer();
+public FireTimmer()
+{
+	new iFDSAOnline;
+	foreach(new i: Player) {
+
+		if(IsAMedic(i)) iFDSAOnline++;
+	}
+	if(iFDSAOnline >= DEFAULT_FDSA_REQUIRED) {
+
+		if(random(100) < 10) CreateTypeFire(random(MAX_FIRE_TYPES));
+	}
+	return 1;
+}
+/*task FireTask[60000]() { // 300000
 
 	new iFDSAOnline;
 	foreach(new i: Player) {
@@ -71,11 +85,12 @@ task FireTask[60000]() { // 300000
 	
 		if(random(100) < 10) CreateTypeFire(random(MAX_FIRE_TYPES));
 	}
-}
-*/
+}*/
+
 
 hook OnGameModeInit() {
 
+    SetTimer("FireTimmer", 60000, 1);
 	iGlobalZoneAreas[0] = CreateDynamicRectangle(gMainZones[0][SAZONE_AREA][0], gMainZones[0][SAZONE_AREA][1], gMainZones[0][SAZONE_AREA][3], gMainZones[0][SAZONE_AREA][4]); // Los Santos
 	iGlobalZoneAreas[1] = CreateDynamicRectangle(gMainZones[6][SAZONE_AREA][0], gMainZones[6][SAZONE_AREA][1], gMainZones[6][SAZONE_AREA][3], gMainZones[6][SAZONE_AREA][4]); // Red County
 	iGlobalZoneAreas[2] = CreateDynamicRectangle(gMainZones[7][SAZONE_AREA][0], gMainZones[7][SAZONE_AREA][1], gMainZones[7][SAZONE_AREA][3], gMainZones[7][SAZONE_AREA][4]); // Flint County
@@ -110,7 +125,7 @@ stock CreateTypeFire(iTypeID) {
 				CreateStructureFire(HouseInfo[iTargetID][hInteriorX], HouseInfo[iTargetID][hInteriorY], HouseInfo[iTargetID][hInteriorZ], HouseInfo[iTargetID][hIntVW]);
 				arrFires[iTargetID][fire_iTypeID] = iTypeID;
 				Get3DZone(HouseInfo[iTargetID][hExteriorX], HouseInfo[iTargetID][hExteriorY], HouseInfo[iTargetID][hExteriorZ], szLocation, sizeof(szLocation));
-				format(szMiscArray, sizeof(szMiscArray), "** There was a fire reported somewhere in %s.", szLocation);
+				format(szMiscArray, sizeof(szMiscArray), "**HQ There was a fire reported somewhere in %s.", szLocation);
 				SendGroupMessage(GROUP_TYPE_MEDIC, COLOR_LIGHTRED, szMiscArray);
 			}
 		}
@@ -124,7 +139,7 @@ stock CreateTypeFire(iTypeID) {
 				CreateStructureFire(Businesses[iTargetID][bIntPos][0], Businesses[iTargetID][bIntPos][1], Businesses[iTargetID][bIntPos][2], Businesses[iTargetID][bVW]);
 				arrFires[iTargetID][fire_iTypeID] = iTypeID;
 				Get3DZone(Businesses[iTargetID][bExtPos][0], Businesses[iTargetID][bExtPos][1], Businesses[iTargetID][bExtPos][2], szLocation, sizeof(szLocation));
-				format(szMiscArray, sizeof(szMiscArray), "** There was a fire reported somewhere in %s.", szLocation);
+				format(szMiscArray, sizeof(szMiscArray), "**HQ: There was a fire reported somewhere in %s.", szLocation);
 				SendGroupMessage(GROUP_TYPE_MEDIC, COLOR_LIGHTRED, szMiscArray);
 			}
 		}
@@ -135,7 +150,7 @@ stock CreateTypeFire(iTypeID) {
 			CreateStructureFire(fire_fRandomLocations[iTargetID][0], fire_fRandomLocations[iTargetID][1], fire_fRandomLocations[iTargetID][2], 0);
 			arrFires[iTargetID][fire_iTypeID] = iTypeID;
 			Get3DZone(fire_fRandomLocations[iTargetID][0], fire_fRandomLocations[iTargetID][1], fire_fRandomLocations[iTargetID][2], szLocation, sizeof(szLocation));
-			format(szMiscArray, sizeof(szMiscArray), "** There was a fire reported somewhere in %s.", szLocation);
+			format(szMiscArray, sizeof(szMiscArray), "**HQ There was a fire reported somewhere in %s.", szLocation);
 			SendGroupMessage(GROUP_TYPE_MEDIC, COLOR_LIGHTRED, szMiscArray);
 		}
 	}
@@ -198,19 +213,41 @@ CreateStructureFire(Float:FirePosX, Float:FirePosY, Float:FirePosZ, VW) {
 
 		format(szMiscArray, sizeof(szMiscArray), "%d/%d\nID%d", arrFires[next][fire_iHealth], MAX_FIRE_HEALTH, next);
 		arrFires[next][fire_iTextID] = CreateDynamic3DTextLabel(szMiscArray, 0xFFFFFFFFF, FirePosX, FirePosY, FirePosZ, 20, .worldid = VW);
-		++iServerFires;
+		//++iServerFires;
 	}
 }
 
-DeleteStructureFire(iFireID) {
+/*DeleteStructureFire(iFireID) {
 
 	if(!IsValidDynamicObject(arrFires[iFireID][fire_iObjectID])) return 1;
 	else DestroyDynamicObject(arrFires[iFireID][fire_iObjectID]), arrFires[iFireID][fire_iObjectID] = -1;
 	if(IsValidDynamic3DTextLabel(arrFires[iFireID][fire_iTextID])) DestroyDynamic3DTextLabel(arrFires[iFireID][fire_iTextID]), arrFires[iFireID][fire_iTextID] = Text3D:-1;
 	if(IsValidDynamicArea(arrFires[iFireID][fire_iAreaID])) DestroyDynamicArea(arrFires[iFireID][fire_iAreaID]);
-	if(iServerFires) --iServerFires;
+//	if(iServerFires) --iServerFires;
 	return 1;
+}*/
+DeleteStructureFire(iFireID) {
+    if(!IsValidDynamicObject(arrFires[iFireID][fire_iObjectID])) return 1;
+    else {
+        DestroyDynamicObject(arrFires[iFireID][fire_iObjectID]);
+        arrFires[iFireID][fire_iObjectID] = 1;
+    }
+
+    if(IsValidDynamic3DTextLabel(arrFires[iFireID][fire_iTextID])) {
+        DestroyDynamic3DTextLabel(arrFires[iFireID][fire_iTextID]);
+        arrFires[iFireID][fire_iTextID] = 1;
+    }
+
+    if(IsValidDynamicArea(arrFires[iFireID][fire_iAreaID])) {
+        DestroyDynamicArea(arrFires[iFireID][fire_iAreaID]);
+    }
+
+    // If necessary, update the count of server fires
+    // if(iServerFires) --iServerFires;
+
+    return 1;
 }
+
 
 IsValidStructureFire(iFireID) {
 
@@ -315,8 +352,8 @@ hook OnPlayerLeaveDynamicArea(playerid, areaid) {
 forward OnEnterFire(i, fireid);
 public OnEnterFire(i, fireid) {
 
-	new
-		Float:oX, Float:oY, Float:oZ;
+	/*new
+		Float:oX, Float:oY, Float:oZ;*/
 		
 	if(GetPVarType(i, "pGodMode")) return 1;
 	if(IsValidStructureFire(fireid)) {
@@ -403,7 +440,7 @@ CMD:setfstrength(playerid, params[]) {
 
 CMD:viewfires(playerid, params[]) {
 
-	if(!IsAdminLevel(playerid, ADMIN_GENERAL, 1)) return 1;
+	if(PlayerInfo[playerid][pAdmin] < 4) return 1;
 
 	new x,
 		szLocation[MAX_ZONE_NAME];

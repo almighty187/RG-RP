@@ -13,7 +13,7 @@
 	And it'll hopefully work like a charm! :)
 */
 
-#define 		ENTRANCE_SHORTCUT		KEY_NO
+#define 		ENTRANCE_SHORTCUT		KEY_YES
 
 new iNewEnterSystem, DoorTimer[MAX_PLAYERS];
 
@@ -86,44 +86,76 @@ EntExit_GetID(playerid) {
 
 	for(new i; i < MAX_DDOORS; ++i) {
 
-		if(IsPlayerInRangeOfPoint(playerid, 2.0, DDoorsInfo[i][ddExteriorX], DDoorsInfo[i][ddExteriorY], DDoorsInfo[i][ddExteriorZ]) &&
-			PlayerInfo[playerid][pVW] == DDoorsInfo[i][ddExteriorVW] && PlayerInfo[playerid][pInt] == DDoorsInfo[i][ddExteriorInt])
-			return DDoor_Enter(playerid, i);
-		if(IsPlayerInRangeOfPoint(playerid, 2.0, DDoorsInfo[i][ddInteriorX], DDoorsInfo[i][ddInteriorY], DDoorsInfo[i][ddInteriorZ]) &&
-			PlayerInfo[playerid][pVW] == DDoorsInfo[i][ddInteriorVW] && PlayerInfo[playerid][pInt] == DDoorsInfo[i][ddInteriorInt])
-			return DDoor_Exit(playerid, i);		
+		if (IsPlayerInRangeOfPoint(playerid, 2.0, DDoorsInfo[i][ddExteriorX], DDoorsInfo[i][ddExteriorY], DDoorsInfo[i][ddExteriorZ]) &&
+			DDoorsInfo[i][ddInteriorX] == 0.0) {
+			return SendErrorMessage(playerid, "No interior set for this door. Contact a Lead Admin.");
+		}
+		else {
+		
+		    if (IsPlayerInRangeOfPoint(playerid, 2.0, DDoorsInfo[i][ddExteriorX], DDoorsInfo[i][ddExteriorY], DDoorsInfo[i][ddExteriorZ]) &&
+		        PlayerInfo[playerid][pVW] == DDoorsInfo[i][ddExteriorVW] && PlayerInfo[playerid][pInt] == DDoorsInfo[i][ddExteriorInt]) {
+		        return DDoor_Enter(playerid, i);
+		    }
+		    if (IsPlayerInRangeOfPoint(playerid, 2.0, DDoorsInfo[i][ddInteriorX], DDoorsInfo[i][ddInteriorY], DDoorsInfo[i][ddInteriorZ]) &&
+		        PlayerInfo[playerid][pVW] == DDoorsInfo[i][ddInteriorVW] && PlayerInfo[playerid][pInt] == DDoorsInfo[i][ddInteriorInt]) {
+		        return DDoor_Exit(playerid, i);
+			}
+		}
 	}
 	for(new i; i < MAX_HOUSES; ++i) {
-
-		if(IsPlayerInRangeOfPoint(playerid, 2.0, HouseInfo[i][hExteriorX], HouseInfo[i][hExteriorY], HouseInfo[i][hExteriorZ]) &&
-			PlayerInfo[playerid][pVW] == HouseInfo[i][hExtVW] && PlayerInfo[playerid][pInt] == HouseInfo[i][hExtIW]) {
-			return House_Enter(playerid, i);
+	
+    	if (IsPlayerInRangeOfPoint(playerid, 2.0, HouseInfo[i][hExteriorX], HouseInfo[i][hExteriorY], HouseInfo[i][hExteriorZ]) &&
+			HouseInfo[i][hInteriorX] == 0.0) {
+			return SendErrorMessage(playerid, "No interior set for this house. Contact a Lead Admin.");
 		}
-		if(IsPlayerInRangeOfPoint(playerid, 2.0, HouseInfo[i][hInteriorX], HouseInfo[i][hInteriorY], HouseInfo[i][hInteriorZ]) &&
-			PlayerInfo[playerid][pVW] == HouseInfo[i][hIntVW] && PlayerInfo[playerid][pInt] == HouseInfo[i][hIntIW]) {
-			return House_Exit(playerid, i);
+		else {
+    	
+			if(IsPlayerInRangeOfPoint(playerid, 2.0, HouseInfo[i][hExteriorX], HouseInfo[i][hExteriorY], HouseInfo[i][hExteriorZ]) &&
+				PlayerInfo[playerid][pVW] == HouseInfo[i][hExtVW] && PlayerInfo[playerid][pInt] == HouseInfo[i][hExtIW]) {
+				return House_Enter(playerid, i);
+			}
+			if(IsPlayerInRangeOfPoint(playerid, 2.0, HouseInfo[i][hInteriorX], HouseInfo[i][hInteriorY], HouseInfo[i][hInteriorZ]) &&
+				PlayerInfo[playerid][pVW] == HouseInfo[i][hIntVW] && PlayerInfo[playerid][pInt] == HouseInfo[i][hIntIW]) {
+				return House_Exit(playerid, i);
+			}
 		}
 	}
 	for(new i; i < MAX_GARAGES; ++i) {
-		if(IsPlayerInRangeOfPoint(playerid, 2.0, GarageInfo[i][gar_ExteriorX], GarageInfo[i][gar_ExteriorY], GarageInfo[i][gar_ExteriorZ]) &&
-			PlayerInfo[playerid][pVW] == GarageInfo[i][gar_ExteriorVW]) {
-			return Garage_Enter(playerid, i);
+	
+		if (IsPlayerInRangeOfPoint(playerid, 2.0, GarageInfo[i][gar_ExteriorX], GarageInfo[i][gar_ExteriorY], GarageInfo[i][gar_ExteriorZ]) &&
+			GarageInfo[i][gar_InteriorX] == 0.0, GarageInfo[i][gar_InteriorY] == 0.0, GarageInfo[i][gar_InteriorZ] == 0.0) {
+			return SendErrorMessage(playerid, "No interior set for this garage. Contact a Lead Admin.");
 		}
-		if(IsPlayerInRangeOfPoint(playerid, 2.0, GarageInfo[i][gar_InteriorX], GarageInfo[i][gar_InteriorY], GarageInfo[i][gar_InteriorZ]) &&
-			PlayerInfo[playerid][pVW] == GarageInfo[i][gar_InteriorVW]) {
-			return Garage_Exit(playerid, i);
+		else {
+
+			if(IsPlayerInRangeOfPoint(playerid, 2.0, GarageInfo[i][gar_ExteriorX], GarageInfo[i][gar_ExteriorY], GarageInfo[i][gar_ExteriorZ]) &&
+				PlayerInfo[playerid][pVW] == GarageInfo[i][gar_ExteriorVW]) {
+				return Garage_Enter(playerid, i);
+			}
+			if(IsPlayerInRangeOfPoint(playerid, 2.0, GarageInfo[i][gar_InteriorX], GarageInfo[i][gar_InteriorY], GarageInfo[i][gar_InteriorZ]) &&
+				PlayerInfo[playerid][pVW] == GarageInfo[i][gar_InteriorVW]) {
+				return Garage_Exit(playerid, i);
+			}
 		}
 	}
 	for(new i; i < MAX_BUSINESSES; ++i) {
-		if(IsPlayerInRangeOfPoint(playerid, 2.0, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2])) {
-			if(PlayerInfo[playerid][pLevel] < 3 && Businesses[i][bType] == 13) return SendClientMessage(playerid, COLOR_LIGHTBLUE, "Sadly, you can't enter the Casino");
-			return Business_Enter(playerid, i);
+	
+		if (IsPlayerInRangeOfPoint(playerid, 2.0, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2]) &&
+			Businesses[i][bIntPos][0] == 0.0) {
+			return SendErrorMessage(playerid, "No interior set for this business. Contact a Lead Admin.");
 		}
-		if(IsPlayerInRangeOfPoint(playerid, 2.0, Businesses[i][bIntPos][0], Businesses[i][bIntPos][1], Businesses[i][bIntPos][2])) {
+		else {
+		
+			if(IsPlayerInRangeOfPoint(playerid, 2.0, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2])) {
+				if(PlayerInfo[playerid][pLevel] < 3 && Businesses[i][bType] == 13) return SendClientMessage(playerid, COLOR_LIGHTBLUE, "Sadly, you can't enter the Casino");
+				return Business_Enter(playerid, i);
+			}
+			if(IsPlayerInRangeOfPoint(playerid, 2.0, Businesses[i][bIntPos][0], Businesses[i][bIntPos][1], Businesses[i][bIntPos][2])) {
 
-			if(Businesses[i][bVW] == 0 && PlayerInfo[playerid][pVW] == BUSINESS_BASE_VW + i) return Business_Exit(playerid, i);
-			if(PlayerInfo[playerid][pLevel] < 3 && Businesses[i][bType] == 13) return SendClientMessage(playerid, COLOR_LIGHTBLUE, "Sadly, you can't enter the Casino");
-			else if(PlayerInfo[playerid][pVW] == Businesses[i][bVW]) return Business_Exit(playerid, i);
+				if(Businesses[i][bVW] == 0 && PlayerInfo[playerid][pVW] == BUSINESS_BASE_VW + i) return Business_Exit(playerid, i);
+				if(PlayerInfo[playerid][pLevel] < 3 && Businesses[i][bType] == 13) return SendClientMessage(playerid, COLOR_LIGHTBLUE, "Sadly, you can't enter the Casino");
+				else if(PlayerInfo[playerid][pVW] == Businesses[i][bVW]) return Business_Exit(playerid, i);
+			}
 		}
 	}
 	if(!IsPlayerInAnyVehicle(playerid)) {

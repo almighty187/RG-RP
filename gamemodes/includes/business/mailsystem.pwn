@@ -1,39 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Mail System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
 #define		MAILBOX_RANGE	8.0
 
 stock SaveMailboxes()
@@ -226,7 +190,7 @@ CMD:removemailbox(playerid, params[])
     }
 	new id;
 	if(sscanf(params, "d", id)) {
-        return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /removemailbox [street mailbox id]");
+        return SendSyntaxMessage(playerid, "/removemailbox [street mailbox id]");
     }
     if(id < 0 || id >= MAX_MAILBOXES) {
         return SendClientMessageEx(playerid, COLOR_GRAD2, "Invalid street mailbox ID.");
@@ -255,7 +219,7 @@ CMD:gotomailbox(playerid, params[])
     }
 	new id;
 	if(sscanf(params, "d", id)) {
-        SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gotomailbox [street mailbox id]");
+        SendSyntaxMessage(playerid, "/gotomailbox [street mailbox id]");
         return 1;
     }
     if(id < 0 || id >= MAX_MAILBOXES) {
@@ -285,7 +249,7 @@ CMD:placemailbox(playerid, params[])
 	}
 	new style;
 	if (sscanf(params, "d", style)) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /placemailbox [1 or 2] (1=wooden 2=steel)");
+		return SendSyntaxMessage(playerid, "/placemailbox [1 or 2] (1=wooden 2=steel)");
     }
 	if (HasMailbox(playerid)) {
 		return SendClientMessageEx(playerid, COLOR_GRAD2, "You already have a mailbox placed. You cannot place more.");
@@ -371,7 +335,7 @@ CMD:adestroymailbox(playerid, params[])
     }
     new houseid;
     if(sscanf(params,"d",houseid)) {
-        return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /adestroymailbox [houseid]");
+        return SendSyntaxMessage(playerid, "/adestroymailbox [houseid]");
     }
     if (houseid < 0 || houseid >= MAX_HOUSES) {
     	return SendClientMessageEx(playerid, COLOR_GRAD2, "Invalid house ID!");

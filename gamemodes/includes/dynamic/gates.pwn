@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-					Dynamic Gates System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 #include <YSI\y_hooks>
 
 CMD:gate(playerid, params[])
@@ -118,7 +81,7 @@ CMD:hgate(playerid, params[])
 
 CMD:movegate(playerid, params[])
 {
-	if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /movegate [pass]");
+	if(isnull(params)) return SendSyntaxMessage(playerid, "/movegate [pass]");
 	new Float:X, Float:Y, Float:Z;
 	for(new i = 0; i < sizeof(GateInfo); i++)
 	{
@@ -160,7 +123,7 @@ CMD:admingatepw(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pShopTech] >= 1)
 	{
 		new string[128], gateid, pass[24];
-		if(sscanf(params, "ds[24]", gateid, pass)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /admingatepw [gateid] [pass]");
+		if(sscanf(params, "ds[24]", gateid, pass)) return SendSyntaxMessage(playerid, "/admingatepw [gateid] [pass]");
 
 		if(strlen(pass) > 24)
 		{
@@ -190,7 +153,7 @@ CMD:setgatepass(playerid, params[])
 {
 	new Float:X, Float:Y, Float:Z, string[128];
 	if(Homes[playerid] == 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "You don't own a home!");
-	if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /setgatepass [pass]");
+	if(isnull(params)) return SendSyntaxMessage(playerid, "/setgatepass [pass]");
 	if(strlen(params) > 24) return SendClientMessageEx(playerid, COLOR_GRAD2, " Must be 24 characters or less! ");
 
 	for(new i = 0; i < sizeof(GateInfo); i++)
@@ -288,7 +251,7 @@ CMD:gotogate(playerid, params[])
     if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pShopTech] >= 1)
 	{
 		new string[48], gatenum;
-		if(sscanf(params, "d", gatenum)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gotogate [gatenumber]");
+		if(sscanf(params, "d", gatenum)) return SendSyntaxMessage(playerid, "/gotogate [gatenumber]");
 
 		if(gatenum <= 0 || gatenum >= MAX_GATES)
 		{
@@ -311,7 +274,7 @@ CMD:gstatus(playerid, params[])
 	new gateid;
 	if(sscanf(params, "i", gateid))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gstatus [gateid]");
+		SendSyntaxMessage(playerid, "/gstatus [gateid]");
 		return 1;
 	}
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pShopTech] >= 1)
@@ -449,7 +412,7 @@ CMD:gedit(playerid, params[])
 
 		if(sscanf(params, "s[128]iF", x_job, gateid, ofloat))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gedit [name] [gateid] [value]");
+			SendSyntaxMessage(playerid, "/gedit [name] [gateid] [value]");
 			SendClientMessageEx(playerid, COLOR_GREY, "Available names: HID, Model, VW, Int, Open, Closed, PosX(M), PosY(M), PosZ(M), RotX(M), RotZ(M), ToMe(M)");
 			SendClientMessageEx(playerid, COLOR_GREY, "Available names: Range, Speed, Allegiance, GroupType, GroupID, Stream, Timer, Facility");
 			return 1;
@@ -785,7 +748,7 @@ CMD:gedittexture(playerid, params[])
 
 		if(sscanf(params, "is[16]s[64]", gateid, option, var))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gedittexture [gateid] [name] [value]");
+			SendSyntaxMessage(playerid, "/gedittexture [gateid] [name] [value]");
 			SendClientMessageEx(playerid, COLOR_GREY, "Available names: Index, Model, TXD, Texture, Color, Delete");
 			return 1;
 		}
@@ -870,7 +833,7 @@ CMD:listgates(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
 	new hid, string[128];
-	if(sscanf(params, "d", hid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /listgates [houseid]");
+	if(sscanf(params, "d", hid)) return SendSyntaxMessage(playerid, "/listgates [houseid]");
 	if(hid <= 0 || hid >= MAX_HOUSES)
 	{
 		format(string, sizeof(string), "House ID must be between 1 and %d.", MAX_HOUSES - 1);

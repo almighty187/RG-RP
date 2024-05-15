@@ -87,14 +87,14 @@ CMD:ds(playerid, params[]) return cmd_denydoorsale(playerid, params);
 CMD:doorsalehelp(playerid, params[])
 {
 	SendClientMessageEx(playerid, COLOR_WHITE, "** DYNAMIC DOOR SALE COMMANDS **");
-	SendClientMessageEx(playerid, COLOR_GREY, "» /selldoors [Part Of Name/ ID] - Allows you to sell your dynamic doors to a specified player with a set price.");
+	SendClientMessageEx(playerid, COLOR_GREY, "» /selldoors [playerid/PartOfName] - Allows you to sell your dynamic doors to a specified player with a set price.");
 	SendClientMessageEx(playerid, COLOR_GREY, "» /cancel door - Cancels your dynamic door sale request (must be pending review from server administrator).");
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1)
 	{
 		SendClientMessageEx(playerid, COLOR_GREY, "» {EE9A4D}SENIOR ADMIN{D8D8D8} /doorrequests - View the list of current dynamic door requests pending review from administration.");
 		SendClientMessageEx(playerid, COLOR_GREY, "» {EE9A4D}SENIOR ADMIN{D8D8D8} /doorsaleinfo - View detailed information on a door sale request.");
-		SendClientMessageEx(playerid, COLOR_GREY, "» {EE9A4D}SENIOR ADMIN{D8D8D8} /(a)pprove(d)oorsale [Part Of Name/ ID] - Approve a specified player's dynamic door sale.");
-		SendClientMessageEx(playerid, COLOR_GREY, "» {EE9A4D}SENIOR ADMIN{D8D8D8} /(d)enydoor(s)ale [Part Of Name/ ID] - Deny a specified player's dynamic door sale.");
+		SendClientMessageEx(playerid, COLOR_GREY, "» {EE9A4D}SENIOR ADMIN{D8D8D8} /(a)pprove(d)oorsale [playerid/PartOfName] - Approve a specified player's dynamic door sale.");
+		SendClientMessageEx(playerid, COLOR_GREY, "» {EE9A4D}SENIOR ADMIN{D8D8D8} /(d)enydoor(s)ale [playerid/PartOfName] - Deny a specified player's dynamic door sale.");
 		return 1;
 	}
 	return 1;
@@ -107,7 +107,7 @@ CMD:selldoors(playerid, params[])
 	if(PlayerCuffed[playerid] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot sell dynamic doors while handcuffed.");
 	if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot sell dynamic doors while in prison.");
 	new target;
-	if(sscanf(params, "u", target)) return SendClientMessageEx(playerid, COLOR_GREY, "[USAGE]: /selldoors [Part Of Name/ ID]");
+	if(sscanf(params, "u", target)) return SendSyntaxMessage(playerid, "/selldoors [playerid/PartOfName]");
 	if(!IsPlayerConnected(target)) return SendClientMessageEx(playerid, COLOR_GREY, "The specified player isn't connected.");
 	if(target == playerid) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot sell dynamic doors to yourself.");
 	if(GetPlayerCash(playerid) < 1000000) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot afford the minimum $1,000,000 transfer fine.");
@@ -142,7 +142,7 @@ CMD:doorsaleinfo(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
 	new target;
-	if(sscanf(params, "u", target)) return SendClientMessageEx(playerid, COLOR_GREY, "[USAGE]: /doorsaleinfo [Part Of Name/ ID]");
+	if(sscanf(params, "u", target)) return SendSyntaxMessage(playerid, "/doorsaleinfo [playerid/PartOfName]");
 	if(!IsPlayerConnected(target)) return SendClientMessageEx(playerid, COLOR_GREY, "The specified player isn't connected.");
 	if(gPlayerLogged{target} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "The specified player isn't logged into their account.");
 	if(DDSalePendingAdmin[target] == false) return SendClientMessageEx(playerid, COLOR_GREY, "The specified player does not have a pending dynamic door sale request.");
@@ -157,7 +157,7 @@ CMD:approvedoorsale(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
 	new target, fine, count[2], timex[3], string[128];
-	if(sscanf(params, "u", target)) return SendClientMessageEx(playerid, COLOR_GREY, "[USAGE]: /approvedoorsale [Part Of Name/ ID]");
+	if(sscanf(params, "u", target)) return SendSyntaxMessage(playerid, "/approvedoorsale [playerid/PartOfName]");
 	if(!IsPlayerConnected(target)) return SendClientMessageEx(playerid, COLOR_GREY, "The specified player isn't connected.");
 	if(gPlayerLogged{target} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "The specified player isn't logged into their account.");
 	if(DDSalePendingAdmin[target] == false) return SendClientMessageEx(playerid, COLOR_GREY, "The specified player does not have a pending dynamic door sale request.");
@@ -271,7 +271,7 @@ CMD:denydoorsale(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
 	new target, reason[64], string[128];
-	if(sscanf(params, "us[64]", target, reason)) return SendClientMessageEx(playerid, COLOR_GREY, "[USAGE]: /denydoorsale [Part Of Name/ ID] [Reason]");
+	if(sscanf(params, "us[64]", target, reason)) return SendSyntaxMessage(playerid, "/denydoorsale [playerid/PartOfName] [Reason]");
 	if(!IsPlayerConnected(target)) return SendClientMessageEx(playerid, COLOR_GREY, "The specified player isn't connected.");
 	if(gPlayerLogged{target} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "The specified player isn't logged into their account.");
 	if(DDSalePendingAdmin[target] == false) return SendClientMessageEx(playerid, COLOR_GREY, "The specified player does not have a pending dynamic door sale request.");

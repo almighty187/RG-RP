@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-					Dynamic Textlabel System 
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 CMD:tledit(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pGangModerator] == 2 || PlayerInfo[playerid][pFactionModerator] == 2)
@@ -42,7 +5,7 @@ CMD:tledit(playerid, params[])
 		new string[128], choice[32], labelid, amount;
 		if(sscanf(params, "s[32]dD", choice, labelid, amount))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /tledit [name] [labelid] [amount]");
+			SendSyntaxMessage(playerid, "/tledit [name] [labelid] [amount]");
 			SendClientMessageEx(playerid, COLOR_GREY, "Available names: Position, Color, PickupModel, Delete");
 			return 1;
 		}
@@ -123,7 +86,7 @@ CMD:tltext(playerid, params[]) {
 		new szName[128], labelid;
 
 		if(sscanf(params, "ds[128]", labelid, szName)) {
-			return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /tltext [labelid] [text]");
+			return SendSyntaxMessage(playerid, "/tltext [labelid] [text]");
 		}
 		else if(!(0 <= labelid <= MAX_3DLABELS)) {
 			return SendClientMessageEx(playerid, COLOR_GREY, "Invalid door specified.");
@@ -147,7 +110,7 @@ CMD:tlstatus(playerid, params[])
 	new labelid;
 	if(sscanf(params, "i", labelid))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /tlstatus [labelid]");
+		SendSyntaxMessage(playerid, "/tlstatus [labelid]");
 		return 1;
 	}
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pGangModerator] == 2 || PlayerInfo[playerid][pFactionModerator] == 2)
@@ -189,7 +152,7 @@ CMD:gotolabel(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pGangModerator] == 2 || PlayerInfo[playerid][pFactionModerator] == 2)
 	{
 		new labelnum;
-		if(sscanf(params, "d", labelnum)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gotolabel [labelnumber]");
+		if(sscanf(params, "d", labelnum)) return SendSyntaxMessage(playerid, "/gotolabel [labelnumber]");
 
 		SetPlayerPos(playerid,TxtLabels[labelnum][tlPosX],TxtLabels[labelnum][tlPosY],TxtLabels[labelnum][tlPosZ]);
 		SetPlayerInterior(playerid,TxtLabels[labelnum][tlInt]);

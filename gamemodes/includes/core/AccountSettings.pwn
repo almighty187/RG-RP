@@ -29,7 +29,7 @@ ShowAccountSettings(playerid, menu = 0) {
 			
 			format(szMiscArray, sizeof(szMiscArray), "Item\tStatus\n\
 				{FFFFFF}---General---\t\n\
-				{FFFFFF}NG:RP Phone Mod\t%s\n\
+				{FFFFFF}RG:RP Phone Mod\t%s\n\
 				{FFFFFF}Newbie Chat\t%s\n\
 				{FFFFFF}News\t%s\n\
 				{FFFFFF}OOC Chat\t%s\n\
@@ -179,7 +179,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			
 			if(!response) return ShowAccountSettings(playerid, 0);
 			new id = -1;
-			if(strcmp(inputtext, "NG:RP Phone Mod", true) == 0) id = 20;
+			if(strcmp(inputtext, "RG:RP Phone Mod", true) == 0) id = 20;
 			else if(strcmp(inputtext, "Newbie Chat", true) == 0) id = 0;
 			else if(strcmp(inputtext, "News", true) == 0) id = 1;
 			else if(strcmp(inputtext, "OOC Chat", true) == 0) id = 2;
@@ -268,7 +268,7 @@ CMD:tog(playerid, params[]) {
  
     if(isnull(params)) {
  
-        SendClientMessageEx(playerid, COLOR_GRAD1, "USAGE: /tog [option]");
+        SendSyntaxMessage(playerid, "/tog [option]");
         SendClientMessageEx(playerid, COLOR_GRAD1, "OPTIONS: newbie | ooc | whisper | pr | phone | famed | vip | dept | gooc | radio | bug");
         SendClientMessageEx(playerid, COLOR_GRAD1, "OPTIONS: biz | staff | advisor | news | chatbox | advisor | points | rf");
         return 1;

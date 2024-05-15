@@ -211,7 +211,7 @@ CMD:metaldetector(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2) return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use this command.");
 	if(sscanf(params, "s[32]dD(1)", choice, id, amount))
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "Usage: /metaldetector [choice] [ID] [value]");
+		SendSyntaxMessage(playerid, "/metaldetector [choice] [ID] [value]");
 		return SendClientMessageEx(playerid, COLOR_GRAD1, "Available names: tome, goto, Position, Delete");
 	}
 	if(!IsValidDynamicObject(arrMetalDetector[id][metdet_iObjectID])) return SendClientMessageEx(playerid, COLOR_GRAD1, "This metal detector doesn't exist.");

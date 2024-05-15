@@ -24,7 +24,7 @@ stock ShowStats(playerid,targetid)
 		switch(PlayerInfo[targetid][pNation])
 		{
 			case 0: nation = "San Andreas";
-			case 1: nation = "New Robada";
+			case 1: nation = "New Eire";
 			case 2: nation = "None";
 		}
 		new insur[32];
@@ -53,6 +53,16 @@ stock ShowStats(playerid,targetid)
 				case 2: svipmod = "{800080}Senior VIP Moderator{FFFFFF}\n";
 			}
 		}
+		new slotholder[64];
+		if(0 <= PlayerInfo[targetid][pSlotHolder] < MAX_GROUPS)
+		{
+			slotholder = "{FF0000}Slot Holder{FFFFFF}\n";
+		}
+		new leader[64];
+		if(0 <= PlayerInfo[targetid][pLeader] < MAX_GROUPS)
+		{
+			leader = "{FF0000}Group Leader{FFFFFF}\n";
+		}
 		new famedrank[64];
 		if(PlayerInfo[targetid][pFamed] > 0)
 		{
@@ -60,11 +70,10 @@ stock ShowStats(playerid,targetid)
 			{
 				case 1: famedrank = "{228B22}Old-School{FFFFFF}\n";
 				case 2: famedrank = "{FF7F00}Chartered Old-School{FFFFFF}\n";
-				case 3: famedrank = "{ADFF2F}Famed{FFFFFF}\n";
-				case 4: famedrank = "{8F00FF}Famed Commissioner{FFFFFF}\n";
-				case 5: famedrank = "{8F00FF}Famed Moderator{FFFFFF}\n";
-				case 6: famedrank = "{8F00FF}Famed Vice-Chairman{FFFFFF}\n";
-				case 7: famedrank = "{8F00FF}Famed Chairman{FFFFFF}\n";
+				case 3: famedrank = "{FF7F00}Legacy Old-School{FFFFFF}\n";
+				case 4: famedrank = "{ADFF2F}Famed{FFFFFF}\n";
+				case 5: famedrank = "{8F00FF}Famed Vice-Chairman{FFFFFF}\n";
+				case 6: famedrank = "{8F00FF}Famed Chairman{FFFFFF}\n";
 			}
 		}
 		new dprank[64];
@@ -101,6 +110,7 @@ stock ShowStats(playerid,targetid)
 			%s\
 			%s\
 			%s\
+			%s\
 			{FFFFFF}Level: %d\n\
 			Gender: %s\n\
 			Date of Birth: %s\n\
@@ -110,7 +120,6 @@ stock ShowStats(playerid,targetid)
 			Armor: %.1f\n\
 			Playing Hours: %s\n\
 			Dedicated Hours: %s\n\
-			Fitness: %d\n\
 			Upgrade Points: %s\n\
 			Next Level: %s{303030}/{FFFFFF}%s hours\n\
 			Nation: %s\n\
@@ -126,6 +135,7 @@ stock ShowStats(playerid,targetid)
 			drank,
 			svipmod,
 			fifstr,
+			leader,
 			PlayerInfo[targetid][pLevel],
 			sext,
 			PlayerInfo[targetid][pBirthDate],
@@ -134,8 +144,7 @@ stock ShowStats(playerid,targetid)
 			health,
 			armor,
 			number_format(PlayerInfo[targetid][pConnectHours]),
-			number_format(PlayerInfo[targetid][pDedicatedHours]),			
-			PlayerInfo[targetid][pFitness],
+			number_format(PlayerInfo[targetid][pDedicatedHours]),
 			number_format(PlayerInfo[targetid][gPupgrade]),
 			number_format(PlayerInfo[targetid][pExp]),
 			number_format(expamount),

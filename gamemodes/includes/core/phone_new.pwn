@@ -685,7 +685,7 @@ CMD:trace(playerid, params[]) {
 
 	new iNumber;
 
-	if(sscanf(params, "d", iNumber)) return SendClientMessage(playerid, COLOR_GRAD1, "Usage: /trace [player's phone number]");
+	if(sscanf(params, "d", iNumber)) return SendSyntaxMessage(playerid, "/trace [player's phone number]");
 
 	if(iNumber == 0) return SendClientMessageEx(playerid, COLOR_GRAD1, "You specified an invalid number.");
 
@@ -2143,7 +2143,7 @@ Phone_InitTD(playerid) {
 	PlayerTextDrawTextSize(playerid,phone_PTextDraw[playerid][17], 578.000000, -61.000000);
 	PlayerTextDrawSetSelectable(playerid,phone_PTextDraw[playerid][17], 0);
 
-	phone_PTextDraw[playerid][18] = CreatePlayerTextDraw(playerid,510.000000, 338.000000, "Doogle Maps");
+	phone_PTextDraw[playerid][18] = CreatePlayerTextDraw(playerid,510.000000, 338.000000, "Nav' Gate");
 	PlayerTextDrawBackgroundColor(playerid,phone_PTextDraw[playerid][18], 0x00000000);
 	PlayerTextDrawFont(playerid,phone_PTextDraw[playerid][18], 1);
 	PlayerTextDrawLetterSize(playerid,phone_PTextDraw[playerid][18], 0.170000, 0.999997);

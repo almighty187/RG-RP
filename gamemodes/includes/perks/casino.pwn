@@ -1,39 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Casino System
-						  ROTHSCHILD
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
 #include <YSI\y_hooks>
 
 new CASINOPoint[17]; 
@@ -82,16 +46,16 @@ stock DestroyOfferDiceData(playerid)
 CMD:offerdice(playerid, params[])
 {
 	new targetid, amount, rolls;
-	if(sscanf(params, "udd", targetid, amount, rolls)) return SendClientMessageEx(playerid, COLOR_GREY, "Syntax: /offerdice [playerid] [amount] [rolls]");
+	if(sscanf(params, "udd", targetid, amount, rolls)) return SendSyntaxMessage(playerid, "/offerdice [playerid/PartOfName] [amount] [rolls]");
 	if(gettime() < GetPVarInt(playerid, "OfferDiceTimer")) return SendClientMessageEx(playerid, COLOR_GREY, "You must wait %d seconds before offering another dice game.", GetPVarInt(playerid, "OfferDiceTimer")-gettime());
-	if(!IsPlayerInRangeOfPlayer(playerid, targetid, 5)) return SendClientMessageEx(playerid, COLOR_GREY, "Error: You are not near the player.");
-	if(playerid == targetid) return SendClientMessageEx(playerid, COLOR_GREY, "Error: You are cannot roll with yourself.");
-	if(GetPVarInt(playerid, "OfferDiceID") != INVALID_PLAYER_ID) return SendClientMessageEx(playerid, COLOR_GREY, "Error: You are already being offered a dice game. Please accept or deny it.");
-	if(GetPVarInt(playerid, "OfferingDiceID") != INVALID_PLAYER_ID) return SendClientMessageEx(playerid, COLOR_GREY, "Error: You are already offering a dice game. Use /canceldice to cancel it.");
-	if(amount < 5000000) return SendClientMessageEx(playerid, COLOR_GREY, "Error: You can only bet more than $5,000,000.");
-	if(rolls < 1 || rolls > 3) return SendClientMessageEx(playerid, COLOR_GREY, "Error: You can only use 1 to 3 rolls.");
-	if(PlayerInfo[playerid][pCash] < amount) return SendClientMessageEx(playerid, COLOR_GREY, "Error: You don't have enough money.");
-	if(PlayerInfo[targetid][pCash] < amount) return SendClientMessageEx(playerid, COLOR_GREY, "Error: The player doesn't have enough money.");
+	if(!IsPlayerInRangeOfPlayer(playerid, targetid, 5)) return SendErrorMessage(playerid, "You are not near the player.");
+	if(playerid == targetid) return SendErrorMessage(playerid, "You cannot roll with yourself.");
+	if(GetPVarInt(playerid, "OfferDiceID") != INVALID_PLAYER_ID) return SendErrorMessage(playerid, "You are already being offered a dice game. Please accept or deny it.");
+	if(GetPVarInt(playerid, "OfferingDiceID") != INVALID_PLAYER_ID) return SendErrorMessage(playerid, "You are already offering a dice game. Use /canceldice to cancel it.");
+	if(amount < 5000000) return SendErrorMessage(playerid, "You can only bet more than $5,000,000.");
+	if(rolls < 1 || rolls > 3) return SendErrorMessage(playerid, "You can only use 1 to 3 rolls.");
+	if(PlayerInfo[playerid][pCash] < amount) return SendErrorMessage(playerid, "You don't have enough money.");
+	if(PlayerInfo[targetid][pCash] < amount) return SendErrorMessage(playerid, "The player doesn't have enough money.");
 
 	SetPVarInt(playerid, "OfferingDiceID", targetid);
 	SetPVarInt(playerid, "OfferDiceTimer", gettime()+30);
@@ -106,11 +70,11 @@ CMD:offerdice(playerid, params[])
 
 CMD:acceptdice(playerid, params[])
 {
-	if(GetPVarInt(playerid, "OfferDiceID") == INVALID_PLAYER_ID) return SendClientMessageEx(playerid, COLOR_GREY, "Error: No one offered you a dice game.");
-	if(!IsPlayerInRangeOfPlayer(playerid, GetPVarInt(playerid, "OfferDiceID"), 5)) return SendClientMessageEx(playerid, COLOR_GREY, "Error: You are too far from the player.");
+	if(GetPVarInt(playerid, "OfferDiceID") == INVALID_PLAYER_ID) return SendErrorMessage(playerid, "No one offered you a dice game.");
+	if(!IsPlayerInRangeOfPlayer(playerid, GetPVarInt(playerid, "OfferDiceID"), 5)) return SendErrorMessage(playerid, "You are too far from the player.");
 
-	if(PlayerInfo[playerid][pCash] < GetPVarInt(playerid, "OfferDiceAmount")) return SendClientMessageEx(playerid, COLOR_GREY, "Error: You don't have enough money.");
-	if(PlayerInfo[GetPVarInt(playerid, "OfferDiceID")][pCash] < GetPVarInt(playerid, "OfferDiceAmount")) return SendClientMessageEx(playerid, COLOR_GREY, "Error: The player doesn't have enough money.");
+	if(PlayerInfo[playerid][pCash] < GetPVarInt(playerid, "OfferDiceAmount")) return SendErrorMessage(playerid, "You don't have enough money.");
+	if(PlayerInfo[GetPVarInt(playerid, "OfferDiceID")][pCash] < GetPVarInt(playerid, "OfferDiceAmount")) return SendErrorMessage(playerid, "The player doesn't have enough money.");
 
 	new player1, player2;
 	player1 = CalculateDiceRoll(GetPVarInt(playerid, "OfferDiceID"), GetPVarInt(playerid, "OfferDiceRolls"));
@@ -124,7 +88,7 @@ CMD:acceptdice(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "DICE: You lost $%s on the dice game verses %s.", number_format(GetPVarInt(playerid, "OfferDiceAmount")), GetPlayerNameEx(GetPVarInt(playerid, "OfferDiceID")));
 		SendClientMessageEx(GetPVarInt(playerid, "OfferDiceID"), COLOR_LIGHTBLUE, "DICE: You won $%s on the dice game verses %s.", number_format(GetPVarInt(playerid, "OfferDiceAmount")), GetPlayerNameEx(playerid));
 		
-		PlayerInfo[playerid][pCash] -= GetPVarInt(playerid, "OfferDiceAmount");	
+		PlayerInfo[playerid][pCash] -= GetPVarInt(playerid, "OfferDiceAmount");
 		PlayerInfo[GetPVarInt(playerid, "OfferDiceID")][pCash] += GetPVarInt(playerid, "OfferDiceAmount");	
 		
 		CasinoDBLog(GetPVarInt(playerid, "OfferDiceID"), "OFFERDICE", GetPVarInt(playerid, "OfferDiceAmount"), 0, player1, player2, 0);
@@ -139,7 +103,7 @@ CMD:acceptdice(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "DICE: You won $%s on the dice game verses %s.", number_format(GetPVarInt(playerid, "OfferDiceAmount")), GetPlayerNameEx(GetPVarInt(playerid, "OfferDiceID")));
 		SendClientMessageEx(GetPVarInt(playerid, "OfferDiceID"), COLOR_LIGHTBLUE, "DICE: You lost $%s on the dice game verses %s.", number_format(GetPVarInt(playerid, "OfferDiceAmount")), GetPlayerNameEx(playerid));
 		
-		PlayerInfo[playerid][pCash] += GetPVarInt(playerid, "OfferDiceAmount");	
+		PlayerInfo[playerid][pCash] += GetPVarInt(playerid, "OfferDiceAmount");
 		PlayerInfo[GetPVarInt(playerid, "OfferDiceID")][pCash] -= GetPVarInt(playerid, "OfferDiceAmount");	
 		
 		CasinoDBLog(playerid, "OFFERDICE", GetPVarInt(playerid, "OfferDiceAmount"), 0, player1, player2, 0);
@@ -150,7 +114,7 @@ CMD:acceptdice(playerid, params[])
 
 CMD:denydice(playerid, params[])
 {	
-	if(GetPVarInt(playerid, "OfferDiceID") == INVALID_PLAYER_ID) return SendClientMessageEx(playerid, COLOR_GREY, "Error: No one offered you a dice game.");
+	if(GetPVarInt(playerid, "OfferDiceID") == INVALID_PLAYER_ID) return SendErrorMessage(playerid, "No one offered you a dice game.");
 
 	SendClientMessageEx(GetPVarInt(playerid, "OfferDiceID"), COLOR_LIGHTBLUE, "DICE: %s has denied the dice game.", GetPlayerNameEx(playerid));
 	SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "DICE: You have denied the dice game with %s.", GetPlayerNameEx(GetPVarInt(playerid, "OfferDiceID")));
@@ -160,7 +124,7 @@ CMD:denydice(playerid, params[])
 
 CMD:canceldice(playerid, params[])
 {	
-	if(GetPVarInt(playerid, "OfferingDiceID") == INVALID_PLAYER_ID) return SendClientMessageEx(playerid, COLOR_GREY, "Error: You don't have a pending dice game.");
+	if(GetPVarInt(playerid, "OfferingDiceID") == INVALID_PLAYER_ID) return SendErrorMessage(playerid, "You don't have a pending dice game.");
 
 	SendClientMessageEx(GetPVarInt(playerid, "OfferingDiceID"), COLOR_LIGHTBLUE, "DICE: %s has cancelled the dice game.", GetPlayerNameEx(playerid));
 	SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "DICE: You have cancelled the dice game with %s.", GetPlayerNameEx(GetPVarInt(playerid, "OfferingDiceID")));
@@ -179,21 +143,21 @@ stock randomEx(min, max)
 CMD:rolldice(playerid, params[])
 {
 	new amount, dice, theplayer;
-	if(!IsAtCasino(playerid)) return SendClientMessage(playerid, COLOR_GREY, "You are not in a Casino.");
+	if(!IsAtCasino(playerid)) return SendErrorMessage(playerid, "You are not in a Casino.");
 	if (PlayerInfo[playerid][pBusiness] == INVALID_BUSINESS_ID || Businesses[PlayerInfo[playerid][pBusiness]][bType] != BUSINESS_TYPE_CASINO) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "You are not working for a Casino!");
+		return SendErrorMessage(playerid, "You are not working for a Casino!");
 	}
-	if(PlayerInfo[playerid][pBusiness] != InBusiness(playerid)) return SendClientMessageEx(playerid, COLOR_GREY, "You are not working for this Casino!");
-	if(GetPVarInt(playerid, "pRollDiceID") != INVALID_PLAYER_ID) return SendClientMessage(playerid, COLOR_GREY, "You are already in a game.");
-	if(sscanf(params, "udd", theplayer, amount, dice)) return SendClientMessage(playerid, COLOR_GREY, "Usage: /rolldice [PlayerID] [Money Amount] [Amount of Dice]");
-	if(!IsPlayerConnected(theplayer)) return SendClientMessage(playerid, COLOR_GREY, "This players isn't connected.");
-	if(playerid == theplayer) return SendClientMessage(playerid, COLOR_GREY, "You can't dice with yourself.");
-	if(amount > 50000000 || amount < 1000) return SendClientMessage(playerid, COLOR_GREY, "You can only bet $1000-$50,000,000");
-	if(dice > 3 || dice <= 0) return SendClientMessage(playerid, COLOR_GREY, "You can only use 1-3 Dice.");
+	if(PlayerInfo[playerid][pBusiness] != InBusiness(playerid)) return SendErrorMessage(playerid, "You are not working for this Casino!");
+	if(GetPVarInt(playerid, "pRollDiceID") != INVALID_PLAYER_ID) return SendErrorMessage(playerid, "You are already in a game.");
+	if(sscanf(params, "udd", theplayer, amount, dice)) return SendClientMessage(playerid, COLOR_GREY, "Usage: /rolldice [playerid] [Money Amount] [Amount of Dice]");
+	if(!IsPlayerConnected(theplayer)) return SendErrorMessage(playerid, "This players isn't connected.");
+	if(playerid == theplayer) return SendErrorMessage(playerid, "You can't dice with yourself.");
+	if(amount > 50000000 || amount < 1000) return SendErrorMessage(playerid, "You can only bet $1000-$50,000,000");
+	if(dice > 3 || dice <= 0) return SendErrorMessage(playerid, "You can only use 1-3 Dice.");
 	if(PlayerInfo[theplayer][pCash] < amount) 
 	{
-		SendClientMessage(playerid, COLOR_GREY, "The Player doesn't have enough money.");
-		return SendClientMessage(theplayer, COLOR_GREY, "You don't have enough money.");
+		SendErrorMessage(playerid, "The Player doesn't have enough money.");
+		return SendErrorMessage(playerid, "You don't have enough money.");
 	}
 	if(PlayerInfo[theplayer][pCash] < 0) return SendClientMessage(playerid, COLOR_GREY, "You're broke.");
 	if(Businesses[InBusiness(playerid)][bSafeBalance] <= 0) return SendClientMessage(playerid, COLOR_GREY, "This casino is bankrupt.");
@@ -221,7 +185,7 @@ CMD:acceptroll(playerid, params[])
 		DeletePVar(playerid, "pRollDiceID");
 		DeletePVar(playerid, "pRollDiceMoney");
 		DeletePVar(playerid, "pRollDiceAmount");
-		return SendClientMessage(playerid, COLOR_LIGHTBLUE, "You don't have enough money for the Dice Game.");
+		return SendErrorMessage(playerid, "You don't have enough money for the Dice Game.");
 	}
 	new player1, player2;
 	PlayerInfo[playerid][pCash] -= GetPVarInt(playerid, "pRollDiceMoney");
@@ -241,14 +205,14 @@ CMD:acceptroll(playerid, params[])
 	else if (player1 == player2) {
 		format(szMiscArray, sizeof(szMiscArray), "%s says: It's a Draw.", GetPlayerNameEx(GetPVarInt(playerid, "pRollDiceID")));	
 		ProxDetector(5.0, GetPVarInt(playerid, "pRollDiceID"), szMiscArray,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_FADE1,COLOR_FADE2, 1);
-		PlayerInfo[playerid][pCash] += GetPVarInt(playerid, "pRollDiceMoney");	
+		PlayerInfo[playerid][pCash] += GetPVarInt(playerid, "pRollDiceMoney");
 		Businesses[InBusiness(playerid)][bSafeBalance] -= GetPVarInt(playerid, "pRollDiceMoney");
 		DeleteDiceData(playerid);
 	}
 	else {
 		format(szMiscArray, sizeof(szMiscArray), "%s says: Player Wins.", GetPlayerNameEx(GetPVarInt(playerid, "pRollDiceID")));	
 		ProxDetector(5.0, GetPVarInt(playerid, "pRollDiceID"), szMiscArray,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_FADE1,COLOR_FADE2, 1);
-		PlayerInfo[playerid][pCash] += GetPVarInt(playerid, "pRollDiceMoney") * 2;	
+		PlayerInfo[playerid][pCash] += GetPVarInt(playerid, "pRollDiceMoney") * 2;
 		CasinoDBLog(playerid, "DICE", GetPVarInt(playerid, "pRollDiceMoney"), GetPVarInt(playerid, "pRollDiceMoney")*2, player1, player2, 0);	
 		Businesses[InBusiness(playerid)][bSafeBalance] -= GetPVarInt(playerid, "pRollDiceMoney") * 2;
 		SaveBusiness(InBusiness(playerid));
@@ -259,10 +223,10 @@ CMD:acceptroll(playerid, params[])
 
 CMD:cancelroll(playerid, params[])
 {	
-	if(GetPVarInt(playerid, "pRollDiceID") == INVALID_PLAYER_ID) return SendClientMessage(playerid, COLOR_LIGHTBLUE, "You don't have a pending dice game.");
+	if(GetPVarInt(playerid, "pRollDiceID") == INVALID_PLAYER_ID) return SendErrorMessage(playerid, "You don't have a pending dice game.");
 	format(szMiscArray, sizeof(szMiscArray), "CASINO: %s has cancelled the Dice Game.", GetPlayerNameEx(playerid));
 	SendClientMessage(GetPVarInt(playerid, "pRollDiceID"), COLOR_LIGHTBLUE, szMiscArray);
-	SendClientMessage(playerid, COLOR_LIGHTBLUE, "CASINO: You have cancelled the Dice Game.");
+	SendServerMessage(playerid, "You have cancelled the Dice Game.");
 	DeleteDiceData(playerid);
 	return 1;
 }
@@ -276,14 +240,14 @@ CMD:slots(playerid, params[])
 		SetPVarInt(playerid, "INCASINOAREA", 1);
 		}
 	}
-	if(!GetPVarInt(playerid, "INCASINOAREA")) return SendClientMessage(playerid, COLOR_GREY, "You're not at a Slot Machine.");
-	if(GetPVarInt(playerid, "UsedSlot") > gettime()) return SendClientMessage(playerid, COLOR_GREY, "You need to wait ten seconds.");
-	if(!IsAtCasino(playerid)) return SendClientMessage(playerid, COLOR_GREY, "You are not in a Casino.");
+	if(!GetPVarInt(playerid, "INCASINOAREA")) return SendErrorMessage(playerid, "You're not at a Slot Machine.");
+	if(GetPVarInt(playerid, "UsedSlot") > gettime()) return SendErrorMessage(playerid, "You need to wait five seconds.");
+	if(!IsAtCasino(playerid)) return SendErrorMessage(playerid, "You are not in a Casino.");
 	if(sscanf(params, "d", amount)) return SendClientMessage(playerid, COLOR_GREY, "Usage: /slots [Money Amount]");
-	if(amount > 1000000 || amount < 1000) return SendClientMessage(playerid, COLOR_GREY, "You can only bet $1000-$1,000,000");
-	if(PlayerInfo[playerid][pCash] < amount) return SendClientMessage(playerid, COLOR_GREY, "You don't have enough money.");
-	if(PlayerInfo[playerid][pCash] < 0) return SendClientMessage(playerid, COLOR_GREY, "You're broke.");
-	if(Businesses[InBusiness(playerid)][bSafeBalance] <= 0) return SendClientMessage(playerid, COLOR_GREY, "This casino is bankrupt.");
+	if(amount > 1000000 || amount < 500) return SendErrorMessage(playerid, "You can only bet $500-$1,000,000");
+	if(PlayerInfo[playerid][pCash] < amount) return SendErrorMessage(playerid, "You don't have enough money.");
+	if(PlayerInfo[playerid][pCash] < 0) return SendErrorMessage(playerid, "You're broke.");
+	if(Businesses[InBusiness(playerid)][bSafeBalance] <= 0) return SendErrorMessage(playerid, "This casino is bankrupt.");
 	Businesses[InBusiness(playerid)][bSafeBalance] += amount;
 	PlayerInfo[playerid][pCash] -= amount;
 	rand[0] = randomEx(1, 128);
@@ -328,12 +292,12 @@ CMD:slots(playerid, params[])
 	PlayerTextDrawSetString(playerid, PullDraw[playerid][9], szMiscArray);
 	DisplayPullDraws(playerid);
 	SetTimerEx("RemovePullDraws", 5000, false, "i", playerid);
-	SetPVarInt(playerid, "UsedSlot", gettime() + 10);
+	SetPVarInt(playerid, "UsedSlot", gettime() + 5);
 	CasinoDBLog(playerid, "SLOTS", amount, winPrize, randsymbol[0], randsymbol[1], randsymbol[2]);
 	DeletePVar(playerid, "INCASINOAREA");
 	if(winPrize == 0)
 	{
-		SendClientMessage(playerid, COLOR_LIGHTBLUE, "You lose! Better luck, next time!");
+		SendServerMessage(playerid, "You lose! Better luck, next time!");
 		return 1;
 	} 
 	else if(randsymbol[0] == randsymbol[1] && randsymbol[1] == randsymbol[2] && randsymbol[1] == 7)
@@ -542,8 +506,8 @@ public RemovePullDraws(playerid)
 
 LoadCASINOPoints()
 {
-	CASINOPoint[0] = CreateDynamicSphere(-2792.5225,91.8275,4500.2012,5);
-	CASINOPoint[1] = CreateDynamicSphere(-2793.6812,85.8193,4500.201,5);
+	CASINOPoint[0] = CreateDynamicSphere(1141.8240,2597.7751,1049.8481,5);
+	CASINOPoint[1] = CreateDynamicSphere(1137.3027,2597.7761,1049.8481,5);
 	CASINOPoint[2] = CreateDynamicSphere(-2792.5415,79.5602,4500.2012,5);
 	CASINOPoint[3] = CreateDynamicSphere(-2761.8157,85.8474,4500.2012,5);
 	CASINOPoint[4] = CreateDynamicSphere(-2761.8154,87.5817,4500.2012,5);

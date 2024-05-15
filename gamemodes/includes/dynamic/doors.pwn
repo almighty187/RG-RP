@@ -76,7 +76,7 @@ stock CreateDynamicDoor(doorid)
 	if(DDoorsInfo[doorid][ddExteriorX] == 0.0) return 1;
 	new string[128];
 	if(DDoorsInfo[doorid][ddType] != 0) format(string, sizeof(string), "%s | Owner: %s\nID: %d", DDoorsInfo[doorid][ddDescription], StripUnderscore(DDoorsInfo[doorid][ddOwnerName]), doorid);
-	else format(string, sizeof(string), "%s\nID: %d", DDoorsInfo[doorid][ddDescription], doorid);
+	else format(string, sizeof(string), "%s\nID: %d\n\n\n Press Y to Enter", DDoorsInfo[doorid][ddDescription], doorid);
 
 	switch(DDoorsInfo[doorid][ddColor])
 	{
@@ -202,7 +202,8 @@ stock SaveDynamicDoor(doorid)
 		`Expire`=%d, \
 		`Inactive`=%d, \
 		`Ignore`=%d, \
-		`Counter`=%d \
+		`Counter`=%d, \
+		`MapIcon`=%d \
 		WHERE `id`=%d",
 		string,
 		DDoorsInfo[doorid][ddCustomExterior],
@@ -226,6 +227,7 @@ stock SaveDynamicDoor(doorid)
 		DDoorsInfo[doorid][ddInactive],
 		DDoorsInfo[doorid][ddIgnore],
 		DDoorsInfo[doorid][ddCounter],
+		DDoorsInfo[doorid][dMapIcon],
 		doorid+1
 	); // Array starts from zero, MySQL starts at 1 (this is why we are adding one).
 
@@ -291,7 +293,9 @@ public OnLoadDynamicDoor(index)
 		cache_get_value_name_int(row, "Inactive", DDoorsInfo[index][ddInactive]);
 		cache_get_value_name_int(row, "Ignore", DDoorsInfo[index][ddIgnore]);
 		cache_get_value_name_int(row, "Counter", DDoorsInfo[index][ddCounter]);
+		cache_get_value_name_int(row, "MapIcon", DDoorsInfo[index][dMapIcon]);
 		if(DDoorsInfo[index][ddExteriorX] != 0.0) CreateDynamicDoor(index);
+		if(DDoorsInfo[index][dMapIcon] > 0) DDoorsInfo[index][dMIcon]=CreateDynamicMapIcon(DDoorsInfo[index][ddExteriorX], DDoorsInfo[index][ddExteriorY], DDoorsInfo[index][ddExteriorZ], DDoorsInfo[index][dMapIcon], COLOR_YELLOW);
 	}
 	return 1;
 }
@@ -442,7 +446,7 @@ CMD:changedoorpass(playerid, params[])
         if (IsPlayerInRangeOfPoint(playerid,3.0,DDoorsInfo[i][ddExteriorX], DDoorsInfo[i][ddExteriorY], DDoorsInfo[i][ddExteriorZ]) && PlayerInfo[playerid][pVW] == DDoorsInfo[i][ddExteriorVW] || IsPlayerInRangeOfPoint(playerid,3.0,DDoorsInfo[i][ddInteriorX], DDoorsInfo[i][ddInteriorY], DDoorsInfo[i][ddInteriorZ]) && PlayerInfo[playerid][pVW] == DDoorsInfo[i][ddInteriorVW])
 		{
 			new doorpass[24];
-			if(sscanf(params, "s[24]", doorpass)) { SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /changedoorpass [pass]"); SendClientMessageEx(playerid, COLOR_WHITE, "To remove the password on the door set the password to 'none'."); return 1; }
+			if(sscanf(params, "s[24]", doorpass)) { SendSyntaxMessage(playerid, "/changedoorpass [pass]"); SendClientMessageEx(playerid, COLOR_WHITE, "To remove the password on the door set the password to 'none'."); return 1; }
         	if(DDoorsInfo[i][ddType] == 2 && DDoorsInfo[i][ddFaction] != INVALID_GROUP_ID && PlayerInfo[playerid][pLeader] == DDoorsInfo[i][ddFaction])
 			{
 				format(DDoorsInfo[i][ddPass], 24, "%s", doorpass);
@@ -519,7 +523,7 @@ CMD:goindoor(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pShopTech] >= 1)
 	{
 		new string[48], doornum;
-		if(sscanf(params, "d", doornum)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /goindoor [doornumber]");
+		if(sscanf(params, "d", doornum)) return SendSyntaxMessage(playerid, "/goindoor [doornumber]");
 
 		if(doornum <= 0 || doornum >= MAX_DDOORS)
 		{
@@ -543,7 +547,7 @@ CMD:gotodoor(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pShopTech] >= 1)
 	{
 		new string[48], doornum;
-		if(sscanf(params, "d", doornum)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gotodoor [doornumber]");
+		if(sscanf(params, "d", doornum)) return SendSyntaxMessage(playerid, "/gotodoor [doornumber]");
 
 		if(doornum <= 0 || doornum >= MAX_DDOORS)
 		{
@@ -567,7 +571,7 @@ CMD:ddstatus(playerid, params[])
 	new doorid;
 	if(sscanf(params, "i", doorid))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /ddstatus [doorid]");
+		SendSyntaxMessage(playerid, "/ddstatus [doorid]");
 		return 1;
 	}
 	if (PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pShopTech] >= 1)
@@ -694,7 +698,7 @@ CMD:ddname(playerid, params[]) {
 			iDoorID;
 
 		if(sscanf(params, "ds[128]", iDoorID, szName)) {
-			return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /ddname [doorid] [name]");
+			return SendSyntaxMessage(playerid, "/ddname [doorid] [name]");
 		}
 		else if(!(0 <= iDoorID <= MAX_DDOORS)) {
 			return SendClientMessageEx(playerid, COLOR_GREY, "Invalid door specified.");
@@ -763,7 +767,7 @@ CMD:ddpass(playerid, params[])
 		doorid,
 		doorpass[24];
 
-	if(sscanf(params, "ds[24]", doorid, doorpass)) { SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /ddPass [doorid] [pass]"); SendClientMessageEx(playerid, COLOR_WHITE, "To remove the password on the door set the password to 'none' "); return 1; }
+	if(sscanf(params, "ds[24]", doorid, doorpass)) { SendSyntaxMessage(playerid, "/ddpass [doorid] [pass]"); SendClientMessageEx(playerid, COLOR_WHITE, "To remove the password on the door set the password to 'none' "); return 1; }
 	format(DDoorsInfo[doorid][ddPass], 24, "%s", doorpass);
 	SendClientMessageEx(playerid, COLOR_WHITE, "You have changed the password of that door.");
 	SaveDynamicDoor(doorid);
@@ -779,9 +783,9 @@ CMD:ddedit(playerid, params[])
 		new string[128], choice[32], doorid, amount;
 		if(sscanf(params, "s[32]dD", choice, doorid, amount))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /ddedit [name] [doorid] [amount]");
+			SendSyntaxMessage(playerid, "/ddedit [name] [doorid] [amount]");
 			SendClientMessageEx(playerid, COLOR_GREY, "Available names: Exterior, Interior, CustomInterior, CustomExterior, Type, Rank, VIP, Famed");
-			SendClientMessageEx(playerid, COLOR_GREY, "Allegiance, GroupType, Faction, Wanted, Admin, VehicleAble, Color, PickupModel, Delete");
+			SendClientMessageEx(playerid, COLOR_GREY, "Allegiance, GroupType, Faction, Wanted, Admin, VehicleAble, Color, PickupModel, Icon, Delete");
 			return 1;
 		}
 
@@ -1066,6 +1070,23 @@ CMD:ddedit(playerid, params[])
 			SaveDynamicDoor(doorid);
 			CreateDynamicDoor(doorid);
 			format(string, sizeof(string), "%s has edited DoorID %d's PickupModel.", GetPlayerNameEx(playerid), doorid);
+			Log("logs/ddedit.log", string);
+			return 1;
+		}
+		else if(strcmp(choice, "icon", true) == 0)
+		{
+		    if(DDoorsInfo[doorid][dMapIcon] >= 1) DestroyDynamicMapIcon(DDoorsInfo[doorid][dMIcon]);
+			DDoorsInfo[doorid][dMapIcon] = amount;
+			if(amount > 0)
+			{
+				DDoorsInfo[doorid][dMIcon]=CreateDynamicMapIcon(DDoorsInfo[doorid][ddExteriorX], DDoorsInfo[doorid][ddExteriorY], DDoorsInfo[doorid][ddExteriorZ], DDoorsInfo[doorid][dMapIcon], COLOR_YELLOW);
+			}
+			format(string, sizeof(string), "You have changed the MapIcon to %d.", amount);
+			SendClientMessageEx(playerid, COLOR_WHITE, string);
+
+			SaveDynamicDoor(doorid);
+			CreateDynamicDoor(doorid);
+			format(string, sizeof(string), "%s has edited DoorID %d's MapIcon.", GetPlayerNameEx(playerid), doorid);
 			Log("logs/ddedit.log", string);
 			return 1;
 		}

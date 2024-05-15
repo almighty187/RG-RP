@@ -1,53 +1,16 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Craftsman System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 CMD:pc(playerid, params[])
 {
 	if(PlayerInfo[playerid][pSurveillance] > 0)
 	{
 		if(GetPVarInt(playerid, "cameraactive") == 1)
 		{
-			SendClientMessageEx(playerid, COLOR_GRAD1, "Wait for your other camera to expire.");
+			SendErrorMessage(playerid, "Wait for your other camera to expire.");
 			return 1;
 		}
 
 		new string[128];
 		PlayerInfo[playerid][pSurveillance]--;
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You placed your camera, go hide and use /sc. Batteries expire in 2 minutes.");
+		SendServerMessage(playerid, "You placed your camera, go hide and use /sc. Batteries expire in 2 minutes.");
 		new Float:X, Float:Y, Float:Z;
 		GetPlayerPos(playerid, X, Y, Z);
 		SetPVarInt(playerid, "cameraactive", 1);
@@ -64,7 +27,7 @@ CMD:pc(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You don't have a surveillance camera!");
+		SendErrorMessage(playerid, "You don't have a surveillance camera!");
 	}
 	return 1;
 }
@@ -109,7 +72,7 @@ CMD:sc(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You have no active camera!");
+		SendErrorMessage(playerid, "You have no active camera!");
 	}
 	return 1;
 }
@@ -119,7 +82,7 @@ CMD:dc(playerid, params[])
 	if(GetPVarInt(playerid, "cameraactive") == 1)
 	{
 		if(!IsPlayerInRangeOfPoint(playerid, 5.0, GetPVarFloat(playerid, "cameraX"), GetPVarFloat(playerid, "cameraY"), GetPVarFloat(playerid, "cameraZ"))) {
-			SendClientMessageEx(playerid, COLOR_WHITE, "You are not near your camera.");
+			SendErrorMessage(playerid, "You are not near your camera.");
 			return 1;
 		}
 
@@ -141,7 +104,7 @@ CMD:dc(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "There is nothing to destroy!");
+		SendErrorMessage(playerid, "There is nothing to destroy!");
 	}
 	return 1;
 }
@@ -153,12 +116,12 @@ CMD:rccam(playerid, params[])
 		new string[128];
 		if(GetPVarInt(playerid, "rccam") == 0)
 		{
-			if(GetPVarType(playerid, "IsInArena")) return SendClientMessageEx(playerid, COLOR_WHITE, "You can't do this right now.");
-			if(GetPVarInt(playerid, "WatchingTV")) return SendClientMessageEx(playerid, COLOR_WHITE, "You can't do this right now.");
-			if(GetPVarInt(playerid, "Injured") == 1 || PlayerInfo[playerid][pHospital] > 0 || IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "You can't do this right now.");
-			if(PlayerInfo[playerid][pVW] != 0 || PlayerInfo[playerid][pInt] != 0) return SendClientMessageEx(playerid, COLOR_WHITE, "You can't do this right now.");
-			if(IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_GRAD1, "You must be on foot to place an RCCam!");
-			if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_WHITE, "You cannot use this while in prison.");
+			if(GetPVarType(playerid, "IsInArena")) return SendErrorMessage(playerid, "You can't do while in a Arena.");
+			if(GetPVarInt(playerid, "WatchingTV")) return SendErrorMessage(playerid, "You can't do this while watching TV");
+			if(GetPVarInt(playerid, "Injured") == 1 || PlayerInfo[playerid][pHospital] > 0 || IsPlayerInAnyVehicle(playerid)) return SendErrorMessage(playerid, "You can't do this right now.");
+			if(PlayerInfo[playerid][pVW] != 0 || PlayerInfo[playerid][pInt] != 0) return SendErrorMessage(playerid, "You can't do this right now.");
+			if(IsPlayerInAnyVehicle(playerid)) return SendErrorMessage(playerid, "You must be on foot to place an RCCam!");
+			if(PlayerInfo[playerid][pJailTime] > 0) return SendErrorMessage(playerid, "You cannot use this while in prison.");
 
 			PlayerInfo[playerid][pRccam]--;
 			SetPVarInt(playerid, "rccam", 1);
@@ -196,7 +159,7 @@ CMD:rccam(playerid, params[])
 			KillTimer(GetPVarInt(playerid, "rccamtimer"));
 			return 1;
 		}
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You don't have an RC Cam!");
+		SendErrorMessage(playerid, "You don't have an RC Cam!");
 	}
 	return 1;
 }
@@ -206,12 +169,12 @@ CMD:firstaid(playerid, params[])
 	if(HungerPlayerInfo[playerid][hgInEvent] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "   You cannot do this while being in the Hunger Games Event!");
 	if(GetPVarType(playerid, "IsInArena"))
 	{
-		SendClientMessageEx(playerid, COLOR_WHITE, "You can't do this while being in an arena!");
+		SendErrorMessage(playerid, "You can't do this while being in an arena!");
 		return 1;
 	}
 	if(GetPVarInt(playerid, "Injured") == 1)
 	{
-		SendClientMessageEx(playerid, COLOR_WHITE, "You can't do this right now.");
+		SendErrorMessage(playerid, "You can't do this right now.");
 		return 1;
 	}
 	if(PlayerInfo[playerid][pFirstaid] > 0)
@@ -228,12 +191,12 @@ CMD:firstaid(playerid, params[])
 		}
 		else
 		{
-			SendClientMessageEx(playerid, COLOR_GRAD1, "You're already using first aid!");
+			SendErrorMessage(playerid, "You're already using first aid!");
 		}
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You don't have a first aid kit!");
+		SendErrorMessage(playerid, "You don't have a first aid kit!");
 	}
 	return 1;
 }
@@ -273,7 +236,7 @@ CMD:sweep(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You don't have a bug sweep!");
+		SendErrorMessage(playerid, "You don't have a bug sweep!");
 	}
 	return 1;
 }
@@ -301,7 +264,7 @@ CMD:gps(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You don't have a GPS!");
+		SendErrorMessage(playerid, "You don't have a GPS!");
 	}
 	return 1;
 }
@@ -334,7 +297,7 @@ CMD:wristwatch(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You don't have a wristwatch!");
+		SendErrorMessage(playerid, "You don't have a wristwatch!");
 	}
 	return 1;
 }
@@ -345,18 +308,18 @@ CMD:receiver(playerid, params[])
 	{
 		if(!GetPVarType(playerid, "pReceiverOn"))
 		{
-			SendClientMessageEx(playerid, COLOR_YELLOW, "You've turned on your receiver.");
+			SendServerMessage(playerid, "You've turned on your receiver.");
 			SetPVarInt(playerid, "pReceiverOn", 1);
 		}
 		else
 		{
-			SendClientMessageEx(playerid, COLOR_YELLOW, "You've turned off your receiver.");
+			SendServerMessage(playerid, "You've turned off your receiver.");
 			DeletePVar(playerid, "pReceiverOn");
 		}
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You don't have a receiver.");
+		SendErrorMessage(playerid, "You don't have a receiver.");
 	}
 	return 1;
 }
@@ -364,7 +327,7 @@ CMD:receiver(playerid, params[])
 CMD:smslog(playerid, params[])
 {
 	if(PlayerInfo[playerid][pSmslog] > 0) GetSMSLog(playerid);
-	else return SendClientMessageEx(playerid, COLOR_YELLOW, "    You don't have a SMS log!");
+	else return 	SendErrorMessage(playerid, "You don't have a SMS log!");
 	return 1;
 }
 
@@ -374,12 +337,12 @@ CMD:craft(playerid, params[])
 	if(HungerPlayerInfo[playerid][hgInEvent] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "   You cannot do this while being in the Hunger Games Event!");
 	if (PlayerInfo[playerid][pJob] != 18 && PlayerInfo[playerid][pJob2] != 18 && PlayerInfo[playerid][pJob3] != 18)
 	{
-		SendClientMessageEx(playerid,COLOR_GREY,"   You are not a Craftsman!");
+		SendErrorMessage(playerid, "You are not a Craftsman!");
 		return 1;
 	}
 	if (PlayerInfo[playerid][pJailTime] > 0)
 	{
-		SendClientMessageEx(playerid,COLOR_GREY,"   You can not make things while in jail or prison!");
+		SendErrorMessage(playerid, "You can not make things while in jail or prison!");
 		return 1;
 	}
 	new string[128];
@@ -391,7 +354,7 @@ CMD:craft(playerid, params[])
 	}
 	if(PlayerInfo[playerid][pHospital] > 0)
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "You can't craft while in the Hospital.");
+		SendErrorMessage(playerid, "You can't craft while in the Hospital.");
 		return 1;
 	}
 	new giveplayerid, choice[32], weapon, price;
@@ -421,7 +384,7 @@ CMD:craft(playerid, params[])
 	}
 	if(IsPlayerConnected(giveplayerid))
 	{
-		if(HungerPlayerInfo[giveplayerid][hgInEvent] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "   This person is not able to receive anything at the moment.");
+		if(HungerPlayerInfo[giveplayerid][hgInEvent] != 0) return 	SendErrorMessage(playerid, "This person is not able to receive anything at the moment.");
 		if(isnull(choice))
 		{
 			SendClientMessageEx(playerid, COLOR_GREEN, "________________________________________________");
@@ -455,7 +418,7 @@ CMD:craft(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid,COLOR_GREY,"   Not enough Materials for that!");
+				SendErrorMessage(playerid, "Not enough Materials for that!");
 				return 1;
 			}
 		}*/
@@ -468,7 +431,7 @@ CMD:craft(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid,COLOR_GREY,"   Not enough Materials for that!");
+				SendErrorMessage(playerid, "Not enough Materials for that!");
 				return 1;
 			}
 		}
@@ -481,7 +444,7 @@ CMD:craft(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid,COLOR_GREY,"   Not enough Materials for that!");
+				SendErrorMessage(playerid, "Not enough Materials for that!");
 				return 1;
 			}
 		}
@@ -494,7 +457,7 @@ CMD:craft(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid,COLOR_GREY,"   Not enough Materials for that!");
+				SendErrorMessage(playerid, "Not enough Materials for that!");
 				return 1;
 			}
 		}
@@ -507,7 +470,7 @@ CMD:craft(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid,COLOR_GREY,"   Not enough Materials for that!");
+				SendErrorMessage(playerid, "Not enough Materials for that!");
 				return 1;
 			}
 		}
@@ -520,7 +483,7 @@ CMD:craft(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid,COLOR_GREY,"   Not enough Materials for that!");
+				SendErrorMessage(playerid, "Not enough Materials for that!");
 				return 1;
 			}
 		}
@@ -533,7 +496,7 @@ CMD:craft(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid,COLOR_GREY,"   Not enough Materials for that!");
+				SendErrorMessage(playerid, "Not enough Materials for that!");
 				return 1;
 			}
 		}
@@ -546,7 +509,7 @@ CMD:craft(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid,COLOR_GREY,"   Not enough Materials for that!");
+				SendErrorMessage(playerid, "Not enough Materials for that!");
 				return 1;
 			}
 		}
@@ -559,7 +522,7 @@ CMD:craft(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid,COLOR_GREY,"   Not enough Materials for that!");
+				SendErrorMessage(playerid, "Not enough Materials for that!");
 				return 1;
 			}
 		}
@@ -572,7 +535,7 @@ CMD:craft(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid,COLOR_GREY,"   Not enough Materials for that!");
+				SendErrorMessage(playerid, "Not enough Materials for that!");
 				return 1;
 			}
 		}
@@ -585,7 +548,7 @@ CMD:craft(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid,COLOR_GREY,"   Not enough Materials for that!");
+				SendErrorMessage(playerid, "Not enough Materials for that!");
 				return 1;
 			}
 		}
@@ -598,7 +561,7 @@ CMD:craft(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid,COLOR_GREY,"   Not enough Materials for that!");
+				SendErrorMessage(playerid, "Not enough Materials for that!");
 				return 1;
 			}
 		}
@@ -612,7 +575,7 @@ CMD:craft(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid,COLOR_GREY,"   Not enough Materials for that!");
+				SendErrorMessage(playerid, "Not enough Materials for that!");
 				return 1;
 			}
 		}
@@ -626,7 +589,7 @@ CMD:craft(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid,COLOR_GREY,"   Not enough Materials for that!");
+				SendErrorMessage(playerid, "Not enough Materials for that!");
 				return 1;
 			}
 		}
@@ -640,7 +603,7 @@ CMD:craft(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid,COLOR_GREY,"   Not enough Materials for that!");
+				SendErrorMessage(playerid, "Not enough Materials for that!");
 				return 1;
 			}*/
 			return SendClientMessageEx(playerid, COLOR_WHITE, "You cannot craft this right now!");
@@ -655,7 +618,7 @@ CMD:craft(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid,COLOR_GREY,"   Not enough Materials for that!");
+				SendErrorMessage(playerid, "Not enough Materials for that!");
 				return 1;
 			}
 		}
@@ -668,7 +631,7 @@ CMD:craft(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid,COLOR_GREY,"   Not enough Materials for that!");
+				SendErrorMessage(playerid, "Not enough Materials for that!");
 				return 1;
 			}
 		}
@@ -681,7 +644,7 @@ CMD:craft(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid,COLOR_GREY,"   Not enough Materials for that!");
+				SendErrorMessage(playerid, "Not enough Materials for that!");
 				return 1;
 			}
 		}
@@ -694,7 +657,7 @@ CMD:craft(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid,COLOR_GREY,"   Not enough Materials for that!");
+				SendErrorMessage(playerid, "Not enough Materials for that!");
 				return 1;
 			}
 		}
@@ -707,7 +670,7 @@ CMD:craft(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid,COLOR_GREY,"   Not enough Materials for that!");
+				SendErrorMessage(playerid, "Not enough Materials for that!");
 				return 1;
 			}
 		}
@@ -728,63 +691,63 @@ CMD:craft(playerid, params[])
 				price = 25;
 				weapon = 20;
 			}
-			else return SendClientMessageEx(playerid, COLOR_GREY, "   Not enough materials for that!");
+			else return SendErrorMessage(playerid, "Not enough Materials for that!");
 		}
 		else if(strcmp(choice, "knuckles", true) == 0) {
 			if(PlayerInfo[playerid][pMats] >= 100) {
 				price = 100;
 				weapon = 21;
 			}
-			else return SendClientMessageEx(playerid, COLOR_GREY, "   Not enough materials for that!");
+			else return SendErrorMessage(playerid, "Not enough Materials for that!");
 		}
 		else if(strcmp(choice, "baseballbat", true) == 0) {
 			if(PlayerInfo[playerid][pMats] >= 100) {
 				price = 100;
 				weapon = 22;
 			}
-			else return SendClientMessageEx(playerid, COLOR_GREY, "   Not enough materials for that!");
+			else return SendErrorMessage(playerid, "Not enough Materials for that!");
 		}
 		else if(strcmp(choice, "cane", true) == 0) {
 			if(PlayerInfo[playerid][pMats] >= 100) {
 				price = 100;
 				weapon = 23;
 			}
-			else return SendClientMessageEx(playerid, COLOR_GREY, "   Not enough materials for that!");
+			else return SendErrorMessage(playerid, "Not enough Materials for that!");
 		}
 		else if(strcmp(choice, "shovel", true) == 0) {
 			if(PlayerInfo[playerid][pMats] >= 100) {
 				price = 100;
 				weapon = 24;
 			}
-			else return SendClientMessageEx(playerid, COLOR_GREY, "   Not enough materials for that!");
+			else return SendErrorMessage(playerid, "Not enough Materials for that!");
 		}
 		else if(strcmp(choice, "poolcue", true) == 0) {
 			if(PlayerInfo[playerid][pMats] >= 100) {
 				price = 100;
 				weapon = 25;
 			}
-			else return SendClientMessageEx(playerid, COLOR_GREY, "   Not enough materials for that!");
+			else return SendErrorMessage(playerid, "Not enough Materials for that!");
 		}
 		else if(strcmp(choice, "katana", true) == 0) {
 			if(PlayerInfo[playerid][pMats] >= 300) {
 				price = 300;
 				weapon = 26;
 			}
-			else return SendClientMessageEx(playerid, COLOR_GREY, "   Not enough materials for that!");
+			else return SendErrorMessage(playerid, "Not enough Materials for that!");
 		}
 		else if(strcmp(choice, "dildo", true) == 0) {
 			if(PlayerInfo[playerid][pMats] >= 300) {
 				price = 300;
 				weapon = 27;
 			}
-			else return SendClientMessageEx(playerid, COLOR_GREY, "   Not enough materials for that!");
+			else return SendErrorMessage(playerid, "Not enough Materials for that!");
 		}
 		else if(strcmp(choice, "spraycan", true) == 0) {
 			if(PlayerInfo[playerid][pMats] >= 2000) {
 				price = 2000;
 				weapon = 28;
 			}
-			else return SendClientMessageEx(playerid, COLOR_GREY, "   Not enough materials for that!");
+			else return SendErrorMessage(playerid, "Not enough Materials for that!");
 		}
 
 		else if(strcmp(choice, "rimkit", true) == 0) {
@@ -792,21 +755,21 @@ CMD:craft(playerid, params[])
 				price = 400000;
 				weapon = 29;
 			}
-			else return SendClientMessageEx(playerid, COLOR_GREY, "   Not enough materials for that!");
+			else return SendErrorMessage(playerid, "Not enough Materials for that!");
 		}
 
-		else { SendClientMessageEx(playerid,COLOR_GREY,"   Invalid Craft name!"); return 1; }
+		else { SendErrorMessage(playerid, "Invalid Craft name!"); return 1; }
 		if (ProxDetectorS(5.0, playerid, giveplayerid))
 		{
 			if(weapon == 17)
 			{
 				if(PlayerInfo[giveplayerid][pPhousekey] == INVALID_HOUSE_ID && PlayerInfo[giveplayerid][pPhousekey2] == INVALID_HOUSE_ID && PlayerInfo[giveplayerid][pPhousekey3] == INVALID_HOUSE_ID)
 				{
-					if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_GREY, "You don't own a house!");
+					if(giveplayerid == playerid) return SendErrorMessage(playerid, "You don't own a house!");
 					else
 					{
-						SendClientMessageEx(playerid, COLOR_GREY, "They don't own a house!");
-						SendClientMessageEx(giveplayerid, COLOR_GREY, "You don't own a house!");
+						SendErrorMessage(playerid, "They don't own a house!");
+						SendErrorMessage(giveplayerid, "You don't own a house!");
 					}
 				}
 			}
@@ -867,7 +830,7 @@ CMD:craft(playerid, params[])
 					{
 						PlayerInfo[playerid][pReceiver]++;
 						SetPVarInt(playerid, "pReceiverMLeft", 4);
-						SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "You will receive the next four department radio messages.");
+						SendServerMessage(giveplayerid, "You will receive the next four department radio messages.");
 					}
 				case 11:
 					{
@@ -891,12 +854,12 @@ CMD:craft(playerid, params[])
 						else if(PlayerInfo[playerid][pTreasureSkill] >=150 && PlayerInfo[playerid][pTreasureSkill] <= 299) PlayerInfo[playerid][pMetalDetector] += 75;
 						else if(PlayerInfo[playerid][pTreasureSkill] >=300 && PlayerInfo[playerid][pTreasureSkill] <= 599) PlayerInfo[playerid][pMetalDetector] += 100;
 						else if(PlayerInfo[playerid][pTreasureSkill] >=600) PlayerInfo[playerid][pMetalDetector] += 125;
-						SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "/search");
+						SendServerMessage(giveplayerid, "/search");
 					}
 				case 15:
 					{
 						PlayerInfo[playerid][pMailbox]++;
-						SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "Type /placemailbox where you want mailbox to be at.");
+						SendServerMessage(giveplayerid, "Type /placemailbox where you want mailbox to be at.");
 					}
 				case 16:
 					{
@@ -904,11 +867,11 @@ CMD:craft(playerid, params[])
 						{
 							PlayerInfo[playerid][pMats] -= price;
 							PlayerInfo[playerid][pSyringes]++;
-							SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "/usedrug heroin");
+							SendServerMessage(playerid, "/usedrug heroin");
 						}
 						else
 						{
-							return SendClientMessageEx(playerid, COLOR_GREY, "You can't hold anymore syringes.");
+							return SendErrorMessage(playerid, "You can't hold anymore syringes.");
 						}
 					}
 				case 17:
@@ -922,13 +885,13 @@ CMD:craft(playerid, params[])
 								HouseInfo[PlayerInfo[playerid][pPhousekey]][hClosetTextID] = CreateDynamic3DTextLabel("Closet\n/closet to use", 0xFFFFFF88, HouseInfo[PlayerInfo[playerid][pPhousekey]][hClosetX], HouseInfo[PlayerInfo[playerid][pPhousekey]][hClosetY], HouseInfo[PlayerInfo[playerid][pPhousekey]][hClosetZ]+0.5,10.0, .testlos = 1, .worldid = HouseInfo[PlayerInfo[playerid][pPhousekey]][hIntVW], .interiorid = HouseInfo[PlayerInfo[playerid][pPhousekey]][hIntIW], .streamdistance = 10.0);
 								SaveHouse(PlayerInfo[playerid][pPhousekey]);
 								PlayerInfo[playerid][pMats] -= price;
-								SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "/closet(add/remove)");
+								SendServerMessage(giveplayerid, "/closet(add/remove)");
 
 								szMiscArray[0] = 0;
 								format(szMiscArray, sizeof(szMiscArray), "%s(%d) has placed a closet for their house (House ID: %d) at X: %f | Y: %f | Z: %f", GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), PlayerInfo[playerid][pPhousekey], HouseInfo[PlayerInfo[playerid][pPhousekey3]][hClosetX], HouseInfo[PlayerInfo[playerid][pPhousekey3]][hClosetY], HouseInfo[PlayerInfo[playerid][pPhousekey3]][hClosetZ]);
   								Log("logs/house.log", szMiscArray);
 							}
-							else return SendClientMessageEx(playerid, COLOR_GREY, "You aren't inside of your house!");
+							else return SendErrorMessage(playerid, "You aren't inside of your house!");
 						}
 						else if(GetPlayerVirtualWorld(playerid) == HouseInfo[PlayerInfo[playerid][pPhousekey2]][hIntVW] && GetPlayerInterior(playerid) == HouseInfo[PlayerInfo[playerid][pPhousekey2]][hIntIW])
 						{
@@ -939,7 +902,7 @@ CMD:craft(playerid, params[])
 								HouseInfo[PlayerInfo[playerid][pPhousekey2]][hClosetTextID] = CreateDynamic3DTextLabel("Closet\n/closet to use", 0xFFFFFF88, HouseInfo[PlayerInfo[playerid][pPhousekey2]][hClosetX], HouseInfo[PlayerInfo[playerid][pPhousekey2]][hClosetY], HouseInfo[PlayerInfo[playerid][pPhousekey2]][hClosetZ]+0.5,10.0, .testlos = 1, .worldid = HouseInfo[PlayerInfo[playerid][pPhousekey2]][hIntVW], .interiorid = HouseInfo[PlayerInfo[playerid][pPhousekey2]][hIntIW], .streamdistance = 10.0);
 								SaveHouse(PlayerInfo[playerid][pPhousekey2]);
 								PlayerInfo[playerid][pMats] -= price;
-								SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "/closet(add/remove)");
+								SendServerMessage(giveplayerid, "/closet(add/remove)");
 
 								szMiscArray[0] = 0;
 								format(szMiscArray, sizeof(szMiscArray), "%s(%d) has placed a closet for their house (House ID: %d) at X: %f | Y: %f | Z: %f", GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), PlayerInfo[playerid][pPhousekey2], HouseInfo[PlayerInfo[playerid][pPhousekey3]][hClosetX], HouseInfo[PlayerInfo[playerid][pPhousekey3]][hClosetY], HouseInfo[PlayerInfo[playerid][pPhousekey3]][hClosetZ]);
@@ -956,25 +919,25 @@ CMD:craft(playerid, params[])
 								HouseInfo[PlayerInfo[playerid][pPhousekey3]][hClosetTextID] = CreateDynamic3DTextLabel("Closet\n/closet to use", 0xFFFFFF88, HouseInfo[PlayerInfo[playerid][pPhousekey3]][hClosetX], HouseInfo[PlayerInfo[playerid][pPhousekey3]][hClosetY], HouseInfo[PlayerInfo[playerid][pPhousekey3]][hClosetZ]+0.5,10.0, .testlos = 1, .worldid = HouseInfo[PlayerInfo[playerid][pPhousekey3]][hIntVW], .interiorid = HouseInfo[PlayerInfo[playerid][pPhousekey3]][hIntIW], .streamdistance = 10.0);
 								SaveHouse(PlayerInfo[playerid][pPhousekey3]);
 								PlayerInfo[playerid][pMats] -= price;
-								SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "/closet(add/remove)");
+								SendServerMessage(giveplayerid, "/closet(add/remove)");
 
 								szMiscArray[0] = 0;
 								format(szMiscArray, sizeof(szMiscArray), "%s(%d) has placed a closet for their house (House ID: %d) at X: %f | Y: %f | Z: %f", GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), PlayerInfo[playerid][pPhousekey3], HouseInfo[PlayerInfo[playerid][pPhousekey3]][hClosetX], HouseInfo[PlayerInfo[playerid][pPhousekey3]][hClosetY], HouseInfo[PlayerInfo[playerid][pPhousekey3]][hClosetZ]);
   								Log("logs/house.log", szMiscArray);
 							}
-							else return SendClientMessageEx(playerid, COLOR_GREY, "You aren't inside of your house!");
+							else return SendErrorMessage(playerid, "You aren't inside of your house!");
 						}
-						else return SendClientMessageEx(playerid, COLOR_GREY, "You aren't inside of your house!");
+						else return SendErrorMessage(playerid, "You aren't inside of your house!");
 					}
 				case 18:
 					{
 						PlayerInfo[playerid][pToolBox] += 15;
-						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Type /pickveh(icle) in any car to attempt to lock pick it.");
+						SendServerMessage(playerid, "Type /pickveh(icle) in any car to attempt to lock pick it.");
 					}
 				case 19:
 					{
 						PlayerInfo[playerid][pCrowBar] += 25;
-						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Type /cracktrunk in any car that you already lock picked to attempt to open the trunk.");
+						SendServerMessage(playerid, "Type /cracktrunk in any car that you already lock picked to attempt to open the trunk.");
 					}
 				case 20: GivePlayerValidWeapon(playerid, WEAPON_FLOWER);
 				case 21: GivePlayerValidWeapon(playerid, WEAPON_BRASSKNUCKLE);
@@ -987,7 +950,7 @@ CMD:craft(playerid, params[])
 				case 28: GivePlayerValidWeapon(playerid, WEAPON_SPRAYCAN);
 				case 29: {
 					PlayerInfo[playerid][pRimMod]++;
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Type /userimkit as a mechanic in any car to modify your rims.");
+					SendServerMessage(playerid, "Type /userimkit as a mechanic in any car to modify your rims.");
 				}
 				
 				}
@@ -1019,13 +982,13 @@ CMD:craft(playerid, params[])
 		}
 		else
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "That person isn't near you.");
+			SendErrorMessage(playerid, "That person isn't near you.");
 			return 1;
 		}
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "Invalid player specified.");
+		SendErrorMessage(playerid, "Invalid player specified.");
 		return 1;
 	}
 }

@@ -190,7 +190,7 @@ CMD:shopplate(playerid, params[])
 		new iVehType, iVehIndex, iTargetOwner, carid, orderid, plate[32];
         if(sscanf(params, "dds[32]", carid, orderid, plate))
 		{
-		    SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /shopplate [carid] [orderid] [plate/remove]");
+		    SendSyntaxMessage(playerid, "/shopplate [carid] [orderid] [plate/remove]");
 		    SendClientMessageEx(playerid, COLOR_GREY, "COLORS: (black/white/blue/red/green/purple/yellow/lightblue/navy/beige/darkgreen/darkblue/darkgrey/gold/brown/darkbrown/darkred");
 			SendClientMessageEx(playerid, COLOR_GREY, "/pink) USAGE: (red)Hi(white)how are you? NOTE: Each color counts for 8 characters");
 			return 1;
@@ -267,7 +267,7 @@ CMD:shopcredits(playerid, params[])
 		new szMessage[128], player, amount, invid;
 
 		if(sscanf(params, "udd", player, amount, invid))
-			return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /givecredits [player] [amount] [invoiceid]");
+			return SendSyntaxMessage(playerid, "/givecredits [player] [amount] [invoiceid]");
 
 		if(!IsPlayerConnected(player))
 		    return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
@@ -308,7 +308,7 @@ CMD:shopcar(playerid, params[]) {
 			iModelID;
 
 		if(sscanf(params, "uiiis[32]", iTargetID, iModelID, iColors[0], iColors[1], szInvoice)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /shopcar [player] [model] [color 1] [color 2] [invoice #]");
+			SendSyntaxMessage(playerid, "/shopcar [player] [model] [color 1] [color 2] [invoice #]");
 		}
 		else if(!(400 <= iModelID <= 611)) {
 			SendClientMessageEx(playerid, COLOR_GRAD2, "Invalid model specified (model IDs start at 400, and end at 611).");
@@ -354,7 +354,7 @@ CMD:shopcardel(playerid, params[])
 	if(PlayerInfo[playerid][pShopTech] >= 1)
 	{
 		new string[128], invoicenum[32], giveplayerid, vehicleid;
-		if(sscanf(params, "uds[32]", giveplayerid, vehicleid, invoicenum)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /shopcardel [player] [vehicleid] [invoice #]");
+		if(sscanf(params, "uds[32]", giveplayerid, vehicleid, invoicenum)) return SendSyntaxMessage(playerid, "/shopcardel [player] [vehicleid] [invoice #]");
 
 		new playervehicleid = GetPlayerVehicle(giveplayerid, vehicleid);
 		if(playervehicleid == -1) return SendClientMessageEx(playerid, COLOR_GREY, "ERROR: That person doesn't own that vehicle.");
@@ -378,7 +378,7 @@ CMD:setstpay(playerid, params[])
 	    new string[128];
 		if(sscanf(params, "f", ShopTechPay))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "Usage: /setstpay [value]");
+			SendSyntaxMessage(playerid, "/setstpay [value]");
 			format(string, sizeof(string), "Current Pay: $%.2f", ShopTechPay);
 			SendClientMessageEx(playerid, COLOR_WHITE, string);
 			return 1;
@@ -530,7 +530,7 @@ CMD:givemeorder(playerid, params[])
 		new giveplayerid;
 		if(sscanf(params, "u", giveplayerid))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /givemeorder [player]");
+			SendSyntaxMessage(playerid, "/givemeorder [player]");
 			return 1;
 		}
 
@@ -576,7 +576,7 @@ CMD:givemeorder(playerid, params[])
 	if(PlayerInfo[playerid][pShopTech] > 0 || PlayerInfo[playerid][pAdmin] >= 1337)
 	{
 	    new giveplayerid, orderid, string[128];
-		if(sscanf(params, "ui", giveplayerid, orderid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /adjustoid [player] [new orderid]");
+		if(sscanf(params, "ui", giveplayerid, orderid)) return SendSyntaxMessage(playerid, "/adjustoid [player] [new orderid]");
 		SendClientMessageEx(playerid, COLOR_WHITE, "Processing..");
   		PlayerInfo[giveplayerid][pOrder] = orderid;
 		format(string, sizeof(string), "shop.ng-gaming.net/idcheck.php?id=%d", orderid);
@@ -594,7 +594,7 @@ CMD:processorder(playerid, params[])
 		new giveplayerid;
 		if(sscanf(params, "u", giveplayerid))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /processorder [player]");
+			SendSyntaxMessage(playerid, "/processorder [player]");
 			return 1;
 		}
 
@@ -651,7 +651,7 @@ CMD:denyorder(playerid, params[])
 		new giveplayerid, reason[64];
 		if(sscanf(params, "us[64]", giveplayerid, reason))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /denyorder [player] [reason]");
+			SendSyntaxMessage(playerid, "/denyorder [player] [reason]");
 			return 1;
 		}
 
@@ -758,7 +758,7 @@ CMD:shopexp(playerid, params[])
 	}
 
 	new string[128], giveplayerid, amount, invoice[32];
-	if(sscanf(params, "uds[32]", giveplayerid, amount, invoice)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /shopexp [player] [tokens] [invoice #]");
+	if(sscanf(params, "uds[32]", giveplayerid, amount, invoice)) return SendSyntaxMessage(playerid, "/shopexp [player] [tokens] [invoice #]");
 
 	PlayerInfo[giveplayerid][pEXPToken] += amount;
 
@@ -779,7 +779,7 @@ CMD:shoptokens(playerid, params[])
 	}
 
 	new string[128], giveplayerid, amount, invoice[32];
-	if(sscanf(params, "uds[32]", giveplayerid, amount, invoice)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /shoptokens [player] [amount] [invoice #]");
+	if(sscanf(params, "uds[32]", giveplayerid, amount, invoice)) return SendSyntaxMessage(playerid, "/shoptokens [player] [amount] [invoice #]");
 
 	PlayerInfo[giveplayerid][pPaintTokens] += amount;
 
@@ -800,7 +800,7 @@ CMD:shopviptokens(playerid, params[])
 	}
 
 	new string[128], giveplayerid, amount, invoice[32];
-	if(sscanf(params, "uds[32]", giveplayerid, amount, invoice)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /shopviptokens [player] [amount] [invoice #]");
+	if(sscanf(params, "uds[32]", giveplayerid, amount, invoice)) return SendSyntaxMessage(playerid, "/shopviptokens [player] [amount] [invoice #]");
 
 	PlayerInfo[giveplayerid][pTokens] += amount;
 
@@ -821,7 +821,7 @@ CMD:shopfirework(playerid, params[])
 	}
 
 	new string[128], giveplayerid, amount, invoice[32];
-	if(sscanf(params, "uds[32]", giveplayerid, amount, invoice)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /shopfirework [player] [amount] [invoice #]");
+	if(sscanf(params, "uds[32]", giveplayerid, amount, invoice)) return SendSyntaxMessage(playerid, "/shopfirework [player] [amount] [invoice #]");
 
 	PlayerInfo[giveplayerid][pFirework] += amount;
 
@@ -875,7 +875,7 @@ CMD:credits(playerid, params[])
 	{
 	    new Player;
 	    if(sscanf(params, "u", Player))
-			return SendClientMessageEx(playerid, COLOR_GREY, "Usage: /credits [Player]");
+			return SendSyntaxMessage(playerid, "/credits [Player]");
 
 
         new szString[128];
@@ -1142,7 +1142,7 @@ CMD:sellcredits(playerid, params[])
 		return SendClientMessageEx(playerid, COLOR_GREY, "You cannot initiate trades unless you are SVIP+!");
 
 	if(sscanf(params, "udd", Player, Credits, Amount))
-		return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /sellcredits [Player] [Credits] [Amount]");
+		return SendSyntaxMessage(playerid, "/sellcredits [Player] [Credits] [Amount]");
 
 	else if(!IsPlayerConnected(Player))
 		return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
@@ -1402,7 +1402,7 @@ CMD:thanksgivingshop(playerid, params[])
 CMD:chargeplayer(playerid, params[])
 {
 	new string[128], giveplayerid, amount, reason[64];
-	if(sscanf(params, "uds[64]", giveplayerid, amount, reason)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /chargeplayer [player] [amount] [reason]");
+	if(sscanf(params, "uds[64]", giveplayerid, amount, reason)) return SendSyntaxMessage(playerid, "/chargeplayer [player] [amount] [reason]");
 
 	if (PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pShopTech] == 2)
 	{
@@ -1433,13 +1433,13 @@ CMD:chargeplayer(playerid, params[])
 
 CMD:givecredits(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 99999 && PlayerInfo[playerid][pShopTech] != 3)
+	if(PlayerInfo[playerid][pAdmin] < 1338 && PlayerInfo[playerid][pShopTech] != 3)
 	    return 0;
 
 	new szMessage[128], Player, Amount;
 
 	if(sscanf(params, "ud", Player, Amount))
-		return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /givecredits [Player] [Amount]");
+		return SendSyntaxMessage(playerid, "/givecredits [Player] [Amount]");
 
 	if(!IsPlayerConnected(Player))
 	    return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
@@ -1460,13 +1460,13 @@ CMD:givecredits(playerid, params[])
 
 CMD:setcredits(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 99999 && PlayerInfo[playerid][pShopTech] != 3)
+	if(PlayerInfo[playerid][pAdmin] < 1338 && PlayerInfo[playerid][pShopTech] != 3)
 	    return 0;
 
 	new szMessage[128], Player, Amount;
 
 	if(sscanf(params, "ud", Player, Amount))
-		return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /setcredits [Player] [Amount]");
+		return SendSyntaxMessage(playerid, "/setcredits [Player] [Amount]");
 
 	if(!IsPlayerConnected(Player))
 	    return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
@@ -1487,13 +1487,13 @@ CMD:setcredits(playerid, params[])
 
 CMD:settotalcredits(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 99999 && PlayerInfo[playerid][pShopTech] != 3)
+	if(PlayerInfo[playerid][pAdmin] < 1338 && PlayerInfo[playerid][pShopTech] != 3)
 	    return 0;
 
 	new szMessage[128], Player, Amount;
 
 	if(sscanf(params, "ud", Player, Amount))
-		return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /settotalcredits [Player] [Amount]");
+		return SendSyntaxMessage(playerid, "/settotalcredits [Player] [Amount]");
 
 	if(!IsPlayerConnected(Player))
 	    return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
@@ -1540,7 +1540,7 @@ CMD:setpumpkinstock(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] > 1337 || PlayerInfo[playerid][pPR] == 2 || PlayerInfo[playerid][pShopTech] == 3)
 	{
 		new string[128], pumpkins;
-		if(sscanf(params, "d", pumpkins)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /setpumpkinstock [stock]");
+		if(sscanf(params, "d", pumpkins)) return SendSyntaxMessage(playerid, "/setpumpkinstock [stock]");
 		format(string, sizeof(string), "You have set the pumpkin stock to %d.", pumpkins);
 		SendClientMessageEx(playerid, COLOR_GRAD1, string);
 		format(string, sizeof(string), "Admin %s(%i) has set the pumpkin stock to %d from %d.", GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), pumpkins, PumpkinStock );
@@ -1587,7 +1587,7 @@ CMD:editsign(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1)
 	{
 		new h, option[10], desc[64];
-		if(sscanf(params, "ds[10]S()[64]", h, option, desc)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editsign [houseid] [option]"), SendClientMessageEx(playerid, COLOR_GREY, "Available options: text, position");
+		if(sscanf(params, "ds[10]S()[64]", h, option, desc)) return SendSyntaxMessage(playerid, "/editsign [houseid] [option]"), SendClientMessageEx(playerid, COLOR_GREY, "Available options: text, position");
 		if(HouseInfo[h][hSignExpire] == 0) return SendClientMessageEx(playerid, COLOR_GREY, "This house doesn't have a House Sale Sign attached, /placesign to place one down.");
 		if(!strcmp(option, "text", true))
 		{
@@ -1617,11 +1617,11 @@ CMD:editsign(playerid, params[])
 	if(h == INVALID_HOUSE_ID) return SendClientMessageEx(playerid, COLOR_GREY, "You must be at a 10 meter radius from your house to edit your house sign.");
 	if(HouseInfo[h][hSignExpire] == 0) return SendClientMessageEx(playerid, COLOR_GREY, "This house doesn't have a House Sale Sign attached, /placesign to place one down.");
 	new option[10], desc[64];
-	if(sscanf(params, "s[10]S()[64]", option, desc)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editsign [option]"), SendClientMessageEx(playerid, COLOR_GREY, "Available options: text, position");
+	if(sscanf(params, "s[10]S()[64]", option, desc)) return SendSyntaxMessage(playerid, "/editsign [option]"), SendClientMessageEx(playerid, COLOR_GREY, "Available options: text, position");
 	if(!strcmp(option, "text", true))
 	{
 		if(GetPVarType(playerid, "HasReport")) return SendClientMessageEx(playerid, COLOR_GREY, "You can only have 1 active report at a time. (/cancelreport)");
-		if(isnull(desc)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editsign text [decription]");
+		if(isnull(desc)) return SendSyntaxMessage(playerid, "/editsign text [decription]");
 		if(!(1 <= strlen(desc) <= 64)) return SendClientMessageEx(playerid, COLOR_GREY, "Description text cannot be empty and no longer than 64 characters.");
 		new string[128];
 		SetPVarInt(playerid, "hSignRequest", h);
@@ -1709,7 +1709,7 @@ CMD:rcarcolor(playerid, params[])
 	if(!PlayerInfo[playerid][mInventory][9]) return SendClientMessageEx(playerid, COLOR_GREY, "You do not have any Restricted Car Colors in your inventory, visit /microshop to purchase.");
 	if(!IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_GRAD2, "You're not in a vehicle.");
 	new iColors[2];
-	if(sscanf(params, "dd", iColors[0], iColors[1])) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /rcarcolor [color1] [color2]. Colors must be an ID.");
+	if(sscanf(params, "dd", iColors[0], iColors[1])) return SendSyntaxMessage(playerid, "/rcarcolor [color1] [color2]. Colors must be an ID.");
 	if(!(128 <= iColors[0] <= 255 && 0 <= iColors[1] <= 255)) return SendClientMessageEx(playerid, COLOR_GRAD2, "Invalid color specified (Restricted color IDs start at 128, and end at 255).");
 	new szMessage[128];
 	for(new i = 0; i < MAX_PLAYERVEHICLES; i++)

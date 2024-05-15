@@ -14,7 +14,7 @@ CMD:togmemorialshop(playerid, params[])
 
 CMD:memorialshop(playerid, params[])
 {
-	if(MemorialShop == false) return SendClientMessageEx(playerid, COLOR_GREY, "The shop is currently closed.");
+	//if(MemorialShop == false) return SendClientMessageEx(playerid, COLOR_GREY, "The shop is currently closed.");
 	if(!IsAtClothingStore(playerid)) return SendClientMessageEx(playerid, COLOR_GREY, "You aren't at a clothes shop.");
 	if(!GetPVarInt(playerid, "PinConfirmed")) return PinLogin(playerid);
 	new flagList[] = {2614, 11245};

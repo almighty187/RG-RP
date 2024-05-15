@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Chat System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 #include <YSI\y_hooks>
 
 
@@ -220,7 +183,7 @@ CMD:togooc(playerid, params[])
 CMD:me(playerid, params[])
 {
 	if(PlayerInfo[playerid][pJailTime] && strfind(PlayerInfo[playerid][pPrisonReason], "[OOC]", true) != -1) return SendClientMessageEx(playerid, COLOR_GREY, "OOC prisoners are restricted to only speak in /b");
-	if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /me [action]");
+	if(isnull(params)) return SendSyntaxMessage(playerid, "/me [action]");
 	new string[255];
 	format(string, sizeof(string), "{FF8000}* {C2A2DA}%s %s", GetPlayerNameEx(playerid), params);
 	if(PlayerInfo[playerid][pIsolated] != 0) ProxDetector(5.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
@@ -244,7 +207,7 @@ CMD:w(playerid, params[])
 	}
 	if(sscanf(params, "us[128]", giveplayerid, whisper))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: (/w)hisper [player] [text]");
+		SendSyntaxMessage(playerid, "(/w)hisper [player] [text]");
 		return 1;
 	}
 	if(GetPVarType(playerid, "WatchingTV") && PlayerInfo[playerid][pAdmin] < 2)
@@ -307,7 +270,7 @@ CMD:do(playerid, params[])
 		return 1;
 	}
 	if(PlayerInfo[playerid][pJailTime] && strfind(PlayerInfo[playerid][pPrisonReason], "[OOC]", true) != -1) return SendClientMessageEx(playerid, COLOR_GREY, "OOC prisoners are restricted to only speak in /b");
-	if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /do [action]");
+	if(isnull(params)) return SendSyntaxMessage(playerid, "/do [action]");
 	else if(strlen(params) > 120) return SendClientMessageEx(playerid, COLOR_GREY, "The specified message must not be longer than 120 characters in length.");
 	new
 		iCount,
@@ -327,7 +290,7 @@ CMD:do(playerid, params[])
 	else ProxDetectorWrap(playerid, string, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
 	return 1;
 }
-
+CMD:o(playerid, params[]) return cmd_ooc(playerid, params);
 CMD:ooc(playerid, params[])
 {
 	if(gPlayerLogged{playerid} == 0)
@@ -345,7 +308,7 @@ CMD:ooc(playerid, params[])
 		SendClientMessageEx(playerid, TEAM_CYAN_COLOR, "   You have disabled OOC Chat, re-enable with /togooc!");
 		return 1;
 	}
-	if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: (/o)oc [ooc chat]");
+	if(isnull(params)) return SendSyntaxMessage(playerid, "(/o)oc [ooc chat]");
 
 	if(PlayerInfo[playerid][pAdmin] == 1)
 	{
@@ -375,12 +338,6 @@ CMD:ooc(playerid, params[])
 	}
 	return 1;
 }
-
-CMD:o(playerid, params[]) 
-{
-	return SendClientMessageEx(playerid, COLOR_GRAD1, "/o has been renamed to /ooc to prevent typos.");
-}
-
 CMD:shout(playerid, params[]) {
 	return cmd_s(playerid, params);
 }
@@ -394,8 +351,9 @@ CMD:s(playerid, params[])
 		return 1;
 	}
 
-	if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: (/s)hout [shout chat]");
-
+	if(isnull(params)) return SendSyntaxMessage(playerid, "(/s)hout [shout chat]");
+	
+    ApplyAnimation(playerid, "RIOT", "RIOT_shout", 3.0, 0, 0, 0, 0, 0);
 	new string[128];
 	format(string, sizeof(string), "(shouts) %s!", params);
 	SetPlayerChatBubble(playerid,string,COLOR_WHITE,60.0,5000);
@@ -417,7 +375,7 @@ CMD:l(playerid, params[])
 		return 1;
 	}
 	if(PlayerInfo[playerid][pJailTime] && strfind(PlayerInfo[playerid][pPrisonReason], "[OOC]", true) != -1) return SendClientMessageEx(playerid, COLOR_GREY, "OOC prisoners are restricted to only speak in /b");
-	if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: (/l)ow [close chat]");
+	if(isnull(params)) return SendSyntaxMessage(playerid, "(/l)ow [close chat]");
 
 	new string[128];
 	format(string, sizeof(string), "%s says quietly: %s", GetPlayerNameEx(playerid), params);
@@ -434,7 +392,7 @@ CMD:b(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_GREY, "You're not logged in.");
 		return 1;
 	}
-	if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /b [local ooc chat]");
+	if(isnull(params)) return SendSyntaxMessage(playerid, "/b [local ooc chat]");
 	if(GetPVarType(playerid, "WatchingTV")) return SendClientMessage(playerid, COLOR_GRAD1, "You can't use this command while watching TV.");
 	new string[128];
 	format(string, sizeof(string), "%s: (( %s ))", GetPlayerNameEx(playerid), params);
@@ -459,7 +417,7 @@ CMD:accent(playerid, params[])
 	new accent;
 	if(sscanf(params, "d", accent))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /accent [accent ID]");
+		SendSyntaxMessage(playerid, "/accent [accent ID]");
 		SendClientMessageEx(playerid, COLOR_GRAD2, "Available Accents: Normal [1], British [2], Japanese [3], Asian [4], Scottish [6], Irish [7], Russian [8]");
 		SendClientMessageEx(playerid, COLOR_GRAD2, "Available Accents: American [9], Spanish [10], Southern [11], Italian [13], Gangsta [14], Australian [15], Arabic [16]");
 		SendClientMessageEx(playerid, COLOR_GRAD2, "Available Accents: Balkan [17], Canadian [18], Jamaican [19], Israeli [20], Dutch [21], Brazilian [22], German [23], Turkish [24]");
@@ -635,7 +593,7 @@ CMD:pr(playerid, params[])
 	{
 		if(isnull(params))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /pr [chat]");
+			SendSyntaxMessage(playerid, "/pr [chat]");
 			SendClientMessageEx(playerid, COLOR_GRAD2, "HINT: Type /setfreq to set the frequency of your portable radio.");
 			return 1;
 		}
@@ -662,7 +620,7 @@ CMD:setfreq(playerid, params[])
 	new string[128], frequency;
 	if(sscanf(params, "d", frequency))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /setfreq [frequency]");
+		SendSyntaxMessage(playerid, "/setfreq [frequency]");
 		SendClientMessageEx(playerid, COLOR_GRAD2, "HINT: Set the frequency of your radio to 0 if you don't want to hear anything.");
 		return 1;
 	}
@@ -770,7 +728,7 @@ ChatBoxProcess(playerid, hColor, szText[]) {
 CMD:ame(playerid, params[])
 {
 	if(PlayerInfo[playerid][pJailTime] && strfind(PlayerInfo[playerid][pPrisonReason], "[OOC]", true) != -1) return SendClientMessageEx(playerid, COLOR_GREY, "OOC prisoners are restricted to only speak in /b");
-	if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /ame [action]");
+	if(isnull(params)) return SendSyntaxMessage(playerid, "/ame [action]");
 	new string[128];
 	format(string, sizeof(string), "%s %s", GetPlayerNameEx(playerid), params);
 	SetPlayerChatBubble(playerid, string, COLOR_PURPLE, 15.0, 5000);
@@ -782,7 +740,7 @@ CMD:ame(playerid, params[])
 CMD:lme(playerid, params[])
 {
 	if(PlayerInfo[playerid][pJailTime] && strfind(PlayerInfo[playerid][pPrisonReason], "[OOC]", true) != -1) return SendClientMessageEx(playerid, COLOR_GREY, "OOC prisoners are restricted to only speak in /b");
-	if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /lme [action]");
+	if(isnull(params)) return SendSyntaxMessage(playerid, "/lme [action]");
 	new string[128];
 	format(string, sizeof(string), "{FF8000}* {C2A2DA}%s %s", GetPlayerNameEx(playerid), params);
 	ProxDetectorWrap(playerid, string, 92, 15, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
@@ -792,7 +750,7 @@ CMD:lme(playerid, params[])
 CMD:ldo(playerid, params[])
 {
 	if(PlayerInfo[playerid][pJailTime] && strfind(PlayerInfo[playerid][pPrisonReason], "[OOC]", true) != -1) return SendClientMessageEx(playerid, COLOR_GREY, "OOC prisoners are restricted to only speak in /b");
-	if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /ldo [action]");
+	if(isnull(params)) return SendSyntaxMessage(playerid, "/ldo [action]");
 	else if(strlen(params) > 120) return SendClientMessageEx(playerid, COLOR_GREY, "The specified message must not be longer than 120 characters in length.");
 	new
 		iCount,
@@ -811,7 +769,7 @@ CMD:resetexamine(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return 1;
 	new target;
-	if(sscanf(params, "u", target)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /resetexamine [playerid]");
+	if(sscanf(params, "u", target)) return SendSyntaxMessage(playerid, "/resetexamine [playerid/PartOfName]");
 	if(!IsPlayerConnected(target)) return SendClientMessageEx(playerid, COLOR_GREY, "Error: Player is not connected!");
 	format(PlayerInfo[target][pExamineDesc], 256, "None");
 	return SendClientMessageEx(playerid, COLOR_GREY, "You have successfully reset their examine description.");
@@ -823,7 +781,7 @@ CMD:setexamine(playerid, params[]) return ShowPlayerDialogEx(playerid, DIALOG_SE
 CMD:examine(playerid, params[])
 {
 	new target;
-	if(sscanf(params, "u", target)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /examine [playerid]");
+	if(sscanf(params, "u", target)) return SendSyntaxMessage(playerid, "/examine [playerid/PartOfName]");
 	if(!IsPlayerConnected(target)) return SendClientMessageEx(playerid, COLOR_GREY, "Error: Player is not connected!");
 	if(!ProxDetectorS(5.0, playerid, target) && PlayerInfo[playerid][pAdmin] < 2) return SendClientMessageEx(playerid, COLOR_GREY, "That person isn't near you.");
 	if(!strlen(PlayerInfo[target][pExamineDesc]) || !strcmp(PlayerInfo[target][pExamineDesc], "None", true)) return SendClientMessageEx(playerid, COLOR_GREY, "That person doesn't have a description set.");

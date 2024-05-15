@@ -1302,7 +1302,7 @@ Player_DropItem(playerid) {
 CMD:interact(playerid, params[]) {
 
 
-	if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /interact [playerid]");
+	if(isnull(params)) return SendSyntaxMessage(playerid, "/interact [playerid/PartOfName]");
 
 	new giveplayerid = strval(params);
 	if(playerid == giveplayerid) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot interact with yourself.");

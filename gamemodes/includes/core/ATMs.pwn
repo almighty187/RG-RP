@@ -5,82 +5,57 @@
 #define ATM_TRANSFER_TO		10002
 #define ATM_TRANSFER_AMT	10003
 
-new ATMPoint[43]; 
 
-LoadATMPoints() {
-	
-	ATMPoint[0] = CreateDynamicSphere(2065.439453125, -1897.5510253906, 13.19670009613, 3.0);
-	ATMPoint[1] = CreateDynamicSphere(1497.7467041016, -1749.8747558594, 15.088212013245, 3.0);
-	ATMPoint[2] = CreateDynamicSphere(2093.5124511719, -1359.5474853516, 23.62727355957, 3.0);
-	ATMPoint[3] = CreateDynamicSphere(1155.6235351563, -1464.9141845703, 15.44321346283, 3.0);
-	ATMPoint[4] = CreateDynamicSphere(1482.7761230469, -1010.3353881836, 26.48664855957, 3.0);
-	ATMPoint[5] = CreateDynamicSphere(2139.4487304688, -1164.0811767578, 23.63508605957, 3.0);
-	ATMPoint[6] = CreateDynamicSphere(1482.7761230469, -1010.3353881836, 26.48664855957, 3.0);
-	ATMPoint[7] = CreateDynamicSphere(387.16552734375, -1816.0512695313, 7.4834146499634, 3.0);
-	ATMPoint[8] = CreateDynamicSphere(-24.385023117065, -92.001075744629, 1003.1897583008, 3.0);
-	ATMPoint[9] = CreateDynamicSphere(-31.811220169067, -58.106018066406, 1003.1897583008, 3.0);
-	ATMPoint[10] = CreateDynamicSphere(1212.7785644531, 2.451762676239, 1000.5647583008, 3.0);
-	ATMPoint[11] = CreateDynamicSphere(2324.4028320313, -1644.9445800781, 14.469946861267, 3.0);
-	ATMPoint[12] = CreateDynamicSphere(2228.39, -1707.78, 13.25, 3.0);
-	ATMPoint[13] = CreateDynamicSphere(651.19305419922, -520.48815917969, 15.978837013245, 3.0);
-	ATMPoint[14] = CreateDynamicSphere(45.78035736084, -291.80926513672, 1.5024013519287, 3.0);
-	ATMPoint[15] = CreateDynamicSphere(1275.7958984375, 368.31481933594, 19.19758605957, 3.0);
-	ATMPoint[16] = CreateDynamicSphere(2303.4577636719, -13.539554595947, 26.12727355957, 3.0);
-	ATMPoint[17] = CreateDynamicSphere(294.80, -84.01, 1001.0, 3.0);
-	ATMPoint[18] = CreateDynamicSphere(691.08215332031, -618.5625, 15.978837013245, 3.0);
-	ATMPoint[19] = CreateDynamicSphere(173.23471069336, -155.07606506348, 1.2210245132446, 3.0);
-	ATMPoint[20] = CreateDynamicSphere(1260.8796386719, 209.30152893066, 19.19758605957, 3.0);
-	ATMPoint[21] = CreateDynamicSphere(2316.1015625, -88.522567749023, 26.12727355957, 3.0);
-	ATMPoint[22] = CreateDynamicSphere(1311.0361,-1446.2249,0.2216, 3.0);
-	ATMPoint[23] = CreateDynamicSphere(2052.9246, -1660.6346, 13.1300, 3.0);
-	ATMPoint[24] = CreateDynamicSphere(-2453.7600,754.8200,34.8000, 3.0);
-	ATMPoint[25] = CreateDynamicSphere(-2678.6201,-283.3400,6.8000, 3.0);
-	ATMPoint[26] = CreateDynamicSphere(519.8157,-2890.8601,4.4609, 3.0);
-	ATMPoint[27] = CreateDynamicSphere(2565.667480, 1406.839355, 7699.584472, 3.0);
-	ATMPoint[28] = CreateDynamicSphere(3265.30004883, -631.90002441, 8423.90039062, 3.0);
-	ATMPoint[29] = CreateDynamicSphere(1829.5000, 1391.0000, 1464.0000, 3.0);
-	ATMPoint[30] = CreateDynamicSphere(1755.8000, 1434.1000, 2013.4000, 3.0);
-	ATMPoint[31] = CreateDynamicSphere(-665.975341, -4033.334716, 20.779014, 3.0);
-	ATMPoint[32] = CreateDynamicSphere(-1619.9645996094,713.67535400391, 19995.501953125, 3.0);
-	ATMPoint[33] = CreateDynamicSphere(883.7170, 1442.4282, -82.3370, 3.0);
-	ATMPoint[34] = CreateDynamicSphere(986.4434,2056.2480,1085.8531, 3.0);
-	ATMPoint[35] = CreateDynamicSphere(1014.1396,2060.8284,1085.8531, 3.0);
-	ATMPoint[36] = CreateDynamicSphere(1013.4720,2023.8784,1085.8531, 3.0);
-	ATMPoint[37] = CreateDynamicSphere(985.53719, 2056.1026, 1085.5, 3.0);
-	ATMPoint[38] = CreateDynamicSphere(1014.48039, 2023.90137, 1085.5, 3.0);
-	ATMPoint[39] = CreateDynamicSphere(1014.1004, 2061.80117, 1085.5, 3.0);
-	ATMPoint[40] = CreateDynamicSphere(527.5063, 1417.8333, 11000.0996, 3.0);
-	ATMPoint[41] = CreateDynamicSphere(1538.3831, -2785.1677, 15.3602, 3.0);
-	ATMPoint[42] = CreateDynamicSphere(218.18401, 1809.87610, 2000.68555, 3.0);  // Lucky Cowboy Casino
+new Float:ATMs[16][4] = {
+{2065.3232, -1897.6429, 13.2686, 0.0000},
+{2160.9404, -1733.0797, 13.1687, 358.4479}, // Idlewood gas station
+{1901.7501, -1786.7529, 13.1021, 90.3382}, // Idlewood burger shot
+{2398.5542, -1548.6835, 23.8189, 179.4480}, // East ls
+{2308.4949, -1638.7850, 14.4486, 269.5833}, // Ganton bar
+{1847.3932, -1860.3418, 13.2133, 0.0000},
+{1520.4270, -1561.2681, 13.3513, 359.3913},
+{1172.5966, -1318.8878, 15.0261, 0.0000}, // All sints hopsital
+{1066.5370, -1026.4215, 31.7410, 0.0000}, // ModShop
+{1001.2426, -925.1960, 41.9741, 277.9713},
+{1319.5170, -897.7850, 39.2214, 0.0000}, // Robois food mart
+{2333.6199, -1319.7637, 23.7986, 89.3152}, // Gas Station Easy L.S
+{661.3817, -576.5142, 15.9848,269.9492}, // Blueberry
+{2194.8999023,1982.8000488,11.8999996,270.0000000}, // LV
+{0.0, 0.0, 0.0, 0.0}, // Empty
+{0.0, 0.0, 0.0, 0.0} // Empty
+};
 
-	// for(new i = 0; i < 37; i++) Streamer_SetIntData(STREAMER_TYPE_AREA, ATMPoint[i], E_STREAMER_EXTRA_ID, i);
+hook OnGameModeInit() {
 
-	print("[Streamer] ATM Points Loaded");
 
-	return 1;
-}
-
-hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
-
-	if((newkeys & KEY_YES) && IsPlayerInAnyDynamicArea(playerid))
+	for(new h = 0; h < sizeof(ATMs); h++)
 	{
-		new areaid[1];
-		GetPlayerDynamicAreas(playerid, areaid); //Assign nearest areaid.
-		// new i = Streamer_GetIntData(STREAMER_TYPE_AREA, areaid[0], E_STREAMER_EXTRA_ID);
-		for(new i; i < sizeof(ATMPoint); ++i) {
-
-			if(areaid[0] == ATMPoint[i]) {
-				
-				format(szMiscArray, sizeof(szMiscArray), "{FF8000}** {C2A2DA}%s approaches the ATM, typing in their PIN.", GetPlayerNameEx(playerid));
-				//ProxDetector(30.0, playerid, szMiscArray, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-				SetPlayerChatBubble(playerid, szMiscArray, COLOR_PURPLE, 15.0, 5000);
-				ShowATMMenu(playerid);
-			}
-		}
+        //CreateDynamicObject(2942, ATMs[h][0], ATMs[h][1], ATMs[h][2]+0.5, 0.000000, 0.000000, ATMs[h][3], 0);
+        CreateDynamicObject(2942, ATMs[h][0], ATMs[h][1], ATMs[h][2], 0.000000, 0.000000, ATMs[h][3], 0);
+        CreateDynamicMapIcon(ATMs[h][0], ATMs[h][1], ATMs[h][2], 52, COLOR_YELLOW);
+        CreateDynamic3DTextLabel("ATM\n{DDDDDD}Press ~k~~CONVERSATION_YES~ to access atm", COLOR_GREEN, ATMs[h][0], ATMs[h][1], ATMs[h][2]+1.3, 25.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 80.0);
+        CreateDynamicSphere(ATMs[h][0], ATMs[h][1], ATMs[h][2], 3.0);
+        print("[Streamer] ATM Points Loaded");
 	}
 	return 1;
 }
+hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
 
+	if((newkeys & KEY_YES))
+	{
+	    for(new i = 0; i < sizeof(ATMs); ++i) {
+	        // Check if the player is near an ATM
+	        if (IsPlayerInRangeOfPoint(playerid, 1.0, ATMs[i][0], ATMs[i][1], ATMs[i][2])) {
+	       	 	ApplyAnimation(playerid, "ped", "ATM", 12.17, 0, 0, 0, 1, 0);
+         		format(szMiscArray, sizeof(szMiscArray), "{FF8000}** {C2A2DA}%s approaches the ATM, typing in their PIN.", GetPlayerNameEx(playerid));
+	            SetPlayerChatBubble(playerid, szMiscArray, COLOR_PURPLE, 15.0, 5000);
+	            ShowATMMenu(playerid);
+	            return 1; // Exit the function once we found a matching ATM
+         	}
+        }
+    }
+	return 0;
+}
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
 	if(arrAntiCheat[playerid][ac_iFlags][AC_DIALOGSPOOFING] > 0) return 1;
@@ -93,7 +68,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				return 1;
 			}
 
-			TogglePlayerControllable(playerid, 0);
+			//TogglePlayerControllable(playerid, 0);
 
 			switch(listitem) {		
 				case 0: ShowATMMenu(playerid, 1);
@@ -134,7 +109,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				GivePlayerCash(playerid, iAmount);
 				PlayerInfo[playerid][pAccount] -= iAmount; 
 				format(szMiscArray, sizeof(szMiscArray), "  You have withdrawn $%s from your account. ", number_format(iAmount));
-				SendClientMessageEx(playerid, COLOR_YELLOW, szMiscArray);
+				SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
 
 				if(PlayerInfo[playerid][pDonateRank] == 0) {
 					new fee;
@@ -142,7 +117,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					if(!Bank_TransferCheck(-fee)) return 1;
 					PlayerInfo[playerid][pAccount] -= fee;
 					format(szMiscArray, sizeof(szMiscArray), "  You have been charged a 3 percent withdraw fee: -$%d.", fee);
-					SendClientMessageEx(playerid, COLOR_YELLOW, szMiscArray);
+					SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
 				}
 
 				OnPlayerStatsUpdate(playerid);
@@ -173,7 +148,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				GivePlayerCash(playerid, -iAmount);
 				PlayerInfo[playerid][pAccount] += iAmount; 
 				format(szMiscArray, sizeof(szMiscArray), "  You have deposited $%s to your account. ", number_format(iAmount));
-				SendClientMessageEx(playerid, COLOR_YELLOW, szMiscArray);
+				SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
 
 				if(PlayerInfo[playerid][pDonateRank] == 0) {
 					new fee;
@@ -181,7 +156,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					if(!Bank_TransferCheck(-fee)) return 1;
 					PlayerInfo[playerid][pAccount] -= fee;
 					format(szMiscArray, sizeof(szMiscArray), "  You have been charged a 3 percent deposit fee: -$%d.", fee);
-					SendClientMessageEx(playerid, COLOR_YELLOW, szMiscArray);
+					SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
 				}
 
 				OnPlayerStatsUpdate(playerid);
@@ -241,7 +216,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				fee = 3*iAmount/100;
 				PlayerInfo[playerid][pAccount] -= fee;
 				format(szMiscArray, sizeof(szMiscArray), "  You have been charged a 3 percent transfer fee: -$%d.", fee);
-				SendClientMessageEx(playerid, COLOR_YELLOW, szMiscArray);
+				SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
 			}
 
 			// Use these as they update the MySQL Directly with less function calls
@@ -249,10 +224,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			GivePlayerCashEx(id, TYPE_BANK, iAmount);
 
 			format(szMiscArray, sizeof(szMiscArray), "   You have transferred $%s to %s's account.", number_format(iAmount), GetPlayerNameEx(id));
-			SendClientMessageEx(playerid, COLOR_YELLOW, szMiscArray);
+			SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
 			
 			format(szMiscArray, sizeof(szMiscArray), "   $%s has been transferred to your bank account from %s.", number_format(iAmount), GetPlayerNameEx(playerid));
-			SendClientMessageEx(id, COLOR_YELLOW, szMiscArray);
+			SendClientMessageEx(id, COLOR_WHITE, szMiscArray);
 
 			PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
 			PlayerPlaySound(id, 1052, 0.0, 0.0, 0.0);
@@ -269,9 +244,9 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			if(PlayerInfo[playerid][pAdmin] >= 2 || PlayerInfo[id][pAdmin] >= 2) {
 				format(szMiscArray, sizeof(szMiscArray), "[ATM] Admin %s has transferred $%s to %s", GetPlayerNameEx(playerid), number_format(iAmount), GetPlayerNameEx(id));
 				if(!strcmp(GetPlayerIpEx(playerid),  GetPlayerIpEx(id), true)) strcat(szMiscArray, " (1)");
-				ABroadCast(COLOR_YELLOW,szMiscArray, 4);
+				ABroadCast(COLOR_WHITE,szMiscArray, 4);
 			}
-			else ABroadCast(COLOR_YELLOW,szMiscArray,2);
+			else ABroadCast(COLOR_WHITE,szMiscArray,2);
 			
 			SetPVarInt(playerid, "LastTransaction", gettime());
 			DeletePVar(playerid, "ATMTransferTo");

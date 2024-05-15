@@ -10,8 +10,8 @@ CMD:newb(playerid, params[]) {
 	if(nonewbie) return SendClientMessageEx(playerid, COLOR_GRAD2, "The newbie chat channel has been disabled by an administrator!");
 
 	if(GetPVarType(playerid, "HasNewbQues")) {
-		SendClientMessageEx(playerid, COLOR_GREY, "You have already asked a newbie question.");
-		return SendClientMessageEx(playerid, COLOR_GREY, "Type /cancelnewbie to submit a new one!");
+		SendErrorMessage(playerid, "You have already asked a newbie question.");
+		return SendServerMessage(playerid, "Type /cancelnewbie to submit a new one!");
 	}
 
 	ShowPlayerDialogEx(playerid, SEND_NEWBIE, DIALOG_STYLE_INPUT, "Ask Newbie Question", "Please input your question\nPlease bare in mind only script/server related questions will be answered.", "Send", "Cancel");
@@ -21,7 +21,7 @@ CMD:newb(playerid, params[]) {
 
 CMD:cancelnewbie(playerid, params[]) {
 
-	SendClientMessageEx(playerid, COLOR_WHITE, "You have cancelled your request");
+	SendServerMessage(playerid, "You have cancelled your request");
 	ClearNewbVars(playerid);
 	return 1;
 }
@@ -41,10 +41,10 @@ CMD:an(playerid, params[]) {
 
 	new id;
 
-	if(sscanf(params, "u", id)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /an [playerid]");
-	if(!IsPlayerConnected(id)) return SendClientMessageEx(playerid, COLOR_GREY, "That player is no longer connected!");
-	if(!GetPVarType(id, "HasNewbQues")) return SendClientMessageEx(playerid, COLOR_GREY, "That player hasn't asked a newbie question!");
-	if(GetPVarType(id, "NewbBeingAnswered")) return SendClientMessageEx(playerid, COLOR_GREY, "Another helper is answering that request!");
+	if(sscanf(params, "u", id)) return SendSyntaxMessage(playerid, "/an [playerid/PartOfName]");
+	if(!IsPlayerConnected(id)) return SendErrorMessage(playerid, "That player is no longer connected!");
+	if(!GetPVarType(id, "HasNewbQues")) return SendErrorMessage(playerid, "That player hasn't asked a newbie question!");
+	if(GetPVarType(id, "NewbBeingAnswered")) return SendErrorMessage(playerid, "Another helper is answering that request!");
 
 	if(PlayerInfo[playerid][pAdmin] >= 1 || PlayerInfo[playerid][pHelper] > 0) {
 
@@ -64,10 +64,10 @@ CMD:tn(playerid, params[]) {
 
 	new id;
 
-	if(sscanf(params, "u", id)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /tn [playerid]");
-	if(!IsPlayerConnected(id)) return SendClientMessageEx(playerid, COLOR_GREY, "That player is no longer connected!");
-	if(!GetPVarType(id, "HasNewbQues")) return SendClientMessageEx(playerid, COLOR_GREY, "That player hasn't asked a newbie question!");
-	if(GetPVarType(id, "NewbBeingAnswered")) return SendClientMessageEx(playerid, COLOR_GREY, "Another helper is answering that request!");
+	if(sscanf(params, "u", id)) return SendSyntaxMessage(playerid, "/tn [playerid/PartOfName]");
+	if(!IsPlayerConnected(id)) return SendErrorMessage(playerid, "That player is no longer connected!");
+	if(!GetPVarType(id, "HasNewbQues")) return SendErrorMessage(playerid, "That player hasn't asked a newbie question!");
+	if(GetPVarType(id, "NewbBeingAnswered")) return SendErrorMessage(playerid, "Another helper is answering that request!");
 
 
 	if(PlayerInfo[playerid][pAdmin] >= 1 || PlayerInfo[playerid][pHelper] > 0) {
@@ -96,7 +96,7 @@ SendNewbQuestionToQueue(iPlayerID, szQuestion[]) {
 			ChatTrafficProcess(i, COLOR_NEWBIE, szMiscArray, 0);
 	}
 
-	SendClientMessageEx(iPlayerID, COLOR_WHITE, "Your question was submitted");
+	SendServerMessage(iPlayerID, "Your question was submitted");
 
 	return 1;
 }
@@ -114,7 +114,7 @@ AnswerNewbie(iPlayerID, iNewbieID, szAnswer[]) {
 
 	szMiscArray[0] = 0;
 
-	if(!GetPVarType(iNewbieID, "HasNewbQues")) return SendClientMessageEx(iPlayerID, COLOR_GREY, "That player does not have an active question!");
+	if(!GetPVarType(iNewbieID, "HasNewbQues")) return SendErrorMessage(iPlayerID, "That player does not have an active question!");
 
 	GetPVarString(iNewbieID, "HasNewbQues", szMiscArray, 128);
 
@@ -134,7 +134,7 @@ AnswerNewbie(iPlayerID, iNewbieID, szAnswer[]) {
 		AddCAReportToken(iPlayerID); // Advisor Tokens
 	}
 
-	SendClientMessageEx(iNewbieID, COLOR_NEWBIE, "Your question has been answered! If you have more questions or for additional assistance use [/requesthelp]");
+	SendServerMessage(iNewbieID, "Your question has been answered! If you have more questions or for additional assistance use [/requesthelp]");
 
 	ClearNewbVars(iNewbieID);
 
@@ -176,8 +176,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
 			if(response) {
 				
-				if(isnull(inputtext)) return SendClientMessageEx(playerid, COLOR_GRAD2, "You cannot send no question!");
-				if(strlen(inputtext) > 110) return SendClientMessageEx(playerid, COLOR_GRAD2, "That message is too long!");
+				if(isnull(inputtext)) return SendErrorMessage(playerid, "You cannot send no question!");
+				if(strlen(inputtext) > 110) return SendErrorMessage(playerid, "That message is too long!");
 
 				SendNewbQuestionToQueue(playerid, inputtext);
 			}
@@ -186,11 +186,11 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		case ACCEPT_NEWBIE: {
 
 			if(response) {
-				if(isnull(inputtext)) return SendClientMessageEx(playerid, COLOR_GRAD2, "You cannot send no question!");
+				if(isnull(inputtext)) return SendErrorMessage(playerid, "You cannot send no question!");
 				if(strlen(inputtext) > 110) {
 					DeletePVar(GetPVarInt(playerid, "AnsweringNewb"), "NewbBeingAnswered");
 					DeletePVar(playerid, "AnsweringNewb");
-					return SendClientMessageEx(playerid, COLOR_GRAD2, "That message is too long!");
+					return SendErrorMessage(playerid, "That message is too long!");
 				}
 
 				AnswerNewbie(playerid, GetPVarInt(playerid, "AnsweringNewb"), inputtext);
@@ -210,17 +210,17 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				switch(listitem) {
 				
 					case 0: {
-						SendClientMessageEx(id, COLOR_WHITE, "Your newbie message has not been answered due to it not being considered a question.");
+						SendServerMessage(id, "Your newbie message has not been answered due to it not being considered a question.");
 					}
 
 					case 1: {
-						SendClientMessageEx(id, COLOR_WHITE, "Your newbie message has not been answered due to it being considered an IC matter.");
-						SendClientMessageEx(id, COLOR_WHITE, "We may only answer script/server related questions on /newb.");
+						SendServerMessage(id, "Your newbie message has not been answered due to it being considered an IC matter.");
+						SendServerMessage(id, "We may only answer script/server related questions on /newb.");
 					}
 
 					case 2: {
-						SendClientMessageEx(id, COLOR_WHITE, "Your newbie message has not been answered due to it being considered spam.");
-						SendClientMessageEx(id, COLOR_WHITE, "Repeated abuse will result in a mute and/or further punishment.");
+						SendServerMessage(id, "Your newbie message has not been answered due to it being considered spam.");
+						SendServerMessage(id, "Repeated abuse will result in a mute and/or further punishment.");
 					}
 
 				}

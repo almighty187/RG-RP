@@ -25,7 +25,22 @@ hook OnGameModeInit() {
 	cctv2 = CreateDynamicObject(1536,267.46875000,115.83691406,1003.61718750,0.00000000,0.00000000,179.99450684,-1,10,-1,100.0); // CCTV door (moves east)
 	chief1 = CreateDynamicObject(1536,229.59960938,119.50000000,1009.21875000,0.00000000,0.00000000,0.00000000,-1,10,-1,100.0); // innermost chief's door
 	chief2 = CreateDynamicObject(1536,232.59960938,119.53515625,1009.21875000,0.00000000,0.00000000,179.99450684,-1,10,-1,100.0); // outermost chief's door (both move west)
-
+	//Fire Station Buttons
+	FireStationGarage[0] = CreateDynamicObject(11313,1293.34998,-1357.82019,14.49830,0.00000,0.00000,0.00000);
+	FireStationGarage[1] = CreateDynamicObject(11313,1293.34998,-1367.37610,14.49830,0.00000,0.00000,0.00000);
+	FireStationGarage[2] = CreateDynamicObject(11313,1293.34998,-1376.89954,14.49830,0.00000,0.00000,0.00000);
+	FireStationGarage[3] = CreateDynamicObject(11313,1332.57336,-1357.82019,14.49830,0.00000,0.00000,180.00000);
+	FireStationGarage[4] = CreateDynamicObject(11313,1332.52222,-1367.37610,14.49830,0.00000,0.00000,180.00000);
+	FireStationGarage[5] = CreateDynamicObject(11313,1332.57336,-1376.89954,14.49830,0.00000,0.00000,180.00000);
+	
+	FireStationDoor[0] = CreateDynamicObject(19859,1330.29980,-1311.07874,18.67140,0.00000,0.00000,0.00000);
+	//Hospital Buttons
+	HospitalDoor[0] = CreateDynamicObject(1495,2376.6257300,2650.9096700,8000.1215800,0.0000000,0.0000000,90.7394200); // Right door
+	HospitalDoor[1] = CreateDynamicObject(1495,2387.8789100,2651.0197800,8000.1503900,0.0000000,0.0000000,90.0688600); // Left door
+	//LSPD Buttons INT:10
+	LSPDCellDoor[0] = CreateDynamicObject(19302,1614.72595,1605.28540,11.08160,0.000000,0.00000,269.29721);
+	leftmovedoor = CreateDynamicObject(1495,1617.656,1579.298,9.776,0.000,0.000,0.000,-1,10,-1,100.0);
+	rightmovedoor = CreateDynamicObject(1495,1617.676,1594.660,9.776,0.000,0.000,0.000,-1,10,-1,100.0);
 	/* Noose Int Buttons End */
 	sasd1A = CreateDynamicObject(1536,2511.65332031,-1697.00976562,561.79223633,0.00000000,0.00000000,0.00000000); //R6
 	sasd1B = CreateDynamicObject(1536,2514.67211914,-1696.97485352,561.79223633,0.00000000,0.00000000,180.00000000); //object(gen_doorext15) (2)
@@ -100,13 +115,13 @@ hook OnGameModeInit() {
     MoveDynamicObject(BikeParkourObjects[0], 2848.1015625, -2238.1552734, 99.0883789, 0.5, 0.0, 0.0, 90.0);
 	//MoveDynamicObject(BikeParkourObjects[1], 2847.4970703, -2243.1191406, 4901.4877930, 0.5, 0.0, 0.0, 69.7851562);
 	
-	gFerrisWheel = CreateObject( 18877, gFerrisOrigin[0], gFerrisOrigin[1], gFerrisOrigin[2],
+	gFerrisWheel = CreateDynamicObject( 18877, gFerrisOrigin[0], gFerrisOrigin[1], gFerrisOrigin[2],
 	  							 0.0, 0.0, -270.0, 300.0 );
-	CreateObject( 18878, gFerrisOrigin[0], gFerrisOrigin[1], gFerrisOrigin[2],
+	CreateDynamicObject( 18878, gFerrisOrigin[0], gFerrisOrigin[1], gFerrisOrigin[2],
 	  							 0.0, 0.0, -270.0, 300.0 );
  	for(new x;x<10;x++)
     {
-        gFerrisCages[x] = CreateObject( 19316, gFerrisOrigin[0], gFerrisOrigin[1], gFerrisOrigin[2],
+        gFerrisCages[x] = CreateDynamicObject( 19316, gFerrisOrigin[0], gFerrisOrigin[1], gFerrisOrigin[2],
 	  							 0.0, 0.0, -270.0, 300.0 );
 
         AttachObjectToObject( gFerrisCages[x], gFerrisWheel,
@@ -115,14 +130,7 @@ hook OnGameModeInit() {
 	  						  gFerrisCageOffsets[x][2],
 							  0.0, 0.0, -270.0, 0 );
 	}
-	
-	//FDSA Static object ground
-	CreateObject(8531, 1289.93, -2552.11, 13.34,   0.00, 0.00, 186.04);
-	 
-	//FDSA Static object roof
-	CreateDynamicObject(19377, 1296.63, -2584.18, 16.73,   0.00, 90.00, 6.00, .worldid = 0, .streamdistance = 200);
-	CreateDynamicObject(19377, 1301.41, -2578.00, 16.81,   0.00, 90.00, 6.00, .worldid = 0, .streamdistance = 200);
-	
+
 	//SFPD
 	SFPDHighCMDDoor[0] = CreateDynamicObject(1536, -1578.19397, 702.29370, 18.64510,   0.00000, 0.00000, 0.00000, .streamdistance = 50); // Chief
 	SFPDHighCMDDoor[1] = CreateDynamicObject(1536, -1578.26196, 696.84729, 18.64510,   0.00000, 0.00000, 0.00000, .streamdistance = 50); //Deputy Chief

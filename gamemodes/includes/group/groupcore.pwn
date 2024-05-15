@@ -1,20 +1,19 @@
 /*
 
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
+					 _______      ______     _______     _______
+					|_   __ \   .' ___  |  _|_   __ \   |_   __ \
+					  | |__) | / .'   \_| (_) | |__) |    | |__) |
+					  |  __ /  | |   ____  _  |  __ /     |  ___/
+					 _| |  \ \_\ `.___]  |(_)_| |  \ \_  _| |_
+					|____| |___|`._____.'   |____| |___||_____|
+
 
 						Dynamic Group Core
 
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
+						Rebound Gaming
+	(created by Rebound Gaming Development Team)
 
-	* Copyright (c) 2016, Next Generation Gaming, LLC
+	* Copyright (c) 2024, Rebound Gaming
 	*
 	* All rights reserved.
 	*
@@ -77,6 +76,31 @@ Group_DisbandGroup(iGroupID) {
 	arrGroupData[iGroupID][g_iDrugs][2] = 0;
 	arrGroupData[iGroupID][g_iDrugs][3] = 0;
 	arrGroupData[iGroupID][g_iDrugs][4] = 0;
+	
+	arrGroupData[iGroupID][gArmsDealer] = 0;
+    arrGroupData[iGroupID][gDrugDealer] = 0;
+    arrGroupData[iGroupID][gArmsX] = 0.0;
+    arrGroupData[iGroupID][gArmsY] = 0.0;
+    arrGroupData[iGroupID][gArmsZ] = 0.0;
+	arrGroupData[iGroupID][gArmsA] = 0.0;
+    arrGroupData[iGroupID][gDrugX] = 0.0;
+    arrGroupData[iGroupID][gDrugY] = 0.0;
+    arrGroupData[iGroupID][gDrugZ] = 0.0;
+	arrGroupData[iGroupID][gDrugA] = 0.0;
+    arrGroupData[iGroupID][gArmsWorld] = 0;
+    arrGroupData[iGroupID][gDrugWorld] = 0;
+    arrGroupData[iGroupID][gDrugPot] = 0;
+    arrGroupData[iGroupID][gDrugCrack] = 0;
+    arrGroupData[iGroupID][gDrugMeth] = 0;
+	arrGroupData[iGroupID][gDrugEcstasy] = 0;
+    arrGroupData[iGroupID][gDrugHeroin] = 0;
+    arrGroupData[iGroupID][gArmsMaterials] = 0;
+    DestroyActor(arrGroupData[iGroupID][gActors][0]);
+	DestroyActor(arrGroupData[iGroupID][gActors][1]);
+    DestroyDynamic3DTextLabel(arrGroupData[iGroupID][gText][0]);
+    DestroyDynamic3DTextLabel(arrGroupData[iGroupID][gText][1]);
+	DestroyDynamicMapIcon(arrGroupData[iGroupID][g_adMapIcon]);
+	DestroyDynamicMapIcon(arrGroupData[iGroupID][g_ddMapIcon]);
 
 	szMiscArray[0] = 0;
 	format(szMiscArray, sizeof(szMiscArray), "UPDATE `gWeaponsNew` SET `1` = '0'");
@@ -135,8 +159,9 @@ Group_DisbandGroup(iGroupID) {
 
 	foreach(new x: Player)
 	{
-		if(PlayerInfo[x][pMember] == iGroupID || PlayerInfo[x][pLeader] == iGroupID) {
+		if(PlayerInfo[x][pMember] == iGroupID || PlayerInfo[x][pLeader] == iGroupID || PlayerInfo[x][pSlotHolder] == iGroupID) {
 			SendClientMessageEx(x, COLOR_WHITE, "Your group has been disbanded by an administrator. All members have been automatically removed.");
+			PlayerInfo[x][pSlotHolder] = INVALID_GROUP_ID;
 			PlayerInfo[x][pLeader] = INVALID_GROUP_ID;
 			PlayerInfo[x][pMember] = INVALID_GROUP_ID;
 			PlayerInfo[x][pRank] = INVALID_RANK;
@@ -167,6 +192,7 @@ public SaveGroup(iGroupID) {
 
 	SaveInteger(query, "groups", iGroupID+1, "Type", arrGroupData[iGroupID][g_iGroupType]);
 	SaveString(query, "groups", iGroupID+1, "Name", arrGroupData[iGroupID][g_szGroupName]);
+	SaveString(query, "groups", iGroupID+1, "SlotHolder", arrGroupData[iGroupID][g_SlotHolder]);
 	SaveString(query, "groups", iGroupID+1, "MOTD", gMOTD[iGroupID][0]);
 	SaveString(query, "groups", iGroupID+1, "MOTD2", gMOTD[iGroupID][1]);
 	SaveString(query, "groups", iGroupID+1, "MOTD3", gMOTD[iGroupID][2]);
@@ -228,6 +254,36 @@ public SaveGroup(iGroupID) {
 	SaveInteger(query, "groups", iGroupID+1, "CrimeType", arrGroupData[iGroupID][g_iCrimeType]);
 	SaveInteger(query, "groups", iGroupID+1, "GroupToyID", arrGroupData[iGroupID][g_iGroupToyID]);
 	SaveInteger(query, "groups", iGroupID+1, "TurfTax", arrGroupData[iGroupID][g_iTurfTax]);
+	SaveInteger(query, "groups", iGroupID+1, "ArmsDealer", arrGroupData[iGroupID][gArmsDealer]);
+	SaveInteger(query, "groups", iGroupID+1, "DrugDealer", arrGroupData[iGroupID][gDrugDealer]);
+	SaveFloat(query, "groups", iGroupID+1, "Arms_X", arrGroupData[iGroupID][gArmsX]);
+	SaveFloat(query, "groups", iGroupID+1, "Arms_Y", arrGroupData[iGroupID][gArmsY]);
+	SaveFloat(query, "groups", iGroupID+1, "Arms_Z", arrGroupData[iGroupID][gArmsZ]);
+	SaveFloat(query, "groups", iGroupID+1, "Arms_a", arrGroupData[iGroupID][gArmsA]);
+	SaveInteger(query, "groups", iGroupID+1, "ArmsWorld", arrGroupData[iGroupID][gArmsWorld]);
+	SaveFloat(query, "groups", iGroupID+1, "Drug_x", arrGroupData[iGroupID][gDrugX]);
+	SaveFloat(query, "groups", iGroupID+1, "Drug_y", arrGroupData[iGroupID][gDrugY]);
+	SaveFloat(query, "groups", iGroupID+1, "Drug_z", arrGroupData[iGroupID][gDrugZ]);
+	SaveFloat(query, "groups", iGroupID+1, "Drug_a", arrGroupData[iGroupID][gDrugA]);
+	SaveInteger(query, "groups", iGroupID+1, "DrugWorld", arrGroupData[iGroupID][gDrugWorld]);
+	SaveInteger(query, "groups", iGroupID+1, "DrugPot", arrGroupData[iGroupID][gDrugPot]);
+	SaveInteger(query, "groups", iGroupID+1, "DrugCrack", arrGroupData[iGroupID][gDrugCrack]);
+	SaveInteger(query, "groups", iGroupID+1, "DrugMeth", arrGroupData[iGroupID][gDrugMeth]);
+	SaveInteger(query, "groups", iGroupID+1, "DrugEcstasy", arrGroupData[iGroupID][gDrugEcstasy]);
+	SaveInteger(query, "groups", iGroupID+1, "DrugHeroin", arrGroupData[iGroupID][gDrugHeroin]);
+	SaveInteger(query, "groups", iGroupID+1, "Pot_Price", arrGroupData[iGroupID][gDrugPrices][0]);
+	SaveInteger(query, "groups", iGroupID+1, "Crack_Price", arrGroupData[iGroupID][gDrugPrices][1]);
+	SaveInteger(query, "groups", iGroupID+1, "Meth_Price", arrGroupData[iGroupID][gDrugPrices][2]);
+	SaveInteger(query, "groups", iGroupID+1, "Ecstasy_Price", arrGroupData[iGroupID][gDrugPrices][3]);
+	SaveInteger(query, "groups", iGroupID+1, "Heroin_Price", arrGroupData[iGroupID][gDrugPrices][4]);
+	SaveInteger(query, "groups", iGroupID+1, "ArmsMaterials", arrGroupData[iGroupID][gArmsMaterials]);
+	SaveInteger(query, "groups", iGroupID+1, "Drug_Skin", arrGroupData[iGroupID][gDrugSkin]);
+	SaveInteger(query, "groups", iGroupID+1, "Arms_Skin", arrGroupData[iGroupID][gArmsSkin]);
+	
+	for(i = 0; i != sizeof(ArmsDealerItems); ++i) {
+		format(szMiscArray, sizeof(szMiscArray), "Armsprice_%i", i);
+		SaveInteger(query, "groups", iGroupID+1, szMiscArray, arrGroupData[iGroupID][gArmsPrices][i]);
+	}
 
 	for(i = 0; i != MAX_GROUP_RIVALS; ++i) {
 		format(szMiscArray, sizeof(szMiscArray), "gRival%i", i);
@@ -588,6 +644,16 @@ Group_ListGroups(iPlayerID, iDialogID = DIALOG_LISTGROUPS) {
 		format(diagTitle, sizeof(diagTitle), "Group List - Set Leadership for %s", GetPlayerNameEx(GetPVarInt(iPlayerID, "MakingLeader")));
 		return ShowPlayerDialogEx(iPlayerID, iDialogID, DIALOG_STYLE_LIST, diagTitle, szDialogStr, "Select", "Cancel");
 	}
+	if(iDialogID == DIALOG_LISTLEADERS)
+	{
+		return ShowPlayerDialogEx(iPlayerID, iDialogID, DIALOG_STYLE_LIST, "Group List - List Leaders for", szDialogStr, "Select", "Cancel");
+	}
+	if(iDialogID == DIALOG_MAKESLOTHOLDER)
+	{
+		new diagTitle[64];
+		format(diagTitle, sizeof(diagTitle), "Group List - Set Slot Holder for %s", GetPlayerNameEx(GetPVarInt(iPlayerID, "MakingSH")));
+		return ShowPlayerDialogEx(iPlayerID, iDialogID, DIALOG_STYLE_LIST, diagTitle, szDialogStr, "Select", "Cancel");
+	}
 	else return ShowPlayerDialogEx(iPlayerID, iDialogID, DIALOG_STYLE_LIST, "Group List", szDialogStr, "Select", "Cancel");
 }
 
@@ -722,7 +788,8 @@ Group_DisplayDialog(iPlayerID, iGroupID) {
 		{BBBBBB}Edit Group Clothes\n\
 		{BBBBBB}Edit Turf Cap Rank{FFFFFF} %s (rank %i)\n\
 		{BBBBBB}Edit Point Cap Rank {FFFFFF} %s (rank %i)\n\
-		{BBBBBB}Edit Crime Group Type {FFFFFF} %s",
+		{BBBBBB}Edit Crime Group Type {FFFFFF} %s\n\
+		{BBBBBB}Edit Slot Holder {FFFFFF} %s (( Use /makesh and /takesh for this ))",
 		szDialog,
 		(arrGroupData[iGroupID][g_iMedicAccess] != INVALID_DIVISION) ? ("Yes") : ("No"), arrGroupData[iGroupID][g_iMedicAccess],
 		(arrGroupData[iGroupID][g_iDMVAccess] != INVALID_RANK) ? ("Yes") : ("No"), arrGroupData[iGroupID][g_iDMVAccess],
@@ -732,10 +799,11 @@ Group_DisplayDialog(iPlayerID, iGroupID) {
 		Group_NumToDialogHex(arrGroupData[iGroupID][g_hOOCColor]),
 		(arrGroupData[iGroupID][g_iTurfCapRank] != INVALID_RANK) ? ("Yes") : ("No"), arrGroupData[iGroupID][g_iTurfCapRank],
 		(arrGroupData[iGroupID][g_iPointCapRank] != INVALID_RANK) ? ("Yes") : ("No"), arrGroupData[iGroupID][g_iPointCapRank],
-		ReturnCrimeGroupType(arrGroupData[iGroupID][g_iCrimeType])
+		ReturnCrimeGroupType(arrGroupData[iGroupID][g_iCrimeType]),
+		arrGroupData[iGroupID][g_SlotHolder]
 	);
 
-	if(PlayerInfo[iPlayerID][pAdmin] >= 1337) strcat(szDialog, "\nDisband Group");
+	if(PlayerInfo[iPlayerID][pAdmin] >= 1338) strcat(szDialog, "\nDisband Group");
 	format(szTitle, sizeof szTitle, "{FFFFFF}Edit {%s}%s", Group_NumToDialogHex(arrGroupData[iGroupID][g_hDutyColour]), arrGroupData[iGroupID][g_szGroupName]);
 	return ShowPlayerDialogEx(iPlayerID, DIALOG_EDITGROUP, DIALOG_STYLE_LIST, szTitle, szDialog, "Select", "Cancel");
 }
@@ -930,8 +998,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				//return ShowPlayerDialogEx(playerid, DIALOG_GROUP_SACTIONTYPE, DIALOG_STYLE_LIST, "Gang Safe: Cannabis Safe", "Deposit\nWithdraw", "Select", "Back");
 			}
 
-			if (strcmp("Uniform", inputtext) == 0) {
-				ShowPlayerDialogEx(playerid, G_LOCKER_UNIFORM, DIALOG_STYLE_INPUT, "Uniform","Choose a skin (by ID).", "Select", "Cancel");
+			//if (strcmp("Uniform", inputtext) == 0) {
+			if(strcmp(inputtext, "Uniform") == 0) {
+				//ShowPlayerDialogEx(playerid, G_LOCKER_UNIFORM, DIALOG_STYLE_INPUT, "Uniform","Choose a skin (by ID).", "Select", "Cancel");
+				ShowModelSelectionMenuEx(playerid, arrGroupData[PlayerInfo[playerid][pMember]][g_iClothes], MAX_GROUP_RANKS, "Change your clothes.", DYNAMIC_LAW_CLOTHES, 0.0, 0.0, -55.0);
 			}
 
 			/*if (strcmp("Ingredients", inputtext) == 0) {
@@ -1255,7 +1325,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					format(szTitle, sizeof szTitle, "Edit Group Radio Color {%s}(%s)", Group_NumToDialogHex(arrGroupData[iGroupID][g_hDutyColour]), arrGroupData[iGroupID][g_szGroupName]);
 					ShowPlayerDialogEx(playerid, DIALOG_GROUP_RADIOCOL, DIALOG_STYLE_INPUT, szTitle, "Enter a colour in hexadecimal format (for example, BCA3FF). This colour will be used for the group's in-character radio chat.", "Confirm", "Cancel");
 				}
-				case 6 .. 9, 11, 13, 15 .. 22: {
+				case 6 .. 9, 13, 15 .. 22: {
 
 					new
 						szDialog[((32 + 5) * MAX_GROUP_RANKS) + 24];
@@ -1283,6 +1353,20 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					strmid(szTitle, inputtext, 0, strfind(inputtext, ":", true));
 					format(szTitle, sizeof szTitle, "Edit Group %s", szTitle);
 					ShowPlayerDialogEx(playerid, DIALOG_GROUP_FINDACC, DIALOG_STYLE_LIST, szTitle, szDialog, "Select", "Cancel");
+				}
+				case 11: {
+
+					new
+						szDialog[((32 + 5) * MAX_GROUP_RANKS) + 24];
+
+					for(new i = 0; i != MAX_GROUP_RANKS; ++i)
+						format(szDialog, sizeof szDialog, "%s\n(%i) %s", szDialog, i, ((arrGroupRanks[iGroupID][i][0]) ? (arrGroupRanks[iGroupID][i]) : ("{BBBBBB}(undefined){FFFFFF}")));
+
+					strcat(szDialog, "\nRevoke from Group");
+
+					strmid(szTitle, inputtext, 0, strfind(inputtext, ":", true));
+					format(szTitle, sizeof szTitle, "Edit Group %s", szTitle);
+					ShowPlayerDialogEx(playerid, DIALOG_GROUP_GOVACC, DIALOG_STYLE_LIST, szTitle, szDialog, "Select", "Cancel");
 				}
 				case 12: {
 					
@@ -1710,7 +1794,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			Log("logs/editgroup.log", string);
 
 			return Group_DisplayDialog(playerid, iGroupID);
-		}
+		/*}
 		case DIALOG_GROUP_GOVACC: {
 
 			new
@@ -1727,9 +1811,34 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				}
 			}
 			Log("logs/editgroup.log", string);
-
+			
 			return Group_DisplayDialog(playerid, iGroupID);
+
+			
+		}*/
 		}
+		case DIALOG_GROUP_GOVACC: {
+		
+		    new iGroupID = GetPVarInt(playerid, "Group_EditID");
+
+		    if (response) {
+		        switch (listitem) {
+		            case MAX_GROUP_RANKS: {
+		                arrGroupData[iGroupID][g_iGovAccess] = INVALID_RANK;
+		                format(string, sizeof(string), "%s has revoked government announcement (/gov) access from group %d (%s)", GetPlayerNameEx(playerid), iGroupID + 1, arrGroupData[iGroupID][g_szGroupName]);
+		                Log("logs/editgroup.log", string);
+		            }
+		            default: {
+		                arrGroupData[iGroupID][g_iGovAccess] = listitem;
+		                format(string, sizeof(string), "%s has set the minimum rank for government announcement (/gov) to %d (%s) in group %d (%s)", GetPlayerNameEx(playerid), arrGroupData[iGroupID][g_iGovAccess], arrGroupRanks[iGroupID][arrGroupData[iGroupID][g_iGovAccess]], iGroupID + 1, arrGroupData[iGroupID][g_szGroupName]);
+		                Log("logs/editgroup.log", string);
+		            }
+		        }
+		    }
+
+		    return Group_DisplayDialog(playerid, iGroupID);
+		}
+
 		case DIALOG_GROUP_TRESACC: {
 
 			new
@@ -3322,7 +3431,6 @@ stock IsABlankTexture(modelid)
 	}
 	return 0;
 }
-
 CMD:clearbugs(playerid, params[])
 {
 	if(IsACop(playerid))
@@ -4160,7 +4268,7 @@ CMD:deploy(playerid, params[])
 				new aCades[12] = {981, 4504, 4505, 4514, 4526, 978, 979, 3091, 1459, 1423, 1424, 981};
 				ShowModelSelectionMenuEx(playerid, aCades, sizeof(aCades), "Cades", 1500, -16.0, 0.0, -55.0);
 			}
-			else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+			else return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 		}
 		else if(strcmp(object, "spikes", true) == 0)
 		{
@@ -4201,7 +4309,7 @@ CMD:deploy(playerid, params[])
 				}
 				SendClientMessageEx(playerid, COLOR_WHITE, "Unable to spawn more spike strips, limit is " #MAX_SPIKES# ".");
 			}
-			else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+			else return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 		}
 		else if(strcmp(object, "flare", true) == 0)
 		{
@@ -4227,7 +4335,7 @@ CMD:deploy(playerid, params[])
 				}
 				SendClientMessageEx(playerid, COLOR_WHITE, "Unable to spawn more flares, limit is " #MAX_FLARES# ".");
 			}
-			else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+			else return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 		}
 		else if(strcmp(object, "cone", true) == 0)
 		{
@@ -4253,7 +4361,7 @@ CMD:deploy(playerid, params[])
 				}
 				SendClientMessageEx(playerid, COLOR_WHITE, "Unable to spawn more cones, limit is " #MAX_CONES# ".");
 			}
-			else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+			else return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 		}
 		else if(strcmp(object, "barrel", true) == 0)
 		{
@@ -4279,7 +4387,7 @@ CMD:deploy(playerid, params[])
 				}
 				SendClientMessageEx(playerid, COLOR_WHITE, "Unable to spawn more barrels limit is " #MAX_BARRELS# ".");
 			}
-			else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+			else return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 		}
 		else if(strcmp(object, "ladder", true) == 0)
 		{
@@ -4306,7 +4414,7 @@ CMD:deploy(playerid, params[])
 				}
 				SendClientMessageEx(playerid, COLOR_WHITE, "Unable to spawn more ladders, limit is " #MAX_LADDERS# ".");
 			}
-			else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+			else return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 		}
 		else if(strcmp(object, "sign", true) == 0)
 		{
@@ -4414,7 +4522,7 @@ CMD:deploy(playerid, params[])
 				}
 				SendClientMessageEx(playerid, COLOR_WHITE, "Unable to spawn more signs, limit is " #MAX_SIGNS# ".");
 			}
-			else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+			else return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 		}
 		else if(strcmp(object, "tape", true) == 0) {
 			if(PlayerInfo[playerid][pRank] >= arrGroupData[PlayerInfo[playerid][pMember]][g_iTapes]) {
@@ -4444,10 +4552,10 @@ CMD:deploy(playerid, params[])
 				}
 				else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are already editing a tape.");
 			}
-			else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+			else return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 		}
 	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+	else return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 	return 1;
 }
 
@@ -4501,7 +4609,7 @@ CMD:destroy(playerid, params[])
 					return 1;
 				}
 			}
-			else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+			else return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 		}
 		else if(strcmp(object, "spikes", true) == 0)
 		{
@@ -4539,7 +4647,7 @@ CMD:destroy(playerid, params[])
 					return 1;
 				}
 			}
-			else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+			else return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 		}
 		else if(strcmp(object, "flare", true) == 0)
 		{
@@ -4562,7 +4670,7 @@ CMD:destroy(playerid, params[])
 					return 1;
 				}
 			}
-			else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+			else return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 		}
 		else if(strcmp(object, "cone", true) == 0)
 		{
@@ -4585,7 +4693,7 @@ CMD:destroy(playerid, params[])
 					return 1;
 				}
 			}
-			else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+			else return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 		}
 		else if(strcmp(object, "barrel", true) == 0)
 		{
@@ -4608,7 +4716,7 @@ CMD:destroy(playerid, params[])
 					return 1;
 				}
 			}
-			else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+			else return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 		}
 		else if(strcmp(object, "ladder", true) == 0)
 		{
@@ -4631,7 +4739,7 @@ CMD:destroy(playerid, params[])
 					return 1;
 				}
 			}
-			else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+			else return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 		}
 		else if(strcmp(object, "sign", true) == 0)
 		{
@@ -4654,7 +4762,7 @@ CMD:destroy(playerid, params[])
 					return 1;
 				}
 			}
-			else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+			else return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 		}
 		else if(strcmp(object, "tape", true) == 0)
 		{
@@ -4685,16 +4793,16 @@ CMD:destroy(playerid, params[])
 					}
 				}
 			}
-			else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+			else return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 		}
 	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+	else return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 	return 1;
 }
 
 CMD:acades(playerid, params[]) {
 
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 
 	szMiscArray[0] = 0;
 	szMiscArray = "Group\tID\tLocation\tDeployer";
@@ -4736,7 +4844,7 @@ CMD:cades(playerid, params[])
 
 CMD:aspikes(playerid, params[]) {
 
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 
 	szMiscArray[0] = 0;
 	szMiscArray = "Group\tID\tLocation\tDeployer";
@@ -4768,13 +4876,13 @@ CMD:spikes(playerid, params[])
 				SendClientMessageEx(playerid, COLOR_GRAD2, string);
 			}
 		}
-	} else SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+	} else SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 	return 1;
 }
 
 CMD:aflares(playerid, params[]) {
 
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 
 	szMiscArray[0] = 0;
 	szMiscArray = "Group\tID\tLocation\tDeployer";
@@ -4816,7 +4924,7 @@ CMD:flares(playerid, params[])
 
 CMD:acones(playerid, params[]) {
 
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 
 	szMiscArray[0] = 0;
 	szMiscArray = "Group\tID\tLocation\tDeployer";
@@ -4858,7 +4966,7 @@ CMD:cones(playerid, params[])
 
 CMD:abarrels(playerid, params[]) {
 
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 
 	szMiscArray[0] = 0;
 	szMiscArray = "Group\tID\tLocation\tDeployer";
@@ -4900,7 +5008,7 @@ CMD:barrels(playerid, params[])
 
 CMD:aladders(playerid, params[]) {
 
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 
 	szMiscArray[0] = 0;
 	szMiscArray = "Group\tID\tLocation\tDeployer";
@@ -4942,7 +5050,7 @@ CMD:ladders(playerid, params[])
 
 CMD:asigns(playerid, params[]) {
 
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 
 	szMiscArray[0] = 0;
 	szMiscArray = "Group\tID\tLocation\tDeployer";
@@ -5005,7 +5113,11 @@ CMD:tapes(playerid, params[]) {
 
 CMD:quitgroup(playerid, params[])
 {
-    if(PlayerInfo[playerid][pMember] >= 0 || PlayerInfo[playerid][pLeader] >= 0)
+	if(0 <= PlayerInfo[playerid][pSlotHolder] < MAX_GROUPS)
+	{
+		SendClientMessageEx(playerid, COLOR_GRAD1, "You can't quit your group while being slot holder.");
+	}
+    else if(PlayerInfo[playerid][pMember] >= 0 || PlayerInfo[playerid][pLeader] >= 0)
 	{
 		SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* You have quit your group, you are now a civilian again.");
 		new string[128];
@@ -5128,7 +5240,7 @@ CMD:gov(playerid, params[])
 			format(string, sizeof(string), "** %s %s %s(%d): %s **", arrGroupData[iGroupID][g_szGroupName], arrGroupRanks[iGroupID][iRank], GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), params);
 			Log("logs/gov.log", string);
 		} else SendClientMessageEx(playerid, COLOR_GREY, "USAGE: (/gov)ernment [text]");
-	} else SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+	} else SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 	return 1;
 }
 
@@ -5312,7 +5424,11 @@ CMD:groupkick(playerid, params[])
 
 		if(IsPlayerConnected(giveplayerid))
 		{
-			if(PlayerInfo[giveplayerid][pMember] >= 0 || PlayerInfo[giveplayerid][pLeader] >= 0)
+			if(0 <= PlayerInfo[giveplayerid][pSlotHolder] < MAX_GROUPS)
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD1, "That player is a slot holder of a group, disband the group instead.");
+			}
+			else if(PlayerInfo[giveplayerid][pMember] >= 0 || PlayerInfo[giveplayerid][pLeader] >= 0)
 			{
 				format(string, sizeof(string), "Administrator %s has group-kicked %s (%d) from %s (%d)", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), GetPlayerSQLId(giveplayerid), arrGroupData[PlayerInfo[giveplayerid][pMember]][g_szGroupName], PlayerInfo[giveplayerid][pMember]+1);
 				GroupLog(PlayerInfo[giveplayerid][pMember], string);
@@ -5562,8 +5678,49 @@ CMD:togradio(playerid, params[])
         PlayerInfo[playerid][pToggledChats][12] = 0;
 	} return 1;
 }
-
 CMD:makeleader(playerid, params[])
+{
+	if (PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pFactionModerator] >= 2)
+	{
+		new giveplayerid;
+		if(sscanf(params, "u", giveplayerid)) {
+			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /makeleader [player]");
+		}
+		else {
+			if(IsPlayerConnected(giveplayerid))	{
+   				SetPVarInt(playerid, "MakingLeader", giveplayerid);
+   				SetPVarInt(playerid, "MakingLeaderSQL", GetPlayerSQLId(giveplayerid));
+				Group_ListGroups(playerid, DIALOG_MAKELEADER);
+			}
+			else SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
+		}
+	}
+	else if (0 <= PlayerInfo[playerid][pSlotHolder] < MAX_GROUPS && PlayerInfo[playerid][pAdmin] < 2 && PlayerInfo[playerid][pMember] == PlayerInfo[playerid][pSlotHolder])
+	{
+		new makingleader, string[128];
+		if(sscanf(params, "u", makingleader)) {
+			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /makeleader [player]");
+		}
+		else {
+			if(!IsPlayerConnected(makingleader)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
+
+			if(PlayerInfo[makingleader][pMember] == PlayerInfo[playerid][pSlotHolder])	{
+				PlayerInfo[makingleader][pLeader] = PlayerInfo[playerid][pSlotHolder];
+				format(string, sizeof(string), "You have been made a leader of the %s by %s.", arrGroupData[PlayerInfo[playerid][pSlotHolder]][g_szGroupName], GetPlayerNameEx(playerid));
+				SendClientMessageEx(makingleader, COLOR_LIGHTBLUE, string);
+				format(string, sizeof(string), "You have made %s a leader of the %s.", GetPlayerNameEx(makingleader), arrGroupData[PlayerInfo[playerid][pSlotHolder]][g_szGroupName]);
+				SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
+				format(string, sizeof(string), "[SLOTHOLDER] %s have made %s a leader of the %s.", GetPlayerNameEx(playerid), GetPlayerNameEx(makingleader), arrGroupData[PlayerInfo[playerid][pSlotHolder]][g_szGroupName]);
+				Log("logs/group.log", string);
+   			}
+			else SendClientMessageEx(playerid, COLOR_GREY, "This player isn't in your group.");
+		}
+	}
+	else SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+
+	return 1;
+}
+/*CMD:makeleader(playerid, params[])
 {
 	if (PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pFactionModerator] >= 2)
 	{
@@ -5583,7 +5740,7 @@ CMD:makeleader(playerid, params[])
 	else SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
 
 	return 1;
-}
+}*/
 
 CMD:leaders(playerid, params[])
 {
@@ -5839,6 +5996,49 @@ CMD:editgroup(playerid, params[]) {
 
 CMD:groupaddjurisdiction(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pFactionModerator] >= 2) Group_ListGroups(playerid, DIALOG_GROUP_JURISDICTION_ADD);
+	return 1;
+}
+CMD:groups(playerid, params[])
+{
+	if(PlayerInfo[playerid][pAdmin] < 2) return SendErrorMessage(playerid, "You are not authorized to use this command.");
+
+	if(isnull(params))
+	{
+		szMiscArray[0] = 0;
+		SendClientMessage(playerid, COLOR_GRAD2, "USAGE: /groups [id]");
+		for(new i = 0; i < MAX_GROUPS; i++)
+		{
+			if(strlen(arrGroupData[i][g_szGroupName]) > 0)
+			{
+				new iMemberCount = 0;
+				foreach(new x: Player)
+				{
+					if(PlayerInfo[x][pMember] == i) iMemberCount++;
+				}
+
+				format(szMiscArray, sizeof szMiscArray, "** {%s}%s {FFFFFF}(%d) | Slot Holder: %s | Total Members: %d | Members Online: %d", Group_NumToDialogHex(arrGroupData[i][g_hDutyColour]), arrGroupData[i][g_szGroupName], i, arrGroupData[i][g_SlotHolder], arrGroupData[i][g_iMemberCount], iMemberCount);
+				SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
+			}
+		}
+	}
+	else
+	{
+		new grp = strval(params);
+		if(grp < 0 || grp > MAX_GROUPS || strlen(arrGroupData[grp][g_szGroupName]) == 0) return SendClientMessage(playerid, COLOR_GRAD2, "Invalid group ID specified.");
+		new iCount = 0;
+
+		foreach(new i: Player)
+		{
+			if(PlayerInfo[i][pMember] == grp)
+			{
+				format(szMiscArray, sizeof szMiscArray, "** %s (ID: %d) - %s (%d)", GetPlayerNameEx(i), i, arrGroupRanks[grp][PlayerInfo[i][pRank]], PlayerInfo[i][pRank]);
+				SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
+				iCount++;
+			}
+		}
+
+		if(iCount == 0) SendClientMessageEx(playerid, COLOR_GRAD3, "There are no players online in this gang.");
+	}
 	return 1;
 }
 
@@ -6346,14 +6546,15 @@ CMD:adjustwithdrawrank(playerid, params[])
 	return 1;
 }
 
+CMD:gangs(playerid, params[]) return cmd_families(playerid, params);
 CMD:families(playerid, params[])
 {
-	if(!IsACriminal(playerid) && PlayerInfo[playerid][pAdmin] < 2) return SendClientMessage(playerid, COLOR_GRAD2, "You need to be in a family / gang to use this command.");
+	//if(!IsACriminal(playerid) && PlayerInfo[playerid][pAdmin] < 2) return SendClientMessage(playerid, COLOR_GRAD2, "You need to be in a family / gang to use this command.");
 
 	if(isnull(params))
 	{
 		szMiscArray[0] = 0;
-		SendClientMessage(playerid, COLOR_GRAD2, "USAGE: /families [id]");
+		SendClientMessage(playerid, COLOR_GRAD2, "USAGE: /gangs [id]");
 		for(new i = 0; i < MAX_GROUPS; i++)
 		{
 			if(arrGroupData[i][g_iGroupType] == GROUP_TYPE_CRIMINAL && strlen(arrGroupData[i][g_szGroupName]) > 0)
@@ -6364,8 +6565,8 @@ CMD:families(playerid, params[])
 					if(PlayerInfo[x][pMember] == i) iMemberCount++;
 				}
 
-				format(szMiscArray, sizeof szMiscArray, "** %s (%d) | Total Members: %d | Members Online: %d", arrGroupData[i][g_szGroupName], i, arrGroupData[i][g_iMemberCount], iMemberCount);
-				SendClientMessage(playerid, COLOR_GRAD1, szMiscArray);
+				format(szMiscArray, sizeof szMiscArray, "** {%s}%s {FFFFFF}(%d) | Slot Holder: %s | Total Members: %d | Members Online: %d", Group_NumToDialogHex(arrGroupData[i][g_hDutyColour]), arrGroupData[i][g_szGroupName], i, arrGroupData[i][g_SlotHolder], arrGroupData[i][g_iMemberCount], iMemberCount);
+				SendClientMessage(playerid, COLOR_WHITE, szMiscArray);
 			}
 		}
 	}
@@ -6383,7 +6584,7 @@ CMD:families(playerid, params[])
 			if(PlayerInfo[i][pMember] == grp)
 			{
 				format(szMiscArray, sizeof szMiscArray, "** %s (ID: %d) - %s (%d)", GetPlayerNameEx(i), i, arrGroupRanks[grp][PlayerInfo[i][pRank]], PlayerInfo[i][pRank]);
-				SendClientMessage(playerid, COLOR_GRAD1, szMiscArray);
+				SendClientMessage(playerid, COLOR_WHITE, szMiscArray);
 				iCount++;
 			}
 		}

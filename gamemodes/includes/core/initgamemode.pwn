@@ -9,6 +9,7 @@ InitiateGamemode()
  	g_mysql_AccountOnlineReset();
 	g_mysql_LoadGiftBox();
 	LoadHouses();
+	LoadDynamicLocations();
 	LoadDynamicDoors();
 	LoadDynamicMapIcons();
 	LoadMailboxes();
@@ -22,6 +23,7 @@ InitiateGamemode()
 	LoadRelayForLifeTeams();
 	LoadGarages();
 	LoadCrimes();
+	LoadActors();
 
 	/*---[Shop Automation]---*/
 	
@@ -58,14 +60,14 @@ InitiateGamemode()
 	AntiDeAMX();
 	EnableStuntBonusForAll(0);
 	//ShowNameTags(0);
-	ShowPlayerMarkers(PLAYER_MARKERS_MODE_STREAMED);
+	UsePlayerPedAnims();
+	ShowPlayerMarkers(PLAYER_MARKERS_MODE_OFF);
 	DisableInteriorEnterExits();
 	ClearReports();
 	//NationSel_InitTextDraws();
 	CountCitizens();
 	SetNameTagDrawDistance(40.0);
 	AllowInteriorWeapons(1);
-	UsePlayerPedAnims();
 	ManualVehicleEngineAndLights();
 	GiftAllowed = 1;
 	ResetNews();
@@ -77,7 +79,6 @@ InitiateGamemode()
 	LoadParkingMeters();
 	GovGuns_LoadCosts();
 	MetDet_LoadMetDets();
-	LoadATMPoints();
 	LoadCASINOPoints();
 	LoadBanks();
 	LoadPayPhones();
@@ -120,8 +121,8 @@ InitiateGamemode()
     //Poll_LoadPolls();
 
 	print("\n-------------------------------------------");
-	print("Next Generation Roleplay\n");
-	print("Copyright (C) Next Generation Gaming, LLC (2010-2014)");
+	print("Rebound Gaming Roleplay\n");
+	print("Copyright (C) Rebound Gaming (2024)");
 	print("All Rights Reserved");
 	print("-------------------------------------------\n");
 	print("Successfully initiated the gamemode...");

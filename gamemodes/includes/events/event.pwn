@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Event Kernal System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 forward ERequested();
 public ERequested()
 {
@@ -44,25 +7,25 @@ public ERequested()
 
 CMD:joinevent(playerid, params[]) {
 	if( EventKernel[ EventStatus ] == 0 ) {
-		SendClientMessageEx( playerid, COLOR_WHITE, "There are currently no active events." );
+		SendErrorMessage(playerid, "There are currently no active events." );
 	}
 	else if( GetPVarInt( playerid, "EventToken" ) == 1 ) {
-		SendClientMessageEx( playerid, COLOR_WHITE, "You are already in the event." );
+		SendErrorMessage(playerid, "You are already in the event." );
 	}
 	else if(GetPVarType(playerid, "IsInArena")) {
-		SendClientMessageEx(playerid, COLOR_WHITE, "You can't do this right now, you are in an arena!");
+		SendErrorMessage(playerid, "You can't do this right now, you are in an arena!");
 	}
 	else if( PlayerCuffed[ playerid ] >= 1 || PlayerInfo[ playerid ][ pJailTime ] > 0 || PlayerInfo[playerid][pHospital] > 0 || GetPVarInt(playerid, "Injured")) {
-		SendClientMessageEx( playerid, COLOR_WHITE, "You can't do this right now." );
+		SendErrorMessage(playerid, "You can't do this right now." );
 	}
 	else if(PlayerInfo[playerid][pAccountRestricted] != 0) {
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You cannot do this while your account is restricted!");
+		SendErrorMessage(playerid, "You cannot do this while your account is restricted!");
 	}
 	else if(EventKernel[VipOnly] == 1 && PlayerInfo[playerid][pDonateRank] < 1) {
-		SendClientMessageEx(playerid, COLOR_GRAD2, "This event is restricted to VIP's only.");
+		SendErrorMessage(playerid, "This event is restricted to VIP's only.");
 	}
 	else if(EventKernel[EventPlayers] >= EventKernel[EventLimit] && EventKernel[EventTime] == 0) {
-		SendClientMessageEx(playerid, COLOR_GRAD2, "This event has reached the max players limit.");
+		SendErrorMessage(playerid, "This event has reached the max players limit.");
 	}
 	else if( EventKernel[ EventStatus ] == 2 || (EventKernel[ EventStatus ] == 1 && PlayerInfo[playerid][pDonateRank] >= 3)) {
 		if(EventKernel[EventType] == 3)
@@ -76,10 +39,10 @@ CMD:joinevent(playerid, params[]) {
 			ProxDetector(30.0, playerid, string, COLOR_YELLOW,COLOR_YELLOW,COLOR_YELLOW,COLOR_YELLOW,COLOR_YELLOW);
 			SendClientMessageEx( playerid, COLOR_WHITE, EventKernel[ EventInfo ] );
 		    if(EventKernel[EventFootRace]) {
-		    	SendClientMessageEx( playerid, COLOR_YELLOW, "You have joined an onfoot race event, you have been teleported to a random checkpoint." );
+		    	SendServerMessage(playerid, "You have joined an onfoot race event, you have been teleported to a random checkpoint." );
 			}
 			else {
-			    SendClientMessageEx( playerid, COLOR_YELLOW, "You have joined a vehicle race event, you have been teleported to a random checkpoint." );
+			    SendServerMessage(playerid, "You have joined a vehicle race event, you have been teleported to a random checkpoint." );
 			}
 			SetPVarInt( playerid, "EventToken", 1 );
 			TotalJoinsRace++;
@@ -122,7 +85,7 @@ CMD:joinevent(playerid, params[]) {
 		else
 		{
 			if(IsPlayerInAnyVehicle(playerid)) {
-				return SendClientMessageEx(playerid, COLOR_GRAD2, "You can't join while in a vehicle.");
+				return SendErrorMessage(playerid, "You can't join while in a vehicle.");
 			}
 
 			SetPVarInt( playerid, "EventToken", 1 );
@@ -209,11 +172,11 @@ CMD:joinevent(playerid, params[]) {
 
 	else if( EventKernel[ EventStatus ] == 3 )
 	{
-		SendClientMessageEx( playerid, COLOR_WHITE, "The event is already locked. You are unable to join." );
+		SendErrorMessage(playerid, "The event is already locked. You are unable to join." );
 	}
 	else if( EventKernel[ EventStatus ] == 4 )
 	{
-		SendClientMessageEx( playerid, COLOR_WHITE, "The event is already started. You are unable to join." );
+		SendErrorMessage(playerid, "The event is already started. You are unable to join." );
 	}
 
 	return 1;
@@ -224,7 +187,7 @@ CMD:eventstaff(playerid, params[])
 	new Float:health, Float:armor;
     if( PlayerInfo[ playerid ][ pAdmin ] >= 1 || PlayerInfo[playerid][pHelper] >= 2 || PlayerInfo[playerid][pSEC] >= 1) {
 		if(GetPVarType(playerid, "pGodMode"))
-			return SendClientMessageEx(playerid, COLOR_GRAD1, "Please disable your god mode before joining the event staff (/god)");
+			return SendErrorMessage(playerid, "Please disable your god mode before joining the event staff (/god)");
         if(EventKernel[EventJoinStaff] == 1) {
 			if(GetPVarInt(playerid, "eventStaff") == 0) {
 				for(new i; i < sizeof(EventKernel[EventStaff]); i++) if(EventKernel[EventStaff][i] == INVALID_PLAYER_ID) {
@@ -246,9 +209,9 @@ CMD:eventstaff(playerid, params[])
 					SetHealth(playerid, 0x7FB00000);
 					SetArmour(playerid, 0x7FB00000);
 					SetPVarInt(playerid, "eventStaff", 1);
-					return SendClientMessageEx( playerid, COLOR_WHITE, "You have joined the event staff." );
+					return SendServerMessage(playerid, "You have joined the event staff." );
 				}
-				SendClientMessageEx(playerid, COLOR_GRAD2, "Unable to join the event staff, max is 5.");
+				SendErrorMessage(playerid, "Unable to join the event staff, max is 5.");
 			}	
         }
     }

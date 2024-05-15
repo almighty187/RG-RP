@@ -248,7 +248,7 @@ CMD:speclotto(playerid, params[])
 	        string[128];
 
 	    if(sscanf(params, "s[64]", prize)) {
-	        SendClientMessage(playerid, COLOR_GREY, "USAGE: /speclotto [text]");
+	        SendSyntaxMessage(playerid, "/speclotto [text]");
 		}
 		else {
 		    SpecLotto = 1;

@@ -662,7 +662,7 @@ CMD:createpoll(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pPR] > 0)
 	{
 		new iPollID = -1, szTitle[64];
-		if(sscanf(params, "s[64]", szTitle)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /createpoll [title]");
+		if(sscanf(params, "s[64]", szTitle)) return SendSyntaxMessage(playerid, "/createpoll [title]");
 
 		// Get next poll ID.
 		for(new i = 0; i < MAX_POLLS; i++) 
@@ -768,7 +768,7 @@ CMD:deletepoll(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pPR] > 0)
 	{
 		new iPollID;
-		if(sscanf(params, "d", iPollID)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /deletepoll [poll ID]");
+		if(sscanf(params, "d", iPollID)) return SendSyntaxMessage(playerid, "/deletepoll [poll ID]");
 
 		if(iPollID >= 0 && iPollID < MAX_POLLS)
 		{
@@ -817,7 +817,7 @@ CMD:editpoll(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pPR] > 0)
 	{
 		new iPollID;
-		if(sscanf(params, "d", iPollID)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editpoll [poll id]");
+		if(sscanf(params, "d", iPollID)) return SendSyntaxMessage(playerid, "/editpoll [poll id]");
 
 		if(iPollID >= 0 && iPollID < MAX_POLLS)
 		{
@@ -839,7 +839,7 @@ CMD:viewpollresults(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pPR] > 0)
 	{
 		new iPollID;
-		if(sscanf(params, "d", iPollID)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /viewpollresults [poll id]");
+		if(sscanf(params, "d", iPollID)) return SendSyntaxMessage(playerid, "/viewpollresults [poll id]");
 
 		if(iPollID >= 0 && iPollID < MAX_POLLS)
 		{

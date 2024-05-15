@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Boombox System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 CMD:setboombox(playerid, params[])
 {
 	if(GetPVarType(playerid, "pBoomBox"))
@@ -43,7 +6,7 @@ CMD:setboombox(playerid, params[])
     }
 	else
 	{
-	    SendClientMessage(playerid, COLOR_GRAD2, "You don't have a boombox out!");
+	    SendErrorMessage(playerid, "You don't have a boombox out!");
 	}
 	return 1;
 }
@@ -52,7 +15,7 @@ CMD:shopboombox(playerid, params[])
 {
 	if (PlayerInfo[playerid][pShopTech] < 1)
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, " You are not allowed to use this command.");
+		SendErrorMessage(playerid, "You are not allowed to use this CMD.");
 		return 1;
 	}
 
@@ -85,11 +48,11 @@ CMD:placeboombox(playerid, params[])
 {
 	if(PlayerInfo[playerid][pBoombox] == 1 || PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1)
 	{
-	    if(GetPVarType(playerid, "IsInArena")) return SendClientMessageEx(playerid, COLOR_WHITE, "You can't do this while being in an arena!");
-		if(GetPVarInt(playerid, "WatchingTV")) return SendClientMessageEx(playerid, COLOR_GREY, "You can not do this while watching TV!");
+	    if(GetPVarType(playerid, "IsInArena")) return SendErrorMessage(playerid, "You can't do this while being in an arena!");
+		if(GetPVarInt(playerid, "WatchingTV")) return SendErrorMessage(playerid, "You can not do this while watching TV!");
 		if(GetPVarInt(playerid, "Injured") == 1 || PlayerInfo[playerid][pJailTime] > 0 || PlayerInfo[playerid][pHospital] > 0 || IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "You can't do this right now.");
 		//if(PlayerInfo[playerid][pVW] == 0 || PlayerInfo[playerid][pInt] == 0) return SendClientMessageEx(playerid, COLOR_WHITE, "You can only place boomboxes inside interiors.");
-		if(GetPVarType(playerid, "pBoomBox")) return SendClientMessageEx(playerid, COLOR_WHITE, "You already have a boombox out, use /destroyboombox.");
+		if(GetPVarType(playerid, "pBoomBox")) return SendErrorMessage(playerid, "You already have a boombox out, use /destroyboombox.");
 
 		foreach(new i: Player)
 		{
@@ -97,7 +60,7 @@ CMD:placeboombox(playerid, params[])
 			{
 				if(IsPlayerInRangeOfPoint(playerid, 30.0, GetPVarFloat(i, "pBoomBoxX"), GetPVarFloat(i, "pBoomBoxY"), GetPVarFloat(i, "pBoomBoxZ")) && GetPVarInt(i, "pBoomBoxVW") == GetPlayerVirtualWorld(playerid))
 				{
-					SendClientMessage(playerid, COLOR_WHITE, "You are in range of another boombox, you can't place one here!");
+					SendErrorMessage(playerid, "You are in range of another boombox, you can't place one here!");
 					return 1;
 				}
 			}
@@ -125,7 +88,7 @@ CMD:placeboombox(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You don't have a boom box! Buy from one shop.ng-gaming.net");
+		SendErrorMessage(playerid, "You don't have a boom box! Buy from one forum.rg-rp.net");
 	}
 	return 1;
 }
@@ -152,7 +115,7 @@ CMD:destroyboombox(playerid, params[])
 			}	
 	        DeletePVar(playerid, "pBoomBoxArea");
 		}
-		SendClientMessage(playerid, COLOR_WHITE, "You've destroyed your boombox!");
+		SendServerMessage(playerid, "You've destroyed your boombox!");
 	}
 	else
 	{
@@ -194,7 +157,7 @@ CMD:destroyboombox(playerid, params[])
 				}
 			}
 		}	
-	    SendClientMessage(playerid, COLOR_WHITE, "You don't have a boombox or you are not near one to destroy.");
+	    SendErrorMessage(playerid, "You don't have a boombox or you are not near one to destroy.");
 	}
 	return 1;
 }

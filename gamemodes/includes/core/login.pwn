@@ -97,14 +97,14 @@ stock ShowMainMenuDialog(playerid, frame)
 	{
 		case 1:
 		{
-			format(titlestring, sizeof(titlestring), "{3399FF}Login - %s", GetPlayerNameEx(playerid));
-			format(string, sizeof(string), "{FFFFFF}Welcome to Next Generation Roleplay, %s.\n\nThe name that you are using is registered, please enter a password to login:", GetPlayerNameEx(playerid));
+			format(titlestring, sizeof(titlestring), "{e81e0c}Login - %s", GetPlayerNameEx(playerid));
+			format(string, sizeof(string), "{FFFFFF}Welcome to Rebound Gaming Roleplay, %s.\n\nThe name that you are using is registered, please enter a password to login:", GetPlayerNameEx(playerid));
 			ShowPlayerDialogEx(playerid,MAINMENU,DIALOG_STYLE_PASSWORD,titlestring,string,"Login","Exit");
 		}
 		case 2:
 		{
-			format(titlestring, sizeof(titlestring), "{3399FF}Register - %s", GetPlayerNameEx(playerid));
-			format(string, sizeof(string), "{FFFFFF}Welcome to Next Generation Roleplay, %s.\n\n{FFFFFF}You may {AA3333}register {FFFFFF}an account by entering a desired password here:", GetPlayerNameEx(playerid));
+			format(titlestring, sizeof(titlestring), "{e81e0c}Register - %s", GetPlayerNameEx(playerid));
+			format(string, sizeof(string), "{FFFFFF}Welcome to Rebound Gaming Roleplay, %s.\n\n{FFFFFF}You may {AA3333}register {FFFFFF}an account by entering a desired password here:", GetPlayerNameEx(playerid));
 			if(PassComplexCheck) strcat(string, "\n\n- You can't select a password that's below 8 or above 64 characters\n\
 			- Your password must contain a combination of letters, numbers and special characters.\n\
 			- Invalid Character: %");
@@ -112,13 +112,13 @@ stock ShowMainMenuDialog(playerid, frame)
 		}
 		case 3:
 		{
-			format(titlestring, sizeof(titlestring), "{3399FF}Login - %s", GetPlayerNameEx(playerid));
-			format(string, sizeof(string), "{FFFFFF}Invalid Password!\n\nWelcome to Next Generation Roleplay, %s.\n\nThe name that you are using is registered, please enter a password to login:", GetPlayerNameEx(playerid));
+			format(titlestring, sizeof(titlestring), "{e81e0c}Login - %s", GetPlayerNameEx(playerid));
+			format(string, sizeof(string), "{FFFFFF}Invalid Password!\n\nWelcome to Rebound Gaming Roleplay, %s.\n\nThe name that you are using is registered, please enter a password to login:", GetPlayerNameEx(playerid));
 			ShowPlayerDialogEx(playerid,MAINMENU,DIALOG_STYLE_PASSWORD,titlestring,string,"Login","Exit");
 		}
 		case 4:
 		{
-			format(titlestring, sizeof(titlestring), "{3399FF}Account Locked - %s", GetPlayerNameEx(playerid));
+			format(titlestring, sizeof(titlestring), "{e81e0c}Account Locked - %s", GetPlayerNameEx(playerid));
 			format(string, sizeof(string), "{FFFFFF}Our database indicates that %s is currently logged in, if this is a mistake please contact a tech administrator.", GetPlayerNameEx(playerid));
 			ShowPlayerDialogEx(playerid,MAINMENU3,DIALOG_STYLE_MSGBOX,titlestring,string,"Exit","");
 		}

@@ -1,38 +1,28 @@
 /*
 
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
 
-						Banking System
+		  _____     _____       _____    _____
+		 |  __ \   / ____|  _  |  __ \  |  __ \
+		 | |__) | | |  __  (_) | |__) | | |__) |
+		 |  _  /  | | |_ |     |  _  /  |  ___/
+		 | | \ \  | |__| |  _  | | \ \  | |
+		 |_|  \_\  \_____| (_) |_|  \_\ |_|
 
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
+
+
+//--------------------------------[banking.PWN]---------------------------------
+
+					Banking System
+
+				Rebound Gaming
+	(created by Rebound Gaming Development Team)
+
+	* Copyright (c) 2024, Rebound Gaming
 	*
 	* All rights reserved.
 	*
 	* Redistribution and use in source and binary forms, with or without modification,
 	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /*
@@ -207,12 +197,12 @@ PayDay(i) {
 				PlayerInfo[i][pDutyHours]++;
 			}
 			if(SpecTimer) AddSpecialToken(i);
-			SendClientMessageEx(i, COLOR_WHITE, "________ BANK STATEMENT ________");
+			SendClientMessageEx(i, COLOR_GREEN, "________ BANK STATEMENT ________");
 			if(PlayerInfo[i][pNation] == 0)
 			{
 				if(PlayerInfo[i][pDonateRank] < 4)
 				{
-					format(string, sizeof(string), "  Paycheck: $%s  |  SA Gov Tax: $%s (%d percent)", number_format(PlayerInfo[i][pPayCheck]), number_format((PlayerInfo[i][pPayCheck] / 100) * TaxValue), TaxValue);
+					format(string, sizeof(string), "  {FFFFFF}Paycheck: $%s  |  SA Gov Tax: $%s (%d percent)", number_format(PlayerInfo[i][pPayCheck]), number_format((PlayerInfo[i][pPayCheck] / 100) * TaxValue), TaxValue);
 					if(!Bank_TransferCheck((PlayerInfo[i][pPayCheck] / 100) * TaxValue)) return 1;
 					PlayerInfo[i][pAccount] -= (PlayerInfo[i][pPayCheck] / 100) * TaxValue;
 					Tax += (PlayerInfo[i][pPayCheck] / 100) * TaxValue;
@@ -221,7 +211,7 @@ PayDay(i) {
 				{
 					pVIPTax = TaxValue - 15;
 					if(pVIPTax < 0) { pVIPTax = 0; }
-					format(string, sizeof(string), "  Paycheck: $%s  |  SA Gov Tax: $%s (%d percent) {FFFF00}(Platinum VIP: 15 percent off)", number_format(PlayerInfo[i][pPayCheck]), number_format((PlayerInfo[i][pPayCheck] / 100) * pVIPTax), pVIPTax);
+					format(string, sizeof(string), "  {FFFFFF}Paycheck: $%s  |  SA Gov Tax: $%s (%d percent) {FFFF00}(Platinum VIP: 15 percent off)", number_format(PlayerInfo[i][pPayCheck]), number_format((PlayerInfo[i][pPayCheck] / 100) * pVIPTax), pVIPTax);
 					if(!Bank_TransferCheck((PlayerInfo[i][pPayCheck] / 100) * pVIPTax)) return 1;
 					PlayerInfo[i][pAccount] -= (PlayerInfo[i][pPayCheck] / 100) * pVIPTax;
 					Tax += (PlayerInfo[i][pPayCheck] / 100) * pVIPTax;
@@ -231,7 +221,7 @@ PayDay(i) {
 			{
 				if(PlayerInfo[i][pDonateRank] < 4)
 				{
-					format(string, sizeof(string), "  Paycheck: $%s  |  NE Gov Tax: $%s (%d percent)", number_format(PlayerInfo[i][pPayCheck]), number_format((PlayerInfo[i][pPayCheck] / 100) * TRTaxValue), TRTaxValue);	
+					format(string, sizeof(string), "  {FFFFFF}Paycheck: $%s  |  NE Gov Tax: $%s (%d percent)", number_format(PlayerInfo[i][pPayCheck]), number_format((PlayerInfo[i][pPayCheck] / 100) * TRTaxValue), TRTaxValue);
 					if(!Bank_TransferCheck((PlayerInfo[i][pPayCheck] / 100) * TRTaxValue)) return 1;
 					PlayerInfo[i][pAccount] -= (PlayerInfo[i][pPayCheck] / 100) * TRTaxValue;
 					TRTax += (PlayerInfo[i][pPayCheck] / 100) * TRTaxValue;
@@ -240,7 +230,7 @@ PayDay(i) {
 				{
 					pVIPTax = TRTaxValue - 15;
 					if(pVIPTax < 0) { pVIPTax = 0; }
-					format(string, sizeof(string), "  Paycheck: $%s  |  NE Gov Tax: $%s (%d percent) {FFFF00}(Platinum VIP: 15 percent off)", number_format(PlayerInfo[i][pPayCheck]), number_format((PlayerInfo[i][pPayCheck] / 100) * pVIPTax), pVIPTax);	
+					format(string, sizeof(string), "  {FFFFFF}Paycheck: $%s  |  NE Gov Tax: $%s (%d percent) {FFFF00}(Platinum VIP: 15 percent off)", number_format(PlayerInfo[i][pPayCheck]), number_format((PlayerInfo[i][pPayCheck] / 100) * pVIPTax), pVIPTax);
 					if(!Bank_TransferCheck((PlayerInfo[i][pPayCheck] / 100) * pVIPTax)) return 1;
 					PlayerInfo[i][pAccount] -= (PlayerInfo[i][pPayCheck] / 100) * pVIPTax;
 					TRTax += (PlayerInfo[i][pPayCheck] / 100) * pVIPTax;
@@ -252,34 +242,34 @@ PayDay(i) {
 			switch(PlayerInfo[i][pDonateRank]) {
 				case 0: {
 					if(interest > 50000) interest = 50000;
-					format(string, sizeof(string), "  Balance: $%s  |  Interest rate: 0.1 percent (50k max)", number_format(PlayerInfo[i][pAccount]));
+					format(string, sizeof(string), "  {FFFFFF}Balance: $%s  |  Interest rate: 0.1 percent (50k max)", number_format(PlayerInfo[i][pAccount]));
 					SendClientMessageEx(i, COLOR_GRAD1, string);
 				}
 				case 1: {
 					if(interest > 100000) interest = 100000;
-					format(string, sizeof(string), "  Balance: $%s  |  Interest rate: 0.1 percent {FFFF00}(Bronze VIP: 100k max)", number_format(PlayerInfo[i][pAccount]));
+					format(string, sizeof(string), "  {FFFFFF}Balance: $%s  |  Interest rate: 0.1 percent {FFFF00}(Bronze VIP: 100k max)", number_format(PlayerInfo[i][pAccount]));
 					SendClientMessageEx(i, COLOR_GRAD1, string);
 				}
 				case 2:	{
 					if(interest > 150000) interest = 150000;
-					format(string, sizeof(string), "  Balance: $%s  |  Interest rate: 0.1 percent {FFFF00}(Silver VIP: 150k max)", number_format(PlayerInfo[i][pAccount]));
+					format(string, sizeof(string), "  {FFFFFF}Balance: $%s  |  Interest rate: 0.1 percent {FFFF00}(Silver VIP: 150k max)", number_format(PlayerInfo[i][pAccount]));
 					SendClientMessageEx(i, COLOR_GRAD1, string);
 				}
 				case 3: {
 					if(interest > 200000) interest = 200000;
-					format(string, sizeof(string), "  Balance: $%s  |  Interest rate: 0.1 percent {FFFF00}(Gold VIP: 200k max)", number_format(PlayerInfo[i][pAccount]));
+					format(string, sizeof(string), "  {FFFFFF}Balance: $%s  |  Interest rate: 0.1 percent {FFFF00}(Gold VIP: 200k max)", number_format(PlayerInfo[i][pAccount]));
 					SendClientMessageEx(i, COLOR_GRAD1, string);
 				}
 				case 4, 5: {
 					if(interest > 250000) interest = 250000;
-					format(string, sizeof(string), "  Balance: $%s  |  Interest rate: 0.1 percent {FFFF00}(Platinum VIP: 250k max)", number_format(PlayerInfo[i][pAccount]));
+					format(string, sizeof(string), "  {FFFFFF}Balance: $%s  |  Interest rate: 0.1 percent {FFFF00}(Platinum VIP: 250k max)", number_format(PlayerInfo[i][pAccount]));
 					SendClientMessageEx(i, COLOR_GRAD1, string);
 				}
 			}
 			if(PlayerInfo[i][pTaxiLicense] == 1) {
 				PlayerInfo[i][pAccount] -= (PlayerInfo[i][pPayCheck] / 100) * 5;
 				Tax += (PlayerInfo[i][pPayCheck] / 100) * 5;
-				format(string, sizeof(string), "  Taxi licensing fee (5 percent): $%s", number_format((PlayerInfo[i][pPayCheck] / 100) * 5));
+				format(string, sizeof(string), "  {FFFFFF}Taxi licensing fee (5 percent): $%s", number_format((PlayerInfo[i][pPayCheck] / 100) * 5));
 				SendClientMessageEx(i, COLOR_GRAD2, string);
 			}
 			for(new iGroupID; iGroupID < MAX_GROUPS; iGroupID++)
@@ -321,7 +311,7 @@ PayDay(i) {
 			PlayerInfo[i][pAccount] += interest;
 			format(string, sizeof(string), "  Interest gained: $%s", number_format(interest));
 			SendClientMessageEx(i, COLOR_GRAD3, string);
-			SendClientMessageEx(i, COLOR_GRAD4, "______________________________________");
+			SendClientMessageEx(i, COLOR_GREEN, "______________________________________");
 			format(string, sizeof(string), "  New balance: $%s  |  Rent paid: $%s", number_format(PlayerInfo[i][pAccount]), number_format((0 <= PlayerInfo[i][pRenting] < sizeof HouseInfo) ? (HouseInfo[PlayerInfo[i][pRenting]][hRentFee]) : (0)));
 			SendClientMessageEx(i, COLOR_GRAD5, string);
 
@@ -713,17 +703,17 @@ CMD:pay(playerid, params[])
 	new id, storageid, amount;
 
 	if(sscanf(params, "ud", id, amount)) {
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /pay [player] [amount]");
+		SendSyntaxMessage(playerid, "/pay [Playerid/PartOfName] [amount]");
 	}
 
 	/*if(sscanf(params, "udd", id, storageid, amount)) {
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /pay [player] [storageid] [amount]");
+		SendSyntaxMessage(playerid, "/pay [Playerid/PartOfName] [storageid] [amount]");
 		SendClientMessageEx(playerid, COLOR_GREY, "StorageIDs: (0) Pocket - (1) Equipped Storage Device");
 		return 1;
 	}
 
 	if(storageid < 0 || storageid > 1) {
-		SendClientMessageEx(playerid, COLOR_WHITE, "USAGE: /pay [player] [storageid] [amount]");
+		SendClientMessageEx(playerid, COLOR_WHITE, "USAGE: /pay [Playerid/PartOfName] [storageid] [amount]");
 		SendClientMessageEx(playerid, COLOR_GREY, "StorageIDs: (0) Pocket - (1) Equipped Storage Device");
 		return 1;
 	}
@@ -769,7 +759,7 @@ CMD:pay(playerid, params[])
 CMD:writecheck(playerid, params[])
 {
 	new string[128], giveplayerid, monies, reason[64];
-	if(sscanf(params, "uds[64]", giveplayerid, monies, reason)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /writecheck [Playerid/PartOfName] [Amount] [Reason]");
+	if(sscanf(params, "uds[64]", giveplayerid, monies, reason)) return SendSyntaxMessage(playerid, "/writecheck [Playerid/PartOfName] [Amount] [Reason]");
 
     if(!IsPlayerConnected(giveplayerid)) return SendClientMessageEx(playerid, COLOR_GRAD1, "Invalid player specified.");
     if(monies < 1 || monies > 99999999)
@@ -849,7 +839,7 @@ CMD:writecheck(playerid, params[])
 CMD:charity(playerid, params[])
 {
 	new moneys;
-	if(sscanf(params, "d", moneys)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /charity [amount]");
+	if(sscanf(params, "d", moneys)) return SendSyntaxMessage(playerid, "/charity [amount]");
 	if(moneys < 0) return SendClientMessageEx(playerid, COLOR_GRAD1, "That is not enough.");
 	if(GetPlayerCash(playerid) < moneys) return SendClientMessageEx(playerid, COLOR_GRAD1, "You don't have that much money.");
 	GivePlayerCash(playerid, -moneys);

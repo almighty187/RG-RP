@@ -1,39 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						VIP Core
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
 stock IsVIPcar(carid)
 {
 	for(new i = 0; i < sizeof(VIPVehicles); i++)
@@ -120,7 +84,7 @@ CMD:vipdate(playerid, params[]) {
 		else format(string, sizeof(string), "* Your %s VIP subscription expires on %s.", drank, datestring);
 	    SendClientMessageEx(playerid, COLOR_VIP, string);
 	}
-	else SendClientMessageEx(playerid, COLOR_GRAD2, "You don't have a VIP subscription.");
+	else SendErrorMessage(playerid, "You don't have a VIP subscription.");
 	return 1;
 }
 
@@ -131,16 +95,16 @@ CMD:spawnathome(playerid, params[])
         if(PlayerInfo[playerid][pDonateRank] >= 4)
 		{
             PlayerInfo[playerid][pInsurance] = HOSPITAL_HOMECARE;
-            SendClientMessageEx( playerid, COLOR_YELLOW, "Platinum VIP: You will now spawn at your house after deaths." );
+            SendServerMessage(playerid, "Platinum VIP: You will now spawn at your house after deaths." );
         }
         else
 		{
-            SendClientMessageEx( playerid, COLOR_WHITE, "You are not Platinum VIP!" );
+            SendErrorMessage(playerid, "You are not Platinum VIP!" );
         }
     }
     else
 	{
-        SendClientMessageEx( playerid, COLOR_WHITE, "You do not own a house." );
+        SendErrorMessage(playerid, "You do not own a house." );
     }
     return 1;
 }
@@ -151,13 +115,13 @@ CMD:vipnum(playerid, params[])
 
     if(!(IsPlayerInRangeOfPoint(playerid, 3.0, 2549.548095, 1404.047729, 7699.584472 ) || IsPlayerInRangeOfPoint(playerid, 3.0, 1832.6000, 1375.1700, 1464.4600)) )
     {
-    	SendClientMessageEx(playerid, COLOR_GREY, "You are not at the VIP phone number changing station!");
+    	SendErrorMessage(playerid, "You are not at the VIP phone number changing station!");
      	return 1;
    	}
 
     if(PlayerInfo[playerid][pDonateRank] < 2)
     {
-    	SendClientMessageEx(playerid, COLOR_GRAD1, "You must be a Silver VIP or higher to use this function.");
+    	SendErrorMessage(playerid, "You must be a Silver VIP or higher to use this function.");
      	return 1;
 	}
 	ShowPlayerDialogEx(playerid, VIPNUMMENU, DIALOG_STYLE_INPUT, "New Phone Number","New phone number:", "Submit", "Cancel");
@@ -178,20 +142,20 @@ CMD:buddyinvites(playerid, params[])
 			ABroadCast(COLOR_YELLOW, string, 2);
 		}
 	} else {
-		SendClientMessageEx(playerid, COLOR_GRAD2, "You don't have permission to use this command.");
+		SendClientMessage(playerid, COLOR_LIGHTRED, "You are not authorized to use this CMD.");
 	}
 	return 1;
 }
 
 CMD:buddyinvite(playerid, params[])
 {
-	if(PlayerInfo[playerid][pDonateRank] < 2) return SendClientMessageEx(playerid, COLOR_GREY, "You need to be Silver VIP+ to use this function!");
-	if(BuddyInvite == false) return SendClientMessageEx(playerid, COLOR_GREY, "Buddy invites has been disabled by an adminstrator.");
+	if(PlayerInfo[playerid][pDonateRank] < 2) return SendErrorMessage(playerid, "You need to be Silver VIP+ to use this function!");
+	if(BuddyInvite == false) return SendErrorMessage(playerid, "Buddy invites has been disabled by an adminstrator.");
 	new giveplayerid;
-	if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "USAGE: /buddyinvite [player]");
-	if(!IsPlayerConnected(giveplayerid)) return SendClientMessageEx(playerid, COLOR_GRAD2, "That person is not connected!");
-	if(PlayerInfo[giveplayerid][pDonateRank] > 0) return SendClientMessageEx(playerid, COLOR_WHITE, "Unable to invite: That person is already a VIP.");
-	if(PlayerInfo[giveplayerid][pAdmin] >= 2 && !PlayerInfo[giveplayerid][pTogReports]) return SendClientMessageEx(playerid, COLOR_WHITE, "Unable to invite: That person is already a VIP.");
+	if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/buddyinvite [player]");
+	if(!IsPlayerConnected(giveplayerid)) return SendErrorMessage(playerid, "That person is not connected!");
+	if(PlayerInfo[giveplayerid][pDonateRank] > 0) return SendErrorMessage(playerid, "Unable to invite: That person is already a VIP.");
+	if(PlayerInfo[giveplayerid][pAdmin] >= 2 && !PlayerInfo[giveplayerid][pTogReports]) return SendErrorMessage(playerid, "Unable to invite: That person is already a VIP.");
 	new days, daytime, string[128];
 	if(PlayerInfo[playerid][pDonateRank] == 2)
 	{
@@ -211,8 +175,8 @@ CMD:buddyinvite(playerid, params[])
 		PlayerInfo[playerid][pVIPInviteDay] = gettime();
 		PlayerInfo[playerid][pBuddyInvites] = 3;
 	}
-	if(days < daytime && PlayerInfo[playerid][pAdmin] < 1338) return SendClientMessageEx(playerid, COLOR_WHITE, "You must wait 7 days as silver or 1 day as gold, before inviting another person to become a VIP.");
-	if(PlayerInfo[playerid][pDonateRank] >= 4 && PlayerInfo[playerid][pBuddyInvites] < 1) return SendClientMessageEx(playerid, COLOR_WHITE, "You must wait 7 days as silver or 1 day as gold, before inviting another person to become a VIP.");
+	if(days < daytime && PlayerInfo[playerid][pAdmin] < 1338) return SendErrorMessage(playerid, "You must wait 7 days as silver or 1 day as gold, before inviting another person to become a VIP.");
+	if(PlayerInfo[playerid][pDonateRank] >= 4 && PlayerInfo[playerid][pBuddyInvites] < 1) return SendErrorMessage(playerid, "You must wait 7 days as silver or 1 day as gold, before inviting another person to become a VIP.");
 	PlayerInfo[giveplayerid][pDonateRank] = 1;
 	PlayerInfo[giveplayerid][pTempVIP] = 180;
 	PlayerInfo[giveplayerid][pBuddyInvited] = 1;
@@ -259,7 +223,7 @@ CMD:travel(playerid, params[])
 						SetPVarInt(playerid, "tpJustEntered", 1);
 					SetVehicleZAngle(tmpcar, 180.0373);
 					fVehSpeed[playerid] = 0.0;
-					SendClientMessageEx(playerid, COLOR_YELLOW, "Famed: You have traveled to the front of the famed lounge.");
+					SendServerMessage(playerid, "Famed: You have traveled to the front of the famed lounge.");
 					SetPlayerInterior(playerid,0);
 					PlayerInfo[playerid][pInt] = 0;
 					SetPlayerVirtualWorld(playerid, 0);
@@ -267,7 +231,7 @@ CMD:travel(playerid, params[])
 				}
 				else
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD1, "You're not inside a vehicle!");
+					SendErrorMessage(playerid, "You're not inside a vehicle!");
 				}
 			}
 			else if(strcmp(params,"trfamed",true) == 0)
@@ -280,7 +244,7 @@ CMD:travel(playerid, params[])
 						SetPVarInt(playerid, "tpJustEntered", 1);
 					SetVehicleZAngle(tmpcar, 14.1091);
 					fVehSpeed[playerid] = 0.0;
-					SendClientMessageEx(playerid, COLOR_YELLOW, "Famed: You have traveled to the front of the New Robada famed lounge.");
+					SendServerMessage(playerid, "Famed: You have traveled to the front of the New Robada famed lounge.");
 					SetPlayerInterior(playerid,0);
 					PlayerInfo[playerid][pInt] = 0;
 					SetPlayerVirtualWorld(playerid, 0);
@@ -288,7 +252,7 @@ CMD:travel(playerid, params[])
 				}
 				else
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD1, "You're not inside a vehicle!");
+					SendErrorMessage(playerid, "You're not inside a vehicle!");
 				}
 			}
 			else if(strcmp(params,"sffamed",true) == 0)
@@ -301,7 +265,7 @@ CMD:travel(playerid, params[])
 						SetPVarInt(playerid, "tpJustEntered", 1);
 					SetVehicleZAngle(tmpcar, 357.5536);
 					fVehSpeed[playerid] = 0.0;
-					SendClientMessageEx(playerid, COLOR_YELLOW, "Famed: You have traveled to the front of the San Fierro famed lounge.");
+					SendServerMessage(playerid, "Famed: You have traveled to the front of the San Fierro famed lounge.");
 					SetPlayerInterior(playerid,0);
 					PlayerInfo[playerid][pInt] = 0;
 					SetPlayerVirtualWorld(playerid, 0);
@@ -309,12 +273,12 @@ CMD:travel(playerid, params[])
 				}
 				else
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD1, "You're not inside a vehicle!");
+					SendErrorMessage(playerid, "You're not inside a vehicle!");
 				}
 			}
 		}
 		else
-		    return SendClientMessageEx(playerid, COLOR_GRAD1, "You're not part of famed!");
+		    return SendErrorMessage(playerid, "You're not part of famed!");
 	}
 	else if(IsPlayerInRangeOfPoint(playerid, 13.0, -4429.944824, 905.032470, 987.078186))
 	{
@@ -336,7 +300,7 @@ CMD:travel(playerid, params[])
 					if(GetPVarInt(playerid, "tpDeliverVehTimer") > 0)
 						SetPVarInt(playerid, "tpJustEntered", 1);
 					fVehSpeed[playerid] = 0.0;
-					SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: You have traveled to Los Santos with your vehicle.");
+					SendServerMessage(playerid, "VIP: You have traveled to Los Santos with your vehicle.");
 					SetPlayerInterior(playerid,0);
 					PlayerInfo[playerid][pInt] = 0;
 					SetPlayerVirtualWorld(playerid, 0);
@@ -344,7 +308,7 @@ CMD:travel(playerid, params[])
 				}
 				else
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD1, "   You are not in a vehicle!");
+					SendErrorMessage(playerid, "You are not in a vehicle!");
 				}
 			}
 
@@ -357,7 +321,7 @@ CMD:travel(playerid, params[])
 					if(GetPVarInt(playerid, "tpDeliverVehTimer") > 0)
 						SetPVarInt(playerid, "tpJustEntered", 1);
 					fVehSpeed[playerid] = 0.0;
-					SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: You have traveled to San Fierro with your vehicle.");
+					SendServerMessage(playerid, "VIP: You have traveled to San Fierro with your vehicle.");
 					SetPlayerInterior(playerid,0);
 					PlayerInfo[playerid][pInt] = 0;
 					SetPlayerVirtualWorld(playerid, 0);
@@ -366,7 +330,7 @@ CMD:travel(playerid, params[])
 				}
 				else
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD1, "   You are not in a vehicle!");
+					SendErrorMessage(playerid, "You are not in a vehicle!");
 				}
 			}
 			if(strcmp(params,"rc",true) == 0)
@@ -378,7 +342,7 @@ CMD:travel(playerid, params[])
 					if(GetPVarInt(playerid, "tpDeliverVehTimer") > 0)
 						SetPVarInt(playerid, "tpJustEntered", 1);
 					fVehSpeed[playerid] = 0.0;
-					SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: You have traveled to Red County with your vehicle.");
+					SendServerMessage(playerid,  "VIP: You have traveled to Red County with your vehicle.");
 					SetPlayerInterior(playerid,0);
 					PlayerInfo[playerid][pInt] = 0;
 					SetPlayerVirtualWorld(playerid, 0);
@@ -387,7 +351,7 @@ CMD:travel(playerid, params[])
 				}
 				else
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD1, "   You are not in a vehicle!");
+					SendErrorMessage(playerid, "You are not in a vehicle!");
 				}
 			}
 			if(strcmp(params,"lsvip",true) == 0)
@@ -400,7 +364,7 @@ CMD:travel(playerid, params[])
 						SetPVarInt(playerid, "tpJustEntered", 1);
 					SetPlayerFacingAngle(playerid, 255.08);
 					fVehSpeed[playerid] = 0.0;
-					SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: You have traveled to the VIP Lounge with your vehicle.");
+					SendServerMessage(playerid, "VIP: You have traveled to the VIP Lounge with your vehicle.");
 					SetPlayerInterior(playerid,0);
 					PlayerInfo[playerid][pInt] = 0;
 					SetPlayerVirtualWorld(playerid, 0);
@@ -409,7 +373,7 @@ CMD:travel(playerid, params[])
 				}
 				else
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD1, "   You are not in a vehicle!");
+					SendErrorMessage(playerid, "You are not in a vehicle!");
 				}
 			}
 			if(strcmp(params,"sfvip",true) == 0)
@@ -422,7 +386,7 @@ CMD:travel(playerid, params[])
 						SetPVarInt(playerid, "tpJustEntered", 1);
 					SetPlayerFacingAngle(playerid, 181.54);
 					fVehSpeed[playerid] = 0.0;
-					SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: You have traveled to the VIP Lounge with your vehicle.");
+					SendServerMessage(playerid, "VIP: You have traveled to the VIP Lounge with your vehicle.");
 					SetPlayerInterior(playerid,0);
 					PlayerInfo[playerid][pInt] = 0;
 					SetPlayerVirtualWorld(playerid, 0);
@@ -431,7 +395,7 @@ CMD:travel(playerid, params[])
 				}
 				else
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD1, "   You are not in a vehicle!");
+					SendErrorMessage(playerid, "You are not in a vehicle!");
 				}
 			}
 			if(strcmp(params,"apvip",true) == 0)
@@ -445,7 +409,7 @@ CMD:travel(playerid, params[])
 						SetPVarInt(playerid, "tpJustEntered", 1);
 					SetPlayerFacingAngle(playerid, 232.05);
 					fVehSpeed[playerid] = 0.0;
-					SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: You have traveled to the VIP Lounge with your vehicle.");
+					SendServerMessage(playerid, "VIP: You have traveled to the VIP Lounge with your vehicle.");
 					SetPlayerInterior(playerid,0);
 					PlayerInfo[playerid][pInt] = 0;
 					SetPlayerVirtualWorld(playerid, 0);
@@ -454,7 +418,7 @@ CMD:travel(playerid, params[])
 				}
 				else
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD1, "   You are not in a vehicle!");
+					SendErrorMessage(playerid, "You are not in a vehicle!");
 				}
 			}
 			if(strcmp(params,"lvvip",true) == 0)
@@ -467,7 +431,7 @@ CMD:travel(playerid, params[])
 						SetPVarInt(playerid, "tpJustEntered", 1);
 					SetPlayerFacingAngle(playerid, 255.08);
 					fVehSpeed[playerid] = 0.0;
-					SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: You have traveled to the VIP Lounge with your vehicle.");
+					SendServerMessage(playerid, "VIP: You have traveled to the VIP Lounge with your vehicle.");
 					SetPlayerInterior(playerid,0);
 					PlayerInfo[playerid][pInt] = 0;
 					SetPlayerVirtualWorld(playerid, 0);
@@ -476,7 +440,7 @@ CMD:travel(playerid, params[])
 				}
 				else
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD1, "   You are not in a vehicle!");
+					SendErrorMessage(playerid, "You are not in a vehicle!");
 				}
 			}
 			if(strcmp(params,"fc",true) == 0)
@@ -489,7 +453,7 @@ CMD:travel(playerid, params[])
 						SetPVarInt(playerid, "tpJustEntered", 1);
 					SetPlayerFacingAngle(playerid, 255.08);
 					fVehSpeed[playerid] = 0.0;
-					SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: You have traveled to the VIP Lounge with your vehicle.");
+					SendServerMessage(playerid,  "VIP: You have traveled to the VIP Lounge with your vehicle.");
 					SetPlayerInterior(playerid,0);
 					PlayerInfo[playerid][pInt] = 0;
 					SetPlayerVirtualWorld(playerid, 0);
@@ -497,7 +461,7 @@ CMD:travel(playerid, params[])
 				}
 				else
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD1, "   You are not in a vehicle!");
+					SendErrorMessage(playerid, "You are not in a vehicle!");
 				}
 			}
 			if(strcmp(params,"bayside",true) == 0)
@@ -510,7 +474,7 @@ CMD:travel(playerid, params[])
 						SetPVarInt(playerid, "tpJustEntered", 1);
 					SetPlayerFacingAngle(playerid, 255.08);
 					fVehSpeed[playerid] = 0.0;
-					SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: You have traveled to the VIP Lounge with your vehicle.");
+					SendServerMessage(playerid,  "VIP: You have traveled to the VIP Lounge with your vehicle.");
 					SetPlayerInterior(playerid,0);
 					PlayerInfo[playerid][pInt] = 0;
 					SetPlayerVirtualWorld(playerid, 0);
@@ -519,7 +483,7 @@ CMD:travel(playerid, params[])
 				}
 				else
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD1, "   You are not in a vehicle!");
+					SendErrorMessage(playerid, "You are not in a vehicle!");
 				}
 			}
 			if(strcmp(params,"flint",true) == 0)
@@ -533,7 +497,7 @@ CMD:travel(playerid, params[])
 						SetPVarInt(playerid, "tpJustEntered", 1);
 					SetPlayerFacingAngle(playerid, 73.97);
 					fVehSpeed[playerid] = 0.0;
-					SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: You have traveled to Flint County with your vehicle.");
+					SendServerMessage(playerid,  "VIP: You have traveled to Flint County with your vehicle.");
 					SetPlayerInterior(playerid,0);
 					PlayerInfo[playerid][pInt] = 0;
 					SetPlayerVirtualWorld(playerid, 0);
@@ -542,7 +506,7 @@ CMD:travel(playerid, params[])
 				}
 				else
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD1, "   You are not in a vehicle!");
+					SendErrorMessage(playerid, "You are not in a vehicle!");
 				}
 			}			
 		}
@@ -552,7 +516,7 @@ CMD:travel(playerid, params[])
 
 CMD:viplocker(playerid, params[]) {
     #if defined zombiemode
-	if(zombieevent == 1 && GetPVarType(playerid, "pIsZombie")) return SendClientMessageEx(playerid, COLOR_GREY, "Zombies can't use this.");
+	if(zombieevent == 1 && GetPVarType(playerid, "pIsZombie")) return SendErrorMessage(playerid, "Zombies can't use this.");
 	#endif
 	if(IsPlayerInRangeOfPoint(playerid, 7.0, 2555.747314, 1404.106079, 7699.584472) /*LS Main*/
 	|| IsPlayerInRangeOfPoint(playerid, 7.0, 1832.0533, 1380.7281, 1464.3822) /*LV Main*/
@@ -564,7 +528,7 @@ CMD:viplocker(playerid, params[]) {
 		case 2: ShowPlayerDialogEx(playerid, 7483, DIALOG_STYLE_LIST, "VIP Locker", "First Aid Kit (Free)\nKevlar Vest ($10000)\nWeapons\nClothes Corner\nJob Center\nVIP Color", "Select", "Cancel");
 		default: ShowPlayerDialogEx(playerid, 7483, DIALOG_STYLE_LIST, "VIP Locker", "First Aid Kit (Free)\nKevlar Vest (Free)\nWeapons\nClothes Corner\nJob Center\nVIP Color", "Select", "Cancel");
 	}
-	else SendClientMessageEx(playerid, COLOR_GRAD2, "You're not at the VIP locker.");
+	else SendErrorMessage(playerid, "You're not at the VIP locker.");
 	return 1;
 }
 
@@ -583,13 +547,13 @@ CMD:v(playerid, params[]) {
 			SendClientMessageEx(playerid, COLOR_GREY, szMessage);
 		}
 		else if(PlayerInfo[playerid][pToggledChats][9]) {
-		    SendClientMessageEx(playerid, COLOR_GREY, "You have VIP chat toggled - /tog vip to enable it.");
+		    SendErrorMessage(playerid, "You have VIP chat toggled - /tog vip to enable it.");
 		}
 		else if(PlayerInfo[playerid][pVMuted] > 0) {
-			SendClientMessageEx(playerid, COLOR_GREY, "You are muted from the VIP chat channel.");
+			SendErrorMessage(playerid, "You are muted from the VIP chat channel.");
 		}
 		else {
-			if(novip && PlayerInfo[playerid][pAdmin] < 2) return SendClientMessageEx(playerid, COLOR_GREY, "The VIP chat has been disabled by an administrator.");
+			if(novip && PlayerInfo[playerid][pAdmin] < 2) return SendErrorMessage(playerid, "The VIP chat has been disabled by an administrator.");
 			new szMessage[128];
 
 			if(PlayerInfo[playerid][pAdmin] >= 2 && !GetPVarType(playerid, "Undercover"))
@@ -635,7 +599,7 @@ CMD:searchvipm(playerid, params[])
 				SendClientMessageEx(playerid, COLOR_WHITE, string);
 				count++;
 			}
-			else if(count == 0) return SendClientMessageEx(playerid, COLOR_WHITE, "No person online matched that VIPM number.");
+			else if(count == 0) return SendErrorMessage(playerid, "No person online matched that VIPM number.");
 		}
 	}
 	return 1;
@@ -643,20 +607,20 @@ CMD:searchvipm(playerid, params[])
 
 CMD:sellvip(playerid, params[]) {
 	if(!(1 <= PlayerInfo[playerid][pDonateRank] <= 3)) {
-		SendClientMessageEx(playerid, COLOR_GREY, "You can only sell Bronze, Silver, and Gold VIP.");
+		SendErrorMessage(playerid, "You can only sell Bronze, Silver, and Gold VIP.");
 	}
 	else if(PlayerInfo[playerid][pVIPM] == 0) {
-		SendClientMessageEx(playerid, COLOR_GREY, "You currently don't have a VIP ID assigned. Contact a Shop Tech.");
+		SendErrorMessage(playerid, "You currently don't have a VIP ID assigned. Contact a Shop Tech.");
 	}
 	else if(PlayerInfo[playerid][pVIPSellable] == 1)
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "Your VIP is not sellable.");
+		SendErrorMessage(playerid, "Your VIP is not sellable.");
 	}
   	else if(PlayerInfo[playerid][pVIPExpire] - 604800 < gettime()) {
-		SendClientMessageEx(playerid, COLOR_GREY, "Your VIP expires in less than a week - you can't sell it.");
+		SendErrorMessage(playerid, "Your VIP expires in less than a week - you can't sell it.");
 	}
 	else if(PlayerInfo[playerid][pVIPSold] > gettime()) {
-		SendClientMessageEx(playerid, COLOR_GREY, "You can only sell your VIP once every two hours.");
+		SendErrorMessage(playerid, "You can only sell your VIP once every two hours.");
 	}
 	else {
 
@@ -670,16 +634,16 @@ CMD:sellvip(playerid, params[]) {
 			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /sellvip [player] [price]");
 		}
 		else if(price < 0) {
-			SendClientMessageEx(playerid, COLOR_GREY, "The price can't be below zero.");
+			SendErrorMessage(playerid, "The price can't be below zero.");
 		}
 		else if(player == playerid) {
-			SendClientMessageEx(playerid, COLOR_WHITE, "You can't sell VIP to yourself.");
+			SendErrorMessage(playerid, "You can't sell VIP to yourself.");
 		}
 		else if(!IsPlayerConnected(player)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
+			SendErrorMessage(playerid, "Invalid player specified.");
 		}
 		else if(PlayerInfo[player][pVIPSold] > gettime()) {
-			SendClientMessageEx(playerid, COLOR_GREY, "That person can only buy VIP once every two hours.");
+			SendErrorMessage(playerid, "That person can only buy VIP once every two hours.");
 		}
 		else if (ProxDetectorS(10.0, playerid, player))
 		{
@@ -1174,31 +1138,31 @@ CMD:vtoreset(playerid, params[])
 CMD:vipplate(playerid, params[])
 {
 	if(PlayerInfo[playerid][pDonateRank] < 4) return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not a Platinum VIP+");
-	if(isnull(params)) return SendClientMessageEx(playerid, COLOR_WHITE, "USAGE: /vipplate [use/remove]");
+	if(isnull(params)) return SendSyntaxMessage(playerid, "/vipplate [use/remove]");
 	for(new d = 0 ; d < MAX_PLAYERVEHICLES; d++)
 	{
      	if(IsPlayerInVehicle(playerid, PlayerVehicleInfo[playerid][d][pvId]))
        	{
 			new Float: vHealth;
 			GetVehicleHealth(PlayerVehicleInfo[playerid][d][pvId], vHealth);
-    		if(vHealth < 800) return SendClientMessageEx(playerid, COLOR_LIGHTRED, "Please repair your vehicle before replacing your plate.");
+    		if(vHealth < 800) return SendErrorMessage(playerid, "Please repair your vehicle before replacing your plate.");
 			new string[64];
 			if(strcmp(params, "remove", true) == 0)
 			{
 				PlayerVehicleInfo[playerid][d][pvPlate] = 0;
-				SendClientMessageEx(playerid, COLOR_YELLOW, "Your vehicle will now appear with the default plate, parking your vehicle momentarily...");
+				SendServerMessage(playerid, "Your vehicle will now appear with the default plate, parking your vehicle momentarily...");
 				cmd_park(playerid, params); //Save a few lines of code here xD
 			}
 			else if(strcmp(params, "use", true) == 0)
 			{
 				format(string, sizeof(string), "{800080}PVIP");
 				format(PlayerVehicleInfo[playerid][d][pvPlate], 32, "%s", string);
-				SendClientMessageEx(playerid, COLOR_YELLOW, "Your vehicle will now appear with the PVIP Plate, parking your vehicle momentarily...");
+				SendServerMessage(playerid, "Your vehicle will now appear with the PVIP Plate, parking your vehicle momentarily...");
 				cmd_park(playerid, params); //Save a few lines of code here xD
 			}
 			else
 			{
-				SendClientMessageEx(playerid, COLOR_WHITE, "USAGE: /vipplate [use/remove]");
+				SendSyntaxMessage(playerid, "/vipplate [use/remove]");
 			}
 			return 1;
 		}
@@ -1225,7 +1189,7 @@ CMD:pvipjob(playerid, params[])
 {
 	if(PlayerInfo[playerid][pDonateRank] < 4) return SendClientMessageEx(playerid, COLOR_GREY, "You are not a Platinum VIP+");
 	if(PlayerInfo[playerid][pVIPJob] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You have already used this feature.");
-	SendClientMessageEx(playerid, COLOR_YELLOW, "You can select one job to be set to level 5 as a Platinum VIP+");
+	SendServerMessage(playerid, "You can select one job to be set to level 5 as a Platinum VIP+");
 	ShowPlayerDialogEx(playerid, DIALOG_VIPJOB, DIALOG_STYLE_LIST, "Job List", "Detective\nLawyer\nWhore\nDrugs Dealer\nDrug Smuggling\nArms Dealer\nCar Mechanic\nBoxer\nFishing\nShipment Contractor\nLock Picking", "Select", "Close");
 	return 1;
 }
@@ -1234,7 +1198,7 @@ CMD:ovmute(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1 && PlayerInfo[playerid][pShopTech] < 3) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use this command.");
 	new query[256], tmpName[MAX_PLAYER_NAME];
-	if(sscanf(params, "s[24]", tmpName)) return SendClientMessageEx(playerid, COLOR_WHITE, "USAGE: /ovmute [player name]");
+	if(sscanf(params, "s[24]", tmpName)) return SendSyntaxMessage(playerid, "/ovmute [player name]");
 	new giveplayerid = ReturnUser(tmpName);
 	if(IsPlayerConnected(giveplayerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "This player is currently connected, please use /vmute.");
 
@@ -1253,7 +1217,7 @@ CMD:ovunmute(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1 && PlayerInfo[playerid][pShopTech] < 3) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use this command.");
 	new query[256], tmpName[MAX_PLAYER_NAME];
-	if(sscanf(params, "s[24]", tmpName)) return SendClientMessageEx(playerid, COLOR_WHITE, "USAGE: /ovunmute [player name]");
+	if(sscanf(params, "s[24]", tmpName)) return SendSyntaxMessage(playerid, "/ovunmute [player name]");
 	new giveplayerid = ReturnUser(tmpName);
 	if(IsPlayerConnected(giveplayerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "This player is currently connected, please use /vmute.");
 
@@ -1293,7 +1257,7 @@ CMD:vipm(playerid, params[])
 	if(PlayerInfo[playerid][pVIPMod] == 1) format(szMessage, sizeof(szMessage), "* VIP Moderator %s: %s", GetPlayerNameEx(playerid), params);
 	else if(PlayerInfo[playerid][pVIPMod] == 2) format(szMessage, sizeof(szMessage), "* Senior VIP Moderator %s: %s", GetPlayerNameEx(playerid), params);
 	else if(PlayerInfo[playerid][pShopTech] >= 3) format(szMessage, sizeof(szMessage), "* DoCR %s: %s", GetPlayerNameEx(playerid), params);
-	else if(PlayerInfo[playerid][pAdmin] == 99999) format(szMessage, sizeof(szMessage), "* Executive Admin %s: %s", GetPlayerNameEx(playerid), params);
+	else if(PlayerInfo[playerid][pAdmin] == 1339) format(szMessage, sizeof(szMessage), "* Executive Director %s: %s", GetPlayerNameEx(playerid), params);
 	else format(szMessage, sizeof(szMessage), "* Undefined Rank %s: %s", GetPlayerNameEx(playerid), params);
 	foreach(new i: Player)
 	{

@@ -142,7 +142,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					new szWeaponName[32],
 						iCount, iAmmo, iWepID;
 
-					if(!IsPlayerInRangeOfPoint(playerid, 5.0, 1464.3099, -1747.5853, 15.6267)) return SendClientMessageEx(playerid, COLOR_GRAD1, "You aren't at the government arms point at City Hall in Los Santos.");
+					if(!IsPlayerInRangeOfPoint(playerid, 5.0, 1369.0956, 1593.8915, 10.8503)) return SendClientMessageEx(playerid, COLOR_GRAD1, "You aren't at the government arms point at City Hall in Los Santos.");
 					if(arrWeaponCosts[46] == 0) return SendClientMessageEx(playerid, COLOR_GRAD1, "The government arms center is currently closed.");
 					szMiscArray = "Name\tSale Price\n";
 					for(new i; i < 12; ++i) {
@@ -197,9 +197,9 @@ GovGuns_LoadCosts()
 
 GovGuns_Streamer()
 {
-	CreateDynamicObject(3430, 1464.40723, -1750.29785, 15.8659,   0.00000, 0.00000, 300.33374);
-	CreateDynamic3DTextLabel("Government Arms Center\n{DDDDDD}Press ~k~~CONVERSATION_YES~ to access the menu", COLOR_YELLOW, 1464.3186,-1747.9330,15.9453, 8.0);
-	GovArmsPoint = CreateDynamicSphere(1464.3186,-1747.9330,15.445, 5.00);
+	//CreateDynamicObject(3430, 1464.40723, -1750.29785, 15.8659,   0.00000, 0.00000, 300.33374);
+	CreateDynamic3DTextLabel("Government Arms Center\n{DDDDDD}Press ~k~~CONVERSATION_YES~ to access the menu", COLOR_GREEN, 1369.0853,1594.0900,10.8503, 8.0);
+	GovArmsPoint = CreateDynamicSphere(1369.0853,1594.0900,10.8503, 5.00);
 }
 
 GovGuns_IsSellingEdit(i)

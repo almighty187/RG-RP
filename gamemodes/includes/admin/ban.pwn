@@ -92,7 +92,7 @@ public OnCreateBan(iBanCreator, iPlayerID, szIPAddress[], iBanned, szReason[], i
 		}
 
 	}
-	else SendClientMessageEx(iBanCreator, COLOR_YELLOW, "There was an issue creating that ban ...");
+	else SendErrorMessage(iBanCreator, "There was an issue creating that ban ...");
 
 	return 1;
 }
@@ -120,7 +120,7 @@ public OnRemoveBan(iRemover, iBanned, szIPAddress[]) {
 
 		new iRows = cache_affected_rows();
 
-		if(!iRows) return SendClientMessageEx(iRemover, COLOR_YELLOW, "No bans matching that criteria were found");
+		if(!iRows) return SendErrorMessage(iRemover, "No bans matching that criteria were found");
 		else {
 
 			if(!isnull(szIPAddress)) {
@@ -142,7 +142,7 @@ public OnRemoveBan(iRemover, iBanned, szIPAddress[]) {
 			SendClientMessageEx(iRemover, COLOR_WHITE, szMiscArray);
 		}
 	}
-	else SendClientMessageEx(iRemover, COLOR_YELLOW, "There was an issue removing that ban ...");
+	else SendErrorMessage(iRemover, "There was an issue removing that ban ...");
 
 	return 1;
 }
@@ -181,7 +181,7 @@ public InitiateOfflineBan(iBanCreator, szReason[], iLength) {
 		cache_get_value_name_int(0, "id", id);
 		cache_get_value_name(0, "IP", szIPAddress);
 		if(cache_get_value_name_int(0, "AdminLevel", value) > PlayerInfo[iBanCreator][pAdmin]) {
-			return SendClientMessageEx(iBanCreator, COLOR_GREY, "You cannot ban a player with a higher admin level than you.");
+			return SendErrorMessage(iBanCreator, "You cannot ban a player with a higher admin level than you.");
 		}
 		return CreateBan(iBanCreator, id, INVALID_PLAYER_ID, szIPAddress, szReason, iLength);
 	}
@@ -250,7 +250,7 @@ public OnCheckBan(iPlayerID)
 			return 1;
 		}
 		else {
-			SendClientMessageEx(iPlayerID, COLOR_WHITE, "Your ban has expired. You have now been unbanned.");
+			SendServerMessage(iPlayerID, "Your ban has expired. You have now been unbanned.");
 			RemoveBan(INVALID_PLAYER_ID, PlayerInfo[iPlayerID][pId], PlayerInfo[iPlayerID][pIP]);
 			return 1;
 		}
@@ -262,8 +262,8 @@ public OnCheckBan(iPlayerID)
 
 CMD:unbanip(playerid, params[]) {
 
-	if(PlayerInfo[playerid][pAdmin] < 1337) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use this command");
-	if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /unbanip [ip]");
+	if(PlayerInfo[playerid][pAdmin] < 1337) return SendErrorMessage(playerid, "You are not authorized to use this CMD.");
+	if(isnull(params)) return SendSyntaxMessage(playerid, "/unbanip [ip]");
 
 	RemoveBan(playerid, INVALID_PLAYER_ID, params);
 
@@ -272,8 +272,8 @@ CMD:unbanip(playerid, params[]) {
 
 CMD:unban(playerid, params[]) {
 
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pBanAppealer] < 1 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use this command");
-	if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /unban [username]");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pBanAppealer] < 1 && PlayerInfo[playerid][pASM] < 1) return SendErrorMessage(playerid, "You are not authorized to use this CMD.");
+	if(isnull(params)) return SendSyntaxMessage(playerid, "/unban [username]");
 
 	//if(strfind(params, "_", true, 0) != -1) SendClientMessage(playerid, COLOR_GRAD1, "Please use an underscore as spaces for non-admin accounts.");
 	SetPVarString(playerid, "UnbanName", params);
@@ -292,14 +292,14 @@ CMD:ban(playerid, params[]) {
 		iLength,
 		iSilentBan = 0;
 
-	if(PlayerInfo[playerid][pAdmin] < 2) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use this command");
+	if(PlayerInfo[playerid][pAdmin] < 2) return SendErrorMessage(playerid, "You are not authorized to use this CMD.");
 	if(sscanf(params, "udD(0)s[64]", iTargetID, iLength, iSilentBan, szReason)) {
 
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /ban [playerid] [length in days] [silent(1=yes 2=no)] [reason]");
+		SendSyntaxMessage(playerid, "/ban [playerid] [length in days] [silent(1=yes 2=no)] [reason]");
 		SendClientMessageEx(playerid, COLOR_GREY, "** 1 = Yes, the ban will only broadcast to admins | 2 = No, the ban will be globally broadcasted **");
 		return 1;
 	}
-	if(!IsPlayerConnected(iTargetID)) return SendClientMessageEx(playerid, COLOR_GREY, "That player is not connected");
+	if(!IsPlayerConnected(iTargetID)) return SendErrorMessage(playerid, "That player is not connected");
 	if(!(0 <= iSilentBan < 2)) {
 
 		SendClientMessageEx(playerid, COLOR_GREY, "You must specify a value that is either 0 or 1");
@@ -320,21 +320,21 @@ CMD:permban(playerid, params[]) {
 		szReason[64],
 		iSilentBan = 0;
 
-	if(PlayerInfo[playerid][pAdmin] < 1337) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use this command");
+	if(PlayerInfo[playerid][pAdmin] < 1337) return SendErrorMessage(playerid, "You are not authorized to use this CMD.");
 	if(sscanf(params, "us[64]D(0)", iTargetID, szReason, iSilentBan)) {
 
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /permban [playerid] [reason] [silent(optional)]");
+		SendSyntaxMessage(playerid, "/permban [playerid] [reason] [silent(optional)]");
 		SendClientMessageEx(playerid, COLOR_GREY, "** Acceptable values for silent are 0=No and 1=Yes, Default is 0 **");
 		return 1;
 	}
-	if(!IsPlayerConnected(iTargetID)) return SendClientMessageEx(playerid, COLOR_GREY, "That player is not connected");
+	if(!IsPlayerConnected(iTargetID)) return SendErrorMessage(playerid, "That player is not connected");
 	if(!(0 <= iSilentBan < 2)) {
 
 		SendClientMessageEx(playerid, COLOR_GREY, "You must specify a value that is either 0 or 1");
 		SendClientMessageEx(playerid, COLOR_GREY, "** 1 = Yes, the ban will only broadcast to admins | 2 = No, the ban will be globally broadcasted **");
 		return 1;
 	}
-	if(PlayerInfo[playerid][pAdmin] < PlayerInfo[iTargetID][pAdmin]) return SendClientMessageEx(playerid, COLOR_GREY, "That player is a higher ranking admin than you");
+	if(PlayerInfo[playerid][pAdmin] < PlayerInfo[iTargetID][pAdmin]) return SendErrorMessage(playerid, "That player is a higher ranking admin than you");
 
 	CreateBan(playerid, PlayerInfo[iTargetID][pId], iTargetID, GetPlayerIpEx(iTargetID), szReason, 9999999, iSilentBan, 1);
 
@@ -347,21 +347,21 @@ CMD:hackban(playerid, params[]) {
 		iTargetID,
 		iSilentBan = 0;
 
-	if(PlayerInfo[playerid][pAdmin] < 2) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use this command");
+	if(PlayerInfo[playerid][pAdmin] < 2) return SendErrorMessage(playerid, "You are not authorized to use this CMD.");
 	if(sscanf(params, "uD(0)", iTargetID, iSilentBan)) {
 
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /hackban [playerid] [silent(optional)]");
+		SendSyntaxMessage(playerid, "/hackban [playerid] [silent(optional)]");
 		SendClientMessageEx(playerid, COLOR_GREY, "** Acceptable values for silent are 0=No and 1=Yes, Default is 0 **");
 		return 1;
 	}
-	if(!IsPlayerConnected(iTargetID)) return SendClientMessageEx(playerid, COLOR_GREY, "That player is not connected");
+	if(!IsPlayerConnected(iTargetID)) return SendErrorMessage(playerid, "That player is not connected");
 	if(!(0 <= iSilentBan < 2)) {
 
 		SendClientMessageEx(playerid, COLOR_GREY, "You must specify a value that is either 0 or 1");
 		SendClientMessageEx(playerid, COLOR_GREY, "** 1 = Yes, the ban will only broadcast to admins | 2 = No, the ban will be globally broadcasted **");
 		return 1;
 	}
-	if(PlayerInfo[playerid][pAdmin] < PlayerInfo[iTargetID][pAdmin]) return SendClientMessageEx(playerid, COLOR_GREY, "That player is a higher ranking admin than you");
+	if(PlayerInfo[playerid][pAdmin] < PlayerInfo[iTargetID][pAdmin]) return SendErrorMessage(playerid, "That player is a higher ranking admin than you");
 
 	CreateBan(playerid, PlayerInfo[iTargetID][pId], iTargetID, GetPlayerIpEx(iTargetID), "Hacking", 180, iSilentBan);
 
@@ -374,21 +374,21 @@ CMD:saban(playerid, params[]) {
 		iTargetID,
 		iSilentBan = 0;
 
-	if(PlayerInfo[playerid][pAdmin] < 2) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use this command");
+	if(PlayerInfo[playerid][pAdmin] < 2) return SendErrorMessage(playerid, "You are not authorized to use this CMD.");
 	if(sscanf(params, "uD(0)", iTargetID, iSilentBan)) {
 
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /saban [playerid] [silent(optional)]");
+		SendSyntaxMessage(playerid, "/saban [playerid] [silent(optional)]");
 		SendClientMessageEx(playerid, COLOR_GREY, "** Acceptable values for silent are 0=No and 1=Yes, Default is 0 **");
 		return 1;
 	}
-	if(!IsPlayerConnected(iTargetID)) return SendClientMessageEx(playerid, COLOR_GREY, "That player is not connected");
+	if(!IsPlayerConnected(iTargetID)) return SendErrorMessage(playerid, "That player is not connected");
 	if(!(0 <= iSilentBan < 2)) {
 
 		SendClientMessageEx(playerid, COLOR_GREY, "You must specify a value that is either 0 or 1");
 		SendClientMessageEx(playerid, COLOR_GREY, "** 1 = Yes, the ban will only broadcast to admins | 2 = No, the ban will be globally broadcasted **");
 		return 1;
 	}
-	if(PlayerInfo[playerid][pAdmin] < PlayerInfo[iTargetID][pAdmin]) return SendClientMessageEx(playerid, COLOR_GREY, "That player is a higher ranking admin than you");
+	if(PlayerInfo[playerid][pAdmin] < PlayerInfo[iTargetID][pAdmin]) return SendErrorMessage(playerid, "That player is a higher ranking admin than you");
 
 	CreateBan(playerid, PlayerInfo[iTargetID][pId], iTargetID, GetPlayerIpEx(iTargetID), "Server Advertising", 180, iSilentBan);
 
@@ -399,7 +399,7 @@ CMD:moneyfarmban(playerid, params[]) {
 
 	if(PlayerInfo[playerid][pAdmin] < 99999) return 1;
 	new uPlayer;
-	if(sscanf(params, "u", uPlayer)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /moneyfarmban [playerid / name]");
+	if(sscanf(params, "u", uPlayer)) return SendSyntaxMessage(playerid, "/moneyfarmban [playerid / name]");
 	mysql_format(MainPipeline, szMiscArray, sizeof(szMiscArray), "SELECT `Username`, `IP`, `Money`, `Bank`, `SPos_x`, `SPos_y`, `SPos_z` FROM `accounts` WHERE `IP` = '%s'", GetPlayerIpEx(uPlayer));
 	mysql_tquery(MainPipeline, szMiscArray, "OnCheckMoneyFarm", "is", playerid, GetPlayerIpEx(uPlayer));
 	return 1;
@@ -445,10 +445,10 @@ CMD:banip(playerid, params[]) {
 		szReason[64],
 		iLength;
 
-	if(PlayerInfo[playerid][pAdmin] < 1337) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use this command");
-	if(sscanf(params, "s[16]ds[64]", szIP, iLength, szReason)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /banip [ip] [length in days] [reason]");
+	if(PlayerInfo[playerid][pAdmin] < 1337) return SendErrorMessage(playerid, "You are not authorized to use this CMD.");
+	if(sscanf(params, "s[16]ds[64]", szIP, iLength, szReason)) return SendSyntaxMessage(playerid, "/banip [ip] [length in days] [reason]");
 
-	if(IsPlayerConnected(ReturnUserFromIP(szIP))) return SendClientMessageEx(playerid, COLOR_GREY, "That player is currently connected, use /ban.");
+	if(IsPlayerConnected(ReturnUserFromIP(szIP))) return SendErrorMessage(playerid, "That player is currently connected, use /ban.");
 
 	mysql_format(MainPipeline, szMiscArray, sizeof(szMiscArray), "SELECT `id`,`AdminLevel`,`IP` FROM `accounts` WHERE `IP` = '%e'", szIP);
 	mysql_tquery(MainPipeline, szMiscArray, "InitiateIPBan","isi", playerid, szReason, iLength);
@@ -464,10 +464,10 @@ CMD:banaccount(playerid, params[]) {
 		szReason[64],
 		iLength;
 
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pBanAppealer] < 2 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use this command");
-	if(sscanf(params, "s[24]ds[64]", szName, iLength, szReason)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /banaccount [username] [length in days] [reason]");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pBanAppealer] < 2 && PlayerInfo[playerid][pASM] < 1) return SendErrorMessage(playerid, "You are not authorized to use this CMD.");
+	if(sscanf(params, "s[24]ds[64]", szName, iLength, szReason)) return SendSyntaxMessage(playerid, "/banaccount [username] [length in days] [reason]");
 
-	if(IsPlayerConnected(ReturnUser(szName))) return SendClientMessageEx(playerid, COLOR_GREY, "That player is currently connected, use /ban.");
+	if(IsPlayerConnected(ReturnUser(szName))) return SendErrorMessage(playerid, "That player is currently connected, use /ban.");
 
 	SetPVarString(playerid, "BanningName", szName);
 
@@ -482,7 +482,7 @@ CMD:oldunban(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pBanAppealer] >= 1)
 	{
 		new string[128], query[256], tmpName[24];
-		if(isnull(params)) return SendClientMessageEx(playerid, COLOR_WHITE, "USAGE: /oldunban [player name]");
+		if(isnull(params)) return SendSyntaxMessage(playerid, "/oldunban [player name]");
 
 		mysql_escape_string(params, tmpName);
 		SetPVarString(playerid, "OnUnbanPlayer", tmpName);
@@ -497,7 +497,7 @@ CMD:oldunban(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command!");
+		SendErrorMessage(playerid, "You are not authorized to use this CMD.");
 	}
 	return 1;
 }
