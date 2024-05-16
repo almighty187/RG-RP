@@ -5,6 +5,8 @@ Added new turf system
 
 Gamemode Fixes:
 Fixed so talkanim doesnt overlap other anim
+Fixed prices in bizzes
 
 Gamemode Changes:
+Change the prices on stamps
 
