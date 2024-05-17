@@ -751,18 +751,13 @@ CMD:hmahelp(playerid, params[])
 	if(IsAHitman(playerid))
 	{
 		SendClientMessageEx(playerid, COLOR_GREEN,"_______________________________________");
-		SendClientMessageEx(playerid, COLOR_GRAD3, "*** Hitman Agency Commands *** /hr /hg /toghma /ranks /contracts /givemehit /order /profile /execute");
-		SendClientMessageEx(playerid, COLOR_GRAD3, "*** Hitman Agency Commands *** /hfind /setmylevel /tempnum /knife /pb /pcb /pub /myc4 /quithma");
+		SendClientMessageEx(playerid, COLOR_GRAD3, "*** Hitman Agency Commands *** /hr /hg /toghma /ranks /contracts /givemehit /order /profile");
+		SendClientMessageEx(playerid, COLOR_GRAD3, "*** Hitman Agency Commands *** /hfind /setmylevel /tempnum /pb /pcb /pub /myc4 /quithma");
 
 		if(IsAHitmanLeader(playerid))
 		{
-			SendClientMessageEx(playerid, COLOR_GRAD3, "*** Leadership Commands *** /makehitman /givehitmanrank /(o)removehitman /hmasafe /sethmamotd");
-			SendClientMessageEx(playerid, COLOR_GRAD3, "*** Leadership Commands *** /(o)blacklist /(o)unblacklist /viewblacklist /givehit /deletehit");
-		}
-		if(PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pFactionModerator] != 0 && PlayerInfo[playerid][pAdmin] >= 4)
-		{
-			SendClientMessageEx(playerid, COLOR_GRAD3, "*** Administrator Commands *** /makehitmanleader /removehitmanleader /oremovehitmanleader");
-			SendClientMessageEx(playerid, COLOR_GRAD3, "*** Administrator Commands *** /gotohmasafe /edithmasafepos /deletehit /resetheadshot");
+			SendClientMessageEx(playerid, COLOR_GRAD3, "*** Leadership Commands *** /makehitman /givehitmanrank /(o)removehitman /hmasafe");
+			SendClientMessageEx(playerid, COLOR_GRAD3, "*** Leadership Commands *** /(o)blacklist /(o)unblacklist /viewblacklist");
 		}
 
 		SendClientMessageEx(playerid, COLOR_GREEN,"_______________________________________");
@@ -770,8 +765,8 @@ CMD:hmahelp(playerid, params[])
 	else if(PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pFactionModerator] != 0 && PlayerInfo[playerid][pAdmin] >= 4)
 	{
 		SendClientMessageEx(playerid, COLOR_GREEN,"_______________________________________");
-		SendClientMessageEx(playerid, COLOR_GRAD3, "*** Administrator Commands *** /makehitmanleader /removehitmanleader /oremovehitmanleader");
-		SendClientMessageEx(playerid, COLOR_GRAD3, "*** Administrator Commands *** /gotohmasafe /edithmasafepos /deletehit");
+		SendClientMessageEx(playerid, COLOR_GRAD3, "*** Administrator Commands *** /makehitmanleader, /removehitmanleader, /oremovehitmanleader");
+		SendClientMessageEx(playerid, COLOR_GRAD3, "*** Administrator Commands *** /gotohmasafe, /edithmasafepos");
 		SendClientMessageEx(playerid, COLOR_GREEN,"_______________________________________");
 	}
 	else return 0;

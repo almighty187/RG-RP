@@ -31,26 +31,33 @@ hook OnGameModeInit() {
 	CreateDynamic3DTextLabel("Back Entrance", COLOR_DBLUE, -2033.7502,-154.8784,35.3203+0.6, 4.0); // Prison
 	CreateDynamic3DTextLabel("/dplocker\nTo open the Dedicated locker.",COLOR_TWGREEN,166.6540, -2001.0413, 3499.6482+0.6,4.0);/// Dedicated Locker
 	
-	//CreateDynamic3DTextLabel("Type /getmats from a boat \nto obtain Materials Packages",COLOR_YELLOW,2102.71,-103.97,2.28+0.5,8.0);// Deliver
-    CreateDynamic3DTextLabel("Type /getpizza from a Pizzaboy \nto get pizzas for delivery!",COLOR_YELLOW,-1713.961425, 1348.545166, 7.180452, 4.0); //getpizza Pier 69
-    CreateDynamic3DTextLabel("Type /getpizza from a Pizzaboy \nto get pizzas for delivery!",COLOR_YELLOW,2103.6714,-1785.5222,12.9849, 4.0); //getpizza Idlewood
-	//CreateDynamic3DTextLabel("Type /registerplate to\nchange your license plate.",COLOR_YELLOW,366.54,159.09,1008.38+1,8.0);// Licenses.
-    CreateDynamic3DTextLabel("/buyclothes\n To change your skin.",COLOR_YELLOW,208.8970,-100.3289,1005.2578,8.0);
-    CreateDynamic3DTextLabel("/buyclothes\n To change your skin.",COLOR_YELLOW,206.5429,-41.2313,1001.8047,8.0);
-    CreateDynamic3DTextLabel("/buyclothes\n To change your skin.",COLOR_YELLOW,209.3064,-8.3033,1005.2109,8.0);
-    CreateDynamic3DTextLabel("/buyclothes\n To change your skin.",COLOR_YELLOW,159.6771,-83.2866,1001.8120,8.0);
-    CreateDynamic3DTextLabel("/buyclothes\n To change your skin.",COLOR_YELLOW,206.4552,-163.0903,1000.5234,8.0);
-    CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_YELLOW,206.3253,-100.3268,1005.2578,8.0);
-    CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_YELLOW,201.0413,-40.1616,1001.8047,8.0);
-    CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_YELLOW,206.3963,-8.2122,1001.2109,8.0);
-    CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_YELLOW,162.7706,-83.2726,1001.8047,8.0);
-    CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_YELLOW,2787.095947, 2390.353027, 1240.531127+0.6,4.0); // Gold+ VIP Room
-    CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_YELLOW,202.6777,-163.0623,1000.5306,8.0);
-	CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_YELLOW,1774.7533, 1422.6665, 2013.4979,8.0);
-	CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_YELLOW,775.0900, 1742.4900, 1938.3800,8.0);
+	//CreateDynamic3DTextLabel("Type /getmats from a boat \nto obtain Materials Packages",COLOR_TWGREEN,2102.71,-103.97,2.28+0.5,8.0);// Deliver
+    CreateDynamic3DTextLabel("Type /getpizza from a Pizzaboy \nto get pizzas for delivery!",COLOR_TWGREEN,-1713.961425, 1348.545166, 7.180452, 4.0); //getpizza Pier 69
+    CreateDynamic3DTextLabel("Type /getpizza from a Pizzaboy \nto get pizzas for delivery!",COLOR_TWGREEN,2103.6714,-1785.5222,12.9849, 4.0); //getpizza Idlewood
+	//CreateDynamic3DTextLabel("Type /registerplate to\nchange your license plate.",COLOR_TWGREEN,366.54,159.09,1008.38+1,8.0);// Licenses.
+	CreateDynamic3DTextLabel("/train\n To change your fightstyle.",COLOR_TWGREEN,757.1866,5.6019,1000.7007,8.0); // Gym /train
+    CreateDynamic3DTextLabel("/buyclothes or Press N\n To change your skin.",COLOR_TWGREEN,208.8970,-100.3289,1005.2578,8.0);
+    CreateDynamic3DTextLabel("/buyclothes or Press N\n To change your skin.",COLOR_TWGREEN,206.5429,-41.2313,1001.8047,8.0);
+    CreateDynamic3DTextLabel("/buyclothes or Press N\n To change your skin.",COLOR_TWGREEN,209.3064,-8.3033,1005.2109,8.0);
+    CreateDynamic3DTextLabel("/buyclothes or Press N\n To change your skin.",COLOR_TWGREEN,159.6771,-83.2866,1001.8120,8.0);
+    CreateDynamic3DTextLabel("/buyclothes or Press N\n To change your skin.",COLOR_TWGREEN,206.4552,-163.0903,1000.5234,8.0);
+    CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_TWGREEN,206.3253,-100.3268,1005.2578,8.0);
+    CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_TWGREEN,201.0413,-40.1616,1001.8047,8.0);
+    CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_TWGREEN,206.3963,-8.2122,1001.2109,8.0);
+    CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_TWGREEN,162.7706,-83.2726,1001.8047,8.0);
+    CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_TWGREEN,2787.095947, 2390.353027, 1240.531127+0.6,4.0); // Gold+ VIP Room
+    CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_TWGREEN,202.6777,-163.0623,1000.5306,8.0);
+	CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_TWGREEN,1774.7533, 1422.6665, 2013.4979,8.0);
+	CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_TWGREEN,775.0900, 1742.4900, 1938.3800,8.0);
+	
+	CreateDynamic3DTextLabel("/buy\n To buy items.",COLOR_TWGREEN,-29.0583,-185.1300,1003.5469,10.0); // 24/7 Store
+	
+	CreateDynamic3DTextLabel("/buyfood\n To buy food.",COLOR_TWGREEN,377.5905,-67.5464,1001.5151,15.0); // Burger shot
+	CreateDynamic3DTextLabel("/buyfood\n To buy food.",COLOR_TWGREEN,375.3864,-119.3041,1001.4995,15.0); // Pizza
+	CreateDynamic3DTextLabel("/buyfood\n To buy food.",COLOR_TWGREEN,451.9016,-107.2225,999.5477,15.0); // Gant Bridge Diner
 
-    CreateDynamic3DTextLabel("Tank Spawn\nZone",COLOR_YELLOW,286.7334, 2024.3762, 17.6406,10.0);
-    CreateDynamic3DTextLabel("Air Vehicle Spawn\nZone", COLOR_YELLOW, 326.2754,1887.7212,17.6566, 10.0);
+    CreateDynamic3DTextLabel("Tank Spawn\nZone",COLOR_TWGREEN,286.7334, 2024.3762, 17.6406,10.0);
+    CreateDynamic3DTextLabel("Air Vehicle Spawn\nZone", COLOR_TWGREEN, 326.2754,1887.7212,17.6566, 10.0);
 
 	// Paintball Arena
 	CreateDynamic3DTextLabel("Paintball Rooms\n\nType /joinarena to choose rooms",COLOR_TWGREEN,1294.5062,-1445.0599,0.4403+0.5,6.0);

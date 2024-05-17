@@ -125,7 +125,7 @@ CMD:gotomapicon(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1 && PlayerInfo[playerid][pBM] < 2)
 	{
-		SendErrorMessage(playerid, "You are not authorized to use this CMD.");
+		SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command!");
 		return 1;
 	}
 
@@ -165,7 +165,7 @@ CMD:dmpnear(playerid, params[])
 	}
 	else
 	{
-	    SendErrorMessage(playerid, "You are not authorized to use this CMD.");
+	    SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command.");
 	}
 	return 1;
 }
@@ -188,7 +188,7 @@ CMD:dmpnext(playerid, params[])
 	}
 	else
 	{
-	    SendErrorMessage(playerid, "You are not authorized to use this CMD.");
+	    SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command.");
 		return 1;
 	}
 	return 1;
@@ -198,7 +198,7 @@ CMD:dmpedit(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1 && PlayerInfo[playerid][pBM] < 2)
 	{
-		SendErrorMessage(playerid, "You are not authorized to use this CMD.");
+		SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command.");
 		return 1;
 	}
 
@@ -212,7 +212,7 @@ CMD:dmpedit(playerid, params[])
 
 	if(mapiconid < 1 || mapiconid >= MAX_DMAPICONS)
 	{
-		SendErrorMessage(playerid, "Invalid Map Icon ID!");
+		SendClientMessageEx( playerid, COLOR_WHITE, "Invalid Map Icon ID!");
 	}
 
 	if(strcmp(choice, "position", true) == 0)
