@@ -54,7 +54,9 @@ hook OnGameModeInit() {
 	
 	CreateDynamic3DTextLabel("/buyfood\n To buy food.",COLOR_TWGREEN,377.5905,-67.5464,1001.5151,15.0); // Burger shot
 	CreateDynamic3DTextLabel("/buyfood\n To buy food.",COLOR_TWGREEN,375.3864,-119.3041,1001.4995,15.0); // Pizza
+	CreateDynamic3DTextLabel("/buyfood\n To buy food.",COLOR_TWGREEN,369.6987,-6.3779,1001.8589,15.0); // Cluckin Bell
 	CreateDynamic3DTextLabel("/buyfood\n To buy food.",COLOR_TWGREEN,451.9016,-107.2225,999.5477,15.0); // Gant Bridge Diner
+	CreateDynamic3DTextLabel("/buyfood\n To buy food.",COLOR_TWGREEN,451.9016,-107.2225,999.5477,15.0); // Unkown for now
 
     CreateDynamic3DTextLabel("Tank Spawn\nZone",COLOR_TWGREEN,286.7334, 2024.3762, 17.6406,10.0);
     CreateDynamic3DTextLabel("Air Vehicle Spawn\nZone", COLOR_TWGREEN, 326.2754,1887.7212,17.6566, 10.0);

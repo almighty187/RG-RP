@@ -17,7 +17,6 @@
 */
 
 #include <a_samp>
-#include <open.mp>
 #pragma disablerecursion
 #pragma warning disable 206
 #pragma warning disable 213
@@ -31,8 +30,6 @@
 #undef  MAX_PLAYERS
 #define MAX_PLAYERS (500)
 #include <RGRP> // This prevent for theft of the script
-
-
 
 #if defined SOCKET_ENABLED
 #include <socket>
@@ -104,8 +101,8 @@
 #include "./includes/n0fear/labeldraw.pwn"
 #include "./includes/n0fear/paperboy.pwn"
 #include "./includes/n0fear/streetsweeper.pwn"
-#include "./includes/n0fear/actors.pwn"
-#include "./includes/n0fear/walkstyle.pwn"
+#include "./includes/n0fear/newactors.pwn"
+#include "./includes/n0fear/newwalkstyle.pwn"
 #include "./includes/n0fear/newturfs.pwn"
 
 

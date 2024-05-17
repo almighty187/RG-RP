@@ -2,11 +2,10 @@ Changelog - May 13, 2024
 
 Gamemode Additions:
 Added new turf system
+Added some missing 3DText
 
 Gamemode Fixes:
 Fixed so talkanim doesnt overlap other anim
-Fixed prices in bizzes
 
 Gamemode Changes:
-Change the prices on stamps
 
