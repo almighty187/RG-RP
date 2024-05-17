@@ -7697,18 +7697,18 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		switch (listitem) {
 			case REGULAR_MAIL: {
 				SetPVarInt(playerid, "LetterTime", 240);
-				SetPVarInt(playerid, "LetterCost", 100);
+				SetPVarInt(playerid, "LetterCost", 20);
 			}
 			case PRIORITY_MAIL: {
 				SetPVarInt(playerid, "LetterTime", 120);
-				SetPVarInt(playerid, "LetterCost", 250);
+				SetPVarInt(playerid, "LetterCost", 50);
 			}
 			case PREMIUM_MAIL: {
 				if (PlayerInfo[playerid][pDonateRank] < 3) {
 					return SendClientMessageEx(playerid, COLOR_GREY, "You need to be at least Gold VIP for sending Premium Mail.");
 				}
 				else {
-					SetPVarInt(playerid, "LetterCost", 500);
+					SetPVarInt(playerid, "LetterCost", 100);
 					SetPVarInt(playerid, "LetterNotify", 1);
 				}
 			}
@@ -7720,7 +7720,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					return SendClientMessageEx(playerid, COLOR_GREY, " Only rank 4 or higher can do this.");
 				}
 				SetPVarInt(playerid, "LetterTime", 60);
-				SetPVarInt(playerid, "LetterCost", 500);
+				SetPVarInt(playerid, "LetterCost", 200);
 				SetPVarInt(playerid, "LetterNotify", 1);
 				SetPVarInt(playerid, "LetterGov", 1);
 			}

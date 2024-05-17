@@ -121,21 +121,13 @@ EntExit_GetID(playerid) {
 		}
 	}
 	for(new i; i < MAX_GARAGES; ++i) {
-	
-		if (IsPlayerInRangeOfPoint(playerid, 2.0, GarageInfo[i][gar_ExteriorX], GarageInfo[i][gar_ExteriorY], GarageInfo[i][gar_ExteriorZ]) &&
-			GarageInfo[i][gar_InteriorX] == 0.0, GarageInfo[i][gar_InteriorY] == 0.0, GarageInfo[i][gar_InteriorZ] == 0.0) {
-			return SendErrorMessage(playerid, "No interior set for this garage. Contact a Lead Admin.");
+		if(IsPlayerInRangeOfPoint(playerid, 2.0, GarageInfo[i][gar_ExteriorX], GarageInfo[i][gar_ExteriorY], GarageInfo[i][gar_ExteriorZ]) &&
+			PlayerInfo[playerid][pVW] == GarageInfo[i][gar_ExteriorVW]) {
+			return Garage_Enter(playerid, i);
 		}
-		else {
-
-			if(IsPlayerInRangeOfPoint(playerid, 2.0, GarageInfo[i][gar_ExteriorX], GarageInfo[i][gar_ExteriorY], GarageInfo[i][gar_ExteriorZ]) &&
-				PlayerInfo[playerid][pVW] == GarageInfo[i][gar_ExteriorVW]) {
-				return Garage_Enter(playerid, i);
-			}
-			if(IsPlayerInRangeOfPoint(playerid, 2.0, GarageInfo[i][gar_InteriorX], GarageInfo[i][gar_InteriorY], GarageInfo[i][gar_InteriorZ]) &&
-				PlayerInfo[playerid][pVW] == GarageInfo[i][gar_InteriorVW]) {
-				return Garage_Exit(playerid, i);
-			}
+		if(IsPlayerInRangeOfPoint(playerid, 2.0, GarageInfo[i][gar_InteriorX], GarageInfo[i][gar_InteriorY], GarageInfo[i][gar_InteriorZ]) &&
+			PlayerInfo[playerid][pVW] == GarageInfo[i][gar_InteriorVW]) {
+			return Garage_Exit(playerid, i);
 		}
 	}
 	for(new i; i < MAX_BUSINESSES; ++i) {
