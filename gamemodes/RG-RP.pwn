@@ -101,8 +101,8 @@
 #include "./includes/n0fear/labeldraw.pwn"
 #include "./includes/n0fear/paperboy.pwn"
 #include "./includes/n0fear/streetsweeper.pwn"
-#include "./includes/n0fear/newactors.pwn"
-#include "./includes/n0fear/newwalkstyle.pwn"
+#include "./includes/n0fear/actors.pwn"
+#include "./includes/n0fear/walkstyle.pwn"
 #include "./includes/n0fear/newturfs.pwn"
 
 

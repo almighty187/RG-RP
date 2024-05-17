@@ -90,17 +90,17 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			if(GetPVarType(playerid, "ATMWithdraw")) {
 				
 				if(iAmount < 1) {
-					SendClientMessageEx(playerid, COLOR_WHITE, "  Negative amounts cannot be transfered!");
+					SendErrorMessage(playerid, "Negative amounts cannot be transfered!");
 					return ShowATMMenu(playerid, 1);
 				}
 
 				if(iAmount > PlayerInfo[playerid][pAccount]) {
-					SendClientMessageEx(playerid, COLOR_WHITE, "  You are trying to withdraw more than you have!");
+					SendErrorMessage(playerid, "You are trying to withdraw more than you have!");
 					return ShowATMMenu(playerid, 1);
 				}
 
 				if(gettime()-GetPVarInt(playerid, "LastTransaction") < 10) {
-					SendClientMessageEx(playerid, COLOR_GRAD2, "You can only make a transaction once every 10 seconds, please wait!");
+					SendErrorMessage(playerid, "You can only make a transaction once every 10 seconds, please wait!");
 					return ShowATMMenu(playerid, 1);
 				}
 				SetPVarInt(playerid, "LastTransaction", gettime());
@@ -108,7 +108,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				if(!Bank_TransferCheck(-iAmount)) return 1;
 				GivePlayerCash(playerid, iAmount);
 				PlayerInfo[playerid][pAccount] -= iAmount; 
-				format(szMiscArray, sizeof(szMiscArray), "  You have withdrawn $%s from your account. ", number_format(iAmount));
+				format(szMiscArray, sizeof(szMiscArray), "You have withdrawn $%s from your account. ", number_format(iAmount));
 				SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
 
 				if(PlayerInfo[playerid][pDonateRank] == 0) {
@@ -116,7 +116,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					fee = 3*iAmount/100;
 					if(!Bank_TransferCheck(-fee)) return 1;
 					PlayerInfo[playerid][pAccount] -= fee;
-					format(szMiscArray, sizeof(szMiscArray), "  You have been charged a 3 percent withdraw fee: -$%d.", fee);
+					format(szMiscArray, sizeof(szMiscArray), "You have been charged a 3 percent withdraw fee: -$%d.", fee);
 					SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
 				}
 
@@ -129,17 +129,17 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			else if(GetPVarType(playerid, "ATMDeposit")) {
 
 				if(iAmount < 1) {
-					SendClientMessageEx(playerid, COLOR_WHITE, "  Negative amounts cannot be transfered!");
+					SendErrorMessage(playerid, "Negative amounts cannot be transfered!");
 					return ShowATMMenu(playerid, 2);
 				}
 
 				if(iAmount > GetPlayerCash(playerid)) {
-					SendClientMessageEx(playerid, COLOR_WHITE, "  You are trying to deposit more than you have!");
+					SendErrorMessage(playerid, " You are trying to deposit more than you have!");
 					return ShowATMMenu(playerid, 2);
 				}
 
 				if(gettime()-GetPVarInt(playerid, "LastTransaction") < 10) {
-					SendClientMessageEx(playerid, COLOR_GRAD2, "You can only make a transaction once every 10 seconds, please wait!");
+					SendErrorMessage(playerid, "You can only make a transaction once every 10 seconds, please wait!");
 					return ShowATMMenu(playerid, 2);
 				}
 				SetPVarInt(playerid, "LastTransaction", gettime());
@@ -147,7 +147,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				if(!Bank_TransferCheck(iAmount)) return 1;
 				GivePlayerCash(playerid, -iAmount);
 				PlayerInfo[playerid][pAccount] += iAmount; 
-				format(szMiscArray, sizeof(szMiscArray), "  You have deposited $%s to your account. ", number_format(iAmount));
+				format(szMiscArray, sizeof(szMiscArray), "You have deposited $%s to your account. ", number_format(iAmount));
 				SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
 
 				if(PlayerInfo[playerid][pDonateRank] == 0) {
@@ -155,7 +155,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					fee = 3*iAmount/100;
 					if(!Bank_TransferCheck(-fee)) return 1;
 					PlayerInfo[playerid][pAccount] -= fee;
-					format(szMiscArray, sizeof(szMiscArray), "  You have been charged a 3 percent deposit fee: -$%d.", fee);
+					format(szMiscArray, sizeof(szMiscArray), "You have been charged a 3 percent deposit fee: -$%d.", fee);
 					SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
 				}
 
@@ -176,7 +176,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			new id = strval(inputtext);
 			
 			if(!IsPlayerConnected(id) || !gPlayerLogged{id}) {
-				SendClientMessageEx(playerid, COLOR_WHITE, "  The player you are trying to transfer to is not connected!");
+				SendErrorMessage(playerid, "The player you are trying to transfer to is not connected!");
 				return ShowATMMenu(playerid, 3);
 			}
 
@@ -197,15 +197,15 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
 
 			if(restarting) {
-				SendClientMessageEx(playerid, COLOR_GRAD2, "Transactions are currently disabled due to the server being restarted for maintenance.");
+				SendErrorMessage(playerid, "Transactions are currently disabled due to the server being restarted for maintenance.");
 				return ShowATMMenu(playerid, 3);
 			}
 			if(PlayerInfo[playerid][pLevel] < 3) {
-				SendClientMessageEx(playerid, COLOR_GRAD1, "   You must be at least level 3 to use this feature!");
+				SendErrorMessage(playerid, "You must be at least level 3 to use this feature!");
 				return ShowATMMenu(playerid, 3);
 			}
 			if(gettime()-GetPVarInt(playerid, "LastTransaction") < 10) {
-				SendClientMessageEx(playerid, COLOR_GRAD2, "You can only make a transaction once every 10 seconds, please wait!");
+				SendErrorMessage(playerid, "You can only make a transaction once every 10 seconds, please wait!");
 				return ShowATMMenu(playerid, 3);
 			}
 
@@ -215,7 +215,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				new fee;
 				fee = 3*iAmount/100;
 				PlayerInfo[playerid][pAccount] -= fee;
-				format(szMiscArray, sizeof(szMiscArray), "  You have been charged a 3 percent transfer fee: -$%d.", fee);
+				format(szMiscArray, sizeof(szMiscArray), "You have been charged a 3 percent transfer fee: -$%d.", fee);
 				SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
 			}
 
@@ -223,10 +223,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			GivePlayerCashEx(playerid, TYPE_BANK, -iAmount);
 			GivePlayerCashEx(id, TYPE_BANK, iAmount);
 
-			format(szMiscArray, sizeof(szMiscArray), "   You have transferred $%s to %s's account.", number_format(iAmount), GetPlayerNameEx(id));
+			format(szMiscArray, sizeof(szMiscArray), "You have transferred $%s to %s's account.", number_format(iAmount), GetPlayerNameEx(id));
 			SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
 			
-			format(szMiscArray, sizeof(szMiscArray), "   $%s has been transferred to your bank account from %s.", number_format(iAmount), GetPlayerNameEx(playerid));
+			format(szMiscArray, sizeof(szMiscArray), "$%s has been transferred to your bank account from %s.", number_format(iAmount), GetPlayerNameEx(playerid));
 			SendClientMessageEx(id, COLOR_WHITE, szMiscArray);
 
 			PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
