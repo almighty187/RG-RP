@@ -12,7 +12,7 @@ CMD:settings(playerid, params[]) {
 
 ShowAccountSettings(playerid, menu = 0) {
 	
-	if(!gPlayerLogged{playerid}) return SendClientMessageEx(playerid, COLOR_WHITE, "You must be logged in to use this.");
+	if(!gPlayerLogged{playerid}) return SendErrorMessage(playerid, "You must be logged in to use this.");
 
 	szMiscArray[0] = 0;
 	new szTitle[32];

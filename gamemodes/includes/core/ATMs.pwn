@@ -109,7 +109,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				GivePlayerCash(playerid, iAmount);
 				PlayerInfo[playerid][pAccount] -= iAmount; 
 				format(szMiscArray, sizeof(szMiscArray), "You have withdrawn $%s from your account. ", number_format(iAmount));
-				SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
+				SendServerMessage(playerid, szMiscArray);
 
 				if(PlayerInfo[playerid][pDonateRank] == 0) {
 					new fee;
@@ -117,7 +117,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					if(!Bank_TransferCheck(-fee)) return 1;
 					PlayerInfo[playerid][pAccount] -= fee;
 					format(szMiscArray, sizeof(szMiscArray), "You have been charged a 3 percent withdraw fee: -$%d.", fee);
-					SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
+					SendServerMessage(playerid, szMiscArray);
 				}
 
 				OnPlayerStatsUpdate(playerid);
@@ -148,7 +148,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				GivePlayerCash(playerid, -iAmount);
 				PlayerInfo[playerid][pAccount] += iAmount; 
 				format(szMiscArray, sizeof(szMiscArray), "You have deposited $%s to your account. ", number_format(iAmount));
-				SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
+				SendServerMessage(playerid, szMiscArray);
 
 				if(PlayerInfo[playerid][pDonateRank] == 0) {
 					new fee;
@@ -156,7 +156,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					if(!Bank_TransferCheck(-fee)) return 1;
 					PlayerInfo[playerid][pAccount] -= fee;
 					format(szMiscArray, sizeof(szMiscArray), "You have been charged a 3 percent deposit fee: -$%d.", fee);
-					SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
+					SendServerMessage(playerid, szMiscArray);
 				}
 
 				OnPlayerStatsUpdate(playerid);
@@ -216,7 +216,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				fee = 3*iAmount/100;
 				PlayerInfo[playerid][pAccount] -= fee;
 				format(szMiscArray, sizeof(szMiscArray), "You have been charged a 3 percent transfer fee: -$%d.", fee);
-				SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
+				SendServerMessage(playerid, szMiscArray);
 			}
 
 			// Use these as they update the MySQL Directly with less function calls
@@ -224,10 +224,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			GivePlayerCashEx(id, TYPE_BANK, iAmount);
 
 			format(szMiscArray, sizeof(szMiscArray), "You have transferred $%s to %s's account.", number_format(iAmount), GetPlayerNameEx(id));
-			SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
+			SendServerMessage(playerid, szMiscArray);
 			
 			format(szMiscArray, sizeof(szMiscArray), "$%s has been transferred to your bank account from %s.", number_format(iAmount), GetPlayerNameEx(playerid));
-			SendClientMessageEx(id, COLOR_WHITE, szMiscArray);
+			SendServerMessage(playerid, szMiscArray);
 
 			PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
 			PlayerPlaySound(id, 1052, 0.0, 0.0, 0.0);

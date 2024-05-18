@@ -1316,7 +1316,21 @@ public UpdateCarRadars()
 	}
 }
 			
-			/*  ---------------- STOCK FUNCTIONS ----------------- */
+/*  ---------------- STOCK FUNCTIONS ----------------- */
+stock SendErrorMessage(playerid, const message[])
+{
+    new _msg[256];
+    format(_msg, sizeof(_msg), "[WARNING]:{FFFFFF} %s", message);
+    SendClientMessage(playerid, COLOR_LIGHTRED, _msg);
+    return 1;
+}
+stock SendServerMessage(playerid, const message[])
+{
+    new _msg[256];
+    format(_msg, sizeof(_msg), "[SERVER]:{FFFFFF} %s", message);
+    SendClientMessage(playerid, COLOR_CLIENT, _msg);
+    return 1;
+}
 stock PlaySoundInArea(soundid,Float:x,Float:y,Float:z,Float:radi)
 {
     foreach(new i : Player)

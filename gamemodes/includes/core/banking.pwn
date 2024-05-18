@@ -173,7 +173,7 @@ PayDay(i) {
 		if(GetPVarType(i, "debtMsg")) {
 			if(GetPlayerCash(i) < 0 && PlayerInfo[i][pJailTime] < 1 && !IsACop(i) && PlayerInfo[i][pWantedLevel] < 6) {
 				format(string,sizeof(string),"You're in debt $%s - find a way to pay back the money or you might get in trouble!", number_format(GetPlayerCash(i)));
-				SendClientMessageEx(i, COLOR_LIGHTRED, string);
+				SendServerMessage(i, string);
 			}
 			else DeletePVar(i, "debtMsg");
 		}
@@ -181,7 +181,7 @@ PayDay(i) {
 		if(0 <= PlayerInfo[i][pRenting] < sizeof HouseInfo) {
 			if(HouseInfo[PlayerInfo[i][pRenting]][hRentFee] > PlayerInfo[i][pAccount]) {
 				PlayerInfo[i][pRenting] = INVALID_HOUSE_ID;
-				SendClientMessageEx(i, COLOR_WHITE, "You have been evicted from your residence for failing to pay rent fees.");
+				SendServerMessage(i, "You have been evicted from your residence for failing to pay rent fees.");
 			}
 			else {
 				if(!Bank_TransferCheck(-HouseInfo[PlayerInfo[i][pRenting]][hRentFee])) return 1;
@@ -357,7 +357,7 @@ PayDay(i) {
    			if (PlayerInfo[i][pBusiness] != INVALID_BUSINESS_ID) {
 				if (Businesses[PlayerInfo[i][pBusiness]][bAutoPay] && PlayerInfo[i][pBusinessRank] >= 0 && PlayerInfo[i][pBusinessRank] < 5) {
 				    if (Businesses[PlayerInfo[i][pBusiness]][bSafeBalance] < Businesses[PlayerInfo[i][pBusiness]][bRankPay][PlayerInfo[i][pBusinessRank]]) {
-				    	SendClientMessageEx(i,COLOR_RED,"Business doesn't have enough cash for your pay.");
+				    	SendErrorMessage(i, "Business doesn't have enough cash for your pay.");
 				    }
 					else {
 						//GivePlayerCash(i, Businesses[PlayerInfo[i][pBusiness]][bRankPay][PlayerInfo[i][pBusinessRank]]);
@@ -375,7 +375,7 @@ PayDay(i) {
 			PlayerInfo[i][pConnectSeconds] = 0;
 			PlayerInfo[i][pPayCheck] = 0;
 			if(++PlayerInfo[i][pConnectHours] == 2) {
-				SendClientMessageEx(i, COLOR_LIGHTRED, "You may now possess/use weapons!");
+				SendServerMessage(i, "You may now possess/use weapons!");
 			}
 			if(PlayerInfo[i][pDonateRank] > 0 && ++PlayerInfo[i][pPayDayHad] >= 5) {
 				PlayerInfo[i][pExp]++;
@@ -417,7 +417,8 @@ PayDay(i) {
 			if(month == 5 && day == 25) //Memorial Day 2015
 			{
 				if(++PlayerInfo[i][pTrickortreat] == 3)
-					SendClientMessageEx(i, -1, "You have been given 1 Double EXP Token for playing 3 hours!"), PlayerInfo[i][pEXPToken]++, PlayerInfo[i][pTrickortreat] = 0;
+					//SendClientMessageEx(i, -1, "You have been given 1 Double EXP Token for playing 3 hours!"), PlayerInfo[i][pEXPToken]++, PlayerInfo[i][pTrickortreat] = 0;
+					SendServerMessage(i, "You have been given 1 Double EXP Token for playing 3 hours!"), PlayerInfo[i][pEXPToken]++, PlayerInfo[i][pTrickortreat] = 0;
 			}
 			//Weekday Madness for Fall Into Fun event; re-using Trickortreat variable to check connected time
 			/*if(month == 10 && (day == 9 || day == 16))
@@ -439,26 +440,26 @@ PayDay(i) {
 				PlayerInfo[i][pRewardHours]++;
 				if(floatround(PlayerInfo[i][pRewardHours]) % 16 == 0) {
 					PlayerInfo[i][pGoldBoxTokens]++;
-					SendClientMessage(i, COLOR_LIGHTBLUE, "You have received 1 Gold Giftbox token!  #FallIntoFun");
+					SendServerMessage(i, "You have received 1 Gold Giftbox token!  #FallIntoFun");
 				}
 				format(string, sizeof(string), "You currently have %d Reward Hours, please check /rewards for more information.", floatround(PlayerInfo[i][pRewardHours]));
-				SendClientMessageEx(i, COLOR_YELLOW, string);
+				SendServerMessage(i, string);
 			}
 
 			if(PlayerInfo[i][pDoubleEXP] > 0) {
 				PlayerInfo[i][pDoubleEXP]--;
 				format(string, sizeof(string), "You have gained 2 respect points instead of 1. You have %d hours left on the Double EXP token.", PlayerInfo[i][pDoubleEXP]);
-				SendClientMessageEx(i, COLOR_YELLOW, string);
+				SendServerMessage(i, string);
 				PlayerInfo[i][pExp] += 2;
 			}
 			else PlayerInfo[i][pExp]++;
 
 			if(GetPVarInt(i, "pBirthday") == 1) {
-				SendClientMessageEx(i, COLOR_YELLOW, "Gold VIP: You have received x2 paycheck as a birthday gift!");
+				SendServerMessage(i, "Gold VIP: You have received x2 paycheck as a birthday gift!");
 			}
 			
 			if(PlayerInfo[i][pWRestricted] > 0 && --PlayerInfo[i][pWRestricted] == 0) {
-				SendClientMessageEx(i, COLOR_LIGHTRED, "Your weapons are no longer restricted!");
+				SendServerMessage(i, "Your weapons are no longer restricted!");
 			}
 			
 			if(PlayerInfo[i][pShopNotice] > 0) PlayerInfo[i][pShopNotice]--;
@@ -557,17 +558,17 @@ PayDay(i) {
 			}
 			if(month == 4 && (day == 25 || day == 26)) // NGG B-Day 2015
 			{
-				SendClientMessageEx(i, -1, "You have earned 3 event tokens for playing 1 hour! Use /inv to view your total token amount.");
+				SendServerMessage(i, "You have earned 3 event tokens for playing 1 hour! Use /inv to view your total token amount.");
 				PlayerInfo[i][pEventTokens] += 3;
 			}
 			CallLocalFunction("InactivityCounter", "i", i);
 		}
-		else SendClientMessageEx(i, COLOR_LIGHTRED, "* You haven't played long enough to obtain a paycheck.");
+		else SendErrorMessage(i, "You haven't played long enough to obtain a paycheck.");
 	}
 
 	if (GetPVarType(i, "UnreadMails") && HasMailbox(i))
 	{
-		SendClientMessageEx(i, COLOR_YELLOW, "You have unread items in your mailbox");
+		SendServerMessage(i, "You have unread items in your mailbox");
 	}
 	return 1;
 }
@@ -620,8 +621,8 @@ public GiveHtoy(giveplayerid, toyid, name[]) {
 				
 				g_mysql_NewToy(giveplayerid, i); 
 				
-				SendClientMessageEx(giveplayerid, COLOR_GRAD1, "Due to you not having any available slots, we've temporarily gave you an additional slot to use/sell/trade your %s.", name);
-				SendClientMessageEx(giveplayerid, COLOR_RED, "Note: Please take note that after selling the %s, the temporarily additional toy slot will be removed.", name);
+				SendServerMessage(giveplayerid, "Due to you not having any available slots, we've temporarily gave you an additional slot to use/sell/trade your %s.", name);
+				SendServerMessage(giveplayerid, "Note: Please take note that after selling the %s, the temporarily additional toy slot will be removed.", name);
 				break;
 			}	
 		}

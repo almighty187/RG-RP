@@ -1,30 +1,3 @@
-/*
-
-
-		  _____     _____       _____    _____
-		 |  __ \   / ____|  _  |  __ \  |  __ \
-		 | |__) | | |  __  (_) | |__) | | |__) |
-		 |  _  /  | | |_ |     |  _  /  |  ___/
-		 | | \ \  | |__| |  _  | | \ \  | |
-		 |_|  \_\  \_____| (_) |_|  \_\ |_|
-
-
-
-//--------------------------------[advertisements.PWN]--------------------------
-
-					Advertisements System
-
-				Rebound Gaming
-	(created by Rebound Gaming Development Team)
-					
-	* Copyright (c) 2024, Rebound Gaming
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-*/
-
 #include <YSI\y_hooks>
 
 stock ShowAdMuteFine(playerid)
@@ -64,7 +37,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 	if(arrAntiCheat[playerid][ac_iFlags][AC_DIALOGSPOOFING] > 0) return 1;
 	if(strfind(inputtext, "%", true) != -1)
 	{
-		SendClientMessage(playerid, COLOR_GREY, "Invalid Character, please try again.");
+		SendErrorMessage(playerid, "Invalid Character, please try again.");
 		return 1;
 	}
 	switch(dialogid)
@@ -105,27 +78,27 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			case 1: ShowPlayerDialogEx(playerid, DIALOG_ADSEARCH, DIALOG_STYLE_INPUT, "Advertisements - Search", "Enter a search phrase.", "Search", "Return");
 			case 2: {
 				if(PlayerInfo[playerid][pADMute] == 1) {
-					SendClientMessageEx(playerid, COLOR_GREY, "You are muted from advertisements.");
+					SendErrorMessage(playerid, "You are muted from advertisements.");
 				}
 				else if(PlayerInfo[playerid][pPnumber] == 0) {
-					SendClientMessageEx(playerid, COLOR_GRAD2, "You don't have a cell phone.");
+					SendErrorMessage(playerid, "You don't have a cellphone.");
 				}
 				else ShowPlayerDialogEx(playerid, DIALOG_ADCATEGORYPLACE, DIALOG_STYLE_LIST, "Select a category", "Real Estate\nAutomobile\nBuying\nSelling\nMiscellaneous", "Select", "Cancel");
 			}
 			case 3: {
 				if(PlayerInfo[playerid][pADMute] == 1) {
-					SendClientMessageEx(playerid, COLOR_GREY, "You are muted from advertisements.");
+					SendErrorMessage(playerid, "You are muted from advertisements.");
 				}
 				else if(PlayerInfo[playerid][pPnumber] == 0) {
-					SendClientMessageEx(playerid, COLOR_GRAD2, "You don't have a cell phone.");
+					SendErrorMessage(playerid, "You don't have a cell phone.");
 				}
 				else if(gettime() < GetPVarInt(playerid, "adT")) {
 					ShowMainAdvertMenu(playerid);
-					return SendClientMessageEx(playerid, COLOR_GREY, "You may only place one priority advertisement every two minutes.");
+					return SendErrorMessage(playerid, "You may only place one priority advertisement every two minutes.");
 				}	
 				else if(gettime() < iAdverTimer) {
 					ShowMainAdvertMenu(playerid);
-					return SendClientMessageEx(playerid, COLOR_GREY, "Only one priority advertisement can be placed every 30 seconds.");
+					return SendErrorMessage(playerid, "Only one priority advertisement can be placed every 30 seconds.");
 				}
 				else
 				{
@@ -206,13 +179,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
 				if(!(2 <= iLength <= 127)) {
 					ShowMainAdvertMenu(playerid);
-					return SendClientMessageEx(playerid, COLOR_GREY, "Your input was too long or too short.");
+					return SendErrorMessage(playerid, "Your input was too long or too short.");
 				}
 
 				iLength *= 50;
 				if(GetPlayerCash(playerid) < iLength) {
 					ShowMainAdvertMenu(playerid);
-					return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough cash for this.");
+					return SendErrorMessage(playerid, "You don't have enough cash for this.");
 				}
 				/*if(Homes[playerid] > 0 && AdvertType[playerid] == 1 && !PlayerInfo[playerid][pShopNotice])
 				{
@@ -223,22 +196,22 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				strcpy(szAdvert[playerid], inputtext, 128);
 				StripColorEmbedding(szAdvert[playerid]);
 				GivePlayerCash(playerid, -iLength);
-				SendClientMessageEx(playerid, COLOR_WHITE, "Congratulations, you have placed your advertisement!");
+				SendServerMessage(playerid, "Congratulations, you have placed your advertisement!");
 			}
 			else ShowMainAdvertMenu(playerid);
 		}
 		case DIALOG_ADPLACEP: {
 			if(response) {
-				if(GetPVarInt(playerid, "RequestingAdP") == 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "You already have a priority advertisement pending.");
+				if(GetPVarInt(playerid, "RequestingAdP") == 1) return SendErrorMessage(playerid, "You already have a priority advertisement pending.");
 			
 				if(gettime() < iAdverTimer) {
-					SendClientMessageEx(playerid, COLOR_GREY, "Only one priority advertisement can be placed every 30 seconds.");
+					SendErrorMessage(playerid, "Only one priority advertisement can be placed every 30 seconds.");
 					return ShowPlayerDialogEx(playerid, DIALOG_ADPLACEP, DIALOG_STYLE_INPUT, "Advertisements - Priority Advertisement",
 					"Enter your desired advertisement text! Keep it below 128 characters.\nAs this is a priority advertisement, it will be broadcasted, and will cost you $150,000.", "Submit", "Return");
 				}
 				if(!(2 <= strlen(inputtext) <= 79)) {
 					ShowMainAdvertMenu(playerid);
-					return SendClientMessageEx(playerid, COLOR_GREY, "Your input was too long or too short.");
+					return SendErrorMessage(playerid, "Your input was too long or too short.");
 				}				
 				if(GetPVarInt(playerid, "AdvertVoucher") > 0)
 				{
@@ -248,19 +221,19 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				}
 				else if(PlayerInfo[playerid][pDonateRank] == 2 && GetPlayerCash(playerid) < 125000) {
 					ShowMainAdvertMenu(playerid);
-					return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough cash for this.");
+					return SendErrorMessage(playerid, "You don't have enough cash for this.");
 				}
 				else if(PlayerInfo[playerid][pDonateRank] == 3 && GetPlayerCash(playerid) < 100000) {
 					ShowMainAdvertMenu(playerid);
-					return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough cash for this.");
+					return SendErrorMessage(playerid, "You don't have enough cash for this.");
 				}
 				else if(PlayerInfo[playerid][pDonateRank] >= 4 && GetPlayerCash(playerid) < 50000) {
 					ShowMainAdvertMenu(playerid);
-					return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough cash for this.");
+					return SendErrorMessage(playerid, "You don't have enough cash for this.");
 				}
 				else if(PlayerInfo[playerid][pDonateRank] <= 1 && GetPlayerCash(playerid) < 150000) {
 					ShowMainAdvertMenu(playerid);
-					return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough cash for this.");
+					return SendErrorMessage(playerid, "You don't have enough cash for this.");
 				}
 				SetPVarInt(playerid, "adT", gettime()+120);
 				strcpy(szAdvert[playerid], inputtext, 128);
@@ -272,7 +245,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				GetPlayerName(playerid, playername, sizeof(playername));
 				SendReportToQue(playerid, "Priority Advertisement", 2, 4);	
 					
-				return SendClientMessageEx(playerid, COLOR_WHITE, "You have placed a priority advertisement, please wait until an admin approves/denies your advertisement.");
+				return SendServerMessage(playerid, "You have placed a priority advertisement, please wait until an admin approves/denies your advertisement.");
 			}
 			else ShowMainAdvertMenu(playerid);
 		}
@@ -321,7 +294,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				format(szDialog, sizeof(szDialog), "%s\r\nContact: %i", szAdvert[i], PlayerInfo[i][pPnumber]);
 				ShowPlayerDialogEx(playerid, DIALOG_ADFINAL, DIALOG_STYLE_MSGBOX, "Advertisements - Search Result", szDialog, "Call", "Exit");
 			}
-			else SendClientMessage(playerid, COLOR_GREY, "This person has either disconnected or withdrawn their advertisement.");
+			else SendServerMessage(playerid, "This person has either disconnected or withdrawn their advertisement.");
 		}
 		case DIALOG_ADFINAL: {
 			if(response) {
@@ -343,7 +316,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					format(szDialog, sizeof(szDialog), "%s\r\nContact: %i", szAdvert[i], PlayerInfo[i][pPnumber]);
 					return ShowPlayerDialogEx(playerid, DIALOG_ADFINAL, DIALOG_STYLE_MSGBOX, "Advertisements - Search Result", szDialog, "Call", "Exit");
 				}
-				else SendClientMessage(playerid, COLOR_GREY, "This person has either disconnected or withdrawn their advertisement.");
+				else SendServerMessage(playerid, "This person has either disconnected or withdrawn their advertisement.");
 			}
 			else ShowMainAdvertMenu(playerid);
 		}
@@ -369,16 +342,16 @@ CMD:ads(playerid, params[]) {
 
 CMD:advertisements(playerid, params[]) {
 	if(gPlayerLogged{playerid} == 0) {
-		SendClientMessageEx(playerid, COLOR_GREY, "You're not logged in.");
+		SendErrorMessage(playerid, "You're not logged in.");
 	}
 	else if(GetPVarType(playerid, "Injured")) {
-		SendClientMessageEx(playerid, COLOR_GREY, "You can't use advertisements while injured.");
+		SendErrorMessage(playerid, "You can't use advertisements while injured.");
 	}
 	else if(PlayerCuffed[playerid] != 0) {
-		SendClientMessageEx(playerid, COLOR_GREY, "You can't use advertisements right now.");
+		SendErrorMessage(playerid, "You can't use advertisements right now.");
 	}
 	else if(PlayerInfo[playerid][pJailTime] > 0) {
-		SendClientMessageEx(playerid, COLOR_GREY, "You can't use advertisements while in jail.");
+		SendErrorMessage(playerid, "You can't use advertisements while in jail.");
 	}
 	else ShowMainAdvertMenu(playerid);
 	return 1;
@@ -397,8 +370,8 @@ CMD:adunmute(playerid, params[])
 			{
 				if(PlayerInfo[giveplayerid][pJailTime] != 0)
 				{
-					SendClientMessageEx(playerid, COLOR_LIGHTRED, "You cannot offer someone in jail/prison an unmute!");
-					SendClientMessageEx(giveplayerid, COLOR_LIGHTRED, "Sorry, you cannot be unmuted from /ad while you are in jail/prison.");
+					SendErrorMessage(playerid, "You cannot offer someone in jail/prison an unmute!");
+					SendErrorMessage(giveplayerid, "Sorry, you cannot be unmuted from /ad while you are in jail/prison.");
 					return 1;
 				}
 				format(string, sizeof(string), "AdmCmd: %s(%d) was unmuted from /ad by %s.", GetPlayerNameEx(giveplayerid), GetPlayerSQLId(giveplayerid), GetPlayerNameEx(playerid));
@@ -410,7 +383,7 @@ CMD:adunmute(playerid, params[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid, COLOR_LIGHTRED,"That person is not muted from /newb!");
+				SendErrorMessage(playerid, "That person is not muted from /newb!");
 			}
 
 		}
@@ -427,7 +400,7 @@ CMD:admute(playerid, params[])
 
 		if(IsPlayerConnected(giveplayerid))
 		{
-				if(PlayerInfo[giveplayerid][pAdmin] >= 2) return SendClientMessageEx(playerid, COLOR_LIGHTRED, "You can't /admute admins");
+				if(PlayerInfo[giveplayerid][pAdmin] >= 2) return SendErrorMessage(playerid, "You can't /admute admins");
 				if(PlayerInfo[giveplayerid][pADMute] == 0)
 				{
 				    SetPVarInt(giveplayerid, "UnmuteTime", gettime());
@@ -448,7 +421,7 @@ CMD:admute(playerid, params[])
 					{
 						format(string, sizeof(string), "AdmCmd: %s was muted from placing /ad's by Admin.", GetPlayerNameEx(giveplayerid));
 						SendDutyAdvisorMessage(TEAM_AZTECAS_COLOR, string);
-						SendClientMessageEx(giveplayerid, COLOR_LIGHTRED, "You were just muted from Advertisements [/ads] by an Admin.");
+						SendErrorMessage(playerid, "You were just muted from Advertisements [/ads] by an Admin.");
 					}
 					else
 					{
@@ -458,8 +431,8 @@ CMD:admute(playerid, params[])
 						SendClientMessageEx(giveplayerid, COLOR_LIGHTRED, string);
 					}
 
-					SendClientMessageEx(giveplayerid, COLOR_LIGHTRED, "Remember, advertisements may only be used for IC purposes and may not be used for any other purpose, unless stated otherwise by an admin.");
-					SendClientMessageEx(giveplayerid, COLOR_LIGHTRED, "If you wish to be unmuted, you will be fined or jailed. Future abuse could result in increased punishment. If you feel this was in error, contact a senior administrator.");
+					SendErrorMessage(giveplayerid, "Remember, advertisements may only be used for IC purposes and may not be used for any other purpose, unless stated otherwise by an admin.");
+					SendErrorMessage(giveplayerid, "If you wish to be unmuted, you will be fined or jailed. Future abuse could result in increased punishment. If you feel this was in error, contact a senior administrator.");
 
 					format(string, sizeof(string), "AdmCmd: %s was just muted from using Advertisements [/ads] due to misuse.", GetPlayerNameEx(giveplayerid));
 					SendClientMessageToAllEx(COLOR_LIGHTRED, string);
@@ -474,7 +447,7 @@ CMD:admute(playerid, params[])
 					}
 					else
 					{
-						SendClientMessageEx(playerid, COLOR_GRAD1, "That person is currently muted. You are unable to unmute players from advertisements as a Advisor.");
+						SendErrorMessage(playerid, "That person is currently muted. You are unable to unmute players from advertisements as a Advisor.");
 					}
 				}
 
@@ -482,33 +455,33 @@ CMD:admute(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+		SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	}
 	return 1;
 }
 
 CMD:freeads(playerid, params[])
 {
-	if(PlayerInfo[playerid][pDonateRank] < 4) return SendClientMessageEx(playerid, COLOR_GREY, "You are not a Platinum VIP+");
+	if(PlayerInfo[playerid][pDonateRank] < 4) return SendErrorMessage(playerid, "You are not a Platinum VIP+");
 	new string[128], days;
 	ConvertTime(gettime() - PlayerInfo[playerid][pFreeAdsDay], .ctd=days);
 	if(days >= 1)
 	{
 		PlayerInfo[playerid][pFreeAdsDay] = gettime();
 		PlayerInfo[playerid][pFreeAdsLeft] = 3;
-		SendClientMessageEx(playerid, COLOR_YELLOW, "* You still have 3 free ads left for today.");
+		SendServerMessage(playerid, "You still have 3 free ads left for today.");
 	}	
 	else if(PlayerInfo[playerid][pFreeAdsLeft] > 0)
 	{
-		format(string, sizeof(string), "* You still have %d free ads left for today.", PlayerInfo[playerid][pFreeAdsLeft]);
-		SendClientMessageEx(playerid, COLOR_YELLOW, string);
+		format(string, sizeof(string), "You still have %d free ads left for today.", PlayerInfo[playerid][pFreeAdsLeft]);
+		SendServerMessage(playerid, string);
 	}
 	else
 	{
 		new datestring[32];
 		datestring = date(PlayerInfo[playerid][pFreeAdsDay]+86400, 3);
-		format(string, sizeof(string), "* You have used all your free ads, you will need to wait until %s.", datestring);
-		SendClientMessageEx(playerid, COLOR_YELLOW, string);
+		format(string, sizeof(string), "You have used all your free ads, you will need to wait until %s.", datestring);
+		SendServerMessage(playerid, string);
 	}
 	return 1;
 }

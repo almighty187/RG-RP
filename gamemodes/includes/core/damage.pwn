@@ -402,7 +402,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 				//if(ActiveKey(KEY_HANDBRAKE) && (!IsNotAGun(GetPlayerWeapon(damagedid)))) return SendClientMessageEx(playerid, COLOR_WHITE, "You cannot taze players that are actively aiming.");
 				//if(ActiveKey(KEY_FIRE) && (!IsNotAGun(GetPlayerWeapon(damagedid)))) return SendClientMessageEx(playerid, COLOR_WHITE, "You cannot taze players that are actively shooting.");
 				#if defined zombiemode
-				if(GetPVarInt(damagedid, "pIsZombie")) return SendClientMessageEx(playerid, COLOR_GRAD2, "Zombies can not be tazed!");
+				if(GetPVarInt(damagedid, "pIsZombie")) return SendErrorMessage(playerid, "Zombies can not be tazed!");
 				#endif
 				new Float:X, Float:Y, Float:Z;
 				GetPlayerPos(playerid, X, Y, Z);
@@ -416,7 +416,8 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 				PlayerPlaySound(playerid, 1085, X, Y, Z);
 				PlayerCuffed[damagedid] = 1;
 				SetPVarInt(damagedid, "PlayerCuffed", 1);
-				PlayerCuffedTime[damagedid] = 16;
+				//PlayerCuffedTime[damagedid] = 16;
+				PlayerCuffedTime[damagedid] = 10;
 				SetPVarInt(damagedid, "IsFrozen", 1);
 				TazerTimeout[playerid] = 12;
 				SetTimerEx("TazerTimer",1000,false,"d",playerid);

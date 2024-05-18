@@ -1,12 +1,12 @@
 /*  ---------------- Message System ----------------- */
-#define SendServerMessage(%0,%1) \
-	SendClientMessage(%0, COLOR_CLIENT, "[SERVER]:{FFFFFF} "%1)
-
+/*#define SendServerMessage(%0,%1) \
+	SendClientMessage(%0, COLOR_CLIENT, "[SERVER]:{FFFFFF} "%1)*/
+	
 #define SendSyntaxMessage(%0,%1) \
 	SendClientMessage(%0, COLOR_GREY, "[SYNTAX]:{FFFFFF} "%1)
 
-#define SendErrorMessage(%0,%1) \
-	SendClientMessage(%0, COLOR_LIGHTRED, "[WARNING]:{FFFFFF} "%1)
+/*#define SendErrorMessage(%0,%1) \
+	SendClientMessage(%0, COLOR_LIGHTRED, "[WARNING]:{FFFFFF} "%1)*/
 
 #define SendAdminAction(%0,%1) \
 	SendClientMessage(%0, COLOR_LIGHTRED, "[AdmCmd]:{FF6347} "%1)
