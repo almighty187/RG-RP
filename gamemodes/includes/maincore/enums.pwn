@@ -2219,6 +2219,7 @@ new const g_arrLocationData[][e_LocationData] = {
 	{"Los Santos", 1529.8101,-1678.0442,13.3828},
     {"San Fierro", -2014.9294,158.6378,27.6875},
     {"Las Venturas", 2034.3625,1007.9491,10.8203},
+	{"All Saints", 1192.78, -1292.68, 13.38},
     {"Red County, Dillimore", 648.6864,-573.1471,16.2432},
     {"Los Santos Modshop", 1040.0186,-1032.6984,31.9714},
     {"San Fierro Modshop", -2709.8462,218.4532,4.1797},
