@@ -4,7 +4,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		if(dialogid != DIALOG_FS_ELEVATOR1 && dialogid != DIALOG_FS_ELEVATOR2) { // For dialogs called from filterscripts.
 			if(PlayerInfo[playerid][pAdmin] == 1338 || dialogid == 32700) return 1;
 	    	SendClientMessageEx(playerid, COLOR_LIGHTRED, "[SYSTEM] Please delete your dialog CLEO.");
-	    	SetTimerEx("KickEx", 1000, 0, "i", playerid);
+	    	//SetTimerEx("KickEx", 1000, 0, "i", playerid);
 	    }
 	}
     iLastDialogID[playerid] = -1;
