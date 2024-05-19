@@ -1,6 +1,20 @@
 #include <YSI\y_hooks>
 
 hook OnPlayerConnect(playerid) {
+    //=============National Guard HQ / Ocean Docks Crate Facility=============//
+   	RemoveBuildingForPlayer(playerid, 3744, 2771.0703, -2372.4453, 15.2188, 0.25);
+    RemoveBuildingForPlayer(playerid, 3744, 2789.2109, -2377.6250, 15.2188, 0.25);
+    RemoveBuildingForPlayer(playerid, 3744, 2774.7969, -2386.8516, 15.2188, 0.25);
+    RemoveBuildingForPlayer(playerid, 3744, 2771.0703, -2520.5469, 15.2188, 0.25);
+    RemoveBuildingForPlayer(playerid, 3744, 2774.7969, -2534.9531, 15.2188, 0.25);
+    RemoveBuildingForPlayer(playerid, 3758, 2748.0156, -2571.5938, 3.0391, 0.25);
+    RemoveBuildingForPlayer(playerid, 1278, 2674.5234, -2557.4922, 26.7031, 0.25);
+    RemoveBuildingForPlayer(playerid, 3753, 2748.0156, -2571.5938, 3.0391, 0.25);
+    RemoveBuildingForPlayer(playerid, 3574, 2774.7969, -2534.9531, 15.2188, 0.25);
+    RemoveBuildingForPlayer(playerid, 3574, 2771.0703, -2520.5469, 15.2188, 0.25);
+    RemoveBuildingForPlayer(playerid, 3574, 2774.7969, -2386.8516, 15.2188, 0.25);
+    RemoveBuildingForPlayer(playerid, 3574, 2771.0703, -2372.4453, 15.2188, 0.25);
+    RemoveBuildingForPlayer(playerid, 3574, 2789.2109, -2377.6250, 15.2188, 0.25);
 	//====================================Fire Station========================//
 	RemoveBuildingForPlayer(playerid, 5928, 1309.9141, -1330.1328, 25.1875, 0.25);
 	RemoveBuildingForPlayer(playerid, 5933, 1281.4375, -1337.9531, 12.3750, 0.25);
