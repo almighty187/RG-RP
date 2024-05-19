@@ -1,164 +1,9 @@
 #include <YSI\y_hooks>
 
-new tsstring1[2500];
-new tsstring2[2500];
-#define  DIALOG_TURFLIST	(9751)
-#define  DIALOG_TURFLIST2   (9750)
-			/*	foreach(new x: Player)
-				{
-
-						if( IsPlayerInDynamicArea(x, TurfWars[i][twAreaId]) ) {
-							SetPlayerToTeamColor(playerid);
-							SetPlayerToTeamColor(x);
-						}
-				}*/
-			
-/*hook OnPlayerStateChange(playerid, newstate, oldstate) {
-	new tw = GetPlayerTurfWarsZone(playerid);
-	if((newstate == PLAYER_STATE_DRIVER || newstate == PLAYER_STATE_PASSENGER) && tw != -1 && IsPlayerInDynamicArea(playerid, TurfWars[tw][twAreaId]) && TurfWars[tw][twFlash] == 1 ) {
-
-			foreach(new x: Player)
-				{
-					if(PlayerInfo[playerid][pMember] != INVALID_GROUP_ID && PlayerInfo[x][pMember] != INVALID_GROUP_ID) {
-						if( IsPlayerInDynamicArea(x, TurfWars[tw][twAreaId]) ) {
-							SetPlayerMarkerForPlayer( playerid, x, (arrGroupData[PlayerInfo[x][pMember]][g_hDutyColour] * 256 + 255));
-							SetPlayerMarkerForPlayer( x, playerid, GetPlayerColor(playerid));
-						}
-					}
-				}
-			//SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "You left an active turf %d! (ENTER CAR)", tw);
-
-	}
-	if((oldstate == PLAYER_STATE_DRIVER || oldstate == PLAYER_STATE_PASSENGER) && newstate == PLAYER_STATE_ONFOOT && tw != -1  && IsPlayerInDynamicArea(playerid, TurfWars[tw][twAreaId]) && TurfWars[tw][twFlash] == 1) {
-
-			foreach(new x: Player)
-				{
-					if(PlayerInfo[playerid][pMember] != INVALID_GROUP_ID && PlayerInfo[x][pMember] != INVALID_GROUP_ID) {
-						if( IsPlayerInDynamicArea(x, TurfWars[tw][twAreaId]) ) {
-							SetPlayerMarkerForPlayer( playerid, x, (arrGroupData[PlayerInfo[x][pMember]][g_hDutyColour] * 256 + 255));
-							SetPlayerMarkerForPlayer( x, playerid, (arrGroupData[PlayerInfo[playerid][pMember]][g_hDutyColour] * 256 + 255));
-						}
-					}
-				}
-			//SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "You entered an active turf %d! (EXIT CAR)", tw);
-	}
-	
-}
-
-hook OnPlayerEnterDynamicArea(playerid, areaid) {
-	for(new i; i < MAX_TURFS; ++i) {
-		if(areaid == TurfWars[i][twAreaId] && TurfWars[i][twFlash] == 1 && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)		
-		{
-			foreach(new x: Player)
-				{
-					if(PlayerInfo[playerid][pMember] != INVALID_GROUP_ID && PlayerInfo[x][pMember] != INVALID_GROUP_ID) {
-						if( IsPlayerInDynamicArea(x, TurfWars[i][twAreaId]) ) {
-							SetPlayerMarkerForPlayer( playerid, x, (arrGroupData[PlayerInfo[x][pMember]][g_hDutyColour] * 256 + 255));
-							SetPlayerMarkerForPlayer( x, playerid, (arrGroupData[PlayerInfo[playerid][pMember]][g_hDutyColour] * 256 + 255));
-						}
-					}
-				}
-			
-			
-			//SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "You entered an active turf %d! (ON FOOT)", i);
-		}
-		else if(areaid == TurfWars[i][twAreaId] && TurfWars[i][twFlash] == 1 && (GetPlayerState(playerid) == PLAYER_STATE_DRIVER || GetPlayerState(playerid) == PLAYER_STATE_PASSENGER ))		
-		{
-			foreach(new x: Player)
-				{
-					if(PlayerInfo[playerid][pMember] != INVALID_GROUP_ID && PlayerInfo[x][pMember] != INVALID_GROUP_ID) {
-						if( IsPlayerInDynamicArea(x, TurfWars[i][twAreaId]) ) {
-							SetPlayerMarkerForPlayer( playerid, x, (arrGroupData[PlayerInfo[x][pMember]][g_hDutyColour] * 256 + 255));
-							SetPlayerMarkerForPlayer( x, playerid, GetPlayerColor(playerid));
-						}
-					}
-				}
-			
-			
-			//SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "You entered an active turf %d! (ON CAR)", i);
-		}
-	}
-	return 1;
-}
-
-hook OnPlayerLeaveDynamicArea(playerid, areaid) {
-	for(new i; i < MAX_TURFS; ++i) {
-		if(areaid == TurfWars[i][twAreaId] && TurfWars[i][twFlash] == 1)		
-		{
-			foreach(new x: Player)
-				{
-					if(PlayerInfo[playerid][pMember] != INVALID_GROUP_ID && PlayerInfo[x][pMember] != INVALID_GROUP_ID) {
-						if( IsPlayerInDynamicArea(x, TurfWars[i][twAreaId]) ) {
-							SetPlayerMarkerForPlayer( playerid, x, GetPlayerColor(x));
-							SetPlayerMarkerForPlayer( x, playerid, GetPlayerColor(playerid));
-						}
-					}
-				}
-			//SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "You left an active turf %d!", i);
-		}
-	}
-}*/
-
-getTurftype(tid)
-{
-	new ret[32], id = TurfWars[tid][twSpecial];
-	switch(id)
-	{
-		case 0: { ret = "None"; }
-		case 1: { ret = "Extortion"; } 
-		case 2: { ret = "Drugs"; }
-		case 3: { ret = "Materials"; }
-		case 4: { ret = "Weapons"; }
-	}
-	return ret;
-}
-CMD:turfs(playerid, params[])
-{
-	new turfid, name[32], color[32], timeleft[32];
-	//SendClientMessageEx(playerid, COLOR_GREEN, "Use /showturfs to enable turf minimap radar.");
-	tsstring1 = "{FFFFFF}";
-	tsstring2 = "{FFFFFF}";
-	for(turfid = 0; turfid < MAX_TURFS; turfid++)
-	{
-	    if(TurfWars[turfid][twLocked] < 1 && TurfWars[turfid][twMinX])
-	    {
-			if(TurfWars[turfid][twOwnerId] >= 0)
-			{
-    			strcpy(name, arrGroupData[TurfWars[turfid][twOwnerId]][g_szGroupName]);
-				color = Group_NumToDialogHex(arrGroupData[TurfWars[turfid][twOwnerId]][g_hDutyColour]);
-			}
-			else if(TurfWars[turfid][twOwnerId] == -2)
-			{
-				name = "Law Enforcement";
-				color = "FFFFFF";
-			}
-			else
-			{
-				color = "FFFFFF";
-				name = "Vacant";
-			}
-			if(TurfWars[turfid][twVulnerable] > 0) format(timeleft, sizeof(timeleft), "Hours: {FFFFFF}%d", TurfWars[turfid][twVulnerable]);
-			else format(timeleft, sizeof(timeleft), "{FFFFFF}Vulnerable");
-			if(strlen(tsstring1) < 2400)
-			{
-			    format(szMiscArray, sizeof(szMiscArray), "%s{C93CCE} | Owner: {%s}%s{C93CCE} | Perks: {FFFFFF}%s{C93CCE} | %s\n", TurfWars[turfid][twName], color, name, getTurftype(turfid), timeleft);
-				strcat(tsstring1, szMiscArray);
-			}
-			else
-			{
-			    format(szMiscArray, sizeof(szMiscArray), "%s{C93CCE} | Owner: {%s}%s{C93CCE} | Perks: {FFFFFF}%s{C93CCE} | %s\n", TurfWars[turfid][twName], color, name, getTurftype(turfid), timeleft);
-				strcat(tsstring2, szMiscArray);
-			}
-		}
-	}
-    ShowPlayerDialogEx(playerid, DIALOG_TURFLIST, DIALOG_STYLE_MSGBOX, "\\cTurfs List", tsstring1, "Next", "Cancel");
-	return 1;
-}
-
 SaveTurfWar(turfid)
 {
-	szMiscArray[0] = 0;
-	mysql_format(MainPipeline, szMiscArray, sizeof(szMiscArray), "UPDATE `turfs` SET `name`='%s',`group`=%d,`locked`=%d,`perks`=%d,`vulnerable`=%d,`minx`=%f,`miny`=%f,`maxx`=%f,`maxy`=%f WHERE `id` = %d",
+	new string[128];
+	mysql_format(MainPipeline, string, sizeof(string), "UPDATE `turfs` SET data='%e|%d|%d|%d|%d|%f|%f|%f|%f' WHERE id = %d",
 	TurfWars[turfid][twName],
 	TurfWars[turfid][twOwnerId],
 	TurfWars[turfid][twLocked],
@@ -169,7 +14,7 @@ SaveTurfWar(turfid)
 	TurfWars[turfid][twMaxX],
 	TurfWars[turfid][twMaxY],
 	turfid + 1);
-	mysql_tquery(MainPipeline, szMiscArray, "OnQueryFinish", "i", SENDDATA_THREAD);
+	mysql_tquery(MainPipeline, string, "OnQueryFinish", "i", SENDDATA_THREAD);
 	return 1;
 }
 
@@ -180,24 +25,26 @@ SaveTurfWars()
 		SaveTurfWar(i);
 	}
 }
+
 forward OnLoadTurfWars();
 public OnLoadTurfWars()
 {
-	new i, rows;
+	new i, rows, tmp[128];
 	cache_get_row_count(rows);
 	while(i < rows)
 	{
-		cache_get_value_name(i, "name", TurfWars[i][twName], 64);
-		cache_get_value_name_int(i, "group", TurfWars[i][twOwnerId]);
-		cache_get_value_name_int(i, "locked", TurfWars[i][twLocked]);
-		cache_get_value_name_int(i, "perks", TurfWars[i][twSpecial]);
-		cache_get_value_name_int(i, "vulnerable", TurfWars[i][twVulnerable]);
-		cache_get_value_name_float(i, "minx", TurfWars[i][twMinX]);
-		cache_get_value_name_float(i, "miny", TurfWars[i][twMinY]);
-		cache_get_value_name_float(i, "maxx", TurfWars[i][twMaxX]);
-		cache_get_value_name_float(i, "maxy", TurfWars[i][twMaxY]);
-		
-		CreateTurfWarsZone(0, i++);
+		cache_get_value_name(i, "data", tmp);
+		if(!sscanf(tmp, "p<|>s[64]iiiiffff",
+			TurfWars[i][twName],
+			TurfWars[i][twOwnerId],
+			TurfWars[i][twLocked],
+			TurfWars[i][twSpecial],
+			TurfWars[i][twVulnerable],
+			TurfWars[i][twMinX],
+			TurfWars[i][twMinY],
+			TurfWars[i][twMaxX],
+			TurfWars[i][twMaxY]
+		)) CreateTurfWarsZone(0, i++);
 	}
 	if(i) printf("[LoadTurfWars] %d turfs loaded.", i);
 	else printf("[LoadTurfWars] Failed to load any turfs.");
@@ -209,6 +56,7 @@ stock LoadTurfWars()
 	printf("[Turf Wars] Loading turfs from the database, please wait...");
 	mysql_tquery(MainPipeline, "SELECT * FROM `turfs`", "OnLoadTurfWars", "");
 }
+
 InitTurfWars()
 {
 	for(new i = 0; i < MAX_TURFS; i++)
@@ -227,10 +75,12 @@ InitTurfWars()
 	}
 	return 1;
 }
+
 GangZoneCreateEx(Float:minx, Float:miny, Float:maxx, Float:maxy)
 {
 	return GangZoneCreate((minx > maxx) ? (maxx) : (minx), (miny > maxy) ? (maxy) : (miny), (minx > maxx) ? (minx) : (maxx), (miny > maxy) ? (miny) : (maxy));
 }
+
 CreateTurfWarsZone(forcesync, zone)
 {
     if(TurfWars[zone][twMinX] != 0.0 && TurfWars[zone][twMinY] != 0.0 && TurfWars[zone][twMaxX] != 0.0 && TurfWars[zone][twMaxY] != 0.0) {
@@ -281,7 +131,7 @@ DestroyTurfWarsZone(zone, delete)
 	if(TurfWars[zone][twAreaId] != -1) {
 	    if(IsValidDynamicArea(TurfWars[zone][twAreaId])) DestroyDynamicArea(TurfWars[zone][twAreaId]);
 	}
-	if(delete==1) strcpy(TurfWars[zone][twName], "", TURF_MAX_NAME_LEN);
+    if(delete==1) strcpy(TurfWars[zone][twName], "", TURF_MAX_NAME_LEN);
 	TurfWars[zone][twMinX] = 0;
 	TurfWars[zone][twMinY] = 0;
 	TurfWars[zone][twMaxX] = 0;
@@ -297,7 +147,7 @@ DestroyTurfWarsZone(zone, delete)
  	TurfWars[zone][twTimeLeft] = 0;
  	TurfWars[zone][twAttemptId] = -1;
 	TurfWars[zone][twVulnerable] = 12;
-	
+
 	SyncTurfWarsRadarToAll();
 	SaveTurfWar(zone);
 
@@ -312,29 +162,21 @@ GetPlayerTurfWarsZone(playerid)
 	}
 	return -1;
 }
-//ShutdownTurfWarsZone(playerid, zone)
+
 ShutdownTurfWarsZone(zone)
 {
 	new string[128];
-	/*SetPVarString( playerid, "CapperName", GetPlayerNameEx(playerid));
-	if(TurfWars[zone][twSpecial] == 0 || TurfWars[zone][twSpecial] == 1) {
-		format(string,sizeof(string),"%s has attempted to takeover %s turf for Law Enforcement (5 minutes remaining).", GetPlayerNameEx(playerid), TurfWars[zone][twName]);
-	} else {
-		format(string,sizeof(string),"%s has attempted to takeover %s turf for Law Enforcement (10 minutes remaining).", GetPlayerNameEx(playerid), TurfWars[zone][twName]);
-	}
-	SendClientMessageToAll(COLOR_YELLOW,string);*/
-	
 	foreach(new i: Player)
 	{
 		if(IsPlayerInDynamicArea(i, TurfWars[zone][twAreaId])) {
 			format(string,sizeof(string),"Law Enforcement has attempted to shutdown this turf!");
 			SendClientMessageEx(i,COLOR_YELLOW,string);
 		}
-	}
+	}	
 	ResetTurfWarsZone(0, zone);
 
 	TurfWars[zone][twActive] = 1;
-	if(TurfWars[zone][twSpecial] == 0 || TurfWars[zone][twSpecial] == 1) {
+	if(TurfWars[zone][twSpecial] != 2) {
 		TurfWars[zone][twTimeLeft] = 300;
 	} else {
 		TurfWars[zone][twTimeLeft] = 600;
@@ -348,17 +190,9 @@ ShutdownTurfWarsZone(zone)
 
 	SaveTurfWar(zone);
 }
-//TakeoverTurfWarsZone(playerid, iGroupID, zone)
+
 TakeoverTurfWarsZone(iGroupID, zone)
 {
-	/*new string[128];
-	SetPVarString( playerid, "CapperName", GetPlayerNameEx(playerid));
-	if(TurfWars[zone][twSpecial] == 0 || TurfWars[zone][twSpecial] == 1) {
-		format(string,sizeof(string),"%s has attempted to takeover %s turf for %s (5 minutes remaining).", GetPlayerNameEx(playerid), TurfWars[zone][twName], arrGroupData[iGroupID][g_szGroupName]);
-	} else {
-		format(string,sizeof(string),"%s has attempted to takeover %s turf for %s (10 minutes remaining).", GetPlayerNameEx(playerid), TurfWars[zone][twName], arrGroupData[iGroupID][g_szGroupName]);
-	}
-	SendClientMessageToAll(COLOR_YELLOW,string);*/
 	new string[128];
 	foreach(new i: Player)
 	{
@@ -370,7 +204,7 @@ TakeoverTurfWarsZone(iGroupID, zone)
 	ResetTurfWarsZone(0, zone);
 
 	TurfWars[zone][twActive] = 1;
-	if(TurfWars[zone][twSpecial] == 0 || TurfWars[zone][twSpecial] == 1) {
+	if(TurfWars[zone][twSpecial] != 2) {
 		TurfWars[zone][twTimeLeft] = 300;
 	} else {
 		TurfWars[zone][twTimeLeft] = 600;
@@ -385,10 +219,9 @@ TakeoverTurfWarsZone(iGroupID, zone)
 
 CaptureTurfWarsZone(iGroupID, zone)
 {
-	new string[128];//, name[64];
+	new string[128];
 	foreach(new i: Player)
 	{
-		//GetPVarString(i, "CapperName", name, 64);
 	    if(turfWarsMiniMap[i] == 1)
 		{
 			turfWarsMiniMap[i] = 0;
@@ -422,19 +255,9 @@ CaptureTurfWarsZone(iGroupID, zone)
 			TurfWars[zone][twOwnerId] = -1;
 		}
 	}
-	/*if((0 <= iGroupID < MAX_GROUPS)) {
-		format(string,sizeof(string),"%s has successfully claimed %s turf for %s", name, TurfWars[zone][twName], arrGroupData[iGroupID][g_szGroupName]);
-		SendClientMessageToAll(COLOR_YELLOW,string);
-		//SendAudioToPlayer(i, 62, 100);
-	}
-	else {
-		format(string,sizeof(string),"%s has successfully shut down %s turf for Law Enforcement", name, TurfWars[zone][twName]);
-		SendClientMessageToAll(COLOR_YELLOW,string);
-	}
-	TurfWars[zone][twVulnerable] = 12;
-	ResetTurfWarsZone(1, zone);*/
 	SaveTurfWar(zone);
 }
+
 ExtortionTurfsWarsZone(playerid, type, money)
 {
     if(GetPlayerTurfWarsZone(playerid) != -1)
@@ -471,79 +294,39 @@ ExtortionTurfsWarsZone(playerid, type, money)
 	}
 	return 1;
 }
-/*
+
 ShowTurfWarsRadar(playerid)
 {
-	if(turfWarsRadar[playerid] == 1) { return 1; }
-	turfWarsRadar[playerid] = 1;
+	if(PlayerInfo[playerid][pTurfShow] == 1 ) { return 1; }
+	PlayerInfo[playerid][pTurfShow] = 1;
 	SyncTurfWarsRadar(playerid);
     return 1;
-}*/
-/*HideTurfWarsRadar(playerid)
+}
+
+HideTurfWarsRadar(playerid)
 {
-	if(turfWarsRadar[playerid] == 0) { return 1; }
+	if(PlayerInfo[playerid][pTurfShow] == 0 ) { return 1; }
 	for(new i = 0; i < MAX_TURFS; i++) {
 	    if(TurfWars[i][twGangZoneId] != -1) {
 	    	GangZoneHideForPlayer(playerid,TurfWars[i][twGangZoneId]);
 		}
 	}
-	turfWarsRadar[playerid] = 0;
+	PlayerInfo[playerid][pTurfShow] = 1;
 	return 1;
-}*/
-
-ShowTurfWarsRadar(playerid, enable)
-{
-
-	for(new i = 0; i < MAX_TURFS; i++)
-	{
-		if(enable)
-		{
-			//SyncTurfWarsRadar(playerid);
-			if(TurfWars[i][twGangZoneId] != -1)
-			{
-				if(TurfWars[i][twOwnerId] >= 0 && TurfWars[i][twOwnerId] < MAX_GROUPS)
-				{
-					GangZoneShowForPlayer(playerid, TurfWars[i][twGangZoneId], arrGroupData[TurfWars[i][twOwnerId]][g_hDutyColour] * 256 + 170);
-				}
-				else
-				{
-					GangZoneShowForPlayer(playerid,TurfWars[i][twGangZoneId],COLOR_BLACK);
-				}
-
-				if(TurfWars[i][twFlash] == 1)
-				{
-					GangZoneFlashForPlayer(playerid, TurfWars[i][twGangZoneId], TurfWars[i][twFlashColor] * 256 + 170);
-				}
-				else
-				{
-					GangZoneStopFlashForPlayer(playerid, TurfWars[i][twGangZoneId]);
-				}
-			}
-		}
-		else
-		{
-			if(TurfWars[i][twGangZoneId] != -1) {
-				GangZoneHideForPlayer(playerid,TurfWars[i][twGangZoneId]);
-			}
-		}
-	}
-
-	//turfWarsRadar[playerid] = enable;
 }
 
 SyncTurfWarsRadarToAll()
 {
 	foreach(new i: Player)
 	{
-	    SyncTurfWarsRadar(i);
-	}
+		SyncTurfWarsRadar(i);
+	}	
 }
 
 SyncTurfWarsRadar(playerid)
 {
 	if(PlayerInfo[playerid][pTurfShow] == 0 ) { return 1; }
-	//HideTurfWarsRadar(playerid);
-	ShowTurfWarsRadar(playerid, false);
+	HideTurfWarsRadar(playerid);
 	PlayerInfo[playerid][pTurfShow] = 1;
 	for(new i = 0; i < MAX_TURFS; i++)
 	{
@@ -560,25 +343,10 @@ SyncTurfWarsRadar(playerid)
 
 	        if(TurfWars[i][twFlash] == 1)
 	        {
-				/*foreach(new x: Player)
-				{
-					if(PlayerInfo[playerid][pMember] != INVALID_GROUP_ID && PlayerInfo[x][pMember] != INVALID_GROUP_ID) {
-						if( IsPlayerInDynamicArea(x, TurfWars[i][twAreaId])&& GetPVarInt(x, "Injured") != 1 && GetPlayerState(x) == PLAYER_STATE_ONFOOT && playerTabbed[x] == 0 ) {
-							SetPlayerMarkerForPlayer( playerid, x, (arrGroupData[PlayerInfo[x][pMember]][g_hDutyColour] * 256 + 255));
-							SetPlayerMarkerForPlayer( x, playerid, (arrGroupData[PlayerInfo[playerid][pMember]][g_hDutyColour] * 256 + 255));
-						}
-					}
-				}*/
 	        	GangZoneFlashForPlayer(playerid, TurfWars[i][twGangZoneId], TurfWars[i][twFlashColor] * 256 + 170);
 	        }
 	        else
 	        {
-				/*foreach(new x: Player)
-				{
-						if( IsPlayerInDynamicArea(x, TurfWars[i][twAreaId]) ) {
-							SetPlayerToTeamColor(x);
-						}
-				}*/
 	            GangZoneStopFlashForPlayer(playerid, TurfWars[i][twGangZoneId]);
 	        }
 	    }
@@ -595,16 +363,16 @@ TurfWarsEditTurfsSelection(playerid)
 		{
 			if(TurfWars[i][twOwnerId] < 0 || TurfWars[i][twOwnerId] > MAX_GROUPS)
 			{
-				format(szMiscArray,sizeof(szMiscArray),"%s%d) %s - (Invalid Group)\n",szMiscArray,i,TurfWars[i][twName]);
+				format(szMiscArray,sizeof(szMiscArray),"%s%d) (Invalid Group)\n",szMiscArray,i/*,TurfWars[i][twName]*/);
 			}
 			else
 			{
-				format(szMiscArray,sizeof(szMiscArray),"%s%d) %s - (%s)\n",szMiscArray,i,TurfWars[i][twName],arrGroupData[TurfWars[i][twOwnerId]][g_szGroupName]);
+				format(szMiscArray,sizeof(szMiscArray),"%s%d) (%s)\n",szMiscArray,i,/*TurfWars[i][twName],*/arrGroupData[TurfWars[i][twOwnerId]][g_szGroupName]);
 			}
 		}
 		else
 		{
-			format(szMiscArray,sizeof(szMiscArray),"%s%d) %s - (%s)\n",szMiscArray,i,TurfWars[i][twName],"Vacant");
+			format(szMiscArray,sizeof(szMiscArray),"%s%d) (%s)\n",szMiscArray,i,/*TurfWars[i][twName],*/"Vacant");
 		}
 	}
 	ShowPlayerDialogEx(playerid,TWEDITTURFSSELECTION,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Selection Menu:",szMiscArray,"Select","Back");
@@ -616,28 +384,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 	szMiscArray[0] = 0;
 	switch(dialogid)
 	{
-		case DIALOG_TURFLIST:
-		{
-		    if(response)
-		    {
-		        if(strlen(tsstring2) < 5)
-		        {
- 					return 1;
-				}
-				else
-				{
-				    ShowPlayerDialogEx(playerid, DIALOG_TURFLIST2, DIALOG_STYLE_MSGBOX, "\\cTurfs List", tsstring2, "Previous", "Cancel");
-				}
-			}
-		}
-		case DIALOG_TURFLIST2:
-		{
-		    if(response)
-		    {
-				//SendClientMessageEx(playerid, COLOR_GREY, "Please use /turfs to enable turf bounds");
-				ShowPlayerDialogEx(playerid, DIALOG_TURFLIST, DIALOG_STYLE_MSGBOX, "\\cTurfs List", tsstring1, "Next", "Cancel");
-			}
-		}
 		case TWADMINMENU: // Turf Wars System
 		{
 			if(response == 1)
@@ -648,6 +394,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					{
 						TurfWarsEditTurfsSelection(playerid);
 					}
+					/*case 1:
+					{
+						TurfWarsEditFColorsSelection(playerid);
+					}*/
 				}
 			}
 		}
@@ -660,7 +410,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					if(listitem == i)
 					{
 						SetPVarInt(playerid, "EditingTurfs", i);
-						ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Name...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
+						ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf\nName","Select","Back");
 					}
 				}
 			}
@@ -677,41 +427,130 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 						SetPVarInt(playerid, "EditingTurfsStage", 1);
 						SendClientMessageEx(playerid, COLOR_WHITE, "Goto a location and type (/savetwpos) to edit the West Wall.");
 					}
-					case 1: // Edit Turf Name
-					{
-						ShowPlayerDialogEx(playerid,TWEDITTURFSNAME,DIALOG_STYLE_INPUT,"Turf Wars - Edit Turfs Name Menu:","Please enter a name that you wish to assign to this turf:","Change","Back");
-					}
-					case 2: // Edit Owner
+					case 1: // Edit Owner
 					{
 						ShowPlayerDialogEx(playerid,TWEDITTURFSOWNER,DIALOG_STYLE_INPUT,"Turf Wars - Edit Turfs Owner Menu:","Please enter a group ID that you wish to assign to this turf:\n\nHint: Enter -1 if you wish to vacant the turf.","Change","Back");
 					}
-					case 3: // Edit Vulnerablity
+					case 2: // Edit Vulnerablity
 					{
 						ShowPlayerDialogEx(playerid,TWEDITTURFSVUL,DIALOG_STYLE_INPUT,"Turf Wars - Edit Turfs Vulnerable Menu:","Please enter a Vulnerable countdown time for the turf:","Change","Back");
 					}
-					case 4: // Edit Locks
+					case 3: // Edit Locks
 					{
 						ShowPlayerDialogEx(playerid,TWEDITTURFSLOCKED,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Locked Menu:","Lock\nUnlock","Change","Back");
 					}
-					case 5: // Edit Perks
+					case 4: // Edit Perks
 					{
-						ShowPlayerDialogEx(playerid,TWEDITTURFSPERKS,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Perks Menu:","None\nExtortion\nDrugs\nMaterials\nWeapons","Change","Back");
+						ShowPlayerDialogEx(playerid,TWEDITTURFSPERKS,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Perks Menu:","None\nExtortion\nDrugs","Change","Back");
 					}
-					case 6: // Reset War
+					case 5: // Reset War
 					{
 						ResetTurfWarsZone(1, tw);
 						TurfWarsEditTurfsSelection(playerid);
 					}
-					case 7: // Destroy Turf
+					case 6: // Destroy Turf
 					{
 						DestroyTurfWarsZone(tw, 1);
 						TurfWarsEditTurfsSelection(playerid);
+					}
+					case 7:
+					{
+						ShowPlayerDialogEx(playerid,TWEDITTURFSNAME,DIALOG_STYLE_INPUT,"Turf Wars - Edit Turfs Name Menu:","Please enter a name that you wish to assign to this turf:","Change","Back");
 					}
 				}
 			}
 			else
 			{
 				TurfWarsEditTurfsSelection(playerid);
+			}
+		}
+		case TWEDITTURFSOWNER:
+		{
+			if(response == 1)
+			{
+				new tw = GetPVarInt(playerid, "EditingTurfs");
+				if(isnull(inputtext))
+				{
+					ShowPlayerDialogEx(playerid,TWEDITTURFSOWNER,DIALOG_STYLE_INPUT,"Turf Wars - Edit Turfs Owner Menu:","Please enter a group ID that you wish to assign to this turf:\n\nHint: Enter -1 if you wish to vacant the turf.","Change","Back");
+					return 1;
+				}
+				if(strval(inputtext) < -1 || strval(inputtext) > MAX_GROUPS)
+				{
+					ShowPlayerDialogEx(playerid,TWEDITTURFSOWNER,DIALOG_STYLE_INPUT,"Turf Wars - Edit Turfs Owner Menu:","Please enter a group ID that you wish to assign to this turf:\n\nHint: Enter -1 if you wish to vacant the turf.","Change","Back");
+					return 1;
+				}
+				SetOwnerTurfWarsZone(1, tw, strval(inputtext));
+				SaveTurfWar(tw);
+				ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
+			}
+			else
+			{
+				ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
+			}
+		}
+		case TWEDITTURFSVUL:
+		{
+			if(response == 1)
+			{
+				new tw = GetPVarInt(playerid, "EditingTurfs");
+				if(isnull(inputtext))
+				{
+					ShowPlayerDialogEx(playerid,TWEDITTURFSVUL,DIALOG_STYLE_INPUT,"Turf Wars - Edit Turfs Vulnerable Menu:","Please enter a Vulnerable countdown time for the turf:","Change","Back");
+					return 1;
+				}
+				if(strval(inputtext) < 0)
+				{
+					ShowPlayerDialogEx(playerid,TWEDITTURFSVUL,DIALOG_STYLE_INPUT,"Turf Wars - Edit Turfs Vulnerable Menu:","Please enter a Vulnerable countdown time for the turf:","Change","Back");
+					return 1;
+				}
+				TurfWars[tw][twVulnerable] = strval(inputtext);
+				SaveTurfWar(tw);
+				ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
+			}
+			else
+			{
+				ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
+			}
+		}
+		case TWEDITTURFSLOCKED:
+		{
+			if(response == 1)
+			{
+				new tw = GetPVarInt(playerid, "EditingTurfs");
+				switch(listitem)
+				{
+					case 0: // Lock
+					{
+						TurfWars[tw][twLocked] = 1;
+						SaveTurfWar(tw);
+						ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
+					}
+					case 1: // Unlock
+					{
+						TurfWars[tw][twLocked] = 0;
+						SaveTurfWar(tw);
+						ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
+					}
+				}
+			}
+			else
+			{
+				ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
+			}
+		}
+		case TWEDITTURFSPERKS:
+		{
+			if(response == 1)
+			{
+				new tw = GetPVarInt(playerid, "EditingTurfs");
+				TurfWars[tw][twSpecial] = listitem;
+				SaveTurfWar(tw);
+				ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
+			}
+			else
+			{
+
+				ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
 			}
 		}
 		case TWEDITTURFSNAME:
@@ -733,124 +572,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Name...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
 			}
 		}
-		case TWEDITTURFSOWNER:
-		{
-			if(response == 1)
-			{
-				new tw = GetPVarInt(playerid, "EditingTurfs");
-				if(isnull(inputtext))
-				{
-					ShowPlayerDialogEx(playerid,TWEDITTURFSOWNER,DIALOG_STYLE_INPUT,"Turf Wars - Edit Turfs Owner Menu:","Please enter a group ID that you wish to assign to this turf:\n\nHint: Enter -1 if you wish to vacant the turf.","Change","Back");
-					return 1;
-				}
-				if(strval(inputtext) < -1 || strval(inputtext) > MAX_GROUPS)
-				{
-					ShowPlayerDialogEx(playerid,TWEDITTURFSOWNER,DIALOG_STYLE_INPUT,"Turf Wars - Edit Turfs Owner Menu:","Please enter a group ID that you wish to assign to this turf:\n\nHint: Enter -1 if you wish to vacant the turf.","Change","Back");
-					return 1;
-				}
-				SetOwnerTurfWarsZone(1, tw, strval(inputtext));
-				SaveTurfWar(tw);
-				ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Name...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
-			}
-			else
-			{
-				ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Name...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
-			}
-		}
-		case TWEDITTURFSVUL:
-		{
-			if(response == 1)
-			{
-				new tw = GetPVarInt(playerid, "EditingTurfs");
-				if(isnull(inputtext))
-				{
-					ShowPlayerDialogEx(playerid,TWEDITTURFSVUL,DIALOG_STYLE_INPUT,"Turf Wars - Edit Turfs Vulnerable Menu:","Please enter a Vulnerable countdown time for the turf:","Change","Back");
-					return 1;
-				}
-				if(strval(inputtext) < 0)
-				{
-					ShowPlayerDialogEx(playerid,TWEDITTURFSVUL,DIALOG_STYLE_INPUT,"Turf Wars - Edit Turfs Vulnerable Menu:","Please enter a Vulnerable countdown time for the turf:","Change","Back");
-					return 1;
-				}
-				TurfWars[tw][twVulnerable] = strval(inputtext);
-				SaveTurfWar(tw);
-				ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Name...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
-			}
-			else
-			{
-				ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Name...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
-			}
-		}
-		case TWEDITTURFSLOCKED:
-		{
-			if(response == 1)
-			{
-				new tw = GetPVarInt(playerid, "EditingTurfs");
-				switch(listitem)
-				{
-					case 0: // Lock
-					{
-						TurfWars[tw][twLocked] = 1;
-						SaveTurfWar(tw);
-						ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Name...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
-					}
-					case 1: // Unlock
-					{
-						TurfWars[tw][twLocked] = 0;
-						SaveTurfWar(tw);
-						ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Name...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
-					}
-				}
-			}
-			else
-			{
-				ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Name...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
-			}
-		}
-		case TWEDITTURFSPERKS:
-		{
-			if(response == 1)
-			{
-				new tw = GetPVarInt(playerid, "EditingTurfs");
-				TurfWars[tw][twSpecial] = listitem;
-				SaveTurfWar(tw);
-				ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Name...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
-			}
-			else
-			{
-				ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Name...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
-			}
-		}
 	}
 	return 0;
 }
 
-CMD:gototurf(playerid, params[])
-{
-	new turfid;
-
-	if(PlayerInfo[playerid][pAdmin] < 4)
-	{
-	    return SendClientMessage(playerid, COLOR_GREY, "You are not authorized to use this command.");
-	}
-	if(sscanf(params, "i", turfid))
-	{
-	    return SendClientMessage(playerid, COLOR_GREY, "USAGE: /gototurf [turfid]");
-	}
-	if(!(0 <= turfid < MAX_TURFS))
-	{
-	    return SendClientMessage(playerid, COLOR_GREY, "Invalid turf.");
-	}
-
-	SendClientMessageEx(playerid, COLOR_GRAD1, "   You have been teleported!");
-	new Float: pX, Float: pY, Float: pZ;
-	GetPlayerPos(playerid, pX, pY, pZ);
-	SetPlayerPos(playerid, TurfWars[turfid][twMinX], TurfWars[turfid][twMinY], pZ);
-	SetPlayerInterior(playerid, 0);
-	SetPlayerVirtualWorld(playerid, 0);
-	SetCameraBehindPlayer(playerid);
-	return 1;
-}
 CMD:turfinfo(playerid, params[])
 {
     if(GetPlayerTurfWarsZone(playerid) != -1) {
@@ -891,17 +616,9 @@ CMD:turfinfo(playerid, params[])
             {
                 format(string,sizeof(string),"Special Perks: Extortion.");
             }
-			case 2:
+            case 2:
             {
-                format(string,sizeof(string),"Special Perks: Drugs.");
-            }
-			case 3:
-            {
-                format(string,sizeof(string),"Special Perks: Materials.");
-            }
-			case 4:
-            {
-                format(string,sizeof(string),"Special Perks: Weapons.");
+            	format(string,sizeof(string),"Special Perks: Drugs.");
             }
             default:
             {
@@ -915,6 +632,7 @@ CMD:turfinfo(playerid, params[])
     }
     return 1;
 }
+
 CMD:savetwpos(playerid, params[])
 {
     if(PlayerInfo[playerid][pAdmin] > 3 || PlayerInfo[playerid][pGangModerator] >= 1) {
@@ -985,7 +703,7 @@ CMD:savetwpos(playerid, params[])
                     SetPVarFloat(playerid, "EditingTurfsMaxY", 0.0);
 
                     CreateTurfWarsZone(1,tw);
-                    ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Name...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
+                    ShowPlayerDialogEx(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
                 }
             }
         }
@@ -1009,16 +727,16 @@ CMD:twmenu(playerid, params[])
     return 1;
 }
 
-CMD:showturfs(playerid, params[])
+CMD:turfs(playerid, params[])
 {
-	if(PlayerInfo[playerid][pTurfShow] == 0 ) {
+    if(PlayerInfo[playerid][pTurfShow] == 0 ) {
         SendClientMessageEx(playerid, COLOR_WHITE, "You have enabled the Turf Minimap Radar.");
-        ShowTurfWarsRadar(playerid, true);
+        ShowTurfWarsRadar(playerid);
         PlayerInfo[playerid][pTurfShow] = 1;
     }
     else {
         SendClientMessageEx(playerid, COLOR_WHITE, "You have disabled the Turf Minimap Radar.");
-        ShowTurfWarsRadar(playerid, false);
+        HideTurfWarsRadar(playerid);
         PlayerInfo[playerid][pTurfShow] = 0;
     }
     return 1;
@@ -1063,8 +781,7 @@ CMD:shutdown(playerid, params[])
                         SendClientMessageEx(playerid, COLOR_GRAD2, string);
                     }
                     else {
-                        //ShutdownTurfWarsZone(playerid, tw);
-						ShutdownTurfWarsZone(tw);
+                        ShutdownTurfWarsZone(tw);
                     }
                 }
             }
@@ -1082,6 +799,7 @@ CMD:shutdown(playerid, params[])
     }
 	return 1;
 }
+
 CMD:claim(playerid, params[])
 {
 	SendClientMessageEx(playerid, COLOR_GRAD2, "Command has been changed to /claimturf");
@@ -1121,16 +839,15 @@ CMD:claimturf(playerid, params[])
                 new count = 0;
                 foreach(new i: Player)
 				{
-					if(family == PlayerInfo[i][pMember]) {
-						if(GetPlayerTurfWarsZone(i) == tw && GetPVarInt(i, "Injured") != 1 && GetPlayerState(i) == PLAYER_STATE_ONFOOT && playerTabbed[i] == 0) {
+					if(family == PlayerInfo[i][pMember] && PlayerInfo[i][pAccountRestricted] != 1) {
+						if(GetPlayerTurfWarsZone(i) == tw && GetPVarInt(i, "Injured") != 1) {
 							count++;
 						}
 					}
                 }
 
-                if(count > 0) {
-                    //TakeoverTurfWarsZone(playerid, family, tw);
-					TakeoverTurfWarsZone(family, tw);
+                if(count > 2) {
+                    TakeoverTurfWarsZone(family, tw);
                 }
                 else {
                     SendClientMessageEx(playerid, COLOR_GRAD2, "You need at least 3 of your family/gang members on the turf, to be able to claim it!");
@@ -1147,13 +864,13 @@ CMD:claimturf(playerid, params[])
                 foreach(new i: Player)
 				{
 					if(TurfWars[tw][twAttemptId] == PlayerInfo[i][pMember]) {
-						if(GetPlayerTurfWarsZone(i) == tw && GetPVarInt(i, "Injured") != 1 && GetPlayerState(i) == PLAYER_STATE_ONFOOT && playerTabbed[i] == 0) {
+						if(GetPlayerTurfWarsZone(i) == tw && GetPVarInt(i, "Injured") != 1) {
 							count++;
 						}
 					}
 					if(TurfWars[tw][twAttemptId] == -2) {
 						if(IsACop(i)) {
-							if(GetPlayerTurfWarsZone(i) == tw && GetPVarInt(i, "Injured") != 1 && GetPlayerState(i) == PLAYER_STATE_ONFOOT && playerTabbed[i] == 0) {
+							if(GetPlayerTurfWarsZone(i) == tw && GetPVarInt(i, "Injured") != 1) {
 								leocount++;
 							}
 						}
@@ -1170,8 +887,7 @@ CMD:claimturf(playerid, params[])
 							SendClientMessageEx(i,COLOR_YELLOW,string);
 						}	
                     }
-                    //TakeoverTurfWarsZone(playerid, family, tw);
-					TakeoverTurfWarsZone(family, tw);
+                    TakeoverTurfWarsZone(family, tw);
                 }
                 else {
                     if(leocount == 0) {
@@ -1192,9 +908,8 @@ CMD:claimturf(playerid, params[])
     else {
         SendClientMessageEx(playerid, COLOR_GRAD2, "You have to be in a turf to be able to claim turfs!");
     }
-
     if(PlayerInfo[playerid][pTurfShow] == 0 ) {
-        ShowTurfWarsRadar(playerid, true);
+        ShowTurfWarsRadar(playerid);
     }
     return 1;
 }

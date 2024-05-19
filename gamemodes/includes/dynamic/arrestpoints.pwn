@@ -258,7 +258,7 @@ CMD:arrestedit(playerid, params[])
 
 		if(id >= MAX_ARRESTPOINTS)
 		{
-			SendErrorMessage(playerid, "Invalid Arrest Points ID!");
+			SendClientMessageEx(playerid, COLOR_WHITE, "Invalid Arrest Points ID!");
 			return 1;
 		}
 
@@ -441,7 +441,7 @@ CMD:arrestnext(playerid, params[])
 {
     if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1)
 	{
-		SendServerMessage(playerid, "Listing next available Arrest Point...");
+		SendClientMessageEx(playerid, COLOR_RED, "* Listing next available Arrest Point...");
 		for(new x = 0; x < MAX_ARRESTPOINTS; x++)
 		{
 			if(ArrestPoints[x][arrestPosX] == 0)

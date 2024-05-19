@@ -151,7 +151,7 @@ CMD:turfs(playerid, params[])
 			}
 		}
 	}
-    ShowPlayerDialogEx(playerid, DIALOG_TURFLIST, DIALOG_STYLE_MSGBOX, "\\cTurfs List", tsstring1, "Next", "Cancel");
+    ShowPlayerDialogEx(playerid, DIALOG_TURFLIST, DIALOG_STYLE_MSGBOX, "\Turfs List", tsstring1, "Next", "Cancel");
 	return 1;
 }
 

@@ -36,8 +36,8 @@ ShowDynamicDoorDialog(playerid)
 		ClearDoorSaleVariables(playerid);
 		return 1;
 	}
-	if(DDSalePendingPlayer[playerid] == true) return SendServerMessage(playerid, "Your dynamic door sale is pending approval from the specified buyer.");
-	if(DDSalePendingAdmin[playerid] == true) return SendServerMessage(playerid, "Your dynamic door sale is pending approval from server administration.");
+	if(DDSalePendingPlayer[playerid] == true) return SendClientMessageEx(playerid, COLOR_GREY, "Your dynamic door sale is pending approval from the specified buyer.");
+	if(DDSalePendingAdmin[playerid] == true) return SendClientMessageEx(playerid, COLOR_GREY, "Your dynamic door sale is pending approval from server administration.");
 	szMiscArray[0] = 0;
 	format(szMiscArray, sizeof(szMiscArray), "Setting\tValue\nBuyer\t%s\nPrice\t$%s\nSeller Fine\t$%s\nDynamic Door 1\t%s\nDynamic Door 2\t%s\nDynamic Door 3\t%s\nDynamic Door 4\t%s\nDynamic Door 5\t%s\nGarage 1\t%s\nGarage 2\t%s\nFinalize And Submit", 
 	GetPlayerNameEx(DDSaleTarget[playerid]), number_format(DDSalePrice[playerid]), number_format(CalculatePercentage(DDSalePrice[playerid], 10, 1000000)),

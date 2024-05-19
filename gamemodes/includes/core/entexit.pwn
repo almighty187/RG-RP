@@ -123,7 +123,7 @@ EntExit_GetID(playerid) {
 	for(new i; i < MAX_GARAGES; ++i) {
 	
 		if (IsPlayerInRangeOfPoint(playerid, 2.0, GarageInfo[i][gar_ExteriorX], GarageInfo[i][gar_ExteriorY], GarageInfo[i][gar_ExteriorZ]) &&
-			GarageInfo[i][gar_InteriorX] == 0.0) {
+			GarageInfo[i][gar_InteriorX] == 0.0, GarageInfo[i][gar_InteriorY] == 0.0, GarageInfo[i][gar_InteriorZ] == 0.0) {
 			return SendErrorMessage(playerid, "No interior set for this garage. Contact a Lead Admin.");
 		}
 		else {
