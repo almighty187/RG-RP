@@ -1025,7 +1025,7 @@ stock Help_ListCat(playerid, dialogid = DIALOG_HELPCATMAIN, response = 0, listit
 		case DIALOG_HELPCATGROUP:
 		{
 			new j = 0;
-			if(Help_Perm(playerid, 11, arrGroupData[PlayerInfo[playerid][pMember]][g_iGroupType], 1))
+			if(Help_Perm(playerid, 11, PlayerInfo[playerid][pLeader], 1))
 			{
 				format(string, sizeof(string), "HelpResultCat%i", j);
 				SetPVarInt(playerid, string, 1);
