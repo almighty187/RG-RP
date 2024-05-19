@@ -30,7 +30,7 @@ stock IsNearPublicMailbox(playerid)
 
 stock DisplayStampDialog(playerid)
 {
-	ShowPlayerDialogEx(playerid, DIALOG_POSTAMP, DIALOG_STYLE_LIST, "Buy a stamp", "Regular Mail		$100\nPriority Mail		$250\nPremium Mail		$500 (Gold VIP+)\nGovernment Mail	Free", "Next", "Cancel");
+	ShowPlayerDialogEx(playerid, DIALOG_POSTAMP, DIALOG_STYLE_LIST, "Buy a stamp", "Regular Mail		$20\nPriority Mail		$30\nPremium Mail		$100 (Gold VIP+)\nGovernment Mail	Free", "Next", "Cancel");
 }
 
 stock RenderHouseMailbox(h)

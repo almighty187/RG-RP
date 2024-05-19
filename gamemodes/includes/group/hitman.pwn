@@ -1,3 +1,40 @@
+/*
+
+     /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
+    | $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
+    | $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
+    | $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
+    | $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
+    | $$\  $$$| $$  \ $$        | $$  \ $$| $$
+    | $$ \  $$|  $$$$$$/        | $$  | $$| $$
+    |__/  \__/ \______/         |__/  |__/|__/
+
+                    Contract Group Type
+
+                Next Generation Gaming, LLC
+    (created by Next Generation Gaming Development Team)
+
+    * Copyright (c) 2016, Next Generation Gaming, LLC
+    *
+    * All rights reserved.
+    *
+    * Redistribution and use in source and binary forms, with or without modification,
+    * are not permitted in any case.
+    *
+    *
+    * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+    * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+    * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+    * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+    * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+    * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+    * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+    * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+    * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+    * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+    * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
 #include <YSI\y_hooks>
 
 // The new proposed Hitman Agency system. Approved by Rizi & Chapman on 07/08/16.
@@ -751,13 +788,18 @@ CMD:hmahelp(playerid, params[])
 	if(IsAHitman(playerid))
 	{
 		SendClientMessageEx(playerid, COLOR_GREEN,"_______________________________________");
-		SendClientMessageEx(playerid, COLOR_GRAD3, "*** Hitman Agency Commands *** /hr /hg /toghma /ranks /contracts /givemehit /order /profile");
-		SendClientMessageEx(playerid, COLOR_GRAD3, "*** Hitman Agency Commands *** /hfind /setmylevel /tempnum /pb /pcb /pub /myc4 /quithma");
+		SendClientMessageEx(playerid, COLOR_GRAD3, "*** Hitman Agency Commands *** /hr /hg /toghma /ranks /contracts /givemehit /order /profile /execute");
+		SendClientMessageEx(playerid, COLOR_GRAD3, "*** Hitman Agency Commands *** /hfind /setmylevel /tempnum /knife /pb /pcb /pub /myc4 /quithma");
 
 		if(IsAHitmanLeader(playerid))
 		{
-			SendClientMessageEx(playerid, COLOR_GRAD3, "*** Leadership Commands *** /makehitman /givehitmanrank /(o)removehitman /hmasafe");
-			SendClientMessageEx(playerid, COLOR_GRAD3, "*** Leadership Commands *** /(o)blacklist /(o)unblacklist /viewblacklist");
+			SendClientMessageEx(playerid, COLOR_GRAD3, "*** Leadership Commands *** /makehitman /givehitmanrank /(o)removehitman /hmasafe /sethmamotd");
+			SendClientMessageEx(playerid, COLOR_GRAD3, "*** Leadership Commands *** /(o)blacklist /(o)unblacklist /viewblacklist /givehit /deletehit");
+		}
+		if(PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pFactionModerator] != 0 && PlayerInfo[playerid][pAdmin] >= 4)
+		{
+			SendClientMessageEx(playerid, COLOR_GRAD3, "*** Administrator Commands *** /makehitmanleader /removehitmanleader /oremovehitmanleader");
+			SendClientMessageEx(playerid, COLOR_GRAD3, "*** Administrator Commands *** /gotohmasafe /edithmasafepos /deletehit /resetheadshot");
 		}
 
 		SendClientMessageEx(playerid, COLOR_GREEN,"_______________________________________");
@@ -765,8 +807,8 @@ CMD:hmahelp(playerid, params[])
 	else if(PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pFactionModerator] != 0 && PlayerInfo[playerid][pAdmin] >= 4)
 	{
 		SendClientMessageEx(playerid, COLOR_GREEN,"_______________________________________");
-		SendClientMessageEx(playerid, COLOR_GRAD3, "*** Administrator Commands *** /makehitmanleader, /removehitmanleader, /oremovehitmanleader");
-		SendClientMessageEx(playerid, COLOR_GRAD3, "*** Administrator Commands *** /gotohmasafe, /edithmasafepos");
+		SendClientMessageEx(playerid, COLOR_GRAD3, "*** Administrator Commands *** /makehitmanleader /removehitmanleader /oremovehitmanleader");
+		SendClientMessageEx(playerid, COLOR_GRAD3, "*** Administrator Commands *** /gotohmasafe /edithmasafepos /deletehit");
 		SendClientMessageEx(playerid, COLOR_GREEN,"_______________________________________");
 	}
 	else return 0;

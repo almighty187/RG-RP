@@ -101,8 +101,9 @@
 #include "./includes/n0fear/labeldraw.pwn"
 #include "./includes/n0fear/paperboy.pwn"
 #include "./includes/n0fear/streetsweeper.pwn"
-#include "./includes/n0fear/newactors.pwn"
-#include "./includes/n0fear/newwalkstyle.pwn"
+#include "./includes/n0fear/actors.pwn"
+#include "./includes/n0fear/walkstyle.pwn"
+#include "./includes/n0fear/newturfs.pwn"
 
 
 
@@ -212,7 +213,7 @@
 #include "./includes/group/racing.pwn"
 #include "./includes/group/taxi.pwn"
 #include "./includes/group/towing.pwn"
-#include "./includes/group/turfs.pwn"
+//#include "./includes/group/turfs.pwn"
 #include "./includes/group/cratesystem.pwn"
 #include "./includes/group/callsystem.pwn"
 //#include "./includes/group/gangshipment.pwn"

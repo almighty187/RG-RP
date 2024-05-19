@@ -1,6 +1,6 @@
 CMD:accept(playerid, params[])
 {
-	if(restarting) return SendClientMessageEx(playerid, COLOR_GRAD2, "Transactions are currently disabled due to the server being restarted for maintenance.");
+	if(restarting) return SendServerMessage(playerid, "Transactions are currently disabled due to the server being restarted for maintenance.");
 	new szMessage[256];
 	new string[128];
 	new sendername[MAX_PLAYER_NAME];
@@ -28,11 +28,11 @@ CMD:accept(playerid, params[])
 					if(count > 1) break;
 				}
 			}
-			if(target == INVALID_PLAYER_ID) return SendClientMessageEx(playerid, COLOR_GREY, "You do not have an active dynamic door sale offer.");
+			if(target == INVALID_PLAYER_ID) return SendErrorMessage(playerid, "You do not have an active dynamic door sale offer.");
 			if(count > 1)
 			{
 				foreach(new i : Player) if(gPlayerLogged{i} == 1 && DDSaleTarget[i] == playerid) ClearDoorSaleVariables(i);
-				SendClientMessageEx(playerid, COLOR_GREY, "An error occurred, please try making your transaction again.");
+				SendErrorMessage(playerid, "An error occurred, please try making your transaction again.");
 				return 1;
 			}
 			if(GetPlayerCash(playerid) < DDSalePrice[target])
@@ -63,15 +63,15 @@ CMD:accept(playerid, params[])
 		}
 		else if(strcmp(params, "renderaid", true) == 0)
 		{
-			if(!GetPVarType(playerid, "Injured")) return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not in a injured state.");
-			if(!GetPVarType(playerid, "renderaid")) return SendClientMessageEx(playerid, COLOR_GRAD2, "No one has offered you assistance!");
+			if(!GetPVarType(playerid, "Injured")) return SendErrorMessage(playerid, "You are not in a injured state.");
+			if(!GetPVarType(playerid, "renderaid")) return SendErrorMessage(playerid, "No one has offered you assistance!");
 			new target = GetPVarInt(playerid, "renderaid");
-			if(!IsPlayerConnected(target)) return SendClientMessageEx(playerid, COLOR_GRAD2, "The person who offered you assistance is no longer online.");
+			if(!IsPlayerConnected(target)) return SendErrorMessage(playerid, "The person who offered you assistance is no longer online.");
 			new Float:pos[3];
 			GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
-			if(!IsPlayerInRangeOfPoint(target, 5.0, pos[0], pos[1], pos[2])) return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not near the person who offered you assistance.");
+			if(!IsPlayerInRangeOfPoint(target, 5.0, pos[0], pos[1], pos[2])) return SendErrorMessage(playerid, "You are not near the person who offered you assistance.");
 			if(GetPVarInt(target, "MedVestKit") != 1)
-				return SendClientMessageEx(target, COLOR_GRAD2, "You aren't carrying a kit."), SendClientMessageEx(playerid, COLOR_GRAD2, "The player was unable to assist you as they no longer have a med kit.");
+				return SendClientMessageEx(target, COLOR_GRAD2, "You aren't carrying a kit."), SendErrorMessage(playerid, "The player was unable to assist you as they no longer have a med kit.");
 			ApplyAnimation(target, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0, 1);
 			SetHealth(playerid, 100);
 			format(string, sizeof(string), "{FF8000}** {C2A2DA}%s renders aid to %s.", GetPlayerNameEx(target), GetPlayerNameEx(playerid));
@@ -81,14 +81,14 @@ CMD:accept(playerid, params[])
 		}
 		else if(strcmp(params, "weapon", true) == 0)
 		{
-			if(!GetPVarType(playerid, "pSellGunID") || GetPVarInt(playerid, "pSellGunID") == INVALID_PLAYER_ID) return SendClientMessageEx(playerid, COLOR_GRAD2, "No one has offered you a gun!");
+			if(!GetPVarType(playerid, "pSellGunID") || GetPVarInt(playerid, "pSellGunID") == INVALID_PLAYER_ID) return SendErrorMessage(playerid, "No one has offered you a gun!");
 
 			new id = GetPVarInt(playerid, "pSellGunID");
 
 			if(PlayerInfo[id][pMats] < GetPVarInt(playerid, "pSellGunMats")) 
 			{
-				SendClientMessage(id, COLOR_WHITE, "You do not have enough materials to sell this item!");
-				return SendClientMessage(playerid, COLOR_WHITE, "The seller no longer has enough materials to sell this item!");
+				SendServerMessage(id, "You do not have enough materials to sell this item!");
+				return SendServerMessage(playerid, "The seller no longer has enough materials to sell this item!");
 			}
 
 			new weapon[16];
@@ -121,10 +121,10 @@ CMD:accept(playerid, params[])
         else if(strcmp(params, "valentine", true) == 0)
 		{
 	        if (!GetPVarType(playerid, "kissvaloffer")) {
-       	 		return SendClientMessageEx(playerid, COLOR_GREY, "No one has offered you a valentine!");
+       	 		return SendErrorMessage(playerid, "No one has offered you a valentine!");
 			}
 			if (GetPVarInt(playerid,"kissvalsqlid") != GetPlayerSQLId(GetPVarInt(playerid, "kissvaloffer"))) {
-				return SendClientMessageEx(playerid, COLOR_GREY, "Inviter has disconnected.");
+				return SendErrorMessage(playerid, "Inviter has disconnected.");
 			}
 			new Float: ppFloats[3], targetid;
 			targetid = GetPVarInt(playerid, "kissvaloffer");
@@ -132,7 +132,7 @@ CMD:accept(playerid, params[])
 
 			if(!IsPlayerInRangeOfPoint(playerid, 2, ppFloats[0], ppFloats[1], ppFloats[2]) || Spectating[targetid] > 0)
 			{
-				SendClientMessageEx(playerid, COLOR_GREY, "You're too far away!");
+				SendErrorMessage(playerid, "You're too far away!");
 				DeletePVar(playerid, "kissvaloffer");
 	      		DeletePVar(playerid, "kissvalsqlid");
 				DeletePVar(targetid, "kissvalstyle");
@@ -142,8 +142,8 @@ CMD:accept(playerid, params[])
 			{
 				format(string, sizeof(string),"Item: Reset Gift Timer\nYour Credits: %s\nCost: {FFD700}%s{A9C4E4}\nCredits Left: %s", number_format(PlayerInfo[playerid][pCredits]), number_format(ShopItems[17][sItemPrice]), number_format(PlayerInfo[playerid][pCredits]-ShopItems[17][sItemPrice]));
 				ShowPlayerDialogEx( playerid, DIALOG_SHOPGIFTRESET, DIALOG_STYLE_MSGBOX, "Reset Gift Timer", string, "Purchase", "Exit" );
-				SendClientMessageEx(playerid, COLOR_GRAD2, "You have already received a gift in the last 5 hours!");
-				SendClientMessageEx(targetid, COLOR_GRAD2, "Your requested valentine cannot accept.");
+				SendErrorMessage(playerid, "You have already received a gift in the last 5 hours!");
+				SendErrorMessage(targetid, "Your requested valentine cannot accept.");
 				DeletePVar(playerid, "kissvaloffer");
 	      		DeletePVar(playerid, "kissvalsqlid");
 				DeletePVar(targetid, "kissvalstyle");
@@ -151,7 +151,7 @@ CMD:accept(playerid, params[])
 			}
 			else if(PlayerInfo[targetid][pGiftTime] > 0)
 			{
-				SendClientMessageEx(playerid, COLOR_GRAD2, "That player has already received a gift in the last 5 hours!");
+				SendErrorMessage(playerid, "That player has already received a gift in the last 5 hours!");
 				DeletePVar(playerid, "kissvaloffer");
 	      		DeletePVar(playerid, "kissvalsqlid");
 				DeletePVar(targetid, "kissvalstyle");
@@ -203,13 +203,13 @@ CMD:accept(playerid, params[])
 		else if(strcmp(params, "business", true) == 0)
 		{
 	        if (!GetPVarType(playerid, "Business_Inviter")) {
-       	 		return SendClientMessageEx(playerid, COLOR_GREY, "No one has invited you to join a business!");
+       	 		return SendErrorMessage(playerid, "No one has invited you to join a business!");
 			}
 			if (PlayerInfo[playerid][pBusiness] != INVALID_BUSINESS_ID) {
-				return SendClientMessageEx(playerid, COLOR_GREY, "You are already in another business. You must first resign before accepting this offer.");
+				return SendErrorMessage(playerid, "You are already in another business. You must first resign before accepting this offer.");
 			}
 			if (GetPVarInt(playerid,"Business_InviterSQLId") != GetPlayerSQLId(GetPVarInt(playerid, "Business_Inviter"))) {
-				return SendClientMessageEx(playerid, COLOR_GREY, "Inviter has disconnected.");
+				return SendServerMessage(playerid, "Inviter has disconnected.");
 			}
 			PlayerInfo[playerid][pBusiness] = GetPVarInt(playerid, "Business_Invited");
 			PlayerInfo[playerid][pBusinessRank] = 0;
@@ -225,30 +225,30 @@ CMD:accept(playerid, params[])
         else if(strcmp(params, "gun", true) == 0)
 		{
 			if (!GetPVarType(playerid, "Business_WeapOfferer"))	{
-		        return SendClientMessageEx(playerid, COLOR_GREY, "No one has offered you a weapon!");
+		        return SendErrorMessage(playerid, "No one has offered you a weapon!");
 			}
 		    new offerer = GetPVarInt(playerid, "Business_WeapOfferer"), business = PlayerInfo[offerer][pBusiness];
 			if (GetPlayerSQLId(offerer) != GetPVarInt(playerid, "Business_WeapOffererSQLId")) {
-   				return SendClientMessage(playerid, COLOR_GRAD2, "The offerer has disconnected!");
+   				return SendErrorMessage(playerid, "The offerer has disconnected!");
 			}
             if(!ProxDetectorS(5.0, playerid, offerer)) {
-       	        SendClientMessageEx(playerid, COLOR_GREY, "The seller is not near you!");
+       	        SendErrorMessage(playerid, "The seller is not near you!");
        	        return 1;
             }
 		    if(GetPVarType(playerid, "IsInArena")) {
-				SendClientMessageEx(playerid, COLOR_WHITE, "You can't do this while being in an arena!");
+				SendErrorMessage(playerid, "You can't do this while being in an arena!");
 				return 1;
 			}
 		    if (GetPlayerCash(playerid) < GetPVarInt(playerid, "Business_WeapPrice")) {
-			    SendClientMessageEx(playerid, COLOR_GREY, "You can't afford the weapon");
+			    SendErrorMessage(playerid, "You can't afford the weapon");
 			    return 1;
 		    }
 		    if (Businesses[business][bInventory] < GetWeaponParam(GetPVarInt(playerid, "Business_WeapType"), WeaponMats)) {
-				SendClientMessage(playerid, COLOR_GRAD2, "Shop doesnt have mats anymore");
+				SendErrorMessage(playerid, "Shop doesnt have mats anymore");
 				return 1;
 		    }
 			if(GetPVarType(playerid, "PlayerCuffed") || GetPVarInt(playerid, "pBagged") >= 1 || GetPVarType(playerid, "Injured") || GetPVarType(playerid, "IsFrozen")) {
-   				SendClientMessage(playerid, COLOR_GRAD2, "You can't do that at this time!");
+   				SendErrorMessage(playerid, "You can't do that at this time!");
    				return 1;
 			}
 
@@ -281,7 +281,7 @@ CMD:accept(playerid, params[])
         else if(strcmp(params, "item", true) == 0) {
 
 			if (!GetPVarType(playerid, "Business_ItemOfferer")) {
-		        SendClientMessageEx(playerid, COLOR_GREY, "No one has offered you a item!");
+		        SendErrorMessage(playerid, "No one has offered you a item!");
 		        return 1;
 			}
 
@@ -292,27 +292,27 @@ CMD:accept(playerid, params[])
 
 			if (business == INVALID_BUSINESS_ID)
 			{
-				SendClientMessage(playerid, COLOR_GRAD2, "You are not in the business interior");
+				SendErrorMessage(playerid, "You are not in the business interior");
    				return 1;
 			}
 			if (GetPlayerSQLId(offerer) != GetPVarInt(playerid, "Business_ItemOffererSQLId")) {
-   				SendClientMessage(playerid, COLOR_GRAD2, "The offerer has disconnected!");
+   				SendServerMessage(playerid, "The offerer has disconnected!");
    				return 1;
 			}
 		    if (GetPlayerCash(playerid) < price) {
-			    SendClientMessageEx(playerid, COLOR_GREY, "You can't afford the item!");
+			    SendErrorMessage(playerid, "You can't afford the item!");
 			    return 1;
 		    }
 			if (!Businesses[business][bItemPrices][item]) {
-			    SendClientMessageEx(playerid, COLOR_GRAD4, "Item is not for sale anymore.");
+			    SendErrorMessage(playerid, "Item is not for sale anymore.");
 			    return 1;
 			}
 		 	if (Businesses[business][bInventory] < 1) {
-	   	 		SendClientMessageEx(playerid, COLOR_GRAD2, "Store does not have any items anymore!");
+	   	 		SendErrorMessage(playerid, "Store does not have any items anymore!");
 	   	 		return 1;
 			}
 			if (GetPVarInt(playerid, "Business_ItemPrice") != Businesses[business][bItemPrices][item]) {
-			    SendClientMessageEx(playerid, COLOR_GRAD4, "Purchase failed because the price for this item has changed.");
+			    SendErrorMessage(playerid, "Purchase failed because the price for this item has changed.");
 			    return 1;
 			}
 
@@ -327,7 +327,7 @@ CMD:accept(playerid, params[])
 		        	SetPVarInt(playerid, "playersold", item);
 			        GivePlayerStoreItem(playerid, 1, business, item+1, price);
 				}
-				else return SendClientMessageEx(playerid, COLOR_GRAD2, "The store does not have enough stock for that item!");
+				else return SendErrorMessage(playerid, "The store does not have enough stock for that item!");
     		}
   			else GivePlayerStoreItem(playerid, 1, business, item+1, price);
 		}
@@ -341,26 +341,26 @@ CMD:accept(playerid, params[])
 		    new businessid = PlayerInfo[offerer][pBusiness];
 
 			if (!GetPVarType(playerid, "Business_VehicleOfferer")) {
-		        SendClientMessageEx(playerid, COLOR_GREY, "No one has offered you a vehicle!");
+		        SendErrorMessage(playerid, "No one has offered you a vehicle!");
 		        return 1;
 			}
 
 			if (GetPlayerSQLId(offerer) != GetPVarInt(playerid, "Business_VehicleOffererSQLId")) {
-   				SendClientMessage(playerid, COLOR_GRAD2, "The offerer has disconnected!");
+   				SendServerMessage(playerid, "The offerer has disconnected!");
    				return 1;
 			}
 		    if (GetPlayerCash(playerid) < price) {
-			    SendClientMessageEx(playerid, COLOR_GREY, "You can't afford the vehicle!");
+			    SendErrorMessage(playerid, "You can't afford the vehicle!");
 			    return 1;
 		    }
 
             new playervehicleid = GetPlayerFreeVehicleId(playerid);
 
 			if(!vehicleCountCheck(playerid)) {
-				return SendClientMessage(playerid, COLOR_GRAD2, "You can't own any more vehicles.");
+				return SendErrorMessage(playerid, "You can't own any more vehicles.");
 			}
 			if(!vehicleSpawnCountCheck(playerid)) {
-				return SendClientMessage(playerid, COLOR_GRAD2, "You have too many vehicles spawned - store one first.");
+				return SendErrorMessage(playerid, "You have too many vehicles spawned - store one first.");
 			}
             PlayerVehicleInfo[playerid][playervehicleid][pvId] = Businesses[businessid][bVehID][slot];
             PlayerVehicleInfo[playerid][playervehicleid][pvModelId] = Businesses[businessid][bModel][slot];
@@ -390,14 +390,14 @@ CMD:accept(playerid, params[])
             if(GetPVarInt(playerid, "Injured") == 1) {
 
             	if(GetPVarInt(playerid, "InjuredWait") > gettime())
-            		return SendClientMessageEx(playerid, COLOR_GRAD2, "Please wait 5 seconds before accepting death.");
+            		return SendErrorMessage(playerid, "Please wait 5 seconds before accepting death.");
 
-                SendClientMessageEx(playerid, COLOR_WHITE, "You gave up hope and fell unconscious, you were immediately sent to the hospital.");
+                SendServerMessage(playerid, "You gave up hope and fell unconscious, you were immediately sent to the hospital.");
                 KillEMSQueue(playerid);
                 ResetPlayerWeaponsEx(playerid);
                 SpawnPlayer(playerid);
             }
-            else SendClientMessageEx(playerid, COLOR_GREY, "   You are not injured, you can't do this right now!");
+            else SendErrorMessage(playerid, "You are not injured, you can't do this right now!");
         }
         else if(strcmp(params, "car", true) == 0) {
             if(VehicleOffer[playerid] != INVALID_PLAYER_ID) {
@@ -408,13 +408,13 @@ CMD:accept(playerid, params[])
                             new playervehicleid = GetPlayerFreeVehicleId(playerid);
 
 			 				if(!vehicleCountCheck(playerid)) {
-								return SendClientMessage(playerid, COLOR_GRAD2, "You can't own any more vehicles.");
+								return SendErrorMessage(playerid, "You can't own any more vehicles.");
 							}
    							if(!vehicleSpawnCountCheck(playerid)) {
-								return SendClientMessage(playerid, COLOR_GRAD2, "You have too many vehicles spawned - store one first.");
+								return SendErrorMessage(playerid, "You have too many vehicles spawned - store one first.");
 							}
 							if(PlayerVehicleInfo[VehicleOffer[playerid]][VehicleId[playerid]][pvBeingPickLocked])
-								return SendClientMessage(playerid, COLOR_GRAD2, "There was an error while trying to sell this vehicle.");
+								return SendErrorMessage(playerid, "There was an error while trying to sell this vehicle.");
 
                             new ip[32], ipex[32];
                             GetPlayerIp(playerid, ip, sizeof(ip));
@@ -538,19 +538,19 @@ CMD:accept(playerid, params[])
                             return 1;
                         }
                         else {
-                            SendClientMessageEx(playerid, COLOR_GREY, "   The Car Dealer is not in the offered car!");
+                            SendErrorMessage(playerid, "The Car Dealer is not in the offered car!");
                             return 1;
                         }
                     }
                     else {
-                        SendClientMessageEx(playerid, COLOR_GREY, "   You can't afford the car!");
+                        SendErrorMessage(playerid, "You can't afford the car!");
                         return 1;
                     }
                 }
                 return 1;
             }
             else {
-                SendClientMessageEx(playerid, COLOR_GREY, "   Nobody offered to buy a car!");
+                SendErrorMessage(playerid, "Nobody offered to buy a car!");
                 return 1;
             }
         }
@@ -570,7 +570,7 @@ CMD:accept(playerid, params[])
 							PlayerInfo[HouseOffer[playerid]][pBEquipped] = 0;
 							PlayerInfo[HouseOffer[playerid]][pBStoredV] = INVALID_PLAYER_VEHICLE_ID;
 							PlayerInfo[HouseOffer[playerid]][pBStoredH] = INVALID_HOUSE_ID;
-							SendClientMessageEx(HouseOffer[playerid], COLOR_WHITE, "You have lost your backpack since you did not withdraw it");
+							SendServerMessage(HouseOffer[playerid], "You have lost your backpack since you did not withdraw it");
 						}
                         ClearHouse(House[playerid]);
                         HouseInfo[House[playerid]][hLock] = 1;
@@ -624,16 +624,16 @@ CMD:accept(playerid, params[])
                     }
                     else
 					{
-                        SendClientMessageEx(playerid, COLOR_GREY, "   You can't afford the house!");
+                        SendErrorMessage(playerid, "You can't afford the house!");
                         HouseOffer[playerid] = INVALID_PLAYER_ID;
                         HousePrice[playerid] = 0;
                         House[playerid] = INVALID_HOUSE_ID;
                         return 1;
                     }
                 }
-				else return SendClientMessageEx(playerid, COLOR_GREY, "   The seller has disconnected!");
+				else return SendErrorMessage(playerid, "The seller has disconnected!");
             }
-            else return SendClientMessageEx(playerid, COLOR_GREY, "   Nobody offered to buy a house!");
+            else return SendErrorMessage(playerid, "Nobody offered to buy a house!");
         }
         else if(strcmp(params, "handshake", true) == 0) {
             new
@@ -649,7 +649,7 @@ CMD:accept(playerid, params[])
 
 					if(!IsPlayerInRangeOfPoint(playerid, 5, ppFloats[0], ppFloats[1], ppFloats[2]) || Spectating[i] > 0) {
 						Count++;
-						SendClientMessageEx(playerid, COLOR_WHITE, "You're too far away. You can't accept the handshake right now.");
+						SendErrorMessage(playerid, "You're too far away. You can't accept the handshake right now.");
 					}
 					else {
 						switch(GetPVarInt(i, "shstyle")) {
@@ -745,11 +745,11 @@ CMD:accept(playerid, params[])
 					}
 				}
             }
-            if(Count == 0) return SendClientMessageEx(playerid, COLOR_WHITE, "You don't have any pending handshake requests.");
+            if(Count == 0) return SendErrorMessage(playerid, "You don't have any pending handshake requests.");
             return 1;
         }
 		else if(strcmp(params, "rflteam",true) == 0) {
-			if(!GetPVarType(playerid, "RFLTeam_Invite")) return SendClientMessageEx(playerid, COLOR_GREY, "Nobody offered you to join a team.");
+			if(!GetPVarType(playerid, "RFLTeam_Invite")) return SendErrorMessage(playerid, "Nobody offered you to join a team.");
 			new team = GetPVarInt(playerid, "RFLTeam_Team");
 			giveplayerid = GetPVarInt(playerid, "RFLTeam_Inviter");
 			DeletePVar(playerid, "RFLTeam_Invite");
@@ -780,7 +780,7 @@ CMD:accept(playerid, params[])
 			{
                 if(IsPlayerConnected(hInviteOffer[playerid]))
 				{
-	                if(CheckPointCheck(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "Please ensure that your current checkpoint is destroyed first (you either have material packages, or another existing checkpoint).");
+	                if(CheckPointCheck(playerid)) return SendServerMessage(playerid, "Please ensure that your current checkpoint is destroyed first (you either have material packages, or another existing checkpoint).");
                     format(szMessage, sizeof(szMessage), "* You have accepted %s's house invite, a checkpoint has been set to their house.", GetPlayerNameEx(hInviteOffer[playerid]));
                     SendClientMessageEx(playerid, COLOR_LIGHTBLUE, szMessage);
                     format(szMessage, sizeof(szMessage), "* %s has accepted your house invite.", GetPlayerNameEx(playerid));
@@ -797,10 +797,10 @@ CMD:accept(playerid, params[])
 				{
                     hInviteOffer[playerid] = INVALID_PLAYER_ID;
                     hInviteHouse[playerid] = INVALID_HOUSE_ID;
-                    SendClientMessageEx(playerid, COLOR_GREY, "The person who sent you a house invite has disconnected.");
+                    SendServerMessage(playerid, "The person who sent you a house invite has disconnected.");
                 }
             }
-            else return SendClientMessageEx(playerid, COLOR_GREY, "Nobody sent you a house invite.");
+            else return SendErrorMessage(playerid, "Nobody sent you a house invite.");
             return 1;
         }
         /*else if(strcmp(params, "divorce", true) == 0) {
@@ -839,7 +839,7 @@ CMD:accept(playerid, params[])
 
 				if (PlayerInfo[playerid][pCSFBanned]) {
 					if (arrGroupData[iGroupID][g_iGroupType] == GROUP_TYPE_LEA || arrGroupData[iGroupID][g_iGroupType] == GROUP_TYPE_MEDIC)	{
-						SendClientMessageEx(playerid, COLOR_WHITE, "You are unable to accept this group invite, as you're banned from civil service groups. Contact a member of DGA.");
+						SendErrorMessage(playerid, "You are unable to accept this group invite, as you're banned from civil service groups. Contact a member of DGA.");
 						DeletePVar(playerid, "Group_Invite");
 						DeletePVar(iInviter, "Group_Invited");
 						return 1;
@@ -865,9 +865,9 @@ CMD:accept(playerid, params[])
 					DeletePVar(playerid, "Group_Invite");
 					DeletePVar(iInviter, "Group_Invited");
                 }
-				else SendClientMessageEx(playerid, COLOR_GREY, "The person offering you an invite has disconnected.");
+				else SendErrorMessage(playerid, "The person offering you an invite has disconnected.");
             }
-            else SendClientMessageEx(playerid, COLOR_GREY, "Nobody has offered you a group invite.");
+            else SendErrorMessage(playerid, "Nobody has offered you a group invite.");
         }
         else if(strcmp(params, "witness", true) == 0) {
             if(MarryWitnessOffer[playerid] != INVALID_PLAYER_ID) {
@@ -884,13 +884,13 @@ CMD:accept(playerid, params[])
                         return 1;
                     }
                     else {
-                        SendClientMessageEx(playerid, COLOR_GREY, "   The person that requested you to be their marriage witness is not near you!");
+                        SendErrorMessage(playerid, "The person that requested you to be their marriage witness is not near you!");
                         return 1;
                     }
                 }
             }
             else {
-                SendClientMessageEx(playerid, COLOR_GREY, "   No-one asked you to be their marriage witness!");
+                SendErrorMessage(playerid, "No-one asked you to be their marriage witness!");
                 return 1;
             }
         }
@@ -899,7 +899,7 @@ CMD:accept(playerid, params[])
                 if(IsPlayerConnected(ProposeOffer[playerid])) {
                     if(ProxDetectorS(10.0, playerid, ProposeOffer[playerid])) {
                         if(MarryWitness[ProposeOffer[playerid]] == INVALID_PLAYER_ID) {
-                            SendClientMessageEx(playerid, COLOR_GREY, "   The proposer doesn't have a marriage witness!");
+                            SendErrorMessage(playerid, "The proposer doesn't have a marriage witness!");
                             return 1;
                         }
                         if(IsPlayerConnected(MarryWitness[ProposeOffer[playerid]])) {
@@ -931,25 +931,25 @@ CMD:accept(playerid, params[])
                                     return 1;
                                 }
                                 else {
-                                    SendClientMessageEx(playerid, COLOR_GREY, "   You are not at the church!");
+                                    SendErrorMessage(playerid, "You are not at the church!");
                                     return 1;
                                 }
                             }
                             else {
-                                SendClientMessageEx(playerid, COLOR_GREY, "   The marriage witness is not near your proposer!");
+                                SendErrorMessage(playerid, "The marriage witness is not near your proposer!");
                                 return 1;
                             }
                         }
                         return 1;
                     }
                     else {
-                        SendClientMessageEx(playerid, COLOR_GREY, "   The person that proposed to you is not near you!");
+                        SendErrorMessage(playerid, "The person that proposed to you is not near you!");
                         return 1;
                     }
                 }
             }
             else {
-                SendClientMessageEx(playerid, COLOR_GREY, "   Nobody proposed to you!");
+                SendErrorMessage(playerid, "Nobody proposed to you!");
                 return 1;
             }
         }
@@ -985,13 +985,13 @@ CMD:accept(playerid, params[])
                         }
                     }
                     else {
-                        SendClientMessageEx(playerid, COLOR_GREY, "   The officer is not near you!");
+                        SendErrorMessage(playerid, "The officer is not near you!");
                         return 1;
                     }
                 }
             }
             else {
-                SendClientMessageEx(playerid, COLOR_GREY, "   No-one offered you a ticket!");
+                SendErrorMessage(playerid, "No-one offered you a ticket!");
                 return 1;
             }
         }
@@ -1192,11 +1192,11 @@ CMD:accept(playerid, params[])
         else if(strcmp(params, "medic", true) == 0) {
             if(IsAMedic(playerid)) {
                 if(MedicCallTime[playerid] > 0) {
-                    SendClientMessageEx(playerid, COLOR_GREY, "   You have already accepted a Medic Call!");
+                    SendErrorMessage(playerid, "You have already accepted a Medic Call!");
                     return 1;
                 }
                 if(CheckPointCheck(playerid)) {
-                    SendClientMessageEx(playerid, COLOR_WHITE, "Please ensure that your current checkpoint is destroyed first (you either have material packages, or another existing checkpoint).");
+                    SendServerMessage(playerid, "Please ensure that your current checkpoint is destroyed first (you either have material packages, or another existing checkpoint).");
                     return 1;
                 }
                 if(MedicCall != INVALID_PLAYER_ID) {
@@ -1222,26 +1222,26 @@ CMD:accept(playerid, params[])
                     }
                 }
                 else {
-                    SendClientMessageEx(playerid, COLOR_GREY, "   No-one called for a Medic yet!");
+                    SendErrorMessage(playerid, "No-one called for a Medic yet!");
                     return 1;
                 }
             }
             else {
-                SendClientMessageEx(playerid, COLOR_GREY, "   You are not a Medic!");
+                SendErrorMessage(playerid, "You are not a Medic!");
                 return 1;
             }
         }
         else if(strcmp(params, "mechanic", true) == 0) {
             if(PlayerInfo[playerid][pJob] != 7 && PlayerInfo[playerid][pJob2] != 7 && PlayerInfo[playerid][pJob3] != 7) {
-                SendClientMessageEx(playerid, COLOR_GREY, "   You are not a Car Mechanic!");
+                SendErrorMessage(playerid, "You are not a Mechanic!");
                 return 1;
             }
             if(MechanicCallTime[playerid] > 0) {
-                SendClientMessageEx(playerid, COLOR_GREY, "   You have already accepted a Mechanic Call!");
+                SendErrorMessage(playerid, "You have already accepted a Mechanic Call!");
                 return 1;
             }
             if(CheckPointCheck(playerid)) {
-                SendClientMessageEx(playerid, COLOR_WHITE, "Please ensure that your current checkpoint is destroyed first (you either have material packages, or another existing checkpoint).");
+                SendServerMessage(playerid, "Please ensure that your current checkpoint is destroyed first (you either have material packages, or another existing checkpoint).");
                 return 1;
             }
             if(MechanicCall != INVALID_PLAYER_ID) {
@@ -1264,7 +1264,7 @@ CMD:accept(playerid, params[])
                 }
             }
             else {
-                SendClientMessageEx(playerid, COLOR_GREY, "   No-one called for a Car Mechanic yet!");
+                SendErrorMessage(playerid, "No-one called for a Car Mechanic yet!");
                 return 1;
             }
         }
@@ -1272,8 +1272,8 @@ CMD:accept(playerid, params[])
             if(LiveOffer[playerid] != INVALID_PLAYER_ID) {
                 if(IsPlayerConnected(LiveOffer[playerid])) {
                     if (ProxDetectorS(5.0, playerid, LiveOffer[playerid])) {
-                        SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* You are frozen till the Live Conversation ends.");
-                        SendClientMessageEx(LiveOffer[playerid], COLOR_LIGHTBLUE, "* You are frozen till the Live Conversation ends (use /live again).");
+                        SendServerMessage(playerid, "You are frozen till the Live Conversation ends.");
+                        SendServerMessage(LiveOffer[playerid], "You are frozen till the Live Conversation ends (use /live again).");
                         TogglePlayerControllable(playerid, 0);
                         TogglePlayerControllable(LiveOffer[playerid], 0);
 						SetPVarInt(playerid, "IsLive", 1);
@@ -1284,14 +1284,14 @@ CMD:accept(playerid, params[])
                         return 1;
                     }
                     else {
-                        SendClientMessageEx(playerid, COLOR_GREY, "   You are to far away from the News Reporter!");
+                        SendErrorMessage(playerid, "You are to far away from the News Reporter!");
                         return 1;
                     }
                 }
                 return 1;
             }
             else {
-                SendClientMessageEx(playerid, COLOR_GREY, "   No-one gave you a Live Conversation offer!");
+                SendErrorMessage(playerid, "No-one gave you a Live Conversation offer!");
                 return 1;
             }
         }
@@ -1319,12 +1319,12 @@ CMD:accept(playerid, params[])
                 return 1;
             }
             else {
-                SendClientMessageEx(playerid, COLOR_GREY, "Invalid action! (You are no cop / person is not a Lawyer / Bad ID)");
+                SendErrorMessage(playerid, "Invalid action! (You are no cop / person is not a Lawyer / Bad ID)");
                 return 1;
             }
         }
         else if(strcmp(params, "bodyguard", true) == 0) {
-        	if(GetPVarType(playerid, "IsInArena")) return SendClientMessageEx(playerid, COLOR_WHITE, "You can't do this while being in an arena!");
+        	if(GetPVarType(playerid, "IsInArena")) return SendErrorMessage(playerid, "You can't do this while being in an arena!");
             if(GuardOffer[playerid] != INVALID_PLAYER_ID) {
                 if(GetPlayerCash(playerid) > GuardPrice[playerid]) {
                     if(IsPlayerConnected(GuardOffer[playerid])) {
@@ -1332,7 +1332,7 @@ CMD:accept(playerid, params[])
                             new Float:armour;
                             GetArmour(playerid, armour);
                             if(armour >= 50) {
-                                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* You already have a vest!");
+                                SendErrorMessage(playerid, "You already have a vest!");
                                 return 1;
                             }
                             new ip[32], ipex[32];
@@ -1362,19 +1362,19 @@ CMD:accept(playerid, params[])
                             return 1;
                         }
                         else {
-                            SendClientMessageEx(playerid, COLOR_GRAD2, "You are not near the person offering you guard!");
+                            SendErrorMessage(playerid, "You are not near the person offering you guard!");
                             return 1;
                         }
                     }
                     return 1;
                 }
                 else {
-                    SendClientMessageEx(playerid, COLOR_GREY, "   You can't afford the Protection!");
+                    SendErrorMessage(playerid, "You can't afford the Protection!");
                     return 1;
                 }
             }
             else {
-                SendClientMessageEx(playerid, COLOR_GREY, "   No-one offered you any Protection!");
+                SendErrorMessage(playerid, "No-one offered you any Protection!");
                 return 1;
             }
         }
@@ -1405,12 +1405,12 @@ CMD:accept(playerid, params[])
                     return 1;
                 }
                 else {
-                    SendClientMessageEx(playerid, COLOR_GREY, "   You can't afford the Protection!");
+                    SendErrorMessage(playerid, "You can't afford the Protection!");
                     return 1;
                 }
             }
             else {
-                SendClientMessageEx(playerid, COLOR_GREY, "   No-one offered you any Protection!");
+                SendErrorMessage(playerid, "No-one offered you any Protection!");
                 return 1;
             }
         }
@@ -1429,7 +1429,7 @@ CMD:accept(playerid, params[])
                 return 1;
             }
             else {
-                SendClientMessageEx(playerid, COLOR_GREY, "   No-one offered you any Protection!");
+                SendErrorMessage(playerid, "No-one offered you any Protection!");
                 return 1;
             }
         }
@@ -1439,10 +1439,10 @@ CMD:accept(playerid, params[])
 	            	if(IsPlayerConnected(GetPVarInt(playerid, "RimOffer"))) {
 	            		if (GetPVarInt(playerid, "RimSeller_SQLId") != GetPlayerSQLId(GetPVarInt(playerid, "RimOffer")))
 						{
-			                return SendClientMessageEx(playerid, COLOR_GREY, "The other person has disconnected.");
+			                return SendErrorMessage(playerid, "The other person has disconnected.");
 						}
 						if(PlayerInfo[GetPVarInt(playerid, "RimOffer")][pRimMod] < GetPVarInt(playerid, "RimCount"))	{
-							SendClientMessageEx(playerid,COLOR_GREY, "That person does not have that number of rim kits anymore!");
+							SendErrorMessage(playerid, "That person does not have that number of rim kits anymore!");
 							return 1;
 						}
 	                    GivePlayerCash(playerid, -GetPVarInt(playerid, "RimPrice"));
@@ -1471,13 +1471,13 @@ CMD:accept(playerid, params[])
 	     		}
 	      		else
 				{
-	            	SendClientMessageEx(playerid, COLOR_GREY, "You can't afford that many rim kits!");
+	            	SendErrorMessage(playerid, "You can't afford that many rim kits!");
 	                return 1;
 	        	}
        		}
 			else
 			{
-        		SendClientMessageEx(playerid, COLOR_GREY, "No-one offered you any rim kits!");
+        		SendErrorMessage(playerid, "No-one offered you any rim kits!");
 			}
  	    }
 		else if(strcmp(params, "voucher", true) == 0)
@@ -1519,7 +1519,7 @@ CMD:accept(playerid, params[])
 					}
 					if(GetPVarInt(playerid, "buyingVoucher") == 2) // Silver VIP Voucher
 					{
-						if(PlayerInfo[sellerid][pSVIPVoucher] < amount) return SendClientMessageEx(playerid, COLOR_GRAD1, "The seller does not have that many anymore.");
+						if(PlayerInfo[sellerid][pSVIPVoucher] < amount) return SendErrorMessage(playerid, "The seller does not have that many anymore.");
 
 						GivePlayerCash(playerid, -price);
 						GivePlayerCash(sellerid, price);
@@ -1540,7 +1540,7 @@ CMD:accept(playerid, params[])
 					}
 					if(GetPVarInt(playerid, "buyingVoucher") == 3) // Gold VIP Voucher
 					{
-						if(PlayerInfo[sellerid][pGVIPVoucher] < amount) return SendClientMessageEx(playerid, COLOR_GRAD1, "The seller does not have that many anymore.");
+						if(PlayerInfo[sellerid][pGVIPVoucher] < amount) return SendErrorMessage(playerid, "The seller does not have that many anymore.");
 
 						GivePlayerCash(playerid, -price);
 						GivePlayerCash(sellerid, price);
@@ -1561,7 +1561,7 @@ CMD:accept(playerid, params[])
 					}
 					if(GetPVarInt(playerid, "buyingVoucher") == 4) // 1 month PVIP Voucher
 					{
-						if(PlayerInfo[sellerid][pPVIPVoucher] < amount) return SendClientMessageEx(playerid, COLOR_GRAD1, "The seller does not have that many anymore.");
+						if(PlayerInfo[sellerid][pPVIPVoucher] < amount) return SendErrorMessage(playerid, "The seller does not have that many anymore.");
 
 						GivePlayerCash(playerid, -price);
 						GivePlayerCash(sellerid, price);
@@ -1582,7 +1582,7 @@ CMD:accept(playerid, params[])
 					}
 					if(GetPVarInt(playerid, "buyingVoucher") == 5) // Restricted Car Voucher
 					{
-						if(PlayerInfo[sellerid][pCarVoucher] < amount) return SendClientMessageEx(playerid, COLOR_GRAD1, "The seller does not have that many anymore.");
+						if(PlayerInfo[sellerid][pCarVoucher] < amount) return SendErrorMessage(playerid, "The seller does not have that many anymore.");
 
 						GivePlayerCash(playerid, -price);
 						GivePlayerCash(sellerid, price);
@@ -1603,7 +1603,7 @@ CMD:accept(playerid, params[])
 					}
 					if(GetPVarInt(playerid, "buyingVoucher") == 6) // Priority Advertisement Voucher
 					{
-						if(PlayerInfo[sellerid][pAdvertVoucher] < amount) return SendClientMessageEx(playerid, COLOR_GRAD1, "The seller does not have that many anymore.");
+						if(PlayerInfo[sellerid][pAdvertVoucher] < amount) return SendErrorMessage(playerid, "The seller does not have that many anymore.");
 
 						GivePlayerCash(playerid, -price);
 						GivePlayerCash(sellerid, price);
@@ -1624,7 +1624,7 @@ CMD:accept(playerid, params[])
 					}
 					if(GetPVarInt(playerid, "buyingVoucher") == 7) // 7 Days Silver VIP
 					{
-						if(PlayerInfo[sellerid][pSVIPExVoucher] < amount) return SendClientMessageEx(playerid, COLOR_GRAD1, "The seller does not have that many anymore.");
+						if(PlayerInfo[sellerid][pSVIPExVoucher] < amount) return SendErrorMessage(playerid, "The seller does not have that many anymore.");
 
 						GivePlayerCash(playerid, -price);
 						GivePlayerCash(sellerid, price);
@@ -1645,7 +1645,7 @@ CMD:accept(playerid, params[])
 					}
 					if(GetPVarInt(playerid, "buyingVoucher") == 8) // 7 Days Gold VIP
 					{
-						if(PlayerInfo[sellerid][pGVIPExVoucher] < amount) return SendClientMessageEx(playerid, COLOR_GRAD1, "The seller does not have that many anymore.");
+						if(PlayerInfo[sellerid][pGVIPExVoucher] < amount) return SendErrorMessage(playerid, "The seller does not have that many anymore.");
 
 						GivePlayerCash(playerid, -price);
 						GivePlayerCash(sellerid, price);
@@ -1665,16 +1665,16 @@ CMD:accept(playerid, params[])
 						return 1;
 					}
 				}
-				else return SendClientMessageEx(playerid, COLOR_GRAD2, "No-One has offered you any vouchers.");
+				else return SendErrorMessage(playerid, "No-One has offered you any vouchers.");
 			}
-			else return SendClientMessageEx(playerid, COLOR_GRAD2, "You do not have enough money.");
+			else return SendErrorMessage(playerid, "You do not have enough money.");
 		}
         else if(strcmp(params,"craft",true) == 0) {
             if(CraftOffer[playerid] != INVALID_PLAYER_ID) {
                 if(IsPlayerConnected(CraftOffer[playerid])) {
                     if (ProxDetectorS(5.0, playerid, CraftOffer[playerid])) {
                         if(PlayerInfo[playerid][pHospital] > 0) {
-                            SendClientMessageEx(playerid, COLOR_GREY, "You can't spawn a weapon whilst in Hospital.");
+                            SendErrorMessage(playerid, "You can't spawn a weapon whilst in Hospital.");
                             return 1;
                         }
 
@@ -1683,16 +1683,16 @@ CMD:accept(playerid, params[])
                         	CraftOffer[playerid] = INVALID_PLAYER_ID;
                        		CraftId[playerid] = 0;
                         	CraftMats[playerid] = 0;
-                        	return SendClientMessageEx(playerid, COLOR_GREY, "The crafter does not have enough materials.");
+                        	return SendErrorMessage(playerid, "The crafter does not have enough materials.");
                         }
 
-                        if(IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_GRAD2, "Please exit the vehicle, before using this command.");
+                        if(IsPlayerInAnyVehicle(playerid)) return SendErrorMessage(playerid, "Please exit the vehicle, before using this command.");
 						if(CraftId[playerid] == 17)
 						{
 							if(PlayerInfo[playerid][pPhousekey] == INVALID_HOUSE_ID && PlayerInfo[playerid][pPhousekey2] == INVALID_HOUSE_ID && PlayerInfo[playerid][pPhousekey3] == INVALID_HOUSE_ID)
 							{
-								SendClientMessageEx(playerid, COLOR_GREY, "You don't own a house!");
-								SendClientMessageEx(CraftOffer[playerid], COLOR_GREY, "The buyer doesn't own a house!");
+								SendErrorMessage(playerid, "You don't own a house!");
+								SendErrorMessage(CraftOffer[playerid], "The buyer doesn't own a house!");
 								return 1;
 							}
 							if((IsPlayerInRangeOfPoint(playerid, 50.0, HouseInfo[PlayerInfo[playerid][pPhousekey]][hInteriorX], HouseInfo[PlayerInfo[playerid][pPhousekey]][hInteriorY], HouseInfo[PlayerInfo[playerid][pPhousekey]][hInteriorZ]) && GetPlayerVirtualWorld(playerid) == HouseInfo[PlayerInfo[playerid][pPhousekey]][hIntVW] && GetPlayerInterior(playerid) == HouseInfo[PlayerInfo[playerid][pPhousekey]][hIntIW]) &&
@@ -1709,8 +1709,8 @@ CMD:accept(playerid, params[])
 							}
 							else
 							{
-								SendClientMessageEx(playerid, COLOR_GREY, "The craftsman is not inside of your house!");
-								SendClientMessageEx(CraftOffer[playerid], COLOR_GREY, "You are not inside of the buyer's house!");
+								SendErrorMessage(playerid, "The craftsman is not inside of your house!");
+								SendErrorMessage(CraftOffer[playerid], "You are not inside of the buyer's house!");
 								return 1;
 							}
 						}
@@ -1720,37 +1720,37 @@ CMD:accept(playerid, params[])
                             case 1:
                             {
                                 PlayerInfo[playerid][pScrewdriver]++;
-                                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "/sellgun");
+                                SendServerMessage(playerid, "/sellgun");
                             }
                             case 2:
                             {
                                 PlayerInfo[playerid][pSmslog]++;
-                                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "/smslog");
+                                SendServerMessage(playerid, "/smslog");
                             }
                             case 3:
                             {
                                 PlayerInfo[playerid][pWristwatch]++;
-                                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "/wristwatch");
+                                SendServerMessage(playerid, "/wristwatch");
                             }
                             case 4:
                             {
                                 PlayerInfo[playerid][pSurveillance]++;
-                                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "/(p)lace(c)amera /(s)ee(c)amera /(d)estroy(c)amera");
+                                SendServerMessage(playerid, "/(p)lace(c)amera /(s)ee(c)amera /(d)estroy(c)amera");
                             }
                             case 5:
                             {
                                 PlayerInfo[playerid][pTire]++;
-                                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "/repair");
+                                SendServerMessage(playerid, "/repair");
                             }
                             case 6:
                             {
                                 PlayerInfo[playerid][pLock]=1;
-                                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "/lock");
+                                SendServerMessage(playerid, "/lock");
                             }
                             case 7:
                             {
                                 PlayerInfo[playerid][pFirstaid]++;
-                                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "/firstaid");
+                                SendServerMessage(playerid, "/firstaid");
                             }
                             case 8:
                             {
@@ -1759,24 +1759,24 @@ CMD:accept(playerid, params[])
                             case 9:
                             {
                                 PlayerInfo[playerid][pRccam]++;
-                                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "/rccam");
+                                SendServerMessage(playerid, "/rccam");
                             }
                             case 10:
                             {
                                 PlayerInfo[playerid][pReceiver]++;
                                 SetPVarInt(playerid, "pReceiverMLeft", 4);
-                                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "You will receive the next four department radio messages.");
+                                SendServerMessage(playerid, "You will receive the next four department radio messages.");
                             }
                             case 11:
                             {
                                 PlayerInfo[playerid][pGPS] = 1;
-                                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "/gps");
+                                SendServerMessage(playerid, "/gps");
                             }
                             case 12:
                             {
                                 PlayerInfo[playerid][pSweep]++;
                                 PlayerInfo[playerid][pSweepLeft] = 3;
-                                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "/sweep");
+                                SendServerMessage(playerid, "/sweep");
                             }
                             case 13:
                             {
@@ -1795,17 +1795,17 @@ CMD:accept(playerid, params[])
                             case 15:
                             {
                                 PlayerInfo[playerid][pMailbox]++;
-                                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Type /placemailbox where you want mailbox to be at.");
+                                SendServerMessage(playerid, "Type /placemailbox where you want mailbox to be at.");
                             }
 							case 16:
 							{
 								if(PlayerInfo[playerid][pSyringes] < 3) {
 									PlayerInfo[playerid][pSyringes]++;
-									SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "/usedrug heroin");
+									SendServerMessage(playerid, "/usedrug heroin");
 								}
 								else
 								{
-						    		SendClientMessageEx(playerid, COLOR_GREY, "You can't hold anymore syringes.");
+						    		SendErrorMessage(playerid, "You can't hold anymore syringes.");
 						    		return 1;
 								}
 							}
@@ -1817,7 +1817,7 @@ CMD:accept(playerid, params[])
 									if(IsValidDynamic3DTextLabel(HouseInfo[PlayerInfo[playerid][pPhousekey]][hClosetTextID])) DestroyDynamic3DTextLabel(Text3D:HouseInfo[PlayerInfo[playerid][pPhousekey]][hClosetTextID]);
 									HouseInfo[PlayerInfo[playerid][pPhousekey]][hClosetTextID] = CreateDynamic3DTextLabel("Closet\n/closet to use", 0xFFFFFF88, HouseInfo[PlayerInfo[playerid][pPhousekey]][hClosetX], HouseInfo[PlayerInfo[playerid][pPhousekey]][hClosetY], HouseInfo[PlayerInfo[playerid][pPhousekey]][hClosetZ]+0.5,10.0, .testlos = 1, .worldid = HouseInfo[PlayerInfo[playerid][pPhousekey]][hIntVW], .interiorid = HouseInfo[PlayerInfo[playerid][pPhousekey]][hIntIW], .streamdistance = 10.0);
 									SaveHouse(PlayerInfo[playerid][pPhousekey]);
-									SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "/closet(add/remove)");
+									SendServerMessage(playerid, "/closet(add/remove)");
 								}
 								else if(IsPlayerInRangeOfPoint(playerid, 50.0, HouseInfo[PlayerInfo[playerid][pPhousekey2]][hInteriorX], HouseInfo[PlayerInfo[playerid][pPhousekey2]][hInteriorY], HouseInfo[PlayerInfo[playerid][pPhousekey2]][hInteriorZ]) && IsPlayerInRangeOfPoint(CraftOffer[playerid], 50.0, HouseInfo[PlayerInfo[playerid][pPhousekey2]][hInteriorX], HouseInfo[PlayerInfo[playerid][pPhousekey2]][hInteriorY], HouseInfo[PlayerInfo[playerid][pPhousekey2]][hInteriorZ]))
 								{
@@ -1825,7 +1825,7 @@ CMD:accept(playerid, params[])
 									if(IsValidDynamic3DTextLabel(HouseInfo[PlayerInfo[playerid][pPhousekey2]][hClosetTextID])) DestroyDynamic3DTextLabel(Text3D:HouseInfo[PlayerInfo[playerid][pPhousekey2]][hClosetTextID]);
 									HouseInfo[PlayerInfo[playerid][pPhousekey2]][hClosetTextID] = CreateDynamic3DTextLabel("Closet\n/closet to use", 0xFFFFFF88, HouseInfo[PlayerInfo[playerid][pPhousekey2]][hClosetX], HouseInfo[PlayerInfo[playerid][pPhousekey2]][hClosetY], HouseInfo[PlayerInfo[playerid][pPhousekey2]][hClosetZ]+0.5,10.0, .testlos = 1, .worldid = HouseInfo[PlayerInfo[playerid][pPhousekey2]][hIntVW], .interiorid = HouseInfo[PlayerInfo[playerid][pPhousekey2]][hIntIW], .streamdistance = 10.0);
 									SaveHouse(PlayerInfo[playerid][pPhousekey2]);
-									SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "/closet(add/remove)");
+									SendServerMessage(playerid, "/closet(add/remove)");
 								}
 								else if(IsPlayerInRangeOfPoint(playerid, 50.0, HouseInfo[PlayerInfo[playerid][pPhousekey3]][hInteriorX], HouseInfo[PlayerInfo[playerid][pPhousekey3]][hInteriorY], HouseInfo[PlayerInfo[playerid][pPhousekey3]][hInteriorZ]) && IsPlayerInRangeOfPoint(CraftOffer[playerid], 50.0, HouseInfo[PlayerInfo[playerid][pPhousekey3]][hInteriorX], HouseInfo[PlayerInfo[playerid][pPhousekey3]][hInteriorY], HouseInfo[PlayerInfo[playerid][pPhousekey3]][hInteriorZ]))
 								{
@@ -1833,18 +1833,18 @@ CMD:accept(playerid, params[])
 									if(IsValidDynamic3DTextLabel(HouseInfo[PlayerInfo[playerid][pPhousekey3]][hClosetTextID])) DestroyDynamic3DTextLabel(Text3D:HouseInfo[PlayerInfo[playerid][pPhousekey3]][hClosetTextID]);
 									HouseInfo[PlayerInfo[playerid][pPhousekey3]][hClosetTextID] = CreateDynamic3DTextLabel("Closet\n/closet to use", 0xFFFFFF88, HouseInfo[PlayerInfo[playerid][pPhousekey3]][hClosetX], HouseInfo[PlayerInfo[playerid][pPhousekey3]][hClosetY], HouseInfo[PlayerInfo[playerid][pPhousekey3]][hClosetZ]+0.5,10.0, .testlos = 1, .worldid = HouseInfo[PlayerInfo[playerid][pPhousekey3]][hIntVW], .interiorid = HouseInfo[PlayerInfo[playerid][pPhousekey3]][hIntIW], .streamdistance = 10.0);
 									SaveHouse(PlayerInfo[playerid][pPhousekey3]);
-									SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "/closet(add/remove)");
+									SendServerMessage(playerid, "/closet(add/remove)");
 								}
 							}
 							case 18:
 							{
 								PlayerInfo[playerid][pToolBox] += 15;
-								SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Type /pickveh(icle) in any car to attempt to lock pick it.");
+								SendServerMessage(playerid, "Type /pickveh(icle) in any car to attempt to lock pick it.");
 							}
 							case 19:
 							{
 								PlayerInfo[playerid][pCrowBar] += 25;
-								SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Type /cracktrunk in any car that you already lock picked to attempt to open the trunk.");
+								SendServerMessage(playerid, "Type /cracktrunk in any car that you already lock picked to attempt to open the trunk.");
 							}
 							case 20: GivePlayerValidWeapon(playerid, WEAPON_FLOWER);
 							case 21: GivePlayerValidWeapon(playerid, WEAPON_BRASSKNUCKLE);
@@ -1857,7 +1857,7 @@ CMD:accept(playerid, params[])
 							case 28: GivePlayerValidWeapon(playerid, WEAPON_SPRAYCAN);
 							case 29: {
 								PlayerInfo[playerid][pRimMod]++;
-								SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Type /userimkit as a mechanic in any car to modify your rims.");
+								SendServerMessage(playerid, "Type /userimkit as a mechanic in any car to modify your rims.");
 							}
                         }
                         format(szMessage, sizeof(szMessage), "   You have given %s, a %s.", GetPlayerNameEx(playerid),weaponname);
@@ -1881,14 +1881,14 @@ CMD:accept(playerid, params[])
                         return 1;
                     }
                     else {
-                        SendClientMessageEx(playerid, COLOR_GRAD2, "You need to be the near the person that is selling you the weapon !");
+                        SendErrorMessage(playerid, "You need to be the near the person that is selling you the weapon !");
                         return 1;
                     }
                 }
                 return 1;
             }
             else {
-                SendClientMessageEx(playerid, COLOR_GREY, "   No-one offered you a craft!");
+                SendErrorMessage(playerid, "No-one offered you a craft!");
                 return 1;
             }
         }
@@ -1919,7 +1919,7 @@ CMD:accept(playerid, params[])
 				}
 			}
 			else {
-				SendClientMessageEx(playerid, COLOR_GREY, "   No-one offered you a contract!");
+				SendErrorMessage(playerid, "No-one offered you a contract!");
 				return 1;
 			}
 		}
@@ -1965,16 +1965,16 @@ CMD:accept(playerid, params[])
 							}
 
                             if(PlayerInfo[SexOffer[playerid]][pSexSkill] == 50) {
-                                SendClientMessageEx(SexOffer[playerid], COLOR_YELLOW, "* Your Sex Skill is now Level 2, you offer better Sex (health) and less chance on STI.");
+                                SendServerMessage(SexOffer[playerid], "Your Sex Skill is now Level 2, you offer better Sex (health) and less chance on STI.");
                             }
                             else if(PlayerInfo[SexOffer[playerid]][pSexSkill] == 100) {
-                                SendClientMessageEx(SexOffer[playerid], COLOR_YELLOW, "* Your Sex Skill is now Level 3, you offer better Sex (health) and less chance on STI.");
+                                SendServerMessage(SexOffer[playerid], "Your Sex Skill is now Level 3, you offer better Sex (health) and less chance on STI.");
                             }
                             else if(PlayerInfo[SexOffer[playerid]][pSexSkill] == 200) {
-                                SendClientMessageEx(SexOffer[playerid], COLOR_YELLOW, "* Your Sex Skill is now Level 4, you offer better Sex (health) and less chance on STI.");
+                                SendServerMessage(SexOffer[playerid], "Your Sex Skill is now Level 4, you offer better Sex (health) and less chance on STI.");
                             }
                             else if(PlayerInfo[SexOffer[playerid]][pSexSkill] == 400) {
-                                SendClientMessageEx(SexOffer[playerid], COLOR_YELLOW, "* Your Sex Skill is now Level 5, you offer better Sex (health) and less chance on STI.");
+                                SendServerMessage(SexOffer[playerid], "Your Sex Skill is now Level 5, you offer better Sex (health) and less chance on STI.");
                             }
 
                             if(!GetPVarType(playerid, "STD")) {
@@ -1995,11 +1995,11 @@ CMD:accept(playerid, params[])
                                         SetPVarInt(playerid, "STD", STD1[rand]);
                                         SetPVarInt(SexOffer[playerid], "STD", STD1[rand]);
                                         if(STD1[rand] == 0) {
-                                            SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* You got 10 Health + no STI while having Sex."); SendClientMessageEx(SexOffer[playerid], COLOR_LIGHTBLUE, "* You haven't got a STI while having Sex.");
+                                            SendServerMessage(playerid, "You got 10 Health + no STI while having Sex."); SendServerMessage(SexOffer[playerid], "You haven't got a STI while having Sex.");
                                         }
-                                        else if(STD1[rand] == 1) { SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* You got 10 Health and Chlamydia because of unsafe sex."); SendClientMessageEx(SexOffer[playerid], COLOR_LIGHTBLUE, "* You received Chlamydia because of unsafe sex."); }
-                                        else if(STD1[rand] == 2) { SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* You got 10 Health and Gonorrhea because of unsafe sex."); SendClientMessageEx(SexOffer[playerid], COLOR_LIGHTBLUE, "* You received Gonorrhea because of unsafe sex."); }
-                                        else if(STD1[rand] == 3) { SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* You got 10 Health and Syphilis because of unsafe sex."); SendClientMessageEx(SexOffer[playerid], COLOR_LIGHTBLUE, "* You received Syphilis because of unsafe sex."); }
+                                        else if(STD1[rand] == 1) { SendServerMessage(playerid, "You got 10 Health and Chlamydia because of unsafe sex."); SendServerMessage(SexOffer[playerid], "You received Chlamydia because of unsafe sex."); }
+                                        else if(STD1[rand] == 2) { SendServerMessage(playerid, "You got 10 Health and Gonorrhea because of unsafe sex."); SendServerMessage(SexOffer[playerid], "You received Gonorrhea because of unsafe sex."); }
+                                        else if(STD1[rand] == 3) { SendServerMessage(playerid, "You got 10 Health and Syphilis because of unsafe sex."); SendServerMessage(SexOffer[playerid], "You received Syphilis because of unsafe sex."); }
                                     }
                                     else if(level >= 51 && level <= 100) {
                                         GetHealth(playerid, health);
