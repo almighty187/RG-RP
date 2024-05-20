@@ -456,13 +456,16 @@ stock ReloadHouseText(houseid)
 
 stock ReloadHousePickup(houseid)
 {
-	if(IsValidDynamicPickup(HouseInfo[houseid][hPickupID])) DestroyDynamicPickup(HouseInfo[houseid][hPickupID]), HouseInfo[houseid][hPickupID] = -1;
+	/*if(IsValidDynamicPickup(HouseInfo[houseid][hPickupID])) DestroyDynamicPickup(HouseInfo[houseid][hPickupID]), HouseInfo[houseid][hPickupID] = -1;
 	if(IsValidDynamic3DTextLabel(HouseInfo[houseid][hTextID])) DestroyDynamic3DTextLabel(HouseInfo[houseid][hTextID]), HouseInfo[houseid][hTextID] = Text3D:-1;
 	if(IsValidDynamic3DTextLabel(HouseInfo[houseid][hTextID_int])) DestroyDynamic3DTextLabel(HouseInfo[houseid][hTextID_int]), HouseInfo[houseid][hTextID_int] = Text3D:-1;
 	if(IsValidDynamicPickup(HouseInfo[houseid][hPickupID_int])) DestroyDynamicPickup(HouseInfo[houseid][hPickupID_int]), HouseInfo[houseid][hPickupID_int] = -1;
 	if(IsValidDynamicArea(HouseInfo[houseid][hAreaID][0])) DestroyDynamicArea(HouseInfo[houseid][hAreaID][0]), HouseInfo[houseid][hAreaID][0] = -1;
-	if(IsValidDynamicArea(HouseInfo[houseid][hAreaID][1])) DestroyDynamicArea(HouseInfo[houseid][hAreaID][1]), HouseInfo[houseid][hAreaID][1] = -1;
-
+	if(IsValidDynamicArea(HouseInfo[houseid][hAreaID][1])) DestroyDynamicArea(HouseInfo[houseid][hAreaID][1]), HouseInfo[houseid][hAreaID][1] = -1;*/
+	DestroyDynamicPickup(HouseInfo[houseid][hPickupID]);
+	DestroyDynamicPickup(HouseInfo[houseid][hPickupID_int]);
+	DestroyDynamicPickup(HouseInfo[houseid][hPickupID_int]);
+    DestroyDynamic3DTextLabel(HouseInfo[houseid][hTextID]);
 	if(HouseInfo[houseid][hExteriorX] == 0.0) return 1;
 	new string[128];
 	if (HouseInfo[houseid][hOwned] == 0) {
@@ -527,8 +530,16 @@ stock ReloadHousePickup2(h)
 			HouseInfo[h][hMapIcon] = CreateDynamicMapIcon(HouseInfo[h][hExteriorX], HouseInfo[h][hExteriorY], HouseInfo[h][hExteriorZ], 32, COLOR_YELLOW, -1, -1, -1, 80.0);
 			switch(HouseInfo[h][hRentable])
 			{
-				case 0: HouseInfo[h][hPickupID] = CreateDynamicPickup(19522, 23, HouseInfo[h][hExteriorX], HouseInfo[h][hExteriorY], HouseInfo[h][hExteriorZ], .worldid = HouseInfo[h][hExtVW], .interiorid = HouseInfo[h][hExtIW]);
-				case 1: HouseInfo[h][hPickupID] = CreateDynamicPickup(19523, 23, HouseInfo[h][hExteriorX], HouseInfo[h][hExteriorY], HouseInfo[h][hExteriorZ], .worldid = HouseInfo[h][hExtVW], .interiorid = HouseInfo[h][hExtIW]);
+				case 0:
+				{
+				    DestroyDynamicPickup(HouseInfo[h][hPickupID]);
+					HouseInfo[h][hPickupID] = CreateDynamicPickup(19522, 23, HouseInfo[h][hExteriorX], HouseInfo[h][hExteriorY], HouseInfo[h][hExteriorZ], .worldid = HouseInfo[h][hExtVW], .interiorid = HouseInfo[h][hExtIW]);
+				}
+				case 1:
+				{
+				    DestroyDynamicPickup(HouseInfo[h][hPickupID]);
+					HouseInfo[h][hPickupID] = CreateDynamicPickup(19523, 23, HouseInfo[h][hExteriorX], HouseInfo[h][hExteriorY], HouseInfo[h][hExteriorZ], .worldid = HouseInfo[h][hExtVW], .interiorid = HouseInfo[h][hExtIW]);
+				}
 			}
 		}
 	}
