@@ -509,7 +509,7 @@ CMD:shopobject(playerid, params[])
 
 CMD:buytoys(playerid, params[])
 {
-	if(IsPlayerInRangeOfPoint(playerid, 4, 2787.095947, 2390.353027, 1240.531127) || IsPlayerInRangeOfPoint(playerid, 4, 1774.7533, 1422.6665, 2013.4979) || IsPlayerInRangeOfPoint(playerid, 4, 775.0900, 1742.4900, 1938.3800))
+	if(IsPlayerInRangeOfPoint(playerid, 4, 2561.3279,1404.0374,7699.5845) || IsPlayerInRangeOfPoint(playerid, 4, 1774.7533, 1422.6665, 2013.4979) || IsPlayerInRangeOfPoint(playerid, 4, 775.0900, 1742.4900, 1938.3800))
 	{
 		if(PlayerInfo[playerid][pDonateRank] < 3)
 		{
