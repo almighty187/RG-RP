@@ -1025,7 +1025,8 @@ stock Help_ListCat(playerid, dialogid = DIALOG_HELPCATMAIN, response = 0, listit
 		case DIALOG_HELPCATGROUP:
 		{
 			new j = 0;
-			if(Help_Perm(playerid, 11, PlayerInfo[playerid][pLeader], 1))
+			//if(Help_Perm(playerid, 11, PlayerInfo[playerid][pLeader], 1))
+			if(Help_Perm(playerid, 11, arrGroupData[PlayerInfo[playerid][pMember]][g_iGroupType], 1) || Help_Perm(playerid, 11, arrGroupData[PlayerInfo[playerid][pLeader]][g_iGroupType], 1))
 			{
 				format(string, sizeof(string), "HelpResultCat%i", j);
 				SetPVarInt(playerid, string, 1);
@@ -1041,7 +1042,7 @@ stock Help_ListCat(playerid, dialogid = DIALOG_HELPCATMAIN, response = 0, listit
 			format(string, sizeof(string), "HelpResultCat%i", listitem);
 			if(GetPVarInt(playerid, string))
 			{
-				Help_GenerateCMDList(playerid, 3, -1, 11, arrGroupData[PlayerInfo[playerid][pMember]][g_iGroupType]);
+				Help_GenerateCMDList(playerid, 3, -1, 11, arrGroupData[PlayerInfo[playerid][pLeader]][g_iGroupType]);
 				ClearHelpSearch(playerid, 0, 1);
 				if(!isnull(szMiscArray)) ShowPlayerDialogEx(playerid, DIALOG_HELPCATGROUP, DIALOG_STYLE_LIST, "Help System", szMiscArray, "Select", "Cancel");
 				else ShowPlayerDialogEx(playerid, DIALOG_HELPCATMAIN, DIALOG_STYLE_MSGBOX, "Help System", "No commands found for this category.", "Go Back", "");
@@ -1451,7 +1452,8 @@ stock Help_Perm(playerid, type, subtype, level)
 		{
 			if(subtype > 0)
 			{
-				if(PlayerInfo[playerid][pLeader] == subtype) return 1;
+  				if(arrGroupData[PlayerInfo[playerid][pLeader]][g_iGroupType] == subtype) return 1;
+				//if(PlayerInfo[playerid][pLeader] == subtype) return 1;
 				else return 0;
 			}
 			return 1;

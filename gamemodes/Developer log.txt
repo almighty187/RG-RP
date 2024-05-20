@@ -8,6 +8,7 @@ Added map for ooc prison
 Gamemode Fixes:
 Fixed so talkanim doesnt overlap other anim
 Fixed reqesthelp
+Fixed leadership cmd for factions
 
 Gamemode Changes:
 Change the tazer timer
