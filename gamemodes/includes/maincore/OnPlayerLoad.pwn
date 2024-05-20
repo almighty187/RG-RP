@@ -753,15 +753,20 @@ public OnPlayerLoad(playerid)
 		if(PlayerInfo[playerid][pAdmin] >= 2) SendClientMessageEx(playerid, COLOR_YELLOW, HMOTD);
 		//SendClientMessageEx(playerid, COLOR_GREEN, HMOTD);
 	}*/
-	if(PlayerInfo[playerid][pAdmin] >= 1)
-		SendClientMessageEx(playerid, COLOR_RG, AdminMOTD);
-
-
-	if(PlayerInfo[playerid][pDonateRank] >= 1)
-		SendClientMessageEx(playerid, COLOR_VIP, VIPMOTD);
-
+	if(PlayerInfo[playerid][pAdmin] >= 1) {
+		//SendClientMessageEx(playerid, COLOR_RG, AdminMOTD);
+		format(szMiscArray, sizeof szMiscArray, "Admin MOTD: %s", AdminMOTD);
+		SendClientMessageEx(playerid, COLOR_RG, szMiscArray);
+	}
+	if(PlayerInfo[playerid][pDonateRank] >= 1) {
+		//SendClientMessageEx(playerid, COLOR_VIP, VIPMOTD);
+		format(szMiscArray, sizeof szMiscArray, "VIP MOTD: %s", VIPMOTD);
+		SendClientMessageEx(playerid, COLOR_VIP, szMiscArray);
+	}
 	if(PlayerInfo[playerid][pHelper] >= 1) {
-		SendClientMessageEx(playerid, COLOR_HELPER, HMOTD);
+		//SendClientMessageEx(playerid, COLOR_HELPER, HMOTD);
+		format(szMiscArray, sizeof szMiscArray, "Helper MOTD: %s", HMOTD);
+		SendClientMessageEx(playerid, COLOR_HELPER, szMiscArray);
 		if(PlayerInfo[playerid][pHelper] >= 2) {
 			SetPVarInt(playerid, "HelperDuty", 1);
 			SetPVarInt(playerid, "CAChat", 1);

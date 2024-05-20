@@ -48,7 +48,7 @@ CMD:helpermotd(playerid, params[])
 {
     if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pHelper] >= 4 || PlayerInfo[playerid][pPR] > 0)
     {
-		if(isnull(params)) return SendSyntaxMessage(playerid, "/advisormotd [message]");
+		if(isnull(params)) return SendSyntaxMessage(playerid, "/helpermotd [message]");
 		new string[128];
 		format(HMOTD, sizeof(HMOTD), "%s", params);
 		if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pPR] > 0)
@@ -58,7 +58,7 @@ CMD:helpermotd(playerid, params[])
 		}
 		else if(PlayerInfo[playerid][pHelper] >= 4)
 		{
-		    format(string, sizeof(string), "CACmd: %s has changed the Helper motd to: %s.", GetPlayerNameEx(playerid), params);
+		    format(string, sizeof(string), "HCmd: %s has changed the Helper motd to: %s.", GetPlayerNameEx(playerid), params);
 			CBroadCast( COLOR_YELLOW, string, 2);
 		}
 		SendClientMessageEx(playerid, COLOR_WHITE, "You've adjusted the Helper MOTD.");
