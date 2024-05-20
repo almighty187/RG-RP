@@ -2663,7 +2663,7 @@ public OnPlayerDisconnect(playerid, reason)
 			Boxer2 = INVALID_PLAYER_ID;
 			TBoxer = INVALID_PLAYER_ID;
 		}
-		if(GetPVarInt(playerid, "AdvisorDuty") == 1)
+		if(GetPVarInt(playerid, "HelperDuty") == 1)
 		{
 			Helpers--;
 		}

@@ -193,7 +193,7 @@ PayDay(i) {
 			if(GetPVarInt(i, "pBirthday") == 1) {
 				PlayerInfo[i][pPayCheck] = PlayerInfo[i][pPayCheck] * 2;
 			}
-			if(GetPVarType(i, "AdvisorDuty")) {
+			if(GetPVarType(i, "HelperDuty")) {
 				PlayerInfo[i][pDutyHours]++;
 			}
 			if(SpecTimer) AddSpecialToken(i);

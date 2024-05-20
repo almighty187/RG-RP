@@ -6381,9 +6381,9 @@ CMD:removemoderator(playerid, params[])
 
 			if(PlayerInfo[giveplayerid][pAdmin] == 1)
 			{
-				if(GetPVarInt(playerid, "AdvisorDuty") == 1)
+				if(GetPVarInt(playerid, "HelperDuty") == 1)
 				{
-					DeletePVar(playerid, "AdvisorDuty");
+					DeletePVar(playerid, "HelperDuty");
 					Helpers -= 1;
 				}
 				SetAdminLevel(playerid, giveplayerid, 0);

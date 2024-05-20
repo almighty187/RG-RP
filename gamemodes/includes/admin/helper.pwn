@@ -48,7 +48,7 @@ stock SendDutyAdvisorMessage(color, string[])
 {
 	foreach(new i: Player)
 	{
-		if(PlayerInfo[i][pHelper] >= 2 && GetPVarInt(i, "AdvisorDuty") == 1)
+		if(PlayerInfo[i][pHelper] >= 2 && GetPVarInt(i, "HelperDuty") == 1)
 		{
 			SendClientMessageEx(i, color, string);
 		}
@@ -100,7 +100,7 @@ CMD:helpers(playerid, params[])
 					format(string, sizeof(string), "** Helper: %s	(Requests This Hour: %d | Requests Today: %d)", GetPlayerNameEx(i), ReportHourCount[i], ReportCount[i]);
 				}
 				if(PlayerInfo[i][pHelper] == 2&&PlayerInfo[i][pAdmin]<2) {
-					if(GetPVarInt(i, "AdvisorDuty") == 1) {
+					if(GetPVarInt(i, "HelperDuty") == 1) {
 						format(string, sizeof(string), "** Community Helper: %s (On Duty)	(Requests This Hour: %d | Requests Today: %d)", GetPlayerNameEx(i), ReportHourCount[i], ReportCount[i]);
 					}
 					else {
@@ -108,7 +108,7 @@ CMD:helpers(playerid, params[])
 					}
 				}
 				if(PlayerInfo[i][pHelper] == 3&&PlayerInfo[i][pAdmin]<2) {
-					if(GetPVarInt(i, "AdvisorDuty") == 1) {
+					if(GetPVarInt(i, "HelperDuty") == 1) {
 						format(string, sizeof(string), "** Senior Helper: %s (On Duty)	(Requests This Hour: %d | Requests Today: %d)", GetPlayerNameEx(i), ReportHourCount[i], ReportCount[i]);
 					}
 					else {
@@ -116,7 +116,7 @@ CMD:helpers(playerid, params[])
 					}
 				}
 				if(PlayerInfo[i][pHelper] >= 4&&PlayerInfo[i][pAdmin]<2) {
-					if(GetPVarInt(i, "AdvisorDuty") == 1) {
+					if(GetPVarInt(i, "HelperDuty") == 1) {
 						format(string, sizeof(string), "** Head Helper: %s (On Duty)	(Requests This Hour: %d | Requests Today: %d)", GetPlayerNameEx(i), ReportHourCount[i], ReportCount[i]);
 					}
 					else {
@@ -137,10 +137,10 @@ CMD:helpers(playerid, params[])
 CMD:hduty(playerid, params[])
 {
     if(PlayerInfo[playerid][pHelper] >= 1) {
-		if(GetPVarInt(playerid, "AdvisorDuty") == 1) {
-			SendServerMessage(playerid, "You are now off duty as a Helper and will not receive calls anymore.");
+		if(GetPVarInt(playerid, "HelperDuty") == 1) {
+			SendServerMessage(playerid, "You are now off duty as a Helper. You will receive calls but won't be able to answer them");
 	  		Delete3DTextLabel(DutyLabel[playerid]);
-	  		DeletePVar(playerid, "AdvisorDuty");
+	  		DeletePVar(playerid, "HelperDuty");
 	  		SetPlayerColor(playerid, COLOR_WHITE);
 	    	Helpers -= 1;
 		}
@@ -149,7 +149,7 @@ CMD:hduty(playerid, params[])
 	 		SendServerMessage(playerid, "You are now on duty as a Helper and will receive calls from people in need.");
 			DutyLabel[playerid] = Create3DTextLabel("Helper On Duty \n Do NOT Attack",0x00808000,0,0,0,50,-1,1);
 			Attach3DTextLabelToPlayer(DutyLabel[playerid], playerid, 0,0,0);
-	  		SetPVarInt(playerid, "AdvisorDuty", 1);
+	  		SetPVarInt(playerid, "HelperDuty", 1);
 	  		SetPlayerColor(playerid, COLOR_GREEN);
 	    	Helpers += 1;
   		}
@@ -593,9 +593,9 @@ CMD:takehelper(playerid, params[])
 		    }
 			if(PlayerInfo[giveplayerid][pHelper] != 0)
 			{
-				if(GetPVarType(playerid, "AdvisorDuty"))
+				if(GetPVarType(playerid, "HelperDuty"))
 				{
-					DeletePVar(playerid, "AdvisorDuty");
+					DeletePVar(playerid, "HelperDuty");
 					Helpers -= 1;
 				}
 				PlayerInfo[giveplayerid][pHelper] = 0;
@@ -651,7 +651,7 @@ CMD:requesthelp(playerid, params[])
 
 CMD:showrequests(playerid, params[])
 {
-	if(GetPVarInt(playerid, "AdvisorDuty") == 0) return SendErrorMessage(playerid, "You are not on duty as a Helper.");
+	if(GetPVarInt(playerid, "HelperDuty") == 0) return SendErrorMessage(playerid, "You are not on duty as a Helper.");
 	if(PlayerInfo[playerid][pHelper] >= 2 || PlayerInfo[playerid][pPR] || PlayerInfo[playerid][pAdmin] >= 2)
 	{
 		new string[128], reason[64];
@@ -779,7 +779,7 @@ CMD:findnewb(playerid, params[]) {
 	if(PlayerInfo[playerid][pHelper] < 2) {
         SendErrorMessage(playerid, "You are not a Helper.");
 	}
-	else if(GetPVarInt(playerid, "AdvisorDuty") == 0) {
+	else if(GetPVarInt(playerid, "HelperDuty") == 0) {
 	    SendErrorMessage(playerid, "You are not on duty as a Helper.");
 	}
 	else {
@@ -837,7 +837,7 @@ CMD:accepthelp(playerid, params[])
 	else if(HelpingNewbie[playerid] != INVALID_PLAYER_ID) {
 	    SendErrorMessage(playerid, "You are already helping someone.");
 	}
-	else if(GetPVarInt(playerid, "AdvisorDuty") == 0) {
+	else if(GetPVarInt(playerid, "HelperDuty") == 0) {
 	    SendErrorMessage(playerid, "You are not on duty as a Helper.");
 	}
 	else {

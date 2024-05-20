@@ -414,7 +414,7 @@ public OnQueryFinish(resultid, extraid, handleid)
 					cache_get_value_name_int(row,  "VIPMuted", PlayerInfo[extraid][pVMuted]);
 					cache_get_value_name_int(row,  "VIPMutedTime", PlayerInfo[extraid][pVMutedTime]);
 					cache_get_value_name_int(row,  "GiftTime", PlayerInfo[extraid][pGiftTime]);
-					cache_get_value_name_int(row,  "AdvisorDutyHours", PlayerInfo[extraid][pDutyHours]);
+					cache_get_value_name_int(row,  "HelperDutyHours", PlayerInfo[extraid][pDutyHours]);
 					cache_get_value_name_int(row,  "AcceptedHelp", PlayerInfo[extraid][pAcceptedHelp]);
 					cache_get_value_name_int(row,  "AcceptReport", PlayerInfo[extraid][pAcceptReport]);
 					cache_get_value_name_int(row,  "ShopTechOrders", PlayerInfo[extraid][pShopTechOrders]);
@@ -2307,7 +2307,7 @@ stock g_mysql_SaveAccount(playerid, string[] = "")
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "VIPMuted", PlayerInfo[playerid][pVMuted]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "VIPMutedTime", PlayerInfo[playerid][pVMutedTime]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "GiftTime", PlayerInfo[playerid][pGiftTime]);
-    SavePlayerInteger(query, GetPlayerSQLId(playerid), "AdvisorDutyHours", PlayerInfo[playerid][pDutyHours]);
+    SavePlayerInteger(query, GetPlayerSQLId(playerid), "HelperDutyHours", PlayerInfo[playerid][pDutyHours]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "AcceptedHelp", PlayerInfo[playerid][pAcceptedHelp]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "AcceptReport", PlayerInfo[playerid][pAcceptReport]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "TrashReport", PlayerInfo[playerid][pTrashReport]);

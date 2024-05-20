@@ -763,7 +763,7 @@ public OnPlayerLoad(playerid)
 	if(PlayerInfo[playerid][pHelper] >= 1) {
 		SendClientMessageEx(playerid, COLOR_HELPER, CAMOTD);
 		if(PlayerInfo[playerid][pHelper] >= 2) {
-			SetPVarInt(playerid, "AdvisorDuty", 1);
+			SetPVarInt(playerid, "HelperDuty", 1);
 			SetPVarInt(playerid, "CAChat", 1);
 			++Helpers;
 		}

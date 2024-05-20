@@ -5198,7 +5198,7 @@ CMD:bug(playerid, params[])
         else if(PlayerInfo[iTargetID][pAdmin] >= 2) {
 			SendClientMessageEx(playerid, COLOR_GREY, "You cannot place a bug on this person.");
 		}
-		else if(GetPVarInt(iTargetID, "AdvisorDuty") == 1 && (GetPVarType(iTargetID, "HelpingSomeone") || GetPVarType(iTargetID, "pGodMode"))) {
+		else if(GetPVarInt(iTargetID, "HelperDuty") == 1 && (GetPVarType(iTargetID, "HelpingSomeone") || GetPVarType(iTargetID, "pGodMode"))) {
     		SendClientMessageEx(playerid, COLOR_GREY, "You cannot place bugs on advisors while they are on duty.");
 		}
 
