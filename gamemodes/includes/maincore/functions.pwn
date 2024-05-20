@@ -892,7 +892,7 @@ public HelpTimer(playerid)
   		SetPVarInt(playerid, "HelpTime", GetPVarInt(playerid, "HelpTime")-1);
     	if(GetPVarInt(playerid, "HelpTime") == 0)
      	{
-      		SendClientMessageEx(playerid, COLOR_GREY, "Your help request has expired. Its recommended you seek help on the forums (www.ng-gaming.net/forums)");
+      		SendClientMessageEx(playerid, COLOR_GREY, "Your help request has expired. Its recommended you seek help on the forums (forum.rg-rp.net)");
         	DeletePVar(playerid, "COMMUNITY_ADVISOR_REQUEST");
          	return 1;
         }
