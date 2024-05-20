@@ -820,7 +820,7 @@ new rflstatus = 0;
 new GlobalMOTD[128];
 new AdminMOTD[128];
 new VIPMOTD[128];
-new CAMOTD[128];
+new HMOTD[128];
 new pMOTD[256];
 new gMOTD[MAX_GROUPS][3][GROUP_MAX_MOTD_LEN];
 new prisonerMOTD[3][GROUP_MAX_MOTD_LEN];

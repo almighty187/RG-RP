@@ -750,8 +750,8 @@ public OnPlayerLoad(playerid)
 	SendClientMessageEx(playerid, COLOR_YELLOW, GlobalMOTD);
 
 	/*if(PlayerInfo[playerid][pAdmin] > 0) {
-		if(PlayerInfo[playerid][pAdmin] >= 2) SendClientMessageEx(playerid, COLOR_YELLOW, CAMOTD);
-		//SendClientMessageEx(playerid, COLOR_GREEN, CAMOTD);
+		if(PlayerInfo[playerid][pAdmin] >= 2) SendClientMessageEx(playerid, COLOR_YELLOW, HMOTD);
+		//SendClientMessageEx(playerid, COLOR_GREEN, HMOTD);
 	}*/
 	if(PlayerInfo[playerid][pAdmin] >= 1)
 		SendClientMessageEx(playerid, COLOR_RG, AdminMOTD);
@@ -761,7 +761,7 @@ public OnPlayerLoad(playerid)
 		SendClientMessageEx(playerid, COLOR_VIP, VIPMOTD);
 
 	if(PlayerInfo[playerid][pHelper] >= 1) {
-		SendClientMessageEx(playerid, COLOR_HELPER, CAMOTD);
+		SendClientMessageEx(playerid, COLOR_HELPER, HMOTD);
 		if(PlayerInfo[playerid][pHelper] >= 2) {
 			SetPVarInt(playerid, "HelperDuty", 1);
 			SetPVarInt(playerid, "CAChat", 1);

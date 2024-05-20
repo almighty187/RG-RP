@@ -228,7 +228,7 @@ public OnQueryFinish(resultid, extraid, handleid)
    				cache_get_value_name(i, "gMOTD", GlobalMOTD);
 				cache_get_value_name(i, "aMOTD", AdminMOTD);
 				cache_get_value_name(i, "vMOTD", VIPMOTD);
-				cache_get_value_name(i, "cMOTD", CAMOTD);
+				cache_get_value_name(i, "cMOTD", HMOTD);
 				cache_get_value_name(i, "pMOTD", pMOTD);
 				cache_get_value_name_float(i, "ShopTechPay", ShopTechPay);
                 cache_get_value_name(i, "GiftCode", GiftCode);
@@ -1637,7 +1637,7 @@ stock g_mysql_SaveMOTD()
 	mysql_format(MainPipeline, query, sizeof(query), "%s `gMOTD` = '%e',", query, GlobalMOTD);
 	mysql_format(MainPipeline, query, sizeof(query), "%s `aMOTD` = '%e',", query, AdminMOTD);
 	mysql_format(MainPipeline, query, sizeof(query), "%s `vMOTD` = '%e',", query, VIPMOTD);
-	mysql_format(MainPipeline, query, sizeof(query), "%s `cMOTD` = '%e',", query, CAMOTD);
+	mysql_format(MainPipeline, query, sizeof(query), "%s `cMOTD` = '%e',", query, HMOTD);
 	mysql_format(MainPipeline, query, sizeof(query), "%s `pMOTD` = '%e',", query, pMOTD);
 	mysql_format(MainPipeline, query, sizeof(query), "%s `prisonerMOTD` = '%e',", query, prisonerMOTD[0]);
 	mysql_format(MainPipeline, query, sizeof(query), "%s `prisonerMOTD2` = '%e',", query, prisonerMOTD[1]);

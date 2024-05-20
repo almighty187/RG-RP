@@ -50,7 +50,7 @@ CMD:helpermotd(playerid, params[])
     {
 		if(isnull(params)) return SendSyntaxMessage(playerid, "/advisormotd [message]");
 		new string[128];
-		format(CAMOTD, sizeof(CAMOTD), "%s", params);
+		format(HMOTD, sizeof(HMOTD), "%s", params);
 		if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pPR] > 0)
 		{
 			format(string, sizeof(string), "AdmCmd: %s has changed the Helper motd to: %s.", GetPlayerNameEx(playerid), params);
@@ -162,7 +162,7 @@ CMD:viewmotd(playerid, params[])
 			SendClientMessageEx(playerid, arrGroupData[PlayerInfo[playerid][pMember]][g_hDutyColour] * 256 + 255, gMOTD[PlayerInfo[playerid][pMember]][i]);
 		}
 	}
-	if(strcmp(option, "helper", true) == 0 && PlayerInfo[playerid][pHelper] >= 1) return SendClientMessageEx(playerid, TEAM_AZTECAS_COLOR, CAMOTD);
+	if(strcmp(option, "helper", true) == 0 && PlayerInfo[playerid][pHelper] >= 1) return SendClientMessageEx(playerid, TEAM_AZTECAS_COLOR, HMOTD);
 	if(strcmp(option, "admin", true) == 0 && PlayerInfo[playerid][pAdmin] > 1) return SendClientMessageEx(playerid, COLOR_YELLOW, AdminMOTD);
 	if(strcmp(option, "prisoner", true) == 0 && strfind(PlayerInfo[playerid][pPrisonReason], "[IC]", true) != -1 || strcmp(option, "prisoner", true) == 0 && IsADocGuard(playerid))
 	{
