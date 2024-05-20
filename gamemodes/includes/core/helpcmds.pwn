@@ -367,7 +367,7 @@ stock Help_ListCat(playerid, dialogid = DIALOG_HELPCATMAIN, response = 0, listit
 			}
 			if(PlayerInfo[playerid][pHelper] >= 1)
 			{
-				format(szMiscArray, sizeof(szMiscArray), "%sAdvisor\n", szMiscArray);
+				format(szMiscArray, sizeof(szMiscArray), "%sHelper\n", szMiscArray);
 				format(string, sizeof(string), "HelpResultMainCat%i", j);
 				SetPVarInt(playerid, string, 2);
 				j++;
