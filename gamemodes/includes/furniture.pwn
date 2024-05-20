@@ -1715,7 +1715,7 @@ FurnitureTDInit() {
 	TextDrawTextSize(Furniture_TD[27], 66.000000, 32.000000);
 	TextDrawSetSelectable(Furniture_TD[27], 0);
 
-	Furniture_TD[28] = TextDrawCreate(544.000000, 439.000000, "Furniture System - by Jingles");
+	Furniture_TD[28] = TextDrawCreate(544.000000, 439.000000, "Furniture System");
 	TextDrawBackgroundColor(Furniture_TD[28], 255);
 	TextDrawFont(Furniture_TD[28], 2);
 	TextDrawLetterSize(Furniture_TD[28], 0.139999, 0.899999);
