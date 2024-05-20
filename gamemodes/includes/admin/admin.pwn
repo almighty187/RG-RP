@@ -268,9 +268,7 @@ CMD:givegun(playerid, params[])
 			Log("logs/admingive.log", szMiscArray);
         }
     }
-    else {
-        SendErrorMessage(playerid,"You are not authorized to use this CMD.");
-    }
+    else SendErrorMessage(playerid,"You are not authorized to use this CMD.");
     return 1;
 }
 
@@ -372,9 +370,7 @@ CMD:setmyhp(playerid, params[])
         format(szMiscArray, sizeof(szMiscArray), "You have set your health to %d.", health);
         SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
     }
-    else {
-        SendErrorMessage(playerid,"You are not authorized to use this CMD.");
-    }
+    else SendErrorMessage(playerid,"You are not authorized to use this CMD.");
     return 1;
 }
 
@@ -398,10 +394,7 @@ CMD:setarmor(playerid, params[])
             }
         }
     }
-    else
-	{
-        SendErrorMessage(playerid,"You are not authorized to use this CMD.");
-    }
+    else SendErrorMessage(playerid,"You are not authorized to use this CMD.");
     return 1;
 }
 
@@ -419,10 +412,7 @@ CMD:setmyarmor(playerid, params[])
         format(szMiscArray, sizeof(szMiscArray), "You have set your armor to %d.", armor);
         SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
     }
-    else
-	{
-        SendErrorMessage(playerid,"You are not authorized to use this CMD.");
-    }
+    else SendErrorMessage(playerid,"You are not authorized to use this CMD.");
     return 1;
 }
 
@@ -441,23 +431,22 @@ CMD:setarmorall(playerid, params[])
 		}
     }
 
-    else {
-        SendErrorMessage(playerid,"You are not authorized to use this CMD.");
-    }
+    else SendErrorMessage(playerid,"You are not authorized to use this CMD.");
     return 1;
 }
 
 CMD:loadcfgs(playerid, params[])
 {
-    if(PlayerInfo[playerid][pAdmin] < 1338) {
-        SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command.");
-        return 1;
-    }
-    SendClientMessageEx(playerid, COLOR_WHITE, "* Reloading CFG Files..");
-    g_mysql_LoadMOTD();
-	// Local Configs
-	Misc_Load();
-    SendClientMessageEx(playerid, COLOR_WHITE, "* Done");
+    if(PlayerInfo[playerid][pAdmin] < 1338)
+	{
+
+	    SendClientMessageEx(playerid, COLOR_WHITE, "* Reloading CFG Files..");
+	    g_mysql_LoadMOTD();
+		// Local Configs
+		Misc_Load();
+	    SendClientMessageEx(playerid, COLOR_WHITE, "* Done");
+  	}
+  	else SendErrorMessage(playerid,"You are not authorized to use this CMD.");
     return 1;
 }
 
@@ -518,8 +507,8 @@ CMD:admins(playerid, params[])
 		}
     }
     else {
-        SendClientMessageEx(playerid, COLOR_GRAD1, "If you have questions regarding gameplay or the server, use /requesthelp or /newb");
-        SendClientMessageEx(playerid, COLOR_GRAD1, "If you see a player breaking rules or need Admin assistance, use /report");
+        SendServerMessage(playerid, "If you have questions regarding gameplay or the server, use /requesthelp or /newb");
+        SendServerMessage(playerid, "If you see a player breaking rules or need Admin assistance, use /report");
     }
     return 1;
 }
@@ -542,10 +531,7 @@ CMD:dn(playerid, params[])
 		}
         return 1;
     }
-    else
-	{
-        SendErrorMessage(playerid,"You are not authorized to use this CMD.");
-    }
+    else SendErrorMessage(playerid,"You are not authorized to use this CMD.");
     return 1;
 }
 
@@ -567,10 +553,7 @@ CMD:up(playerid, params[])
 		}
         return 1;
     }
-    else
-	{
-        SendErrorMessage(playerid,"You are not authorized to use this CMD.");
-    }
+    else SendErrorMessage(playerid,"You are not authorized to use this CMD.");
     return 1;
 }
 
@@ -697,9 +680,7 @@ CMD:fly(playerid, params[])
 			}
         }
     }
-    else {
-        SendErrorMessage(playerid,"You are not authorized to use this CMD.");
-    }
+    else SendErrorMessage(playerid,"You are not authorized to use this CMD.");
     return 1;
 }
 
@@ -721,10 +702,7 @@ CMD:lt(playerid, params[])
 		}
         return 1;
     }
-    else
-	{
-        SendErrorMessage(playerid,"You are not authorized to use this CMD.");
-    }
+    else SendErrorMessage(playerid,"You are not authorized to use this CMD.");
     return 1;
 }
 
@@ -746,10 +724,7 @@ CMD:rt(playerid, params[])
 		}
         return 1;
     }
-    else
-	{
-        SendErrorMessage(playerid,"You are not authorized to use this CMD.");
-    }
+    else SendErrorMessage(playerid,"You are not authorized to use this CMD.");
     return 1;
 }
 
@@ -771,10 +746,7 @@ CMD:fd(playerid, params[])
 		}
         return 1;
     }
-    else
-	{
-        SendErrorMessage(playerid,"You are not authorized to use this CMD.");
-    }
+    else SendErrorMessage(playerid,"You are not authorized to use this CMD.");
     return 1;
 }
 
@@ -796,20 +768,14 @@ CMD:bk(playerid, params[])
 		}
         return 1;
     }
-    else
-	{
-        SendErrorMessage(playerid,"You are not authorized to use this CMD.");
-    }
+    else SendErrorMessage(playerid,"You are not authorized to use this CMD.");
     return 1;
 }
 
 CMD:mjail(playerid, params[]) {
-	if(PlayerInfo[playerid][pAdmin] == 1 || PlayerInfo[playerid][pHelper] >= 2) {
-
-		new
-			iTargetID,
-			szReason[64];
-
+	if(PlayerInfo[playerid][pAdmin] == 1 || PlayerInfo[playerid][pHelper] >= 2)
+	{
+		new iTargetID, szReason[64];
 		if(sscanf(params, "us[64]", iTargetID, szReason)) {
 			SendSyntaxMessage(playerid, "/mjail [playerid/PartOfName] [reason]");
 		}
@@ -874,24 +840,22 @@ CMD:noooc(playerid, params[])
 		if (!noooc)
 		{
 			noooc = 1;
-			SendClientMessageToAllEx(COLOR_RG, "   OOC chat channel disabled by an Admin!");
+			SendClientMessageToAllEx(COLOR_RG, "OOC chat channel disabled by an Admin!");
 		}
 		else
 		{
 			noooc = 0;
-			SendClientMessageToAllEx(COLOR_GREEN, "   OOC chat channel enabled by an Admin!");
+			SendClientMessageToAllEx(COLOR_GREEN, "OOC chat channel enabled by an Admin!");
 		}
 	}
-	else
-	{
-		SendErrorMessage(playerid,"You are not authorized to use this CMD.");
-	}
+	else SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 	return 1;
 }
 
 CMD:vehname(playerid, params[]) {
 
-	if(PlayerInfo[playerid][pAdmin] >= 2) {
+	if(PlayerInfo[playerid][pAdmin] >= 2)
+	{
 
 		SendClientMessageEx(playerid, COLOR_GREEN, "--------------------------------------------------------------------------------------------------------------------------------");
 		SendClientMessageEx(playerid, COLOR_WHITE, "Vehicle Search:");
@@ -913,6 +877,7 @@ CMD:vehname(playerid, params[]) {
 
 		SendClientMessageEx(playerid, COLOR_GREEN, "--------------------------------------------------------------------------------------------------------------------------------");
 	}
+	else SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 	return 1;
 }
 
@@ -1039,12 +1004,12 @@ CMD:wepreset(playerid, params[])
 		    }
 		    else
 		    {
-		        SendClientMessageEx(playerid, COLOR_WHITE, "Their weapons are not restricted!");
+		        SendErrorMessage(playerid, "Their weapons are not restricted!");
 			}
 		}
 		else
 		{
-		    SendClientMessageEx(playerid, COLOR_GRAD2, "Invalid player specified.");
+		    SendErrorMessage(playerid, "Invalid player specified.");
 		}
 	}
 	return 1;
@@ -1068,10 +1033,10 @@ CMD:clearall(playerid, params[])
 			SetPlayerWantedLevel(i, 0);
 			ClearCrimes(i);
 		}
-        SendClientMessageEx(playerid,COLOR_GRAD1, "You have cleared everyone's Wanted Level.");
+        SendServerMessage(playerid, "You have cleared everyone's Wanted Level.");
     }
     else {
-        SendErrorMessage(playerid,"You are not authorized to use this CMD.");
+        SendErrorMessage(playerid, "You are not authorized to use this CMD.");
     }
     return 1;
 }
