@@ -176,10 +176,7 @@ CMD:nonewbie(playerid, params[])
 			SendClientMessageToAllEx(COLOR_GREEN, "Newbie chat channel enabled by an Admin/Helper!");
 		}
 	}
-	else
-	{
-		SendErrorMessage(playerid, "You are not authorized to use this CMD.");
-	}
+	else SendErrorMessage(playerid, "You are not authorized to use this CMD.");
 	return 1;
 }
 
@@ -205,6 +202,7 @@ CMD:checkrequestcount(playerid, params[])
 			mysql_tquery(MainPipeline, string, "QueryUsernameCheck", "isi", playerid, tdate, 1);
 		}
     }
+    else SendErrorMessage(playerid, "You are not authorized to use this CMD.");
     return 1;
 }
 
@@ -442,6 +440,7 @@ CMD:nunmute(playerid, params[])
 
 		}
 	}
+	else SendErrorMessage(playerid, "You are not authorized to use this CMD.");
 	return 1;
 }
 
@@ -508,10 +507,7 @@ CMD:nmute(playerid, params[])
 			}
 		}
 	}
-	else
-	{
-		SendErrorMessage(playerid, "You are not authorized to use this CMD.");
-	}
+	else SendErrorMessage(playerid, "You are not authorized to use this CMD.");
 	return 1;
 }
 
@@ -578,10 +574,7 @@ CMD:makehelper(playerid, params[])
 			}
 		}
 	}
-	else
-	{
-		SendErrorMessage(playerid, "You are not authorized to use this CMD.");
-	}
+	else SendErrorMessage(playerid, "You are not authorized to use this CMD.");
 	return 1;
 }
 
@@ -617,10 +610,7 @@ CMD:takehelper(playerid, params[])
 
 		}
 	}
-	else
-	{
-		SendErrorMessage(playerid, "You are not authorized to use this CMD.");
-	}
+	else SendErrorMessage(playerid, "You are not authorized to use this CMD.");
 	return 1;
 }
 
@@ -661,6 +651,7 @@ CMD:requesthelp(playerid, params[])
 
 CMD:showrequests(playerid, params[])
 {
+	if(GetPVarInt(playerid, "AdvisorDuty") == 0) return SendErrorMessage(playerid, "You are not on duty as a Helper.");
 	if(PlayerInfo[playerid][pHelper] >= 2 || PlayerInfo[playerid][pPR] || PlayerInfo[playerid][pAdmin] >= 2)
 	{
 		new string[128], reason[64];
@@ -677,6 +668,7 @@ CMD:showrequests(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_GREEN, "_________________________________________________________");
 		SendServerMessage(playerid, "Use /accepthelp.");
 	}
+	else SendErrorMessage(playerid, "You do not have access to this CMD.");
 	return 1;
 }
 
@@ -747,10 +739,7 @@ CMD:rhmute(playerid, params[])
 		}
 		else return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
 	}
-	else
-	{
-		SendClientMessage(playerid, COLOR_LIGHTRED, "You are not authorized to use this CMD.");
-	}
+	else SendErrorMessage(playerid, "You are not authorized to use this CMD.");
 	return 1;
 }
 
@@ -776,25 +765,22 @@ CMD:rhmutereset(playerid, params[])
 			}
 			else
 			{
-			    SendClientMessageEx(playerid, COLOR_GRAD1, "That person is not blocked from requesting help!");
+			    SendErrorMessage(playerid, "That person is not blocked from requesting help!");
 			}
 
 		}
 	}
-	else
-	{
-		SendClientMessage(playerid, COLOR_LIGHTRED, "You are not authorized to use this CMD.");
-	}
+	else SendErrorMessage(playerid, "You are not authorized to use this CMD.");
 	return 1;
 }
 
 CMD:findnewb(playerid, params[]) {
 
 	if(PlayerInfo[playerid][pHelper] < 2) {
-        SendClientMessageEx(playerid, COLOR_GREY, "You are not a Helper.");
+        SendErrorMessage(playerid, "You are not a Helper.");
 	}
 	else if(GetPVarInt(playerid, "AdvisorDuty") == 0) {
-	    SendClientMessageEx(playerid, COLOR_GREY, "You are not on duty as a Helper.");
+	    SendErrorMessage(playerid, "You are not on duty as a Helper.");
 	}
 	else {
 	    new Float: Pos[3][2], i[2], vw[2];
@@ -837,7 +823,7 @@ CMD:findnewb(playerid, params[]) {
 			SetPlayerVirtualWorld(playerid, GetPVarInt(playerid, "AdvisorLastVW"));
 			SetPlayerInterior(playerid, GetPVarInt(playerid, "AdvisorLastInt"));
 			if(GetPVarInt(playerid, "AdvisorLastInt") > 0 || GetPVarInt(playerid, "AdvisorLastVW") > 0) Player_StreamPrep(playerid, GetPVarFloat(playerid, "AdvisorLastx"), GetPVarFloat(playerid, "AdvisorLasty"), GetPVarFloat(playerid, "AdvisorLastz"), FREEZE_TIME);
-			SendClientMessageEx(playerid, COLOR_WHITE, "You have been teleported back to your previous location.");
+			SendServerMessage(playerid, "You have been teleported back to your previous location.");
 		}
 	}
 	return 1;
@@ -868,7 +854,7 @@ CMD:accepthelp(playerid, params[])
 			SendErrorMessage(playerid, "Invalid player specified.");
 		}
 		else if(GetPVarInt(Player, "COMMUNITY_ADVISOR_REQUEST") == 0) {
-			SendClientMessageEx(playerid, COLOR_GREY, "That person doesn't need help.");
+			SendErrorMessage(playerid, "That person doesn't need help.");
 		}
 		else {
 
@@ -974,7 +960,7 @@ CMD:hc(playerid, params[])
 	if(PlayerInfo[playerid][pJailTime] && strfind(PlayerInfo[playerid][pPrisonReason], "[OOC]", true) != -1) return SendClientMessageEx(playerid, COLOR_GREY, "OOC prisoners are restricted to only speak in /b");
 	if(PlayerInfo[playerid][pHelper] < 1 && PlayerInfo[playerid][pAdmin] < 2) return SendClientMessageEx(playerid, COLOR_GRAD1, "You're not authorized to use this command!");
 	if(PlayerInfo[playerid][pToggledChats][16] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "You have Helper chat disabled - /tog helper or /settings to enable it.");
-	if(isnull(params)) return SendSyntaxMessage(playerid, "/ca [text]");
+	if(isnull(params)) return SendSyntaxMessage(playerid, "/hc [text]");
 	if(strlen(params) >= 128)  return SendClientMessageEx(playerid, COLOR_GREY, "Your input was too long. ");
 	szMiscArray[0] = 0;
 

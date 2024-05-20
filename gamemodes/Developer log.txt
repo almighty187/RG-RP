@@ -12,3 +12,4 @@ Fixed leadership cmd for factions
 
 Gamemode Changes:
 Change the tazer timer
+Change some helper features
