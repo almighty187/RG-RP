@@ -508,6 +508,32 @@ stock ReloadHousePickup(houseid)
 	Streamer_SetIntData(STREAMER_TYPE_AREA, HouseInfo[houseid][hAreaID][1], E_STREAMER_EXTRA_ID, houseid);
 	return 1;
 }
+stock ReloadHousePickup2(h)
+{
+	switch(HouseInfo[h][hOwned])
+	{
+		case 0:
+		{
+			DestroyDynamicPickup(HouseInfo[h][hPickupID]);
+   			DestroyDynamicMapIcon(HouseInfo[h][hMapIcon]);
+			HouseInfo[h][hPickupID] = CreateDynamicPickup(1273, 23, HouseInfo[h][hExteriorX], HouseInfo[h][hExteriorY], HouseInfo[h][hExteriorZ], .worldid = HouseInfo[h][hExtVW], .interiorid = HouseInfo[h][hExtIW]);
+			HouseInfo[h][hMapIcon] = CreateDynamicMapIcon(HouseInfo[h][hExteriorX], HouseInfo[h][hExteriorY], HouseInfo[h][hExteriorZ], 31, COLOR_YELLOW, -1, -1, -1, 80.0);
+		}
+		case 1:
+		{
+			DestroyDynamicPickup(HouseInfo[h][hPickupID]);
+  			DestroyDynamicMapIcon(HouseInfo[h][hMapIcon]);
+			HouseInfo[h][hPickupID] = CreateDynamicPickup(19522, 23, HouseInfo[h][hExteriorX], HouseInfo[h][hExteriorY], HouseInfo[h][hExteriorZ], .worldid = HouseInfo[h][hExtVW], .interiorid = HouseInfo[h][hExtIW]);
+			HouseInfo[h][hMapIcon] = CreateDynamicMapIcon(HouseInfo[h][hExteriorX], HouseInfo[h][hExteriorY], HouseInfo[h][hExteriorZ], 32, COLOR_YELLOW, -1, -1, -1, 80.0);
+			switch(HouseInfo[h][hRentable])
+			{
+				case 0: HouseInfo[h][hPickupID] = CreateDynamicPickup(19522, 23, HouseInfo[h][hExteriorX], HouseInfo[h][hExteriorY], HouseInfo[h][hExteriorZ], .worldid = HouseInfo[h][hExtVW], .interiorid = HouseInfo[h][hExtIW]);
+				case 1: HouseInfo[h][hPickupID] = CreateDynamicPickup(19523, 23, HouseInfo[h][hExteriorX], HouseInfo[h][hExteriorY], HouseInfo[h][hExteriorZ], .worldid = HouseInfo[h][hExtVW], .interiorid = HouseInfo[h][hExtIW]);
+			}
+		}
+	}
+	return 1;
+/*}
 stock ReloadHousePickup2(houseid)
 {
 	if(HouseInfo[houseid][hOwned] == 0)
@@ -525,7 +551,7 @@ stock ReloadHousePickup2(houseid)
 		HouseInfo[houseid][hMapIcon] = CreateDynamicMapIcon(HouseInfo[houseid][hExteriorX], HouseInfo[houseid][hExteriorY], HouseInfo[houseid][hExteriorZ], 32, COLOR_YELLOW, -1, -1, -1, 80.0);
 	}
 	return 1;
-}
+*/}
 
 stock SaveHouses()
 {
@@ -1410,12 +1436,14 @@ CMD:setrentable(playerid, params[])
 				{
 					HouseInfo[i][hRentable] = 1;
 					ReloadHouseText(i);
+					ReloadHousePickup2(i);
 					return SendClientMessageEx(playerid, COLOR_WHITE, "This house is now rentable.");
 				}
 				else
 				{
 					HouseInfo[i][hRentable] = 0;
 					ReloadHouseText(i);
+					ReloadHousePickup2(i);
 					return SendClientMessageEx(playerid, COLOR_WHITE, "This house is no longer rentable." );
 				}
 			}
