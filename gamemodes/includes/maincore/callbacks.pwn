@@ -533,6 +533,21 @@ public OnPlayerInteriorChange(playerid,newinteriorid,oldinteriorid)
 public OnPlayerPressButton(playerid, buttonid)
 {
     new Float:X, Float:Y, Float:Z;
+    if(buttonid == GOVButtons[0] || buttonid == GOVButtons[1])
+	{
+		if(IsAGovernment(playerid))
+		{
+			MoveDynamicObject(GOVDoor[0],1427.1505,1595.8264,18.5290,2);
+			MoveDynamicObject(GOVDoor[1],1427.1812,1601.5238,18.5290,2);
+			PlayerPlaySound(playerid, 6400, 0.0, 0.0, 10.0);
+			SetTimer("GOVDoorClose", 2500, 0);
+		}
+		else
+		{
+			SendErrorMessage(playerid,"Access denied.");
+			return 1;
+		}
+	}
     if(buttonid == FireStationButtons[4] || buttonid == FireStationButtons[5])
 	{
 		if(IsAMedic(playerid))

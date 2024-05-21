@@ -2702,6 +2702,7 @@ new rightmovedoor, leftmovedoor, rightdoorout, leftdoorout, rightdoor, leftdoor;
 new HospitalRightDoor[2], HospitalLeftDoor[2], HospitalDoor[2]; // Doors Hospital
 new FireStationButtons[10], FireStationGarage[10], FireStationDoor[10], FireStationGarageDoor[10] = 0;
 new LSPDButtons[5], LSPDCellDoor[1];
+new GOVButtons[5], GOVDoor[5];
 
 new bool:emailcheck = true;
 

@@ -4,6 +4,12 @@
  	if(strfind(error, "Streamer_GetIntData: Invalid", true) != -1) return 0;
  	return 1;
 }*/
+forward GOVDoorClose();
+public GOVDoorClose()
+{
+	MoveDynamicObject(GOVDoor[0],1427.1683300,1597.3068800,18.5290100,2);
+	MoveDynamicObject(GOVDoor[1],1427.1567400,1600.4644800,18.5290100,2);
+}
 forward CloseCellDoorLSPD();
 public CloseCellDoorLSPD()
 {

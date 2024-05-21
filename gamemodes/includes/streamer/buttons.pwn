@@ -3,6 +3,9 @@
 hook OnGameModeInit() {
 	
 	print("[Streamer] Loading Dynamic Buttons...");
+	//Government Button
+	GOVButtons[0] = CreateButton(1426.3402,1597.3280,18.7586,176.6016);
+	GOVButtons[1] = CreateButton(1427.9358,1597.3220,18.7586,176.6016);
 	//Fire Station Button Garage
 	FireStationButtons[0] = CreateButton(1293.2930,-1353.8500,14.2566,268.7207);
 	FireStationButtons[1] = CreateButton(1293.4449,-1353.8057,14.1252,88.7286);
