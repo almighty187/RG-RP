@@ -309,10 +309,10 @@ PayDay(i) {
 			}
 			if(!Bank_TransferCheck(-interest)) return 1;
 			PlayerInfo[i][pAccount] += interest;
-			format(string, sizeof(string), "  Interest gained: $%s", number_format(interest));
+			format(string, sizeof(string), "  {FFFFFF}Interest gained: $%s", number_format(interest));
 			SendClientMessageEx(i, COLOR_GRAD3, string);
 			SendClientMessageEx(i, COLOR_GREEN, "______________________________________");
-			format(string, sizeof(string), "  New balance: $%s  |  Rent paid: $%s", number_format(PlayerInfo[i][pAccount]), number_format((0 <= PlayerInfo[i][pRenting] < sizeof HouseInfo) ? (HouseInfo[PlayerInfo[i][pRenting]][hRentFee]) : (0)));
+			format(string, sizeof(string), "  {FFFFFF}New balance: $%s  |  Rent paid: $%s", number_format(PlayerInfo[i][pAccount]), number_format((0 <= PlayerInfo[i][pRenting] < sizeof HouseInfo) ? (HouseInfo[PlayerInfo[i][pRenting]][hRentFee]) : (0)));
 			SendClientMessageEx(i, COLOR_GRAD5, string);
 
 			//GivePlayerCash(i, PlayerInfo[i][pPayCheck]);
