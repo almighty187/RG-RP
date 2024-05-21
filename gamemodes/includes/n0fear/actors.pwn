@@ -7,6 +7,8 @@
 #define COLOR_WHITE 0xFFFFFFAA
 #define MAX_STRING 255
 
+// Made by N0FeaR
+
 enum aInfo
 {
 	aId,

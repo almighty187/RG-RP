@@ -49,7 +49,7 @@ CMD:paperrun(playerid, params[])
                 DeletePVar(playerid, "pPaperStage");
                 SetPVarInt(playerid, "pPaperPath", random(5));
 
-                SendClientMessageEx(playerid, COLOR_YELLOW, "You have started a paper run, make your way to your first destination.");
+                SendServerMessage(playerid, "You have started a paper run, make your way to your first destination.");
                 AdvancePaperJob(playerid);
  			}
 	        else return SendErrorMessage(playerid, "You are already on a paper run!");
@@ -189,7 +189,7 @@ public PaperJobLoad(playerid)
 	else
 	{
 	    SetPlayerCheckpoint(playerid, 762.8881,-1031.4021,23.9630, 4.0); // return to hq
-	    SendClientMessageEx(playerid, COLOR_WHITE, "You're out of paper, make your way back to headquarters.");
+	    SendServerMessage(playerid, "You're out of paper, make your way back to headquarters.");
 	}
     return 1;
 }
