@@ -621,8 +621,8 @@ public GiveHtoy(giveplayerid, toyid, name[]) {
 				
 				g_mysql_NewToy(giveplayerid, i); 
 				
-				SendServerMessage(giveplayerid, "Due to you not having any available slots, we've temporarily gave you an additional slot to use/sell/trade your %s.", name);
-				SendServerMessage(giveplayerid, "Note: Please take note that after selling the %s, the temporarily additional toy slot will be removed.", name);
+				SendClientMessageEx(giveplayerid, COLOR_GREEN, "Due to you not having any available slots, we've temporarily gave you an additional slot to use/sell/trade your %s.", name);
+				SendClientMessageEx(giveplayerid, COLOR_GREEN, "Note: Please take note that after selling the %s, the temporarily additional toy slot will be removed.", name);
 				break;
 			}	
 		}

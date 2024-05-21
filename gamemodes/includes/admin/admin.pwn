@@ -7305,10 +7305,10 @@ CMD:reloadmapping(playerid, params[])
 			GetPlayerPos(i, fPlayerPos[0], fPlayerPos[1], fPlayerPos[2]);
 			Player_StreamPrep(i, fPlayerPos[0], fPlayerPos[1], fPlayerPos[2], FREEZE_TIME);
 		}
-		SendRconCommand("reloadfs mapping/Gang");
-		SendRconCommand("reloadfs mapping/PlayerExteriors");
-		SendRconCommand("reloadfs mapping/PlayerInteriors");
-		SendRconCommand("reloadfs mapping/Server");
+		SendRconCommand("reloadfs InteriorFix");
+		SendRconCommand("reloadfs RGHouseInterior");
+		SendRconCommand("reloadfs RGPlayersExterior");
+		SendRconCommand("reloadfs RGServerMaps");
 	}
 	return 1;
 }

@@ -56,7 +56,7 @@
 #endif
 
 //streamer includes
-#include "./includes/streamer/removebuildings.pwn"
+//#include "./includes/streamer/removebuildings.pwn" We put all removebuilding code in FS instead
 #include "./includes/streamer/areas.pwn"
 #include "./includes/streamer/buttons.pwn"
 #include "./includes/streamer/objects.pwn"

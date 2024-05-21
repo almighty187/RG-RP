@@ -1,15 +1,10 @@
 Changelog - May 13, 2024
 
 Gamemode Additions:
-Added new turf system
-Added some missing 3DText
-Added map for ooc prison
+
 
 Gamemode Fixes:
-Fixed so talkanim doesnt overlap other anim
-Fixed reqesthelp
-Fixed leadership cmd for factions
+Fixed some warnings in the script
 
 Gamemode Changes:
-Change the tazer timer
-Change some helper features
+
