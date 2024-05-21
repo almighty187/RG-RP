@@ -232,7 +232,7 @@ public OnLeadersList(playerid)
 				} 
 		}
 		new szTitle[22 + GROUP_MAX_NAME_LEN];
-		format(szTitle, sizeof szTitle, "\{%s}%s {FFFFFF}- Leaders List", Group_NumToDialogHex(arrGroupData[leader][g_hDutyColour]), arrGroupData[leader][g_szGroupName]);
+		format(szTitle, sizeof szTitle, "\\c{%s}%s {FFFFFF}- Leaders List", Group_NumToDialogHex(arrGroupData[leader][g_hDutyColour]), arrGroupData[leader][g_szGroupName]);
 		ShowPlayerDialogEx(playerid, DISPLAY_ADMINISTRATION_LEADERS_LIST, DIALOG_STYLE_MSGBOX, szTitle, leaderslist1, "Next", "Cancel");
 		return 1;
 	}
@@ -299,7 +299,7 @@ public OnAdminRoster(playerid)
 		        {
 		            if(!ssm)
 		            {
-			            //format(stafftitle, sizeof(stafftitle), "\{FFFF00}Moderators Roster");
+			            //format(stafftitle, sizeof(stafftitle), "\\c{FFFF00}Moderators Roster");
 						if(strlen(stafflist1) < 3000)
 						{
 							format(szMiscArray, sizeof(szMiscArray),"{FFFF00}%s (SQL ID: %d){FFFFFF} || Last Online: {298EFF}%s {FFFFFF} || Promoted by: {298EFF}%s {FFFFFF}|| Promoted Date: {6DFB6D}%s{FFFFFF}\n",
@@ -333,7 +333,7 @@ public OnAdminRoster(playerid)
 				
 		        case 2:
 		        {
-		            //format(stafftitle, sizeof(stafftitle), "\{00FF00}Junior Admin Roster");
+		            //format(stafftitle, sizeof(stafftitle), "\\c{00FF00}Junior Admin Roster");
 					if(strlen(stafflist1) < 3000)
 					{
 						format(szMiscArray, sizeof(szMiscArray),"{00FF00}%s (SQL ID: %d){FFFFFF} || Last Online: {298EFF}%s {FFFFFF} || Promoted by: {298EFF}%s {FFFFFF}|| Promoted Date: {6DFB6D}%s{FFFFFF}\n",
@@ -350,7 +350,7 @@ public OnAdminRoster(playerid)
 				}
 		        case 3:
 		        {
-		            //format(stafftitle, sizeof(stafftitle), "\{00FF00}General Admin Roster");
+		            //format(stafftitle, sizeof(stafftitle), "\\c{00FF00}General Admin Roster");
 					if(strlen(stafflist1) < 3000)
 					{
 						format(szMiscArray, sizeof(szMiscArray),"{00FF00}%s (SQL ID: %d){FFFFFF} || Last Online: {298EFF}%s {FFFFFF} || Promoted by: {298EFF}%s {FFFFFF}|| Promoted Date: {6DFB6D}%s{FFFFFF}\n",
@@ -367,7 +367,7 @@ public OnAdminRoster(playerid)
 				}
 		        case 4:
 		        {
-		            //format(stafftitle, sizeof(stafftitle), "\{EE9A4D}Senior Admin Roster");
+		            //format(stafftitle, sizeof(stafftitle), "\\c{EE9A4D}Senior Admin Roster");
 					if(strlen(stafflist1) < 3000)
 					{
 						format(szMiscArray, sizeof(szMiscArray),"{EE9A4D}%s (SQL ID: %d){FFFFFF} || Last Online: {298EFF}%s {FFFFFF} || Promoted by: {298EFF}%s {FFFFFF}|| Promoted Date: {6DFB6D}%s{FFFFFF}\n",
@@ -384,7 +384,7 @@ public OnAdminRoster(playerid)
 				}
 		        case 1337:
                 {
-                    //format(stafftitle, sizeof(stafftitle), "\{FF0000}Executive Director Roster");
+                    //format(stafftitle, sizeof(stafftitle), "\\c{FF0000}Executive Director Roster");
 					if(strlen(stafflist1) < 3000)
 					{
 						format(szMiscArray, sizeof(szMiscArray),"{FF0000}%s (SQL ID: %d){FFFFFF} || Last Online: {298EFF}%s {FFFFFF} || Promoted by: {298EFF}%s {FFFFFF}|| Promoted Date: {6DFB6D}%s{FFFFFF}\n",
@@ -400,7 +400,7 @@ public OnAdminRoster(playerid)
 				}
 				case 1338:
 		        {
-		            //format(stafftitle, sizeof(stafftitle), "\{298EFF}Director Roster");
+		            //format(stafftitle, sizeof(stafftitle), "\\c{298EFF}Director Roster");
 					if(strlen(stafflist1) < 3000)
 					{
 						format(szMiscArray, sizeof(szMiscArray),"{298EFF}%s (SQL ID: %d){FFFFFF} || Last Online: {298EFF}%s {FFFFFF} || Promoted by: {298EFF}%s {FFFFFF}|| Promoted Date: {6DFB6D}%s{FFFFFF}\n",
@@ -417,7 +417,7 @@ public OnAdminRoster(playerid)
 		    }
 		}
 		
-		ShowPlayerDialogEx(playerid, DISPLAY_ADMINISTRATION_ADMIN_LIST, DIALOG_STYLE_MSGBOX, "\{FF0606}Administration {FFFFFF}- Staff Roster", stafflist1, "Next", "Cancel");
+		ShowPlayerDialogEx(playerid, DISPLAY_ADMINISTRATION_ADMIN_LIST, DIALOG_STYLE_MSGBOX, "\\c{FF0606}Administration {FFFFFF}- Staff Roster", stafflist1, "Next", "Cancel");
 		return 1;
 	}
 	else
@@ -503,7 +503,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				}
 				else
 				{
-				    ShowPlayerDialogEx(playerid, DISPLAY_ADMINISTRATION_LEADERS_LIST2, DIALOG_STYLE_MSGBOX, "\{FF0606}Administration {FFFFFF}- Staff Roster", leaderslist2, "Previous", "Cancel");
+				    ShowPlayerDialogEx(playerid, DISPLAY_ADMINISTRATION_LEADERS_LIST2, DIALOG_STYLE_MSGBOX, "\\c{FF0606}Administration {FFFFFF}- Staff Roster", leaderslist2, "Previous", "Cancel");
 				}
 			}
 		}
@@ -511,7 +511,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		{
 		    if(response)
 		    {
-				ShowPlayerDialogEx(playerid, DISPLAY_ADMINISTRATION_LEADERS_LIST, DIALOG_STYLE_MSGBOX, "\{FF0606}Administration {FFFFFF}- Staff Roster", leaderslist1, "Next", "Cancel");
+				ShowPlayerDialogEx(playerid, DISPLAY_ADMINISTRATION_LEADERS_LIST, DIALOG_STYLE_MSGBOX, "\\c{FF0606}Administration {FFFFFF}- Staff Roster", leaderslist1, "Next", "Cancel");
 			}
 		}
 		case DISPLAY_ADMINISTRATION_ADMIN_LIST:
@@ -524,7 +524,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				}
 				else
 				{
-				    ShowPlayerDialogEx(playerid, DISPLAY_ADMINISTRATION_ADMIN_LIST2, DIALOG_STYLE_MSGBOX, "\{FF0606}Administration {FFFFFF}- Staff Roster", stafflist2, "Previous", "Cancel");
+				    ShowPlayerDialogEx(playerid, DISPLAY_ADMINISTRATION_ADMIN_LIST2, DIALOG_STYLE_MSGBOX, "\\c{FF0606}Administration {FFFFFF}- Staff Roster", stafflist2, "Previous", "Cancel");
 				}
 			}
 		}
@@ -532,7 +532,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		{
 		    if(response)
 		    {
-				ShowPlayerDialogEx(playerid, DISPLAY_ADMINISTRATION_ADMIN_LIST, DIALOG_STYLE_MSGBOX, "\{FF0606}Administration {FFFFFF}- Staff Roster", stafflist1, "Next", "Cancel");
+				ShowPlayerDialogEx(playerid, DISPLAY_ADMINISTRATION_ADMIN_LIST, DIALOG_STYLE_MSGBOX, "\\c{FF0606}Administration {FFFFFF}- Staff Roster", stafflist1, "Next", "Cancel");
 			}
 		}
 	    case DISPLAY_ADMINISTRATION:
