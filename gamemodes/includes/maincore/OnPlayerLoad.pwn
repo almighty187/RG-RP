@@ -797,7 +797,7 @@ public OnPlayerLoad(playerid)
 		
 		for(new i = 0; i < 3; i++)
 		{
-			format(string, sizeof(string), "MOTD: %s", gMOTD[PlayerInfo[playerid][pMember]][i]);
+			format(string, sizeof(string), "Group MOTD: %s", gMOTD[PlayerInfo[playerid][pMember]][i]);
 			SendClientMessageEx(playerid, arrGroupData[PlayerInfo[playerid][pMember]][g_hDutyColour] * 256 + 255, string);
 		}
 	}
