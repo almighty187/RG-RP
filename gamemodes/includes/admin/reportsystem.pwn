@@ -628,9 +628,9 @@ CMD:sta(playerid, params[])
 		}
 		else
 		{
-			format(string, sizeof(string), "%s has reviewed your report and referred it to the Advisors.", GetPlayerNameEx(playerid));
+			format(string, sizeof(string), "%s has reviewed your report and referred it to the Helpers.", GetPlayerNameEx(playerid));
 			SendClientMessageEx(Reports[reportid][ReportFrom], COLOR_WHITE, string);
-			SendClientMessageEx(Reports[reportid][ReportFrom], COLOR_WHITE, "An Advisor should be with you shortly.");
+			SendClientMessageEx(Reports[reportid][ReportFrom], COLOR_WHITE, "An Helper should be with you shortly.");
 			SendClientMessageEx(Reports[reportid][ReportFrom], COLOR_WHITE, "Newer players are encouraged to use /requesthelp for any questions you may have as opposed to using /report which is to report rule violations and get admin help.");
 			SetPVarInt( Reports[reportid][ReportFrom], "COMMUNITY_ADVISOR_REQUEST", 1 );
 			format(string, sizeof(string), "Admin %s has referred a report over to you. person %s (ID: %d) stated: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(Reports[reportid][ReportFrom]), Reports[reportid][ReportFrom], Reports[reportid][Report]);

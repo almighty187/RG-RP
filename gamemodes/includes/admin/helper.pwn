@@ -71,16 +71,16 @@ CMD:helpers(playerid, params[])
 			if(PlayerInfo[i][pHelper] != 0 && PlayerInfo[i][pHelper] <= PlayerInfo[playerid][pHelper])
 			{
 				if(PlayerInfo[i][pHelper] == 1 && PlayerInfo[i][pAdmin] < 2) {
-					format(string, sizeof(string), "** JA: %s	(Requests This Hour: %d | Requests Today: %d)", GetPlayerNameEx(i), ReportHourCount[i], ReportCount[i]);
+					format(string, sizeof(string), "** H: %s	(Requests This Hour: %d | Requests Today: %d)", GetPlayerNameEx(i), ReportHourCount[i], ReportCount[i]);
 				}
-				if(PlayerInfo[i][pHelper] == 2&&PlayerInfo[i][pAdmin]<2) {
-					format(string, sizeof(string), "** GA: %s	(Requests This Hour: %d | Requests Today: %d)", GetPlayerNameEx(i), ReportHourCount[i], ReportCount[i]);
+				if(PlayerInfo[i][pHelper] == 2 &&PlayerInfo[i][pAdmin]<2) {
+					format(string, sizeof(string), "** H: %s	(Requests This Hour: %d | Requests Today: %d)", GetPlayerNameEx(i), ReportHourCount[i], ReportCount[i]);
 				}
-				if(PlayerInfo[i][pHelper] == 3&&PlayerInfo[i][pAdmin]<2) {
-					format(string, sizeof(string), "** SA: %s	(Requests This Hour: %d | Requests Today: %d)", GetPlayerNameEx(i), ReportHourCount[i], ReportCount[i]);
+				if(PlayerInfo[i][pHelper] == 3 &&PlayerInfo[i][pAdmin]<2) {
+					format(string, sizeof(string), "** SH: %s	(Requests This Hour: %d | Requests Today: %d)", GetPlayerNameEx(i), ReportHourCount[i], ReportCount[i]);
 				}
-				if(PlayerInfo[i][pHelper] >= 4&&PlayerInfo[i][pAdmin]<2) {
-					format(string, sizeof(string), "** CA: %s	(Requests This Hour: %d | Requests Today: %d)", GetPlayerNameEx(i), ReportHourCount[i], ReportCount[i]);
+				if(PlayerInfo[i][pHelper] >= 4 &&PlayerInfo[i][pAdmin]<2) {
+					format(string, sizeof(string), "** HH: %s	(Requests This Hour: %d | Requests Today: %d)", GetPlayerNameEx(i), ReportHourCount[i], ReportCount[i]);
 				}
 				SendClientMessageEx(playerid, COLOR_GRAD2, string);
 			}
@@ -616,11 +616,6 @@ CMD:takehelper(playerid, params[])
 
 CMD:requesthelp(playerid, params[])
 {
-	if(Helpers < 1)
-	{
-		SendErrorMessage(playerid, "There are no Helper On Duty at the moment, try again later!");
-		return 1;
-	}
 	if(isnull(params))
 	{
 		SendSyntaxMessage(playerid, "/requesthelp [reason]");

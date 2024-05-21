@@ -100,7 +100,7 @@ ShowAccountSettings(playerid, menu = 0) {
 				Biz Radio\t%d\n\
 				--- Staff ---\t\n\
 				Staff Chat\t%d\n\
-				Advisor Chat\t%d\n\
+				Helper Chat\t%d\n\
 				Watchdog Chat\t%d\n",
 				PlayerInfo[playerid][pChatbox][0],
 				PlayerInfo[playerid][pChatbox][1],

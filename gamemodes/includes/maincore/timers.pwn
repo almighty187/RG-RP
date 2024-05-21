@@ -531,7 +531,7 @@ task ProductionUpdate[300000]()
 
 		if(AdvisorMessage == 3 && Helpers > 0 && PlayerInfo[i][pLevel] < 4)
 		{
-			SendClientMessageEx(i, COLOR_LIGHTBLUE, "Need help? The Advisors are here to help you. (/requesthelp to get help)");
+			SendClientMessageEx(i, COLOR_LIGHTBLUE, "Need help? The Helpers are here to help you. (/requesthelp to get help)");
 		}
 		if(PlayerInfo[i][pConnectHours] < 2) {
 			SendClientMessageEx(i, COLOR_LIGHTRED, "Due to an increase in new playing accounts being created for Death Matching.");
