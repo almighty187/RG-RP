@@ -141,17 +141,17 @@ CMD:turfs(playerid, params[])
 			else format(timeleft, sizeof(timeleft), "{FFFFFF}Vulnerable");
 			if(strlen(tsstring1) < 2400)
 			{
-			    format(szMiscArray, sizeof(szMiscArray), "%s{C93CCE} | Owner: {%s}%s{C93CCE} | Perks: {FFFFFF}%s{C93CCE} | %s\n", TurfWars[turfid][twName], color, name, getTurftype(turfid), timeleft);
+			    format(szMiscArray, sizeof(szMiscArray), "%s{8B0000} | Owner: {%s}%s{8B0000} | Perks: {FFFFFF}%s{8B0000} | %s\n", TurfWars[turfid][twName], color, name, getTurftype(turfid), timeleft);
 				strcat(tsstring1, szMiscArray);
 			}
 			else
 			{
-			    format(szMiscArray, sizeof(szMiscArray), "%s{C93CCE} | Owner: {%s}%s{C93CCE} | Perks: {FFFFFF}%s{C93CCE} | %s\n", TurfWars[turfid][twName], color, name, getTurftype(turfid), timeleft);
+			    format(szMiscArray, sizeof(szMiscArray), "%s{8B0000} | Owner: {%s}%s{8B0000} | Perks: {FFFFFF}%s{8B0000} | %s\n", TurfWars[turfid][twName], color, name, getTurftype(turfid), timeleft);
 				strcat(tsstring2, szMiscArray);
 			}
 		}
 	}
-    ShowPlayerDialogEx(playerid, DIALOG_TURFLIST, DIALOG_STYLE_MSGBOX, "\\cTurfs List", tsstring1, "Next", "Cancel");
+    ShowPlayerDialogEx(playerid, DIALOG_TURFLIST, DIALOG_STYLE_MSGBOX, "Turfs List", tsstring1, "Next", "Cancel");
 	return 1;
 }
 
@@ -626,7 +626,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				}
 				else
 				{
-				    ShowPlayerDialogEx(playerid, DIALOG_TURFLIST2, DIALOG_STYLE_MSGBOX, "\\cTurfs List", tsstring2, "Previous", "Cancel");
+				    ShowPlayerDialogEx(playerid, DIALOG_TURFLIST2, DIALOG_STYLE_MSGBOX, "\Turfs List", tsstring2, "Previous", "Cancel");
 				}
 			}
 		}
@@ -635,7 +635,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		    if(response)
 		    {
 				//SendClientMessageEx(playerid, COLOR_GREY, "Please use /turfs to enable turf bounds");
-				ShowPlayerDialogEx(playerid, DIALOG_TURFLIST, DIALOG_STYLE_MSGBOX, "\\cTurfs List", tsstring1, "Next", "Cancel");
+				ShowPlayerDialogEx(playerid, DIALOG_TURFLIST, DIALOG_STYLE_MSGBOX, "\Turfs List", tsstring1, "Next", "Cancel");
 			}
 		}
 		case TWADMINMENU: // Turf Wars System
