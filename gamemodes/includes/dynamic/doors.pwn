@@ -76,7 +76,7 @@ stock CreateDynamicDoor(doorid)
 	if(DDoorsInfo[doorid][ddExteriorX] == 0.0) return 1;
 	new string[128];
 	if(DDoorsInfo[doorid][ddType] != 0) format(string, sizeof(string), "%s | Owner: %s\nID: %d", DDoorsInfo[doorid][ddDescription], StripUnderscore(DDoorsInfo[doorid][ddOwnerName]), doorid);
-	else format(string, sizeof(string), "%s\nID: %d\n\n\n Press Y to Enter", DDoorsInfo[doorid][ddDescription], doorid);
+	else format(string, sizeof(string), "%s\nID: %d", DDoorsInfo[doorid][ddDescription], doorid);
 
 	switch(DDoorsInfo[doorid][ddColor])
 	{
