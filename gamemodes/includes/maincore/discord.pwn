@@ -2,6 +2,7 @@
 #include <YSI\y_utils>
 
 
+
 new CountingPlayer;
 hook OnGameModeInit()
 {
@@ -87,7 +88,7 @@ stock SendDiscordMessage(channel, message[])
 
 public DCC_OnMessageCreate(DCC_Message:message)
 {
-	new realMsg[100], DCC_Channel:channel, DCC_User:author, channel_name[32], user_name[32 + 1], author_id[20 + 1]; //szMessage[128]
+	new realMsg[100], DCC_Channel:channel, DCC_User:author, channel_name[32], user_name[32 + 1], author_id[20 + 1], szMessage[128];
     DCC_GetMessageContent(message, realMsg);
 
     new bool:IsBot;
@@ -263,16 +264,16 @@ public DCC_OnMessageCreate(DCC_Message:message)
 			}
         }
     }
-	/*if(channel == g_AdminChannelId && strcmp(user_name, "RG-RP Bot#9091", true))//define user_name to prevent duplicate D -> S messages
+	if(channel == g_AdminChannelId && strcmp(user_name, "RG-RP Bot", true))//define user_name to prevent duplicate D -> S messages
 	{
 		format(szMessage, sizeof(szMessage), "* [Discord] Administrator %s: %s", user_name, realMsg);
 		ABroadCast(COLOR_YELLOW, szMessage, 2, true, true);
 	}
-	else if(channel == g_HeadAdminChannelId && strcmp(user_name, "RG-RP Bot#9091", true)) //define user_name to prevent duplicate D -> S messages
+	else if(channel == g_HeadAdminChannelId && strcmp(user_name, "RG-RP Bot", true)) //define user_name to prevent duplicate D -> S messages
 	{
 		format(szMessage, sizeof(szMessage), "(PRIVATE) [Discord] Administrator %s: %s", user_name, realMsg);
 		ABroadCast(COLOR_GREEN, szMessage, 1337, true, true);
-	}*/
+	}
     return 1;
 }
 
@@ -374,56 +375,17 @@ public OnBotCheck(author_id[], channel)
 		}
 		return 1;
 }
-/*forward OnPostPlayerStat(playerid);
+forward OnPostPlayerStat(playerid);
 public OnPostPlayerStat(playerid)
 {
 	new DCC_Message:message = DCC_GetCreatedMessage();
-    if(StatMessage != DCC_Message:0 )
+    /*if(StatMessage != DCC_Message:0 )
     {
         DCC_DeleteInternalMessage(StatMessage);
     }
 	StatMessage = message;
-    StatTarget = playerid;
+    StatTarget = playerid;*/
     DCC_CreateReaction(message, DCC_CreateEmoji("👢"));
     DCC_CreateReaction(message, DCC_CreateEmoji("🔨"));
 	//DCC_SetMessagePersistant(message, true);
-}*/
-/*public DCC_OnChannelMessage(DCC_Channel:channel, DCC_User:author, const message[])
-{
-    if(betaserver == 0) {
-        new channel_name[32], author_name[32], szMessage[128];
-        DCC_GetChannelName(channel, channel_name);
-        DCC_GetUserName(author, author_name);
-        printf("[DCC] OnChannelMessage (Channel %s): Author %s sent message: %s", channel_name, author_name, message);
-        if(!strcmp(channel_name, "admin") && strcmp(author_name, "SAMP-Bot", true) != 0)
-        {
-            format(szMessage, sizeof(szMessage), "* [Discord] Administrator %s: %s", author_name, message);
-            ABroadCast(COLOR_YELLOW, szMessage, 2, true, true);
-        }
-        else if(!strcmp(channel_name, "headadmin") && strcmp(author_name, "SAMP-Bot", true) != 0)
-        {
-            format(szMessage, sizeof(szMessage), "(PRIVATE) [Discord] Administrator %s: %s", author_name, message);
-            ABroadCast(COLOR_GREEN, szMessage, 1337, true, true);
-        }
-    }
-    return 1;
-}*/
-/*public DCC_OnChannelMessage(DCC_Channel:channel, DCC_User:author, const message[])
-{
-	if(betaserver == 0) {
-		new channel_name[32], szMessage[128];
-		DCC_GetChannelName(channel, channel_name);
-		printf("[DCC] OnChannelMessage (Channel %s): Author %s sent message: %s", channel_name, author, message);
-		if(!strcmp(channel_name, "admin", true) && strcmp(author, "SAMP-Bot", true))
-		{
-			format(szMessage, sizeof(szMessage), "* [Discord] Administrator %s: %s", author, message);
-			ABroadCast(COLOR_YELLOW, szMessage, 2, true, true);
-		}
-		else if(!strcmp(channel_name, "headadmin", true) && strcmp(author, "SAMP-Bot", true))
-		{
-			format(szMessage, sizeof(szMessage), "(PRIVATE) [Discord] Administrator %s: %s", author, message);
-			ABroadCast(COLOR_GREEN, szMessage, 1337, true, true);
-		}
-	}
-	return 1;
 }

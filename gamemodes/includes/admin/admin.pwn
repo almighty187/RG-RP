@@ -3204,6 +3204,7 @@ CMD:staff(playerid, params[]) {
 			SendAdvisorMessage(COLOR_COMBINEDCHAT, szMiscArray);
 			Log("logs/staffchat.log", szMiscArray);
 			ChatDBLog(playerid, "StaffChat", szMiscArray);
+			SendDiscordMessage(0, szMiscArray);
 		}
 		else SendSyntaxMessage(playerid, "/staff [chat]");
 	}
