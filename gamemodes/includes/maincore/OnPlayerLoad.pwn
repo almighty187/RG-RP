@@ -600,7 +600,6 @@ public OnPlayerLoad(playerid)
 	}
 	if (PlayerInfo[playerid][pAdminLevel] > 0)
 	{
-		PlayerInfo[playerid][pAdmin] = 1;
 		if(PlayerInfo[playerid][pAdminLevel] == 1)
 		{
 			if(PlayerInfo[playerid][pSMod] == 1)
@@ -625,20 +624,20 @@ public OnPlayerLoad(playerid)
 			TextDrawSetProportional(PriorityReport[playerid], 1);
 			TextDrawSetShadow(PriorityReport[playerid], 1);
 
-			new year, month, day, tmphour, tmpminute, tmpsecond;//, query[300];
+			new year, month, day, tmphour, tmpminute, tmpsecond; //query[300];
 			gettime(tmphour, tmpminute, tmpsecond);
 			FixHour(tmphour);
 			getdate(year, month, day);	
-			//format(string, sizeof(string), "You are logged in as a %s{FFFFFF}.", GetAdminRank(playerid));
 			format(string, sizeof(string), "SERVER: You are logged in as a %s{FFFFFF}.", GetAdminRank(playerid));
 			//mysql_format(MainPipeline, query, sizeof(query), "SELECT b.shift, b.needs_%s, COUNT(DISTINCT s.id) as ShiftCount FROM cp_shift_blocks b LEFT JOIN cp_shifts s ON b.shift_id = s.shift_id AND s.date = '%d-%02d-%02d' AND s.status >= 2 AND s.type = 1 WHERE b.time_start = '%02d:00:00' GROUP BY b.shift, b.needs_%s", GetWeekday(), year, month, day, tmphour, GetWeekday());
 			//mysql_tquery(MainPipeline, query, "GetShiftInfo", "is", playerid, string);
 			format(string, sizeof(string), "SERVER: %s has logged in as a %s{FFFFFF}.", GetPlayerNameEx(playerid), GetAdminRank(playerid));
+			PlayerInfo[playerid][pAdmin] = 1;
 		}
 
 		foreach(new i: Player)
 		{
-			if(PlayerInfo[i][pAdminLevel] >= 1337 && PlayerInfo[i][pAdminLevel] >= PlayerInfo[playerid][pAdminLevel]) SendClientMessageEx(i, COLOR_WHITE, string);
+			if(PlayerInfo[i][pAdmin] >= 1337 && PlayerInfo[i][pAdmin] >= PlayerInfo[playerid][pAdmin]) SendClientMessageEx(i, COLOR_WHITE, string);
 		}	
 	}
 	
@@ -798,7 +797,7 @@ public OnPlayerLoad(playerid)
 		
 		for(new i = 0; i < 3; i++)
 		{
-			format(string, sizeof(string), "Group MOTD: %s", gMOTD[PlayerInfo[playerid][pMember]][i]);
+			format(string, sizeof(string), "MOTD: %s", gMOTD[PlayerInfo[playerid][pMember]][i]);
 			SendClientMessageEx(playerid, arrGroupData[PlayerInfo[playerid][pMember]][g_hDutyColour] * 256 + 255, string);
 		}
 	}

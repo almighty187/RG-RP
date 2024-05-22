@@ -130,10 +130,10 @@ stock ShowStats(playerid,targetid)
 			Job 3: %s (Level: %d)\n\
 			Insurance: %s",
 			staffrank,
-			svipmod,
 			famedrank,
 			dprank,
 			drank,
+			svipmod,
 			fifstr,
 			leader,
 			PlayerInfo[targetid][pLevel],

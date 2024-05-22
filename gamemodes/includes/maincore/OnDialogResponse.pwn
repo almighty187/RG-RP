@@ -11276,7 +11276,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				VIP Lounge\n\
 				First Aid Station [HP Refills] \n\
 				Gun Locker \n\
-				Ability to get Pot and Crack using the jobs without having to wait for refills at the Drug House. \n\
+				Ability to get Cannabis and Crack using the jobs without having to wait for refills at the Drug House. \n\
 				Preferred Pricing on Cars from the Dealership [20% off] \n\
 				24/7 VIP Pricing [20% Off]";
 
@@ -11301,13 +11301,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				new Message[1000];
 				Message = "Purple VIP name on the forums. \n\
 				VIP Forums Access \n\
-				Gold VIP Tag on Discord. \n\
+				Gold VIP Tag on TS. \n\
 				VIP Chat \n\
 				VIP Garage with access to all the most select cars on the map. \n\
 				VIP Lounge\n\
 				First Aid Station [HP Refills] \n\
 				Gun Locker \n\
-				Ability to get Pot and Crack using the jobs without having to wait for refills at the Drug House. \n\
+				Ability to get Cannabis and Crack using the jobs without having to wait for refills at the Drug House. \n\
 				Preferred Pricing on Cars from the Dealership [20% off] \n\
 				Full Health and Hunger after death \n\
 				24/7 VIP Pricing [20% Off]";
@@ -12100,6 +12100,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					Referrals: %s\n\
 					Warnings: %s\n\
 					Weapon Restriction: %s hour(s)\n\
+					Gang Warnings: %s\n\
 					Newbie Chat Mutes: %s\n\
 					Advertisement Mutes: %s\n\
 					Report Mutes: %s\n\
@@ -12112,6 +12113,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					number_format(PlayerInfo[targetid][pRefers]),
 					number_format(PlayerInfo[targetid][pWarns]),
 					number_format(PlayerInfo[targetid][pWRestricted]),
+					number_format(PlayerInfo[targetid][pGangWarn]),
 					number_format(PlayerInfo[targetid][pNMuteTotal]),
 					number_format(PlayerInfo[targetid][pADMuteTotal]),
 					number_format(PlayerInfo[targetid][pRMutedTotal]),

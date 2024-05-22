@@ -105,8 +105,7 @@
 #include "./includes/n0fear/walkstyle.pwn"
 #include "./includes/n0fear/newturfs.pwn"
 
-// 187
-#include "./includes/187/mydrugs.pwn"
+
 
 //core includes
 #include "./includes/core/acceptcancel.pwn"

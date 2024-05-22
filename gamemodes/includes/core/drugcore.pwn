@@ -12,7 +12,7 @@ CMD:odrughelp(playerid, params[])
 	return 1;
 }
 
-/*CMD:mydrugs(playerid, params[])
+CMD:mydrugs(playerid, params[])
 {
 	new string[450];
 	SendClientMessageEx(playerid, COLOR_WHITE,"-----------------------------------------------------------------------------------");
@@ -21,7 +21,7 @@ CMD:odrughelp(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_GREY, string);
 	SendClientMessageEx(playerid, COLOR_WHITE,"-----------------------------------------------------------------------------------");
 	return 1;
-}*/
+}
 
 CMD:checkdrugs(playerid, params[])
 {
