@@ -27,15 +27,15 @@
 	Types/Subtypes
 	1) Administrator
 		0) All/undefined
-		1) Retired Administrator/SSM
+		1) Senior Server Moderator
 		2) Server Moderator
 		3) Watchdog
-		4) Junior Administrator
+		4) Trial Administrator
 		5) General Administrator
 		6) Assistant Shift Manager
 		7) Senior Administrator
 		8) Lead Administrator
-		9) Executive Administrator
+		9) Executive Director
 		10) SA-MP Operations
 		11) Human Resources
 		12) Faction Moderator
@@ -474,7 +474,7 @@ stock Help_ListCat(playerid, dialogid = DIALOG_HELPCATMAIN, response = 0, listit
 				format(string, sizeof(string), "HelpResultCat%i", j);
 				SetPVarInt(playerid, string, 1);
 				j++;
-				format(szMiscArray, sizeof(szMiscArray), "Retired Administrator\n");
+				format(szMiscArray, sizeof(szMiscArray), "Senior Server Moderator\n");
 			}
 			if(Help_Perm(playerid, 1, 2, 1))
 			{
@@ -530,7 +530,7 @@ stock Help_ListCat(playerid, dialogid = DIALOG_HELPCATMAIN, response = 0, listit
 				format(string, sizeof(string), "HelpResultCat%i", j);
 				SetPVarInt(playerid, string, 9);
 				j++;
-				format(szMiscArray, sizeof(szMiscArray), "%sManagement\n", szMiscArray);
+				format(szMiscArray, sizeof(szMiscArray), "%sExecutive Director\n", szMiscArray);
 			}
 			if(Help_Perm(playerid, 1, 10, 1))
 			{
@@ -1337,7 +1337,7 @@ stock Help_Perm(playerid, type, subtype, level)
 	{
 		// Undefined Admin Commands? (May Remove Later)
 		if(subtype == 0 && PlayerInfo[playerid][pAdmin] >= level) return 1;
-		// Retired Administrator/Senior Server Moderator
+		// Senior Server Moderator
 		if(subtype == 1 && PlayerInfo[playerid][pSMod] > 0) return 1;
 		// Server Moderator
 		else if(subtype == 2 && PlayerInfo[playerid][pSMod] == 0) return 1;
@@ -1374,7 +1374,7 @@ stock Help_Perm(playerid, type, subtype, level)
 		// Ban Appealer
 		else if(subtype == 18 && PlayerInfo[playerid][pBanAppealer] >= level) return 1;
 	}
-	// Player Advisor
+	// Helper
 	else if(type == 2 && PlayerInfo[playerid][pHelper] >= 1)
 	{
 		if(subtype == 0 && PlayerInfo[playerid][pHelper] >= level) return 1;

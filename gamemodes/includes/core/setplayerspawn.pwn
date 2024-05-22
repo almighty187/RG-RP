@@ -229,7 +229,7 @@ SetPlayerSpawn(playerid)
 
 					for(new i = 0; i < 3; i++) {
 						
-						format(szMiscArray, sizeof(szMiscArray), "MOTD: %s", prisonerMOTD[i]);
+						format(szMiscArray, sizeof(szMiscArray), "Prison MOTD: %s", prisonerMOTD[i]);
 						SendClientMessageEx(playerid, COLOR_ORANGE, szMiscArray);
 					}
 
