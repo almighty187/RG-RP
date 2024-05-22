@@ -12100,7 +12100,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					Referrals: %s\n\
 					Warnings: %s\n\
 					Weapon Restriction: %s hour(s)\n\
-					Gang Warnings: %s\n\
 					Newbie Chat Mutes: %s\n\
 					Advertisement Mutes: %s\n\
 					Report Mutes: %s\n\
@@ -12113,7 +12112,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					number_format(PlayerInfo[targetid][pRefers]),
 					number_format(PlayerInfo[targetid][pWarns]),
 					number_format(PlayerInfo[targetid][pWRestricted]),
-					number_format(PlayerInfo[targetid][pGangWarn]),
 					number_format(PlayerInfo[targetid][pNMuteTotal]),
 					number_format(PlayerInfo[targetid][pADMuteTotal]),
 					number_format(PlayerInfo[targetid][pRMutedTotal]),
