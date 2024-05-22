@@ -144,10 +144,10 @@ CMD:viewmotd(playerid, params[])
 	if(sscanf(params, "s[16]", option)) 
 	{
 		SendClientMessageEx(playerid, COLOR_WHITE, "USAGE: /viewmotd [option]");
-		strcat(string, "Available Options: global, player");
+		strcat(string, "Available Options: global, player, vip, group, helper, admin");
 		if(PlayerInfo[playerid][pDonateRank] >= 1) strcat(string, ", vip");
 		if(PlayerInfo[playerid][pMember] != INVALID_GROUP_ID) strcat(string, ", group");
-		if(PlayerInfo[playerid][pHelper] >= 1) strcat(string, ", advisor");
+		if(PlayerInfo[playerid][pHelper] >= 1) strcat(string, ", helper");
 		if(PlayerInfo[playerid][pAdmin] > 1) strcat(string, ", admin");
 		if(strfind(PlayerInfo[playerid][pPrisonReason], "[IC]", true) != -1 || IsADocGuard(playerid)) strcat(string, ", prisoner");
 		return SendClientMessageEx(playerid, COLOR_WHITE, string);

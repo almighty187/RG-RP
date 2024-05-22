@@ -5,6 +5,12 @@ Gamemode Additions:
 
 Gamemode Fixes:
 Fixed some warnings in the script
+Fixed server moderator ranks not working
 
 Gamemode Changes:
-
+Removed "\c" from certain text
+Recolored text in the turf list menu
+Recoded /mydrugs to open in a dialog msg box instead of text in the chatbox
+Changed certain MOTD Text
+Correct text ordering in /stats
+Removed unused stats
