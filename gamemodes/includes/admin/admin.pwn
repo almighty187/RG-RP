@@ -2973,11 +2973,11 @@ CMD:apark(playerid, params[]) {
 	return 1;
 }
 
-CMD:aduty(playerid, params[])
+/*CMD:aduty(playerid, params[])
 {
     if(PlayerInfo[playerid][pAdminLevel] >= ADMIN_TRIAL)
 	{
-	    new string[128];
+	    new string[128], Float:health, Float:armor; 
 	    if(GetPVarType(playerid, "AdminDuty") == 1)
 	    {
 	       	format(string, sizeof(string), "* %s %s is now {FF0000}off duty{FFFFFF}.", GetStaffRank(playerid), GetPlayerNameEx(playerid));
@@ -3020,7 +3020,75 @@ CMD:aduty(playerid, params[])
 		}
     }
 	return 1;
+}*/
+
+CMD:aduty(playerid, params[])
+{
+    if(PlayerInfo[playerid][pAdminLevel] >= ADMIN_TRIAL)
+	{
+	    new string[128], Float:health, Float:armor;
+	    if(GetPVarType(playerid, "AdminDuty") == 1)
+	    {
+	       	format(string, sizeof(string), "* %s %s is now {FF0000}off duty{FFFFFF}.", GetStaffRank(playerid), PlayerInfo[playerid][pUsername]);
+			foreach(new i: Player)
+			{
+				if(PlayerInfo[i][pAdminLevel] >= 2) SendClientMessageEx(i, COLOR_WHITE, string);
+			}
+	        format(string, sizeof(string), "%s went off duty as a %s.", PlayerInfo[playerid][pUsername], GetAdminRankName(PlayerInfo[playerid][pAdminLevel]));
+			Log("logs/aduty.log", string);
+			
+			health = GetPVarFloat(playerid, "pPreGodHealth");
+			SetHealth(playerid,health);
+			armor = GetPVarFloat(playerid, "pPreGodArmor");
+			SetArmour(playerid, armor);
+			DeletePVar(playerid, "pGodMode");
+			DeletePVar(playerid, "pPreGodHealth");
+			DeletePVar(playerid, "pPreGodArmor");
+			
+	        Delete3DTextLabel(DutyLabel[playerid]);
+	        SetPlayerColor(playerid, COLOR_WHITE);
+
+	   		PlayerInfo[playerid][pAdmin] = 1;
+			SetPlayerName(playerid, PlayerInfo[playerid][pUsername]);
+	        DeletePVar(playerid, "AdminDuty");
+		}
+		else
+		{
+			PlayerInfo[playerid][pAdmin] = PlayerInfo[playerid][pAdminLevel];
+
+		    SetPVarInt(playerid, "AdminDuty", 1);
+			
+			GetHealth(playerid,health);
+			SetPVarFloat(playerid, "pPreGodHealth", health);
+			GetArmour(playerid,armor);
+			SetPVarFloat(playerid, "pPreGodArmor", armor);
+		    SetHealth(playerid, 0x7FB00000);
+		    SetArmour(playerid, 0x7FB00000);
+		    SetPVarInt(playerid, "pGodMode", 1);
+
+		    SetPlayerColor(playerid, COLOR_RED);
+			DutyLabel[playerid] = Create3DTextLabel("Admin On Duty \n Do NOT Attack",0xFF000099,0,0,0,50,-1,1);
+			Attach3DTextLabelToPlayer(DutyLabel[playerid], playerid, 0,0,0);
+			
+	        format(string, sizeof(string), "* %s %s is now {00FF00}on duty{FFFFFF}.", GetStaffRank(playerid), PlayerInfo[playerid][pUsername]);
+			foreach(new i: Player)
+			{
+				if(PlayerInfo[i][pAdminLevel] >= 2) SendClientMessageEx(i, COLOR_WHITE, string);
+			}
+			
+			if(strcmp(PlayerInfo[playerid][pAdminName], "None", true) != 0)
+			{
+				SetPlayerName(playerid, PlayerInfo[playerid][pAdminName]);
+			}
+		
+		
+	        format(string, sizeof(string), "%s went on duty as a %s.", PlayerInfo[playerid][pUsername], GetAdminRankName(PlayerInfo[playerid][pAdminLevel]));
+			Log("logs/aduty.log", string);
+		}
+    }
+	return 1;
 }
+
 CMD:adminname(playerid, params[])
 {
 	new name[MAX_PLAYER_NAME], query[512];
