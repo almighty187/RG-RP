@@ -4,6 +4,6 @@ Gamemode Additions
 
 
 Gamemode Fixes
-
+Fixed some minor bugs in the script
 
 Gamemode Changes
