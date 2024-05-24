@@ -1287,7 +1287,7 @@ CMD:deletecdveh(playerid, params[]) {
 			return SendClientMessageEx(playerid, COLOR_GREY, "The max number of vehicles for this business has been reached.");
 		}
 	}
-	else SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 
@@ -1346,7 +1346,7 @@ CMD:createcdveh(playerid, params[]) {
 			return SendClientMessageEx(playerid, COLOR_GREY, "The max number of vehicles for this business has been reached.");
 		}
 	}
-	else SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 

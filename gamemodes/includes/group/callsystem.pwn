@@ -609,6 +609,6 @@ CMD:clearallcalls(playerid, params[])
         format(string, sizeof(string), "AdmCmd: %s has cleared all pending calls.", GetPlayerNameEx(playerid));
         ABroadCast(COLOR_LIGHTRED, string, 3);
     }
-    else SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+    else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
     return 1;
 }

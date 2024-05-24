@@ -924,7 +924,7 @@ CMD:setvip(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+		SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	}
 	return 1;
 }
@@ -959,7 +959,7 @@ CMD:giftgvip(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+		SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	}
 	return 1;
 }
@@ -987,7 +987,7 @@ CMD:vsuspend(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+		SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	}
 	return 1;
 }
@@ -1052,7 +1052,7 @@ CMD:vmute(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+		SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	}
 	return 1;
 }
@@ -1092,7 +1092,7 @@ CMD:vto(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+		SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	}
 	return 1;
 }
@@ -1130,7 +1130,7 @@ CMD:vtoreset(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+		SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	}
 	return 1;
 }
@@ -1344,7 +1344,7 @@ CMD:novip(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+		SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	}
 	return 1;
 }

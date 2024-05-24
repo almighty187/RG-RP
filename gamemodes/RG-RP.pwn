@@ -20,12 +20,8 @@
 #pragma disablerecursion
 #pragma warning disable 206
 #pragma warning disable 213
-/*---------------- SCRIPT REVISION ----------------- */
 #define SERVER_GM_TEXT "RG:RP v1.0.0"
 #define SSCANF_NO_NICE_FEATURES
-
-//#define AREA_DEBUG
-//#define TEXTLABEL_DEBUG
 
 #undef  MAX_PLAYERS
 #define MAX_PLAYERS (500)

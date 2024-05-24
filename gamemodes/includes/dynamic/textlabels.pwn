@@ -123,7 +123,7 @@ CMD:tlstatus(playerid, params[])
 		format(string, sizeof(string), "Text: %s | Color: %d | Pickup Model: %d", TxtLabels[labelid][tlText], TxtLabels[labelid][tlColor], TxtLabels[labelid][tlPickupModel]);
 		SendClientMessageEx(playerid, COLOR_WHITE, string);
 	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	else return SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 

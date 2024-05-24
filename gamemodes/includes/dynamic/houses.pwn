@@ -1594,7 +1594,7 @@ CMD:lockhouse(playerid, params[])
 
 CMD:hstatus(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1 && PlayerInfo[playerid][pShopTech] < 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1 && PlayerInfo[playerid][pShopTech] < 1) return SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	new hid;
 	if(sscanf(params, "i", hid)) return SendSyntaxMessage(playerid, "/hstatus [hid]");
 	new string[128];

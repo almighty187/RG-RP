@@ -1642,7 +1642,7 @@ CMD:editgang(playerid, params[]) {
 	if(0 <= PlayerInfo[playerid][pLeader] < MAX_GROUPS && IsACriminal(playerid))
 	{
 		Gang_DisplayDialog(playerid, PlayerInfo[playerid][pMember]);
-	} else SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	} else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 CMD:creategang(playerid, params[]) {
@@ -1811,7 +1811,7 @@ CMD:creategang(playerid, params[]) {
 		}
 		else SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
 	}
-	else SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 CMD:makesh(playerid, params[])
@@ -1832,7 +1832,7 @@ CMD:makesh(playerid, params[])
 			else SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
 		}
 	}
-	else SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 
 	return 1;
 }
@@ -1861,7 +1861,7 @@ CMD:takesh(playerid, params[])
 			else SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
 		}
 	}
-	else SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 
 	return 1;
 }
@@ -1908,7 +1908,7 @@ CMD:takeleader(playerid, params[])
 			else SendClientMessageEx(playerid, COLOR_GREY, "This player isn't in your group or isn't leader.");
 		}
 	}
-	else SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 
 	return 1;
 }

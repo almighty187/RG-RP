@@ -106,7 +106,7 @@ CMD:garagepass(playerid, params[])
 
 CMD:garageedit(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1 && PlayerInfo[playerid][pShopTech] < 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1 && PlayerInfo[playerid][pShopTech] < 1) return SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	new option[128], garageid, value, string[128];
 	if(sscanf(params, "s[128]iD(0)", option, garageid, value))
 	{
@@ -226,7 +226,7 @@ CMD:garageedit(playerid, params[])
 
 CMD:changeddtogarage(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1 && PlayerInfo[playerid][pShopTech] < 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1 && PlayerInfo[playerid][pShopTech] < 1) return SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	new doorid;
 	if(sscanf(params, "d", doorid)) return SendClientMessageEx(playerid, COLOR_GRAD2, "USAGE: /changeddtogarage [doorid]");
 	if(doorid >= MAX_DDOORS) return SendErrorMessage(playerid, "Invalid Door ID!");
@@ -293,7 +293,7 @@ CMD:garageowner(playerid, params[])
 			mysql_tquery(MainPipeline, string, "OnSetGarageOwner", "ii", playerid, garageid);
 		}
 	}
-	else return SendErorrMessage(playerid, "You are not authorized to use that CMD.");
+	else return SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 

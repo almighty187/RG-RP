@@ -69,7 +69,7 @@ CMD:gsave(playerid, params[])
     }
     else
 	{
-        SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+        SendErrorMessage(playerid, "You are not authorized to use that CMD.");
     }
     return 1;
 }
@@ -137,7 +137,7 @@ CMD:admingatepw(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+		SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 		return 1;
 	}
 	return 1;
@@ -315,7 +315,7 @@ CMD:gstatus(playerid, params[])
 			SendClientMessageEx(playerid, COLOR_WHITE, string);
 		}
 	}
-	else SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 
@@ -831,7 +831,7 @@ CMD:gedittexture(playerid, params[])
 
 CMD:listgates(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	new hid, string[128];
 	if(sscanf(params, "d", hid)) return SendSyntaxMessage(playerid, "/listgates [houseid]");
 	if(hid <= 0 || hid >= MAX_HOUSES)
@@ -915,7 +915,7 @@ CMD:gmove(playerid, params[])
 
 CMD:reloadgate(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	new gateid, string[128];
 	if(sscanf(params, "d", gateid)) return SendClientMessageEx(playerid, COLOR_WHITE, "USAGE: /reloadgate <gateid>");
 	CreateGate(gateid);

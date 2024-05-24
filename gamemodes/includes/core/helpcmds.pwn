@@ -1538,7 +1538,7 @@ CMD:help(playerid, params[])
 
 CMD:reloadhelp(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 1337) return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	if(PlayerInfo[playerid][pAdmin] < 1337) return SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	SendClientMessageEx(playerid, COLOR_WHITE, "Reloading all help entries...");
 	return RehashHelp();
 }

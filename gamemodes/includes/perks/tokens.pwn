@@ -204,7 +204,7 @@ CMD:settoken(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+		SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	}
 	return 1;
 }
@@ -231,7 +231,7 @@ CMD:givetoken(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+		SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	}
 	return 1;
 }

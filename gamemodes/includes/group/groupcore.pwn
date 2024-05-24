@@ -3973,7 +3973,7 @@ CMD:dvstatus(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+		SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	}
 	return 1;
 }
@@ -4215,7 +4215,7 @@ CMD:dvplate(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+		SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	}
 	return 1;
 }
@@ -5716,7 +5716,7 @@ CMD:makeleader(playerid, params[])
 			else SendClientMessageEx(playerid, COLOR_GREY, "This player isn't in your group.");
 		}
 	}
-	else SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 
 	return 1;
 }
@@ -5737,7 +5737,7 @@ CMD:makeleader(playerid, params[])
 			else SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
 		}
 	}
-	else SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 
 	return 1;
 }*/
@@ -5757,7 +5757,7 @@ CMD:leaders(playerid, params[])
 				SendClientMessageEx(playerid, COLOR_GRAD2, string);
 			}
 		}
-	} else SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	} else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 
@@ -5816,7 +5816,7 @@ CMD:hfind(playerid, params[])
 			else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are unable to get a trace on this person.");
 		}
 	}
-	else SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 

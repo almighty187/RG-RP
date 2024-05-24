@@ -329,7 +329,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 CMD:clist(playerid, params[]) return cmd_crimelist(playerid, params);
 CMD:crimelist(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 1337 && !PlayerInfo[playerid][pFactionModerator]) return SendErrorMessage(playerid, COLOR_WHITE, "SERVER: You are not authorized to use this CMD.");
+	if(PlayerInfo[playerid][pAdmin] < 1337 && !PlayerInfo[playerid][pFactionModerator]) return SendErrorMessage(playerid, "You are not authorized to use this CMD.");
 	ShowCrimesList(playerid);
 	return 1;
 }

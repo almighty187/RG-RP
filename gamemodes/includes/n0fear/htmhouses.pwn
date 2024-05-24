@@ -86,7 +86,7 @@ CMD:createhouse(playerid, params[])
 
     if(sscanf(params, "ii", type, price))
     {
-        SendSyntaxMessage(playerid, "/createhouse [type (1-%i)] [price]", sizeof(houseInteriors));
+        SendClientMessageEx(playerid, COLOR_GREY, "/createhouse [type (1-%i)] [price]", sizeof(houseInteriors));
         SendClientMessageEx(playerid, COLOR_GREY, "(1-8) Apartments / (9-12) Low Class / (13-16) Medium Class / (17-21) Upper Class / (22-%i) Mansion", sizeof(houseInteriors));
         return 1;
     }
