@@ -168,13 +168,13 @@ CMD:parkingmeterhelp(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1)
 	{
 		SendClientMessageEx(playerid, COLOR_WHITE, "** Admin commands **");
-		SendClientMessageEx(playerid, COLOR_GREY, "» /createmeter [Rate] [Range] - Creates a new parking meter at your current position.");
-		SendClientMessageEx(playerid, COLOR_GREY, "» /setmeterrate [Meter ID] [Rate] - Changes the specified parking meter's rate.");
-		SendClientMessageEx(playerid, COLOR_GREY, "» /setmeterrange [Meter ID] [Range] - Changes the specified parking meter's range.");
-		SendClientMessageEx(playerid, COLOR_GREY, "» /gotometer [Meter ID] - Allows you to teleport to a parking meter.");
-		SendClientMessageEx(playerid, COLOR_GREY, "» /editmeterposition [Meter ID] [Type] - Allows you to edit the parking meter or parked position of a parking meter.");
-		SendClientMessageEx(playerid, COLOR_GREY, "» /deletemeter [Meter ID] - Allows you to delete a parking meter.");
-		SendClientMessageEx(playerid, COLOR_GREY, "» /reloadmeters - Allows you reload all parking meters (rebuilds existing parking meters).");
+		SendClientMessageEx(playerid, COLOR_GREY, "ï¿½ /createmeter [Rate] [Range] - Creates a new parking meter at your current position.");
+		SendClientMessageEx(playerid, COLOR_GREY, "ï¿½ /setmeterrate [Meter ID] [Rate] - Changes the specified parking meter's rate.");
+		SendClientMessageEx(playerid, COLOR_GREY, "ï¿½ /setmeterrange [Meter ID] [Range] - Changes the specified parking meter's range.");
+		SendClientMessageEx(playerid, COLOR_GREY, "ï¿½ /gotometer [Meter ID] - Allows you to teleport to a parking meter.");
+		SendClientMessageEx(playerid, COLOR_GREY, "ï¿½ /editmeterposition [Meter ID] [Type] - Allows you to edit the parking meter or parked position of a parking meter.");
+		SendClientMessageEx(playerid, COLOR_GREY, "ï¿½ /deletemeter [Meter ID] - Allows you to delete a parking meter.");
+		SendClientMessageEx(playerid, COLOR_GREY, "ï¿½ /reloadmeters - Allows you reload all parking meters (rebuilds existing parking meters).");
 	}
 	return 1;
 }
@@ -188,19 +188,19 @@ CMD:meterstatus(playerid, params[])
 	if(meterid == -1 || !IsPlayerInRangeOfPoint(playerid, 2.0, ParkingMeterInformation[meterid][MeterPosition][0], ParkingMeterInformation[meterid][MeterPosition][1], ParkingMeterInformation[meterid][MeterPosition][2])) return SendClientMessageEx(playerid, COLOR_GREY, "You are not in range of a parking meter.");
 	format(string, sizeof(string), "** PARKING METER STATUS - METER ID %d: **", meterid);
 	SendClientMessageEx(playerid, COLOR_WHITE, string);
-	format(string, sizeof(string), "» Rate per five minutes: $%s.", number_format(ParkingMeterInformation[meterid][MeterRate]));
+	format(string, sizeof(string), "ï¿½ Rate per five minutes: $%s.", number_format(ParkingMeterInformation[meterid][MeterRate]));
 	SendClientMessageEx(playerid, COLOR_GREY, string);
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1)
 	{
-		format(string, sizeof(string), "» Range: %0.3f meters.", ParkingMeterInformation[meterid][MeterRange]);
+		format(string, sizeof(string), "ï¿½ Range: %0.3f meters.", ParkingMeterInformation[meterid][MeterRange]);
 		SendClientMessageEx(playerid, COLOR_GREY, string);
 	}
 	switch(ParkingMeterInformation[meterid][AssignedVehicle])
 	{
-		case INVALID_VEHICLE_ID: return SendClientMessageEx(playerid, COLOR_GREY, "» Current vehicle: Unoccupied and vacant.");
+		case INVALID_VEHICLE_ID: return SendClientMessageEx(playerid, COLOR_GREY, "ï¿½ Current vehicle: Unoccupied and vacant.");
 		default:
 		{
-			format(string, sizeof(string), "» Current vehicle: %s (ID: %d).", VehicleName[GetVehicleModel(ParkingMeterInformation[meterid][AssignedVehicle]) - 400], ParkingMeterInformation[meterid][AssignedVehicle]);
+			format(string, sizeof(string), "ï¿½ Current vehicle: %s (ID: %d).", VehicleName[GetVehicleModel(ParkingMeterInformation[meterid][AssignedVehicle]) - 400], ParkingMeterInformation[meterid][AssignedVehicle]);
 			SendClientMessageEx(playerid, COLOR_GREY, string);
 			return 1;
 		}
@@ -275,7 +275,7 @@ CMD:renewmeter(playerid, params[])
 
 CMD:editmeterposition(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use that CMD");
 	if(GetPlayerInterior(playerid) != 0 || GetPlayerVirtualWorld(playerid) != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot use this command inside an interior or virtual world.");
 	new meterid, vehicleid, Float:position[4], name[10], string[128];
 	if(sscanf(params, "ds[10]", meterid, name)) return SendSyntaxMessage(playerid, "/editmeterposition [Meter ID] [Type (Meter, Parked, ToMe)]");
@@ -340,7 +340,7 @@ CMD:editmeterposition(playerid, params[])
 
 CMD:createmeter(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use that CMD");
 	if(GetPlayerInterior(playerid) != 0 || GetPlayerVirtualWorld(playerid) != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot use this command inside an interior or virtual world.");
 	new rate, meterid, Float:range, Float:position[4], string[128];
 	if(sscanf(params, "df", rate, range)) return SendSyntaxMessage(playerid, "/createmeter [Rate] [Range]");
@@ -386,7 +386,7 @@ CMD:createmeter(playerid, params[])
 
 CMD:setmeterrange(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use that CMD");
 	new meterid, Float:range, string[128];
 	if(sscanf(params, "df", meterid, range)) return SendSyntaxMessage(playerid, "/setmeterrange [Meter ID] [Range]");
 	if(meterid <= 0 || meterid >= MAX_PARKING_METERS)
@@ -414,7 +414,7 @@ CMD:setmeterrange(playerid, params[])
 
 CMD:setmeterrate(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use that CMD");
 	new meterid, rate, string[128];
 	if(sscanf(params, "dd", meterid, rate)) return SendSyntaxMessage(playerid, "/setmeterrate [Meter ID] [Rate]");
 	if(meterid <= 0 || meterid >= MAX_PARKING_METERS)
@@ -443,7 +443,7 @@ CMD:setmeterrate(playerid, params[])
 
 CMD:deletemeter(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use that CMD");
 	new meterid, string[128];
 	if(sscanf(params, "d", meterid)) return SendSyntaxMessage(playerid, "/deletemeter [Meter ID]");
 	if(meterid <= 0 || meterid >= MAX_PARKING_METERS)
@@ -473,7 +473,7 @@ CMD:deletemeter(playerid, params[])
 
 CMD:gotometer(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use that CMD");
 	new meterid, string[128];
 	if(sscanf(params, "d", meterid)) return SendSyntaxMessage(playerid, "/gotometer [Meter ID]");
 	if(meterid <= 0 || meterid >= MAX_PARKING_METERS)
@@ -498,7 +498,7 @@ CMD:gotometer(playerid, params[])
 
 CMD:reloadmeters(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use that CMD");
 	new string[128], count;
 	for(new i = 1; i < sizeof(ParkingMeterInformation); i ++)
 	{

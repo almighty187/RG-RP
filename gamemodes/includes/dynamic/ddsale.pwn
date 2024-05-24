@@ -32,7 +32,7 @@ ShowDynamicDoorDialog(playerid)
 {
 	if(!IsPlayerConnected(DDSaleTarget[playerid]) || DDSaleTarget[playerid] == INVALID_PLAYER_ID)
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "The specified buyer is no longer connected.");
+		SendErrorMessage(playerid, "The specified buyer is no longer connected.");
 		ClearDoorSaleVariables(playerid);
 		return 1;
 	}
@@ -87,14 +87,14 @@ CMD:ds(playerid, params[]) return cmd_denydoorsale(playerid, params);
 CMD:doorsalehelp(playerid, params[])
 {
 	SendClientMessageEx(playerid, COLOR_WHITE, "** DYNAMIC DOOR SALE COMMANDS **");
-	SendClientMessageEx(playerid, COLOR_GREY, "» /selldoors [playerid/PartOfName] - Allows you to sell your dynamic doors to a specified player with a set price.");
-	SendClientMessageEx(playerid, COLOR_GREY, "» /cancel door - Cancels your dynamic door sale request (must be pending review from server administrator).");
+	SendClientMessageEx(playerid, COLOR_GREY, "ï¿½ /selldoors [playerid/PartOfName] - Allows you to sell your dynamic doors to a specified player with a set price.");
+	SendClientMessageEx(playerid, COLOR_GREY, "ï¿½ /cancel door - Cancels your dynamic door sale request (must be pending review from server administrator).");
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1)
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "» {EE9A4D}SENIOR ADMIN{D8D8D8} /doorrequests - View the list of current dynamic door requests pending review from administration.");
-		SendClientMessageEx(playerid, COLOR_GREY, "» {EE9A4D}SENIOR ADMIN{D8D8D8} /doorsaleinfo - View detailed information on a door sale request.");
-		SendClientMessageEx(playerid, COLOR_GREY, "» {EE9A4D}SENIOR ADMIN{D8D8D8} /(a)pprove(d)oorsale [playerid/PartOfName] - Approve a specified player's dynamic door sale.");
-		SendClientMessageEx(playerid, COLOR_GREY, "» {EE9A4D}SENIOR ADMIN{D8D8D8} /(d)enydoor(s)ale [playerid/PartOfName] - Deny a specified player's dynamic door sale.");
+		SendClientMessageEx(playerid, COLOR_GREY, "ï¿½ {EE9A4D}SENIOR ADMIN{D8D8D8} /doorrequests - View the list of current dynamic door requests pending review from administration.");
+		SendClientMessageEx(playerid, COLOR_GREY, "ï¿½ {EE9A4D}SENIOR ADMIN{D8D8D8} /doorsaleinfo - View detailed information on a door sale request.");
+		SendClientMessageEx(playerid, COLOR_GREY, "ï¿½ {EE9A4D}SENIOR ADMIN{D8D8D8} /(a)pprove(d)oorsale [playerid/PartOfName] - Approve a specified player's dynamic door sale.");
+		SendClientMessageEx(playerid, COLOR_GREY, "ï¿½ {EE9A4D}SENIOR ADMIN{D8D8D8} /(d)enydoor(s)ale [playerid/PartOfName] - Deny a specified player's dynamic door sale.");
 		return 1;
 	}
 	return 1;
@@ -102,18 +102,18 @@ CMD:doorsalehelp(playerid, params[])
 
 CMD:selldoors(playerid, params[])
 {
-	if(gPlayerLogged{playerid} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "You are not logged into your account.");
-	if(GetPVarType(playerid, "Injured")) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot sell dynamic doors while injured.");
-	if(PlayerCuffed[playerid] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot sell dynamic doors while handcuffed.");
-	if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot sell dynamic doors while in prison.");
+	if(gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You are not logged into your account.");
+	if(GetPVarType(playerid, "Injured")) return SendErrorMessage(playerid, "You cannot sell dynamic doors while injured.");
+	if(PlayerCuffed[playerid] != 0) return SendErrorMessage(playerid, "You cannot sell dynamic doors while handcuffed.");
+	if(PlayerInfo[playerid][pJailTime] > 0) return SendErrorMessage(playerid, "You cannot sell dynamic doors while in prison.");
 	new target;
 	if(sscanf(params, "u", target)) return SendSyntaxMessage(playerid, "/selldoors [playerid/PartOfName]");
-	if(!IsPlayerConnected(target)) return SendClientMessageEx(playerid, COLOR_GREY, "The specified player isn't connected.");
-	if(target == playerid) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot sell dynamic doors to yourself.");
-	if(GetPlayerCash(playerid) < 1000000) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot afford the minimum $1,000,000 transfer fine.");
-	if(gPlayerLogged{target} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "The specified player isn't logged into their account.");
-	if(DDSalePendingPlayer[playerid] == true || DDSalePendingAdmin[playerid] == true) return SendClientMessageEx(playerid, COLOR_GREY, "You have an existing dynamic door sale offer, use (/cancel door) to cancel it.");
-	foreach(new i : Player) if(DDSaleTarget[i] == target) return SendClientMessageEx(playerid, COLOR_GREY, "Another player has already offered the specified player a dynamic door sale offer.");
+	if(!IsPlayerConnected(target)) return SendErrorMessage(playerid, "The specified player isn't connected.");
+	if(target == playerid) return SendErrorMessage(playerid, "You cannot sell dynamic doors to yourself.");
+	if(GetPlayerCash(playerid) < 150000) return SendErrorMessage(playerid, "You cannot afford the minimum $150,000 transfer fine.");
+	if(gPlayerLogged{target} == 0) return SendErrorMessage(playerid, "The specified player isn't logged into their account.");
+	if(DDSalePendingPlayer[playerid] == true || DDSalePendingAdmin[playerid] == true) return SendErrorMessage(playerid, "You have an existing dynamic door sale offer, use (/cancel door) to cancel it.");
+	foreach(new i : Player) if(DDSaleTarget[i] == target) return SendErrorMessage(playerid, "Another player has already offered the specified player a dynamic door sale offer.");
 	ClearDoorSaleVariables(playerid);
 	DDSaleTarget[playerid] = target;
 	ShowDynamicDoorDialog(playerid);
@@ -122,9 +122,9 @@ CMD:selldoors(playerid, params[])
 
 CMD:doorrequests(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	new count, string[64];
-	SendClientMessageEx(playerid, COLOR_WHITE, "** DYNAMIC DOOR SALE REQUESTS PENDING APPROVAL: **");
+	SendServerMessage(playerid, "DYNAMIC DOOR SALE REQUESTS PENDING APPROVAL");
 	foreach(new i : Player)
 	{
 		if(gPlayerLogged{i} == 1 && DDSalePendingAdmin[i] == true)
@@ -134,33 +134,33 @@ CMD:doorrequests(playerid, params[])
 			count ++;
 		}
 	}
-	if(count == 0) return SendClientMessageEx(playerid, COLOR_GREY, "There are not currently any dynamic door sale requests approval.");
+	if(count == 0) return SendErrorMessage(playerid, "There are not currently any dynamic door sale requests approval.");
 	return 1;
 }
 
 CMD:doorsaleinfo(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendErrorMessage(playerid, "You are not authorized to use that CMD");
 	new target;
 	if(sscanf(params, "u", target)) return SendSyntaxMessage(playerid, "/doorsaleinfo [playerid/PartOfName]");
-	if(!IsPlayerConnected(target)) return SendClientMessageEx(playerid, COLOR_GREY, "The specified player isn't connected.");
-	if(gPlayerLogged{target} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "The specified player isn't logged into their account.");
-	if(DDSalePendingAdmin[target] == false) return SendClientMessageEx(playerid, COLOR_GREY, "The specified player does not have a pending dynamic door sale request.");
+	if(!IsPlayerConnected(target)) return SendErrorMessage(playerid, "The specified player isn't connected.");
+	if(gPlayerLogged{target} == 0) return SendErrorMessage(playerid, "The specified player isn't logged into their account.");
+	if(DDSalePendingAdmin[target] == false) return SendErrorMessage(playerid, "The specified player does not have a pending dynamic door sale request.");
 	szMiscArray[0] = 0;
-	format(szMiscArray, sizeof(szMiscArray), "General Information:\n\n  » Seller: %s\n  » Buyer: %s\n  » Price: $%s\n  » Fine: $%s\n\nDynamic Door(s):\n\n", GetPlayerNameEx(target), GetPlayerNameEx(DDSaleTarget[target]), number_format(DDSalePrice[target]), CalculatePercentage(DDSalePrice[target], 10, 1000000));
-	for(new i = 0; i < sizeof(DDSaleDoors[]); i ++) if(DDSaleDoors[target][i] != 0 && GetPlayerSQLId(target) == DDoorsInfo[DDSaleDoors[target][i]][ddOwner]) format(szMiscArray, sizeof(szMiscArray), "%s\n  » Door ID: %d (%s)", szMiscArray, DDSaleDoors[target][i], DDoorsInfo[DDSaleDoors[target][i]][ddDescription]);
+	format(szMiscArray, sizeof(szMiscArray), "General Information:\n\n  ï¿½ Seller: %s\n  ï¿½ Buyer: %s\n  ï¿½ Price: $%s\n  ï¿½ Fine: $%s\n\nDynamic Door(s):\n\n", GetPlayerNameEx(target), GetPlayerNameEx(DDSaleTarget[target]), number_format(DDSalePrice[target]), CalculatePercentage(DDSalePrice[target], 10, 1000000));
+	for(new i = 0; i < sizeof(DDSaleDoors[]); i ++) if(DDSaleDoors[target][i] != 0 && GetPlayerSQLId(target) == DDoorsInfo[DDSaleDoors[target][i]][ddOwner]) format(szMiscArray, sizeof(szMiscArray), "%s\n  ï¿½ Door ID: %d (%s)", szMiscArray, DDSaleDoors[target][i], DDoorsInfo[DDSaleDoors[target][i]][ddDescription]);
 	ShowPlayerDialogEx(playerid, DIALOG_DDSALEINFO, DIALOG_STYLE_MSGBOX, "Dynamic Door Sale Details", szMiscArray, "Okay", "Cancel");
 	return 1;
 }
 
 CMD:approvedoorsale(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use that CMD");
 	new target, fine, count[2], timex[3], string[128];
 	if(sscanf(params, "u", target)) return SendSyntaxMessage(playerid, "/approvedoorsale [playerid/PartOfName]");
-	if(!IsPlayerConnected(target)) return SendClientMessageEx(playerid, COLOR_GREY, "The specified player isn't connected.");
-	if(gPlayerLogged{target} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "The specified player isn't logged into their account.");
-	if(DDSalePendingAdmin[target] == false) return SendClientMessageEx(playerid, COLOR_GREY, "The specified player does not have a pending dynamic door sale request.");
+	if(!IsPlayerConnected(target)) return SendErrorMessage(playerid, "The specified player isn't connected.");
+	if(gPlayerLogged{target} == 0) return SendErrorMessage(playerid, "The specified player isn't logged into their account.");
+	if(DDSalePendingAdmin[target] == false) return SendErrorMessage(playerid, "The specified player does not have a pending dynamic door sale request.");
 	fine = CalculatePercentage(DDSalePrice[target], 10, 1000000);
 	if(GetPlayerCash(DDSaleTarget[target]) < DDSalePrice[target])
 	{
@@ -221,13 +221,13 @@ CMD:approvedoorsale(playerid, params[])
 		GivePlayerCashEx(target, TYPE_ONHAND, DDSalePrice[target]);
 		GivePlayerCashEx(target, TYPE_ONHAND, -fine);
 		GivePlayerCashEx(DDSaleTarget[target], TYPE_ONHAND, -DDSalePrice[target]);
-		format(szMiscArray, sizeof(szMiscArray), "General Transaction Information:\n\n  » Seller: %s\n  » Buyer: %s\n  » Price: $%s\n  » Seller Fine: $%s\n  » Date: %s (%02d:%02d:%02d)\n\nDynamic Doors:\n", 
+		format(szMiscArray, sizeof(szMiscArray), "General Transaction Information:\n\n  ï¿½ Seller: %s\n  ï¿½ Buyer: %s\n  ï¿½ Price: $%s\n  ï¿½ Seller Fine: $%s\n  ï¿½ Date: %s (%02d:%02d:%02d)\n\nDynamic Doors:\n", 
 		GetPlayerNameEx(target), GetPlayerNameEx(DDSaleTarget[target]), number_format(DDSalePrice[target]), number_format(fine), date(gettime(), 4), timex[0], timex[1], timex[2]);
 		for(new i = 0; i < sizeof(DDSaleDoors[]) - 2; i ++) 
 		{
 			if(DDSaleDoors[target][i] != 0 && GetPlayerSQLId(target) == DDoorsInfo[DDSaleDoors[target][i]][ddOwner])
 			{
-				format(szMiscArray, sizeof(szMiscArray), "%s\n  » Door ID: %d (%s)", szMiscArray, DDSaleDoors[target][i], DDoorsInfo[DDSaleDoors[target][i]][ddDescription]);
+				format(szMiscArray, sizeof(szMiscArray), "%s\n  ï¿½ Door ID: %d (%s)", szMiscArray, DDSaleDoors[target][i], DDoorsInfo[DDSaleDoors[target][i]][ddDescription]);
 				strcpy(DDoorsInfo[DDSaleDoors[target][i]][ddOwnerName], GetPlayerNameEx(DDSaleTarget[target]), MAX_PLAYER_NAME);
 				DDoorsInfo[DDSaleDoors[target][i]][ddOwner] = GetPlayerSQLId(DDSaleTarget[target]);
 				DestroyDynamicPickup(DDoorsInfo[DDSaleDoors[target][i]][ddPickupID]);
@@ -237,13 +237,13 @@ CMD:approvedoorsale(playerid, params[])
 				count[0] ++;
 			}
 		}
-		if(count[0] == 0) strcat(szMiscArray, "\n  » None");
+		if(count[0] == 0) strcat(szMiscArray, "\n  ï¿½ None");
 		strcat(szMiscArray, "\n\nGarages:\n");
 		for(new i = sizeof(DDSaleDoors[]) - 2; i < sizeof(DDSaleDoors[]); i ++)
 		{
 			if(DDSaleDoors[target][i] != 0 && GetPlayerSQLId(target) == GarageInfo[DDSaleDoors[target][i]][gar_Owner])
 			{
-				format(szMiscArray, sizeof(szMiscArray), "%s\n  » Garage ID: %d", szMiscArray, DDSaleDoors[target][i]);
+				format(szMiscArray, sizeof(szMiscArray), "%s\n  ï¿½ Garage ID: %d", szMiscArray, DDSaleDoors[target][i]);
 				strcpy(GarageInfo[DDSaleDoors[target][i]][gar_OwnerName], GetPlayerNameEx(DDSaleTarget[target]), MAX_PLAYER_NAME);
 				GarageInfo[DDSaleDoors[target][i]][gar_Owner] = GetPlayerSQLId(DDSaleTarget[target]);
 				CreateGarage(DDSaleDoors[target][i]);
@@ -251,7 +251,7 @@ CMD:approvedoorsale(playerid, params[])
 				count[1] ++;
 			}
 		}
-		if(count[1] == 0) strcat(szMiscArray, "\n  » None");
+		if(count[1] == 0) strcat(szMiscArray, "\n  ï¿½ None");
 		strcat(szMiscArray, "\n\nPress (F8) to take a screen-shot of this receipt for future reference.");
 		ShowPlayerDialogEx(target, DIALOG_DDSALERECIEPT, DIALOG_STYLE_MSGBOX, "Dynamic Door Sale Receipt", szMiscArray, "Okay", "Cancel");
 		ShowPlayerDialogEx(DDSaleTarget[target], DIALOG_DDSALERECIEPT, DIALOG_STYLE_MSGBOX, "Dynamic Door Sale Receipt", szMiscArray, "Okay", "Cancel");
@@ -269,7 +269,7 @@ CMD:approvedoorsale(playerid, params[])
 
 CMD:denydoorsale(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are unauthorized to use this command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use that CMD");
 	new target, reason[64], string[128];
 	if(sscanf(params, "us[64]", target, reason)) return SendSyntaxMessage(playerid, "/denydoorsale [playerid/PartOfName] [Reason]");
 	if(!IsPlayerConnected(target)) return SendClientMessageEx(playerid, COLOR_GREY, "The specified player isn't connected.");
@@ -371,13 +371,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 							SendClientMessageEx(playerid, COLOR_GREY, "To cancel your dynamic door sale request offer, use (/cancel door).");
 							format(string, sizeof(string), "** NEW DYNAMIC DOOR SALE OFFER FROM %s: **", GetPlayerNameEx(playerid));
 							SendClientMessageEx(DDSaleTarget[playerid], COLOR_CYAN, string);
-							format(string, sizeof(string), "» (Price): $%s", number_format(DDSalePrice[playerid]));
+							format(string, sizeof(string), "ï¿½ (Price): $%s", number_format(DDSalePrice[playerid]));
 							SendClientMessageEx(DDSaleTarget[playerid], COLOR_WHITE, string);
 							for(new i = 0; i < sizeof(DDSaleDoors[]); i ++)
 							{
 								if(DDSaleDoors[playerid][i] != 0 && GetPlayerSQLId(playerid) == DDoorsInfo[DDSaleDoors[playerid][i]][ddOwner])
 								{
-									format(string, sizeof(string), "» (Door ID %d): %s", DDSaleDoors[playerid][i], DDoorsInfo[DDSaleDoors[playerid][i]][ddDescription]);
+									format(string, sizeof(string), "ï¿½ (Door ID %d): %s", DDSaleDoors[playerid][i], DDoorsInfo[DDSaleDoors[playerid][i]][ddDescription]);
 									SendClientMessageEx(DDSaleTarget[playerid], COLOR_WHITE, string);
 								}
 							}
@@ -401,7 +401,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				{
 					if(!IsPlayerConnected(DDSaleTarget[playerid]) || DDSaleTarget[playerid] == INVALID_PLAYER_ID)
 					{
-						SendClientMessageEx(playerid, COLOR_GREY, "The specified buyer is no longer connected.");
+						SendErrorMessage(playerid, "The specified buyer is no longer connected.");
 						ClearDoorSaleVariables(playerid);
 						return 1;
 					}

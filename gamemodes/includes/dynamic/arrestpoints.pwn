@@ -268,7 +268,7 @@ CMD:arrestedit(playerid, params[])
 			ArrestPoints[id][arrestInt] = GetPlayerInterior(playerid);
 			ArrestPoints[id][arrestVW] = GetPlayerVirtualWorld(playerid);
 			format(string, sizeof(string), "You have changed the position on Arrest Point #%d.", id);
-			SendClientMessageEx(playerid, COLOR_WHITE, string);
+			SendErrorMessage(playerid, string);
 			DestroyDynamic3DTextLabel(ArrestPoints[id][arrestTextID]);
 			DestroyDynamicPickup(ArrestPoints[id][arrestPickupID]);
 			switch(ArrestPoints[id][arrestType])
@@ -308,12 +308,12 @@ CMD:arrestedit(playerid, params[])
 			if(ArrestPoints[id][arrestPosX] == 0)
 			{
 				format(string, sizeof(string), "Arrest Point #%d does not exist.", id);
-				SendClientMessageEx(playerid, COLOR_WHITE, string);
+				SendErrorMessage(playerid, string);
 				return 1;
 			}
 			ArrestPoints[id][arrestType] = amount;
 			format(string, sizeof(string), "You have changed the type for Arrest Point #%d to %d.", id, amount);
-			SendClientMessageEx(playerid, COLOR_WHITE, string);
+			SendErrorMessage(playerid, string);
 			DestroyDynamic3DTextLabel(ArrestPoints[id][arrestTextID]);
 			DestroyDynamicPickup(ArrestPoints[id][arrestPickupID]);
 			switch(ArrestPoints[id][arrestType])
@@ -353,14 +353,14 @@ CMD:arrestedit(playerid, params[])
 			if(ArrestPoints[id][arrestPosX] == 0)
 			{
 				format(string, sizeof(string), "Arrest Point #%d does not exist.", id);
-				SendClientMessageEx(playerid, COLOR_WHITE, string);
+				SendErrorMessage(playerid, string);
 				return 1;
 			}
 			GetPlayerPos(playerid, ArrestPoints[id][JailPos1][0], ArrestPoints[id][JailPos1][1], ArrestPoints[id][JailPos1][2]);
 			ArrestPoints[id][jailVW] = GetPlayerVirtualWorld(playerid);
 			ArrestPoints[id][jailInt] = GetPlayerInterior(playerid);
 			format(string, sizeof(string), "You have changed the jail cell position 1 on Arrest Point #%d.", id);
-			SendClientMessageEx(playerid, COLOR_WHITE, string);
+			SendServerMessage(playerid, string);
 			SaveArrestPoint(id);
 			format(string, sizeof(string), "%s has changed the jail cell position 1 on Arrest Point ID %d.", GetPlayerNameEx(playerid), id);
 			Log("logs/arrestedit.log", string);
@@ -370,14 +370,14 @@ CMD:arrestedit(playerid, params[])
 			if(ArrestPoints[id][arrestPosX] == 0)
 			{
 				format(string, sizeof(string), "Arrest Point #%d does not exist.", id);
-				SendClientMessageEx(playerid, COLOR_WHITE, string);
+				SendErrorMessage(playerid, string);
 				return 1;
 			}
 			GetPlayerPos(playerid, ArrestPoints[id][JailPos2][0], ArrestPoints[id][JailPos2][1], ArrestPoints[id][JailPos2][2]);
 			ArrestPoints[id][jailVW] = GetPlayerVirtualWorld(playerid);
 			ArrestPoints[id][jailInt] = GetPlayerInterior(playerid);
 			format(string, sizeof(string), "You have changed the jail cell position 2 on Arrest Point #%d.", id);
-			SendClientMessageEx(playerid, COLOR_WHITE, string);
+			SendServerMessage(playerid, string);
 			SaveArrestPoint(id);
 			format(string, sizeof(string), "%s has changed the jail cell position 2 on Arrest Point ID %d.", GetPlayerNameEx(playerid), id);
 			Log("logs/arrestedit.log", string);
@@ -387,7 +387,7 @@ CMD:arrestedit(playerid, params[])
 			if(ArrestPoints[id][arrestPosX] == 0)
 			{
 				format(string, sizeof(string), "Arrest Point #%d does not exist.", id);
-				SendClientMessageEx(playerid, COLOR_WHITE, string);
+				SendErrorMessage(playerid, string);
 				return 1;
 			}
 			DestroyDynamic3DTextLabel(ArrestPoints[id][arrestTextID]);
@@ -400,13 +400,13 @@ CMD:arrestedit(playerid, params[])
 			ArrestPoints[id][arrestType] = 0;
 			SaveArrestPoint(id);
 			format(string, sizeof(string), "You have deleted Arrest Point #%d.", id);
-			SendClientMessageEx(playerid, COLOR_WHITE, string);
+			SendServerMessage(playerid, string);
 			format(string, sizeof(string), "%s has deleted Arrest Point ID %d.", GetPlayerNameEx(playerid), id);
 			Log("logs/arrestedit.log", string);
 			return 1;
 		}
 	}
-	else SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
+	else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 
@@ -429,11 +429,9 @@ CMD:arreststatus(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_WHITE, string);
 		format(string, sizeof(string), "[JailPos 2] X: %f | Y: %f | Z: %f", ArrestPoints[id][JailPos2][0], ArrestPoints[id][JailPos2][1], ArrestPoints[id][JailPos2][2]);
 		SendClientMessageEx(playerid, COLOR_WHITE, string);
+
 	}
-	else
-	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
-	}
+	else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 
@@ -448,16 +446,12 @@ CMD:arrestnext(playerid, params[])
 		    {
 		        new string[128];
 		        format(string, sizeof(string), "%d is available to use.", x);
-		        SendClientMessageEx(playerid, COLOR_WHITE, string);
+		        SendServerMessage(playerid, string);
 		        break;
 			}
 		}
 	}
-	else
-	{
-	    SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command.");
-		return 1;
-	}
+	else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 
@@ -474,5 +468,6 @@ CMD:gotoarrestpoint(playerid, params[])
 		SetPlayerVirtualWorld(playerid, ArrestPoints[id][arrestVW]);
 		PlayerInfo[playerid][pVW] = ArrestPoints[id][arrestVW];
 	}
+ 	else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
