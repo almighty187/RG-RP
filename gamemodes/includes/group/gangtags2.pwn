@@ -119,8 +119,39 @@ GangTag_Load()
 {
 	mysql_tquery(MainPipeline, "SELECT *FROM `gangtags` where 1", "GangTag_OnLoad", "");
 }
-
 forward GangTag_OnLoad();
+
+public GangTag_OnLoad()
+{
+    new iRows;
+    cache_get_row_count(iRows);
+    if(!iRows) {
+        print("[Gang Tags] There are no gang tags in the database.");
+        return 1;
+    }
+
+    new idx,
+        //szResult[MAX_GANGTAGS_LEN],
+        Float:fx, Float:fy, Float:fz, Float:frx, Float:fry, Float:frz, frfont, frcolor, textgg[1024];
+
+    for(idx = 0; idx < iRows; ++idx) {
+        cache_get_value_name(idx, "text", textgg);
+        cache_get_value_name_float(idx, "x", fx);
+        cache_get_value_name_float(idx, "y", fy);
+        cache_get_value_name_float(idx, "z", fz);
+        cache_get_value_name_float(idx, "rx", frx);
+        cache_get_value_name_float(idx, "ry", fry);
+        cache_get_value_name_float(idx, "rz", frz);
+        cache_get_value_name_int(idx, "fontid", frfont);
+        cache_get_value_name_int(idx, "color", frcolor);
+
+        GangTag_AdmProcess(idx, fx, fy, fz, frx, fry, frz, textgg, frfont, frcolor);
+    }
+
+    printf("[Gang Tags] Loaded %d gang tags.", idx);
+    return 1;
+}
+/*forward GangTag_OnLoad();
 public GangTag_OnLoad()
 {
 	new iRows;
@@ -128,8 +159,8 @@ public GangTag_OnLoad()
 	if(!iRows) return print("[Gang Tags] There are no gang tags in the database.");
 	new idx,
 		szResult[MAX_GANGTAGS_LEN],
-		value,
-		Float:fValue,Float:fx,Float:fy,Float:fz,Float:frx,Float:fry,Float:frz,frfont,frcolor,textgg[1024];
+		//value,
+		Float:fx,Float:fy,Float:fz,Float:frx,Float:fry,Float:frz,frfont,frcolor,textgg[1024];
 	for(idx = 0; idx < iRows; ++idx) {
 		cache_get_value_name(idx, "text", textgg);
 	       cache_get_value_name_float(idx, "x", fx);
@@ -145,7 +176,7 @@ public GangTag_OnLoad()
 	}
 	printf("[Gang Tags] Loaded %d gang tags.", idx);
 	return 1;
-}
+}*/
 
 GangTag_Create(iPlayerID)
 {
@@ -272,8 +303,59 @@ stock GetGangTags(iPlayerID)
 	mysql_format(MainPipeline, szMiscArray, sizeof(szMiscArray), "SELECT * FROM `gangtags` WHERE 1");
 	mysql_tquery(MainPipeline, szMiscArray, "OnGetGangTags", "i", iPlayerID);
 }
+forward OnGetGangTags(playerid);
 
-forward OnGetGangTags(iPlayerID);
+public OnGetGangTags(playerid)
+{
+    new iRows;
+//    new szMiscArray[250];
+    format(szMiscArray, sizeof(szMiscArray), "Group Name(ID)\tText\n");
+
+    cache_get_row_count(iRows);
+
+    if (iRows > 0)
+    {
+        new idx, gangID;
+        new szResult[250];
+
+        for (idx = 0; idx < iRows; ++idx)
+        {
+            cache_get_value_name(idx, "text", szResult);
+            cache_get_value_name_int(idx, "gangid", gangID);
+			format(szMiscArray, sizeof(szMiscArray), "%s(%d) %s (%d)\t%s\n", szMiscArray, idx, arrGroupData[gangID][g_szGroupName], gangID, szResult);
+        }
+        // Show dialog to player
+        ShowPlayerDialogEx(playerid, DIALOG_GANGTAGS_LIST, DIALOG_STYLE_TABLIST_HEADERS, "Gang Tags | List", szMiscArray, "Select", "");
+        return 1; // Return 1 to indicate success
+    }
+
+    SendClientMessage(playerid, COLOR_GRAD1, "There are no gang tags in the database.");
+    return 0; // Return 0 to indicate failure
+}
+
+/*public OnGetGangTags(iPlayerID)
+{
+    new iRows;
+    szMiscArray = "Group Name(ID)\tText\n";
+    cache_get_row_count(iRows);
+    if (iRows > 0)
+    {
+        new idx,
+            i,
+            szResult[MAX_GANGTAGS_LEN];
+
+        for (idx = 0; idx < iRows; ++idx) {
+            cache_get_value_name(idx,  "text", szResult);
+            cache_get_value_name_int(idx, "gangid", i);
+            format(szMiscArray, sizeof(szMiscArray), "%s(%d) %s (%d)\t%s\n", szMiscArray, idx, arrGroupData[i][g_szGroupName], i, szResult);
+        }
+        ShowPlayerDialogEx(iPlayerID, DIALOG_GANGTAGS_LIST, DIALOG_STYLE_TABLIST_HEADERS, "Gang Tags | List", szMiscArray, "Select", "");
+        return 1;
+    }
+    return SendClientMessage(iPlayerID, COLOR_GRAD1, "There are no gang tags in the database.");
+}*/
+
+/*forward OnGetGangTags(iPlayerID);
 public OnGetGangTags(iPlayerID)
 {
 	new iRows;
@@ -294,7 +376,7 @@ public OnGetGangTags(iPlayerID)
 		return 1;
 	}
 	return SendClientMessage(iPlayerID, COLOR_GRAD1, "There are no gang tags in the database.");
-}
+}*/
 
 CMD:gangtaghelp(playerid, params[])
 {
@@ -366,14 +448,20 @@ CMD:tag(playerid, params[])
 
 CMD:gangtags(playerid)
 {
-	if(PlayerInfo[playerid][pAdmin] > 1 || PlayerInfo[playerid][pGangModerator] > 0) GetGangTags(playerid);
+	if(PlayerInfo[playerid][pAdmin] >= 2)
+ 	{
+		GetGangTags(playerid);
+	}
 	else SendClientMessage(playerid, COLOR_GRAD1, "You are not authorized to use this command.");
 	return 1;
 }
 
 CMD:rehashgangtags(playerid)
 {
-	if(PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pGangModerator] > 0) GangTag_Load();
+	if(PlayerInfo[playerid][pAdmin] >= 2)
+ 	{
+		GangTag_Load();
+	}
 	else SendClientMessage(playerid, COLOR_GRAD1, "You are not authorized to use this command.");
 	return 1;
 }
