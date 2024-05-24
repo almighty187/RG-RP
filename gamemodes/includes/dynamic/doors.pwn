@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-					Dynamic Door System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 #include <YSI\y_hooks>
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
@@ -44,23 +7,23 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		if(response)
 		{
 			new i = GetPVarInt(playerid, "Door");
-			if(isnull(inputtext)) return SendClientMessage(playerid, COLOR_GREY, "You did not enter anything" );
-			if(strlen(inputtext) > 24) return SendClientMessageEx(playerid, COLOR_GREY, "The password can not be greater than 24 characters.");
+			if(isnull(inputtext)) return SendErrorMessage(playerid, "You did not enter anything" );
+			if(strlen(inputtext) > 24) return SendErrorMessage(playerid, "The password can not be greater than 24 characters.");
 			if(strcmp(inputtext, DDoorsInfo[i][ddPass], true) == 0)
 			{
 				if(DDoorsInfo[i][ddLocked] == 0)
 				{
 					DDoorsInfo[i][ddLocked] = 1;
-					SendClientMessageEx(playerid, COLOR_WHITE, "Password accepted, doors locked.");
+					SendServerMessage(playerid, "Password accepted, doors locked.");
 				}
 				else
 				{
 					DDoorsInfo[i][ddLocked] = 0;
-					SendClientMessageEx(playerid, COLOR_WHITE, "Password accepted, doors unlocked.");
+					SendServerMessage(playerid, "Password accepted, doors unlocked.");
 				}
 				SaveDynamicDoor(i);
 			}
-			else SendClientMessageEx(playerid, COLOR_WHITE, "Password declined.");
+			else SendErrorMessage(playerid, "Password declined.");
 		}
 	}
 	return 0;
@@ -435,7 +398,7 @@ public OnSetDDOwner(playerid, doorid)
 			format(string, sizeof(string), "%s has edited door ID %d's owner to %s (SQL ID: %d).", GetPlayerNameEx(playerid), doorid, playername, DDoorsInfo[doorid][ddOwner]);
 			Log("logs/ddedit.log", string);
 		}
-		else SendClientMessageEx(playerid, COLOR_GREY, "That account name does not appear to exist.");
+		else SendErrorMessage(playerid, "That account name does not appear to exist.");
 	}
 	return 1;
 }
@@ -450,16 +413,16 @@ CMD:changedoorpass(playerid, params[])
         	if(DDoorsInfo[i][ddType] == 2 && DDoorsInfo[i][ddFaction] != INVALID_GROUP_ID && PlayerInfo[playerid][pLeader] == DDoorsInfo[i][ddFaction])
 			{
 				format(DDoorsInfo[i][ddPass], 24, "%s", doorpass);
-				SendClientMessageEx(playerid, COLOR_WHITE, "You have changed the password of this door.");
+				SendServerMessage(playerid, "You have changed the password of this door.");
 				SaveDynamicDoor(i);
 			}
 			else if(DDoorsInfo[i][ddType] == 1 && DDoorsInfo[i][ddOwner] == GetPlayerSQLId(playerid))
 			{
 				format(DDoorsInfo[i][ddPass], 24, "%s", doorpass);
-				SendClientMessageEx(playerid, COLOR_WHITE, "You have changed the password of this door.");
+				SendServerMessage(playerid, "You have changed the password of this door.");
 				SaveDynamicDoor(i);
 			}
-			else SendClientMessageEx(playerid, COLOR_GREY, "You cannot change the password on this lock.");
+			else SendErrorMessage(playerid, "You cannot change the password on this lock.");
 		}
 	}
 	return 1;
@@ -475,12 +438,12 @@ CMD:lockdoor(playerid, params[])
 				if(DDoorsInfo[i][ddLocked] == 0) {
 					
 					DDoorsInfo[i][ddLocked] = 1;
-					SendClientMessageEx(playerid, COLOR_WHITE, "This door has been locked.");
+					SendServerMessage(playerid, "This door has been locked.");
 				}
 				else if(DDoorsInfo[i][ddLocked] == 1)
 				{
 					DDoorsInfo[i][ddLocked] = 0;
-					SendClientMessageEx(playerid, COLOR_GREY, "This door has been unlocked.");
+					SendServerMessage(playerid, "This door has been unlocked.");
 				}
 			}
 			else if(DDoorsInfo[i][ddType] == 1 && DDoorsInfo[i][ddOwner] == GetPlayerSQLId(playerid))
@@ -488,15 +451,15 @@ CMD:lockdoor(playerid, params[])
 				if(DDoorsInfo[i][ddLocked] == 0)
 				{
 					DDoorsInfo[i][ddLocked] = 1;
-					SendClientMessageEx(playerid, COLOR_WHITE, "This door has been locked.");
+					SendServerMessage(playerid, "This door has been locked.");
 				}
 				else if(DDoorsInfo[i][ddLocked] == 1)
 				{
 					DDoorsInfo[i][ddLocked] = 0;
-					SendClientMessageEx(playerid, COLOR_GREY, "This door has been unlocked.");
+					SendServerMessage(playerid, "This door has been unlocked.");
 				}
 			}
-			else SendClientMessageEx(playerid, COLOR_GREY, "You cannot lock this door.");
+			else SendErrorMessage(playerid, "You cannot lock this door.");
 		}
 	}
 	return 1;
@@ -507,9 +470,9 @@ CMD:doorpass(playerid, params[])
     for(new i = 0; i < sizeof(DDoorsInfo); i++) {
         if (IsPlayerInRangeOfPoint(playerid,3.0,DDoorsInfo[i][ddExteriorX], DDoorsInfo[i][ddExteriorY], DDoorsInfo[i][ddExteriorZ]) && PlayerInfo[playerid][pVW] == DDoorsInfo[i][ddExteriorVW] || IsPlayerInRangeOfPoint(playerid,3.0,DDoorsInfo[i][ddInteriorX], DDoorsInfo[i][ddInteriorY], DDoorsInfo[i][ddInteriorZ]) && PlayerInfo[playerid][pVW] == DDoorsInfo[i][ddInteriorVW]) {
         	if(DDoorsInfo[i][ddPass] < 1)
-                return SendClientMessageEx(playerid, COLOR_GREY, "This door isn't allowed to be locked");
+                return SendServerMessage(playerid, "This door isn't allowed to be locked");
          	if(strcmp(DDoorsInfo[i][ddPass], "None", true) == 0)
-                return SendClientMessageEx(playerid, COLOR_GREY, "This door isn't allowed to be locked");
+                return SendServerMessage(playerid, "This door isn't allowed to be locked");
 
 			ShowPlayerDialogEx(playerid, DOORLOCK, DIALOG_STYLE_INPUT, "Door Security","Enter the password for this door","Login","Cancel");
 			SetPVarInt(playerid, "Door", i);
@@ -588,10 +551,7 @@ CMD:ddstatus(playerid, params[])
 		format(string, sizeof(string), "Vehiclable: %d | Locked: %d | Password: %s", DDoorsInfo[doorid][ddVehicleAble], DDoorsInfo[doorid][ddLocked], DDoorsInfo[doorid][ddPass]);
 		SendClientMessageEx(playerid, COLOR_WHITE, string);
 	}
-	else
-	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
-	}
+	else SendServerMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 
@@ -682,11 +642,7 @@ CMD:ddnext(playerid, params[])
 			}
 		}
 	}
-	else
-	{
-	    SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command.");
-		return 1;
-	}
+	else SendServerMessage(playerid, "You are not authorized to use that command.");
 	return 1;
 }
 
@@ -718,7 +674,7 @@ CMD:ddname(playerid, params[]) {
 		format(szName, sizeof(szName), "%s has edited door ID %d's name to %s.", GetPlayerNameEx(playerid), iDoorID, DDoorsInfo[iDoorID][ddDescription]);
 		Log("logs/ddedit.log", szName);
 	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command.");
+	else return SendServerMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 
@@ -729,14 +685,14 @@ CMD:ddowner(playerid, params[])
 		new playername[MAX_PLAYER_NAME], doorid, szName[128];
 		if(sscanf(params, "ds[24]", doorid, playername)) return SendClientMessageEx(playerid, COLOR_WHITE, "USAGE: /ddowner [door] [player name]");
 
-		if(DDoorsInfo[doorid][ddType] != 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "This door is not owned by a player!");
+		if(DDoorsInfo[doorid][ddType] != 1) return SendServerMessage(playerid, "This door is not owned by a player!");
 		new giveplayerid = ReturnUser(playername);
 		if(PlayerInfo[giveplayerid][pLevel] == 1 && PlayerInfo[giveplayerid][pAdmin] < 2) return SendClientMessageEx(playerid, COLOR_RED, "You can't use /ddowner on level 1's");
 		if(IsPlayerConnected(giveplayerid))
 		{
 			strcat((DDoorsInfo[doorid][ddOwnerName][0] = 0, DDoorsInfo[doorid][ddOwnerName]), GetPlayerNameEx(giveplayerid), 24);
 			DDoorsInfo[doorid][ddOwner] = GetPlayerSQLId(giveplayerid);
-			SendClientMessageEx(playerid, COLOR_WHITE, "You have successfully changed the owner of this door.");
+			SendServerMessage(playerid, "You have successfully changed the owner of this door.");
 
 			DestroyDynamicPickup(DDoorsInfo[doorid][ddPickupID]);
 			if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
@@ -755,7 +711,7 @@ CMD:ddowner(playerid, params[])
 			mysql_tquery(MainPipeline, query, "OnSetDDOwner", "ii", playerid, doorid);
 		}
 	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command!");
+	else return SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 
@@ -791,7 +747,7 @@ CMD:ddedit(playerid, params[])
 
 		if(doorid >= MAX_DDOORS)
 		{
-			SendClientMessageEx( playerid, COLOR_WHITE, "Invalid Door ID!");
+			SendServerMessage(playerid, "Invalid Door ID!");
 			return 1;
 		}
 
@@ -805,7 +761,7 @@ CMD:ddedit(playerid, params[])
 			GetPlayerFacingAngle(playerid, DDoorsInfo[doorid][ddInteriorA]);
 			DDoorsInfo[doorid][ddInteriorInt] = GetPlayerInterior(playerid);
 			DDoorsInfo[doorid][ddInteriorVW] = GetPlayerVirtualWorld(playerid);
-			SendClientMessageEx(playerid, COLOR_WHITE, "You have changed the interior!");
+			SendServerMessage(playerid, "You have changed the interior!");
 			SaveDynamicDoor(doorid);
 			CreateDynamicDoor(doorid);
 			return 1;
@@ -815,12 +771,12 @@ CMD:ddedit(playerid, params[])
 			if(DDoorsInfo[doorid][ddCustomInterior] == 0)
 			{
 				DDoorsInfo[doorid][ddCustomInterior] = 1;
-				SendClientMessageEx(playerid, COLOR_WHITE, "Door set to custom interior!");
+				SendServerMessage(playerid, "Door set to custom interior!");
 			}
 			else
 			{
 				DDoorsInfo[doorid][ddCustomInterior] = 0;
-				SendClientMessageEx(playerid, COLOR_WHITE, "Door set to normal (not custom) interior!");
+				SendServerMessage(playerid, "Door set to normal (not custom) interior!");
 			}
 			SaveDynamicDoor(doorid);
 			format(string, sizeof(string), "%s has edited DoorID %d's CustomInterior.", GetPlayerNameEx(playerid), doorid);
@@ -832,12 +788,12 @@ CMD:ddedit(playerid, params[])
 			if(DDoorsInfo[doorid][ddCustomExterior] == 0)
 			{
 				DDoorsInfo[doorid][ddCustomExterior] = 1;
-				SendClientMessageEx(playerid, COLOR_WHITE, "Door set to custom exterior!");
+				SendServerMessage(playerid, "Door set to custom exterior!");
 			}
 			else
 			{
 				DDoorsInfo[doorid][ddCustomExterior] = 0;
-				SendClientMessageEx(playerid, COLOR_WHITE, "Door set to normal (not custom) exterior!");
+				SendServerMessage(playerid, "Door set to normal (not custom) exterior!");
 			}
 			SaveDynamicDoor(doorid);
 			CreateDynamicDoor(doorid);
@@ -855,7 +811,7 @@ CMD:ddedit(playerid, params[])
 			GetPlayerFacingAngle(playerid, DDoorsInfo[doorid][ddExteriorA]);
 			DDoorsInfo[doorid][ddExteriorVW] = GetPlayerVirtualWorld(playerid);
 			DDoorsInfo[doorid][ddExteriorInt] = GetPlayerInterior(playerid);
-			SendClientMessageEx(playerid, COLOR_WHITE, "You have changed the exterior!");
+			SendServerMessage(playerid, "You have changed the exterior!");
 			DestroyDynamicPickup(DDoorsInfo[doorid][ddPickupID]);
 			if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
 			SaveDynamicDoor(doorid);
@@ -876,7 +832,7 @@ CMD:ddedit(playerid, params[])
 						DestroyDynamicPickup(DDoorsInfo[doorid][ddPickupID]);
 						if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
 					}
-					else SendClientMessageEx(playerid, COLOR_GREY, "Use /ddowner to update the owner of this door.");
+					else SendServerMessage(playerid, "Use /ddowner to update the owner of this door.");
 				}
 				case 2:
 				{
@@ -887,7 +843,7 @@ CMD:ddedit(playerid, params[])
 						DestroyDynamicPickup(DDoorsInfo[doorid][ddPickupID]);
 						if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
 					}
-					else SendClientMessageEx(playerid, COLOR_GREY, "Use /ddedit faction to update the owner of this door.");
+					else SendServerMessage(playerid, "Use /ddedit faction to update the owner of this door.");
 				}
 				default:
 				{
@@ -944,12 +900,12 @@ CMD:ddedit(playerid, params[])
 			if(DDoorsInfo[doorid][ddDPC] == 0)
 			{
 				DDoorsInfo[doorid][ddDPC] = 1;
-				SendClientMessageEx(playerid, COLOR_WHITE, "Door set to DPC!");
+				SendServerMessage(playerid, "Door set to DPC!");
 			}
 			else
 			{
 				DDoorsInfo[doorid][ddDPC] = 0;
-				SendClientMessageEx(playerid, COLOR_WHITE, "Door set to normal (no longer DPC)!");
+				SendServerMessage(playerid, "Door set to normal (no longer DPC)!");
 			}
 			SaveDynamicDoor(doorid);
 			format(string, sizeof(string), "%s has set DoorID %d's DPC value.", GetPlayerNameEx(playerid), doorid);
@@ -1136,13 +1092,13 @@ CMD:ddedit(playerid, params[])
 			return 1;
 		}
 	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command.");
+	else return SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 
 CMD:ddmove(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use this command.");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendErrorMessage(playerid, "You are not authorized to use this CMD.");
 	new doorid, giveplayerid, fee, minfee, choice[16];
 	if(sscanf(params, "s[16]dudd", choice, doorid, giveplayerid, fee, minfee))
 	{
@@ -1203,7 +1159,7 @@ CMD:ddmove(playerid, params[])
 		GetPlayerFacingAngle(playerid, DDoorsInfo[doorid][ddExteriorA]);
 		DDoorsInfo[doorid][ddExteriorVW] = GetPlayerVirtualWorld(playerid);
 		DDoorsInfo[doorid][ddExteriorInt] = GetPlayerInterior(playerid);
-		SendClientMessageEx(playerid, COLOR_WHITE, "You have changed the exterior!");
+		SendServerMessage(playerid, "You have changed the exterior!");
 		DestroyDynamicPickup(DDoorsInfo[doorid][ddPickupID]);
 		if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
 		SaveDynamicDoor(doorid);
