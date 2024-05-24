@@ -181,11 +181,11 @@ CMD:shopbpack(playerid, params[]) {
 		new playertogive, type, orderid;
 
 		if(sscanf(params, "uii", playertogive, type, orderid)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /shopbpack [player] [type] [orderid]");
+			SendSyntaxMessage(playerid, "/shopbpack [player] [type] [orderid]");
 			SendClientMessageEx(playerid, COLOR_WHITE, "Types: 1(Small Backpack), 2(Medium Backpack), 3(Large Backpack)");
 		}
 		else if(!(0 <= type <= 4)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /shopbpack [player] [type] [orderid]");
+			SendSyntaxMessage(playerid, "/shopbpack [player] [type] [orderid]");
 			SendClientMessageEx(playerid, COLOR_WHITE, "Types: 1(Small Backpack), 2(Medium Backpack), 3(Large Backpack)");
 		}
 		else {
@@ -733,12 +733,12 @@ CMD:sellbackpack(playerid, params[])
 
 		new string[128], giveplayerid, price, bptype[8];
 		if(sscanf(params, "ui", giveplayerid, price)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /sellbackpack [player] [price]");
+			SendSyntaxMessage(playerid, "/sellbackpack [player] [price]");
 			SendClientMessageEx(playerid, COLOR_YELLOW, "WARNING: /sellbackpack will automatically remove all your items currently in your backpack.");
 			return 1;
 		}
 		if(price < 0) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /sellbackpack [player] [price]");
+			SendSyntaxMessage(playerid, "/sellbackpack [player] [price]");
 			SendClientMessageEx(playerid, COLOR_YELLOW, "WARNING: /sellbackpack will automatically remove all your items currently in your backpack.");
 			return 1;
 		}
@@ -781,7 +781,7 @@ CMD:listbitems(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] > 1 || PlayerInfo[playerid][pWatchdog] >= 2)
 	{
 		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /listbitems [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/listbitems [player]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -853,7 +853,7 @@ CMD:bsearch(playerid, params[])
 	if(IsACop(playerid) || PlayerInfo[playerid][pJob] == 8 || PlayerInfo[playerid][pJob2] == 8 || PlayerInfo[playerid][pJob3] == 8)
 	{
 		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /bsearch [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/bsearch [player]");
 
 		if(IsPlayerConnected(giveplayerid) && ProxDetectorS(8.0, playerid, giveplayerid))
 		{
@@ -933,7 +933,7 @@ CMD:bremove(playerid, params[])
     }
     new string[128], giveplayerid, item[6], bptype[8];
 	if(sscanf(params, "us[6]", giveplayerid, item)) {
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /bremove [player] [item]");
+		SendSyntaxMessage(playerid, "/bremove [player] [item]");
 		SendClientMessageEx(playerid, COLOR_YELLOW, "ITEMS: [All drugs - see /mydrugs], Guns, Meals");
 		return 1;
 	}
@@ -1114,7 +1114,7 @@ CMD:bstore(playerid, params[])
 		if(Health < 50.0) return SendClientMessageEx(playerid,COLOR_GREY,"You cannot store a backpack in a house/car when your health lower than 80.");
 
 		new string[128], housecar[6];
-		if(sscanf(params, "s[6]", housecar)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /bstore [house/car]");
+		if(sscanf(params, "s[6]", housecar)) return SendSyntaxMessage(playerid, "/bstore [house/car]");
 
 
 		if(strcmp(housecar, "car", true, strlen(housecar)) == 0)
@@ -1185,7 +1185,7 @@ CMD:bstore(playerid, params[])
 			}
 			else return SendClientMessageEx(playerid, COLOR_GREY, "You don't own a house.");
 		}
-		else return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /bstore [house/car]");
+		else return SendSyntaxMessage(playerid, "/bstore [house/car]");
 	}
 	else return SendClientMessageEx(playerid, COLOR_GREY, "You do not own a backpack(Use /miscshop to get one with credits)");
 	return 1;

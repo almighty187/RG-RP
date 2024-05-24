@@ -69,7 +69,7 @@ CMD:offerappeal(playerid, params[])
 {
   	if(!IsALawyer(playerid)) return SendClientMessageEx(playerid, COLOR_GREY, "   You are not a Lawyer!");
     new string[128], giveplayerid;
-	if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /offerappeal [player]");
+	if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/offerappeal [player]");
 	if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_GRAD1, "You can't use this command on yourself!");
 	if(IsPlayerConnected(giveplayerid))
 	{
@@ -98,7 +98,7 @@ CMD:free(playerid, params[])
 		giveplayerid;
 
 	if(sscanf(params, "u", giveplayerid)) {
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /free [player]");
+		SendSyntaxMessage(playerid, "/free [player]");
 	}
 	else if(!IsPlayerConnected(giveplayerid)) {
 		SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
@@ -143,7 +143,7 @@ CMD:finishappeal(playerid, params[])
 {
 	if(!IsALawyer(playerid)) return SendClientMessageEx(playerid, COLOR_GREY, "   You are not a Lawyer!");
     new string[128], giveplayerid;
-	if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /finishappeal [player]");
+	if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/finishappeal [player]");
 	if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_GRAD1, "You can't use this command on yourself!");
 	if(IsPlayerConnected(giveplayerid))
 	{
@@ -171,7 +171,7 @@ CMD:defend(playerid, params[])
 	}
 
 	new giveplayerid, money;
-	if(sscanf(params, "ud", giveplayerid, money)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /defend [player] [price]");
+	if(sscanf(params, "ud", giveplayerid, money)) return SendSyntaxMessage(playerid, "/defend [player] [price]");
 	if(money < 20000 || money > 1000000) { SendClientMessageEx(playerid, COLOR_GREY, "   Price not lower then $20,000 or above $1,000,000!"); return 1; }
 	if(IsPlayerConnected(giveplayerid))
 	{

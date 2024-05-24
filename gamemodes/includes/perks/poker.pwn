@@ -1851,7 +1851,7 @@ CMD:shoptable(playerid, params[])
 	}
 
 	new giveplayerid, invoice;
-	if(sscanf(params, "ui", giveplayerid, invoice)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /shoptable [player] [invoice #]");
+	if(sscanf(params, "ui", giveplayerid, invoice)) return SendSyntaxMessage(playerid, "/shoptable [player] [invoice #]");
 	new string[128];
 
 	if(PlayerInfo[giveplayerid][pTable] == 1)

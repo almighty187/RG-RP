@@ -329,7 +329,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 CMD:clist(playerid, params[]) return cmd_crimelist(playerid, params);
 CMD:crimelist(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 1337 && !PlayerInfo[playerid][pFactionModerator]) return SendClientMessageEx(playerid, COLOR_WHITE, "SERVER: You are not authorized to use this command.");
+	if(PlayerInfo[playerid][pAdmin] < 1337 && !PlayerInfo[playerid][pFactionModerator]) return SendErrorMessage(playerid, COLOR_WHITE, "SERVER: You are not authorized to use this CMD.");
 	ShowCrimesList(playerid);
 	return 1;
 }
@@ -338,18 +338,18 @@ CMD:su(playerid, params[])
 {
 	if(IsACop(playerid)) 
 	{
-		if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_WHITE, "You cannot use this in jail/prison.");
+		if(PlayerInfo[playerid][pJailTime] > 0) return SendErrorMessage(playerid, "You cannot use this in jail/prison.");
 
 		new iTargetID;
 
 		if(sscanf(params, "u", iTargetID)) return SendSyntaxMessage(playerid, "(/su)spect [player]");
-		if(!IsPlayerConnected(iTargetID)) return SendClientMessageEx(playerid, COLOR_GRAD1, "Invalid player specified.");
-		if(iTargetID == playerid) return SendClientMessageEx(playerid, COLOR_GRAD1, "You cannot place charges on yourself.");
+		if(!IsPlayerConnected(iTargetID)) return SendErrorMessage(playerid, "Invalid player specified.");
+		if(iTargetID == playerid) return SendErrorMessage(playerid, "You cannot place charges on yourself.");
 		if(IsACop(iTargetID) && arrGroupData[PlayerInfo[playerid][pMember]][g_iAllegiance] == arrGroupData[PlayerInfo[iTargetID][pMember]][g_iAllegiance]) 
 		{
-			if(arrGroupData[PlayerInfo[playerid][pMember]][gLEOArrest] == INVALID_RANK || arrGroupData[PlayerInfo[playerid][pMember]][gLEOArrest] > PlayerInfo[playerid][pRank]) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use this command on a law enforcement officer.");
+			if(arrGroupData[PlayerInfo[playerid][pMember]][gLEOArrest] == INVALID_RANK || arrGroupData[PlayerInfo[playerid][pMember]][gLEOArrest] > PlayerInfo[playerid][pRank]) return SendErrorMessage(playerid, "You can't use this command on a law enforcement officer.");
 		}
-		if(PlayerInfo[iTargetID][pWantedLevel] >= 6) return SendClientMessageEx(playerid, COLOR_GRAD2, "Target is already most wanted.");
+		if(PlayerInfo[iTargetID][pWantedLevel] >= 6) return SendServerMessage(playerid, "Target is already most wanted.");
 
 		ShowCrimesDialog(playerid, iTargetID);
 	}
@@ -362,21 +362,21 @@ CMD:osu(playerid, params[])
 	if(IsACop(playerid)) 
 	{
 		if(PlayerInfo[playerid][pJailTime] > 0) {
-			return SendClientMessageEx(playerid, COLOR_WHITE, "You cannot use this in jail/prison.");
+			return SendErrorMessage(playerid, "You cannot use this in jail/prison.");
 		}
 
-		if(isnull(params)) return SendClientMessageEx(playerid, COLOR_WHITE, "USAGE: /osu(spect) [player name]");
+		if(isnull(params)) return SendSyntaxMessage(playerid, "/osu(spect) [player name]");
 
 		new PlayerName[MAX_PLAYER_NAME];
 		mysql_escape_string(params, PlayerName);
 
-		if(IsPlayerConnected(ReturnUser(PlayerName))) return SendClientMessageEx(playerid, COLOR_GREY, "That player is currently connected, use /su.");
+		if(IsPlayerConnected(ReturnUser(PlayerName))) return SendErrorMessage(playerid, "That player is currently connected, use /su.");
 
 		SetPVarString(playerid, "OfflineSU", PlayerName);
 
 		ShowOfflineCrimesDialog(playerid);
 	}
-	else SendClientMessageEx(playerid, COLOR_GRAD2, "You're not a law enforcement officer.");
+	else SendErrorMessage(playerid, "You're not a law enforcement officer.");
 	return 1;
 }
 

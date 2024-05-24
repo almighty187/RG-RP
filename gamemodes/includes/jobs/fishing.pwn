@@ -228,7 +228,7 @@ CMD:sellfish(playerid, params[])
 	}
 
 	new fishid;
-	if(sscanf(params, "d", fishid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /sellfish [fish]");
+	if(sscanf(params, "d", fishid)) return SendSyntaxMessage(playerid, "/sellfish [fish]");
 
 	new price;
 	if(fishid < 1 || fishid > 5) return SendClientMessageEx(playerid, COLOR_GREY, "   Fish number cant be below 1 or above 5!");
@@ -588,9 +588,9 @@ CMD:fishes(playerid, params[])
 CMD:releasefish(playerid, params[])
 {
 	new fishid;
-	if(sscanf(params, "d", fishid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /releasefish [fish 1-5]");
+	if(sscanf(params, "d", fishid)) return SendSyntaxMessage(playerid, "/releasefish [fish 1-5]");
 
-	if(fishid < 1 || fishid > 5) { SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /releasefish [fish 1-5]"); return 1; }
+	if(fishid < 1 || fishid > 5) { SendSyntaxMessage(playerid, "/releasefish [fish 1-5]"); return 1; }
 	else if(fishid == 1 && Fishes[playerid][pWeight1] < 1) { SendClientMessageEx(playerid, COLOR_GREY, "That slot is empty."); return 1; }
 	else if(fishid == 2 && Fishes[playerid][pWeight2] < 1) { SendClientMessageEx(playerid, COLOR_GREY, "That slot is empty."); return 1; }
 	else if(fishid == 3 && Fishes[playerid][pWeight3] < 1) { SendClientMessageEx(playerid, COLOR_GREY, "That slot is empty."); return 1; }

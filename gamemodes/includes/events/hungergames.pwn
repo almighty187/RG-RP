@@ -60,7 +60,7 @@ CMD:createbackpack(playerid, params[])
 	new type;
 	if(sscanf(params, "d", type)) 
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /createbackpack [type]");
+		SendSyntaxMessage(playerid, "/createbackpack [type]");
 		SendClientMessageEx(playerid, COLOR_GREY, "Available Types: Type 1 (Armour) - Type 2 (Random Weapon) - Type 3 (Full Hunger) - Type 4 (Full Health).");
 		return true;
 	}

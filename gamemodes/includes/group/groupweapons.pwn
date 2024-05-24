@@ -494,7 +494,7 @@ stock IsInSlot(group, id, &wep)
 CMD:allow(playerid, params[]) {
 	new target, locker = -1;
 	if(!IsGroupLeader(playerid)) return SendClientMessageEx(playerid, COLOR_GRAD2, "Only group leaders can use this command!");
-	if(sscanf(params, "u", target)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /allow [player]");
+	if(sscanf(params, "u", target)) return SendSyntaxMessage(playerid, "/allow [player]");
 	if(!IsPlayerConnected(target)) return SendClientMessageEx(playerid, COLOR_GRAD2, "The player selected isn't connected!");
 	if(PlayerInfo[playerid][pMember] != PlayerInfo[target][pMember]) return SendClientMessageEx(playerid, COLOR_GRAD2, "%s isn't apart of your group!", GetPlayerNameEx(target));
 	if(playerid == target) return SendClientMessageEx(playerid, COLOR_GRAD2, "You can't use this weapon on yourself!");
@@ -555,7 +555,7 @@ ptask LockerTimer[1000](i) {
 CMD:convertlocker(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] > 3 || PlayerInfo[playerid][pASM] > 0 || PlayerInfo[playerid][pFactionModerator] > 0) {
 		new group, total, amount;
-		if(sscanf(params, "i", group)) return SendClientMessageEx(playerid, COLOR_GREY, "Usage: /convertlocker [groupid]");
+		if(sscanf(params, "i", group)) return SendSyntaxMessage(playerid, "/convertlocker [groupid]");
 		if(!ValidGroup(group)) return SendClientMessageEx(playerid, COLOR_GRAD2, "Invalid group specified!");
 		for(new l = 0; l < MAX_GROUP_WEAPONS; l++) {
 			if(arrGroupData[group][g_iLockerGuns][l] > 0) {

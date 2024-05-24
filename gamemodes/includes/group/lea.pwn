@@ -431,7 +431,7 @@ CMD:placekit(playerid, params[]) {
 		new choice[9];
 		if(sscanf(params, "s[9]", choice))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /placekit [name]");
+			SendSyntaxMessage(playerid, "/placekit [name]");
 			SendClientMessageEx(playerid, COLOR_GREY, "Available names: Car, Backpack");
 			return 1;
 		}
@@ -488,7 +488,7 @@ CMD:placekit(playerid, params[]) {
 		}
 		else 
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /placekit [name]");
+			SendSyntaxMessage(playerid, "/placekit [name]");
 			SendClientMessageEx(playerid, COLOR_GREY, "Available names: Car, Backpack");
 			return 1;
 		}
@@ -964,7 +964,7 @@ CMD:vmdc(playerid, params[])
     if(IsACop(playerid) || IsATowman(playerid) || IsAHitman(playerid) || PlayerInfo[playerid][pAdmin] >= 2)
     {
         new string[128], giveplayerid;
-        if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /vmdc [player]");
+        if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/vmdc [player]");
 
    		if(IsPlayerConnected(giveplayerid))
     	{
@@ -994,7 +994,7 @@ CMD:vticket(playerid, params[])
 {
 	if(IsACop(playerid) || IsATowman(playerid)) {
 		new vehid, amount;
-		if(sscanf(params, "ii", vehid, amount)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /vticket [registration] [amount]");
+		if(sscanf(params, "ii", vehid, amount)) return SendSyntaxMessage(playerid, "/vticket [registration] [amount]");
 		if(PlayerInfo[playerid][pTicketTime] != 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "You must wait within a minute in order to use this command again!");
 		if(amount > 50000) return SendClientMessageEx(playerid, COLOR_GREY, "The maximum vehicle ticket amount is $50,000.");
 		if(amount < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You can't ticket any vehicle below $1.");
@@ -1036,7 +1036,7 @@ CMD:vlookup(playerid, params[]) {
 
 	if(IsACop(playerid) || IsATowman(playerid) || IsAHitman(playerid) || PlayerInfo[playerid][pAdmin] >= 2)
 	{
-        if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /vlookup [vehicle registration]");
+        if(isnull(params)) return SendSyntaxMessage(playerid, "/vlookup [vehicle registration]");
         new carid = strval(params);
         new dynveh = DynVeh[carid];
         new cveh = IsDynamicCrateVehicle(carid);
@@ -1281,7 +1281,7 @@ CMD:take(playerid, params[])
 		new string[128], choice[32], giveplayerid;
 		if(sscanf(params, "s[32]u", choice, giveplayerid))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /take [name] [player]");
+			SendSyntaxMessage(playerid, "/take [name] [player]");
 			SendClientMessageEx(playerid, COLOR_GREY, "Available names: Weapons, Pot, Crack, Meth, Ecstasy, Materials, Radio, Heroin, Rawopium, Syringes, PotSeeds, OpiumSeeds, DrugCrates");
 			return 1;
 		}
@@ -1917,7 +1917,7 @@ CMD:cuff(playerid, params[])
 		}
 
 		new string[128], giveplayerid, Float:health, Float:armor;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /cuff [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/cuff [player]");
 		if(IsPlayerConnected(giveplayerid))
 		{
 			if (ProxDetectorS(8.0, playerid, giveplayerid))
@@ -1986,7 +1986,7 @@ CMD:uncuff(playerid, params[])
 	{
 		if(PlayerCuffed[playerid] == 2) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot uncuff others while being cuffed yourself!");
 		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /uncuff [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/uncuff [player]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -2069,7 +2069,7 @@ CMD:detain(playerid, params[])
 		}
 
 		new string[128], giveplayerid, seat;
-		if(sscanf(params, "ud", giveplayerid, seat)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /detain [player] [seatid 1-3]");
+		if(sscanf(params, "ud", giveplayerid, seat)) return SendSyntaxMessage(playerid, "/detain [player] [seatid 1-3]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -2151,7 +2151,7 @@ CMD:drag(playerid, params[])
 	if(IsACop(playerid))
 	{
 		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /drag [playerid]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/drag [playerid]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -2248,7 +2248,7 @@ CMD:ticket(playerid, params[])
 	{
 
 		new string[128], giveplayerid, moneys, reason[64];
-		if(sscanf(params, "uds[64]", giveplayerid, moneys, reason)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /ticket [player] [price] [reason]");
+		if(sscanf(params, "uds[64]", giveplayerid, moneys, reason)) return SendSyntaxMessage(playerid, "/ticket [player] [price] [reason]");
 
 		if(giveplayerid == playerid)
 		{

@@ -8,7 +8,7 @@ CMD:frisk(playerid, params[])
 			return 1;
 		}
 		/*if(sscanf(params, "ud", giveplayerid, storageid)) {
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /frisk [player] [storageid]");
+		SendSyntaxMessage(playerid, "/frisk [player] [storageid]");
 		SendClientMessageEx(playerid, COLOR_GREY, "StorageIDs: (0) Pocket - (1) Equipped Storage Device");
 		return 1;
 		}

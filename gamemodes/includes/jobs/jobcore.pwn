@@ -661,7 +661,7 @@ CMD:join(playerid, params[])
 {
 	if(isnull(params))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /skill [number]");
+		SendSyntaxMessage(playerid, "/skill [number]");
 		SendClientMessageEx(playerid, COLOR_GREY, "| 1: Detective\t\t\t\t\t\t\t\t\t\t\t\t6: Car Mechanic");
 		SendClientMessageEx(playerid, COLOR_GREY, "| 2: Lawyer\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t7: Boxer");
 		SendClientMessageEx(playerid, COLOR_GREY, "| 3: Whore\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t8: Fishing");
@@ -789,7 +789,7 @@ CMD:quitjob(playerid, params[])
 		new jobid;
 		if(sscanf(params, "d", jobid))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /quitjob [jobid]");
+			SendSyntaxMessage(playerid, "/quitjob [jobid]");
 			SendClientMessageEx(playerid, COLOR_GREY, "Available: 1, 2, 3 (secondary VIP/Famed)");
 			return 1;
 		}
@@ -861,7 +861,7 @@ CMD:quitjob(playerid, params[])
 			}
 		default:
 			{
-				SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /quitjob [jobid]");
+				SendSyntaxMessage(playerid, "/quitjob [jobid]");
 				SendClientMessageEx(playerid, COLOR_GREY, "Available: 1, 2, 3 (secondary VIP/Famed)");
 			}
 		}

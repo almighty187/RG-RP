@@ -57,7 +57,7 @@ CMD:giveticket(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 1338 && PlayerInfo[playerid][pPR] < 2 && PlayerInfo[playerid][pShopTech] < 3) return SendClientMessageEx(playerid, -1, "You are not authorized to use this command!");
 	new target, amount;
-	if(sscanf(params, "ud", target, amount)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /giveticket [player] [amount]");
+	if(sscanf(params, "ud", target, amount)) return SendSyntaxMessage(playerid, "/giveticket [player] [amount]");
 	PlayerInfo[target][bTicket] += amount;
 	new string[128];
 	format(string, sizeof(string), "You have given %s %d balloon ride tickets.", GetPlayerNameEx(target), amount);

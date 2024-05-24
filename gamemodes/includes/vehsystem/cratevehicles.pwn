@@ -346,7 +346,7 @@ CMD:cvcreate(playerid, params[]) {
 	new iVehicle, iColors[2], Float:vpos[4];
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pFactionModerator] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use this command!");
 	if(CrateVehTotal >= MAX_CRATE_VEHCILES) return SendClientMessageEx(playerid, COLOR_GREY, "Your unable to create anymore crate vehicles the limit has been reached! (Max: %d)", MAX_CRATE_VEHCILES);
-	if(sscanf(params, "dD(0)D(0)", iVehicle, iColors[0], iColors[1])) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /cvcreate [model ID] [color 1] [color 2]");
+	if(sscanf(params, "dD(0)D(0)", iVehicle, iColors[0], iColors[1])) return SendSyntaxMessage(playerid, "/cvcreate [model ID] [color 1] [color 2]");
 	if(!(400 <= iVehicle < 612)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid vehicle model ID specified!");
 	if(IsATrain(iVehicle)) return SendClientMessageEx(playerid, COLOR_GREY, "Trains cannot be spawned during runtime.");
 	if(IsWeaponizedVehicle(iVehicle)) return SendClientMessageEx(playerid, COLOR_GREY, "You're unable to create weaponized vehicles as a crate vehicle!");
@@ -405,7 +405,7 @@ CMD:cvstorage(playerid, params[])
 	szMiscArray[0] = 0;
 	if(PlayerInfo[playerid][pAdmin] > 3 || PlayerInfo[playerid][pASM] > 0 || PlayerInfo[playerid][pFactionModerator] > 0) {
 		new group;
-		if(sscanf(params, "i", group)) return SendClientMessageEx(playerid, COLOR_GREY, "Usage: /cvstorage [groupid]");
+		if(sscanf(params, "i", group)) return SendSyntaxMessage(playerid, "/cvstorage [groupid]");
 		if(group != -1) {
 			if(!ValidGroup(group)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid group ID specified (0 - 39) | -1 will list vehicle not owned!");
 		}
@@ -794,7 +794,7 @@ CMD:cvedit(playerid, params[]) {
 		new choice[32], vehid, value, cveh;
 		if(sscanf(params, "is[32]D(-1)", vehid, choice, value))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /crate [vehid] [name] [value]");
+			SendSyntaxMessage(playerid, "/crate [vehid] [name] [value]");
 			SendClientMessageEx(playerid, COLOR_GREY, "Names: model, col1, col2, groupid, rank, maxhealth, loadmax, disable, delete");
 			SendClientMessageEx(playerid, COLOR_GREY, "Names: refuel");
 			SendClientMessageEx(playerid, COLOR_GREY, "NOTE: Setting groupid to -1 will allow any group to access vehicle.");
@@ -944,7 +944,7 @@ CMD:cvcheck(playerid, params[]) {
 CMD:cvstatus(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] > 3 || PlayerInfo[playerid][pASM] > 0 || PlayerInfo[playerid][pFactionModerator] > 0) {
 		new vehicleid, veh;
-		if(sscanf(params, "i", vehicleid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /cvstatus [vehicleid]");
+		if(sscanf(params, "i", vehicleid)) return SendSyntaxMessage(playerid, "/cvstatus [vehicleid]");
 		if((veh = IsDynamicCrateVehicle(vehicleid)) != -1) {
 			new string[128], Float:vHealth;
 			GetVehicleHealth(vehicleid, vHealth);
@@ -973,7 +973,7 @@ CMD:cvstatus(playerid, params[]) {
 CMD:cvrespawn(playerid, params[]) {
 	szMiscArray[0] = 0;
 	if(PlayerInfo[playerid][pAdmin] > 3 || PlayerInfo[playerid][pASM] > 0 || PlayerInfo[playerid][pFactionModerator] > 0) {
-		if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "Usage: /cvrespawn [Group/All]");
+		if(isnull(params)) return SendSyntaxMessage(playerid, "/cvrespawn [Group/All]");
 		if(strcmp(params, "all", true) == 0) {
 			for(new v = 0; v < MAX_CRATE_VEHCILES; v++) {
 				if(CrateVehicle[v][cvSpawnID] != INVALID_VEHICLE_ID) {

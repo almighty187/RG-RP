@@ -142,7 +142,7 @@ CMD:setlapcount(playerid, params[])
 {
     if(PlayerInfo[playerid][pAdmin] < 1337) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use this command.");
 	new totallaps;
-	if(sscanf(params, "i", totallaps)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /setlapcount [totallaps]");
+	if(sscanf(params, "i", totallaps)) return SendSyntaxMessage(playerid, "/setlapcount [totallaps]");
    	RaceTotalLaps = totallaps;
 	new string[52];
    	format(string, sizeof(string), "You have changed the Total Laps Completed to: %d", RaceTotalLaps);
@@ -284,7 +284,7 @@ CMD:rflinvite(playerid, params[])
 	if(PlayerInfo[playerid][pRFLTeamL] == -1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not the leader of this team.");
 	if(RFLInfo[PlayerInfo[playerid][pRFLTeam]][RFLmembers] >= 20) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot invite more than 19 members.");
 	new giveplayerid;
-	if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /rflinvite [playerid/PlayerName]");
+	if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/rflinvite [playerid/PlayerName]");
 	if(!IsPlayerConnected(giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
 	if(PlayerInfo[giveplayerid][pRFLTeam] != -1) return SendClientMessageEx(playerid, COLOR_GREY, "This player is already part of a team.");
 	new string[128];
@@ -304,7 +304,7 @@ CMD:rflkick(playerid, params[])
 	if(PlayerInfo[playerid][pRFLTeam] == -1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not part of a team.");
 	if(PlayerInfo[playerid][pRFLTeamL] == -1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not the leader of this team.");
 	new giveplayerid;
-	if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /rflkick [playerid/PlayerName]");
+	if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/rflkick [playerid/PlayerName]");
 	if(!IsPlayerConnected(giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
 	if(PlayerInfo[giveplayerid][pRFLTeam] != PlayerInfo[playerid][pRFLTeam]) return SendClientMessageEx(playerid, COLOR_GREY, "This player is not part of your team.");
 	new string[128], team = PlayerInfo[playerid][pRFLTeam];
@@ -350,7 +350,7 @@ CMD:rflchangename(playerid, params[])
 	if(PlayerInfo[playerid][pRFLTeam] == -1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not part of a team.");
 	if(PlayerInfo[playerid][pRFLTeamL] == -1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not the leader of this team.");
 	new name[25];
-	if(sscanf(params, "s[25]", name)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /rflchangename <teamname>");
+	if(sscanf(params, "s[25]", name)) return SendSyntaxMessage(playerid, "/rflchangename <teamname>");
 	if(GetPVarType(playerid, "HasReport")) {
 		SendClientMessageEx(playerid, COLOR_GREY, "You can only have 1 active report at a time. (/cancelreport)");
 		return 1;

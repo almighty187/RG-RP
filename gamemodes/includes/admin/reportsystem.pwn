@@ -274,7 +274,7 @@ CMD:rmute(playerid, params[])
 	if (PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pAP] >= 2 || PlayerInfo[playerid][pHR] >= 3)
 	{
 		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /rmute [playerid/PartOfName]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/rmute [playerid/PartOfName]");
 		if(PlayerInfo[giveplayerid][pAdmin] > 1) return SendClientMessageEx(playerid, COLOR_GREY, "You can't report mute an Admin.");
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -313,7 +313,7 @@ CMD:rto(playerid, params[])
 	if (PlayerInfo[playerid][pAdmin] >= 3)
 	{
 		new string[512], giveplayerid, reason[64];
-		if(sscanf(params, "us[64]", giveplayerid, reason)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /rto [playerid/PartOfName] [reason]");
+		if(sscanf(params, "us[64]", giveplayerid, reason)) return SendSyntaxMessage(playerid, "/rto [playerid/PartOfName] [reason]");
 		if(PlayerInfo[giveplayerid][pAdmin] > 1) return SendClientMessageEx(playerid, COLOR_GREY, "You can't report mute an Admin.");
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -430,7 +430,7 @@ CMD:rtoreset(playerid, params[])
 	if (PlayerInfo[playerid][pAdmin] >= 3)
 	{
 		new string[128], giveplayerid, reason[64];
-		if(sscanf(params, "us[64]", giveplayerid, reason)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /rtoreset [playerid/PartOfName] [reason]");
+		if(sscanf(params, "us[64]", giveplayerid, reason)) return SendSyntaxMessage(playerid, "/rtoreset [playerid/PartOfName] [reason]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -656,7 +656,7 @@ CMD:ar(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 2)
 	{
 		new string[128], reportid;
-		if(sscanf(params, "d", reportid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /ar [reportid]");
+		if(sscanf(params, "d", reportid)) return SendSyntaxMessage(playerid, "/ar [reportid]");
 
 		if(reportid < 0 || reportid > 999) { SendClientMessageEx(playerid, COLOR_GREY, "   Report ID not below 0 or above 999!"); return 1; }
 		if(Reports[reportid][BeingUsed] == 0)

@@ -3575,7 +3575,7 @@ CMD:setbudget(playerid, params[])
 
 			if(sscanf(params, "iii", iGroupID, iBudgetAmt))
 			{
-				SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /setbudget [Group ID] [$ Per Budget Payment (Hourly)]");
+				SendSyntaxMessage(playerid, "/setbudget [Group ID] [$ Per Budget Payment (Hourly)]");
 				for(new i = 0; i < MAX_GROUPS; i++)
 				{
 				    if(arrGroupData[PlayerInfo[playerid][pMember]][g_iAllegiance] == arrGroupData[i][g_iAllegiance])
@@ -3618,13 +3618,13 @@ CMD:gwithdraw(playerid, params[])
 	{
 		if(sscanf(params, "dds[64]", iGroupID, amount, reason))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gwithdraw [groupid] [amount] [reason]");
+			SendSyntaxMessage(playerid, "/gwithdraw [groupid] [amount] [reason]");
 			return 1;
 		}
 		if(!(-1 < iGroupID <= MAX_GROUPS))
 		{
 			SendClientMessageEx(playerid, COLOR_RED, "* Invalid Group ID");
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gwithdraw [groupid] [amount] [reason]");
+			SendSyntaxMessage(playerid, "/gwithdraw [groupid] [amount] [reason]");
 			return 1;
 		}
 	}
@@ -3633,7 +3633,7 @@ CMD:gwithdraw(playerid, params[])
 		iGroupID = PlayerInfo[playerid][pLeader];
 		if(sscanf(params, "ds[64]", amount, reason))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gwithdraw [amount] [reason]");
+			SendSyntaxMessage(playerid, "/gwithdraw [amount] [reason]");
 			format(string, sizeof(string), "* VAULT BALANCE: $%s.", number_format(arrGroupData[iGroupID][g_iBudget]));
 			SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
 			return 1;
@@ -3679,7 +3679,7 @@ CMD:gdonate(playerid, params[])
 		if(arrGroupData[iGroupID][g_iGroupType] == GROUP_TYPE_LEA || arrGroupData[iGroupID][g_iGroupType] == GROUP_TYPE_MEDIC || arrGroupData[iGroupID][g_iGroupType] == GROUP_TYPE_JUDICIAL || arrGroupData[iGroupID][g_iGroupType] == GROUP_TYPE_TAXI || arrGroupData[iGroupID][g_iGroupType] == GROUP_TYPE_NEWS || arrGroupData[iGroupID][g_iGroupType] == GROUP_TYPE_TOWING || arrGroupData[iGroupID][g_iGroupType] == GROUP_TYPE_CONTRACT || arrGroupData[iGroupID][g_iGroupType] == GROUP_TYPE_GOV)
 		{
 			new string[128], moneys;
-			if(sscanf(params, "d", moneys)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gdonate [amount]");
+			if(sscanf(params, "d", moneys)) return SendSyntaxMessage(playerid, "/gdonate [amount]");
 
 			if(moneys < 1)
 			{
@@ -3776,7 +3776,7 @@ CMD:gvbuyback(playerid, params[])
 	if((0 <= iGroupID <= MAX_GROUPS) && PlayerInfo[playerid][pRank] == Group_GetMaxRank(iGroupID))
 	{
 		if(sscanf(params, "s[6]", iVehicle)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gvbuyback [ID/all] *You may buy an individual car back, or all of your repo'd cars.");
+			SendSyntaxMessage(playerid, "/gvbuyback [ID/all] *You may buy an individual car back, or all of your repo'd cars.");
 			return SendClientMessageEx(playerid, COLOR_GREY, "Note: ID is indicated under /grepocars");
 		}
 		if(strcmp(iVehicle, "all", true) == 0)
@@ -3916,7 +3916,7 @@ CMD:gotodv(playerid, params[])
 	{
 		new moneys;
 		if(sscanf(params, "i", moneys)) {
-			return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gotodv [slot ID]");
+			return SendSyntaxMessage(playerid, "/gotodv [slot ID]");
 		}
 		if(DynVeh[DynVehicleInfo[moneys][gv_iSpawnedID]] != -1 && (0 <= moneys < MAX_DYNAMIC_VEHICLES))
 		{
@@ -3951,7 +3951,7 @@ CMD:dvstatus(playerid, params[])
 	new iDvSlotID, vehicleid;
 	if(sscanf(params, "i", vehicleid))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /dvstatus [vehicleid]");
+		SendSyntaxMessage(playerid, "/dvstatus [vehicleid]");
 		return 1;
 	}
 	iDvSlotID = DynVeh[vehicleid];
@@ -3988,7 +3988,7 @@ CMD:dvcreate(playerid, params[])
 				string[128];
 
 		if(sscanf(params, "iii", iVehicle, iColors[0], iColors[1])) {
-			return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /dvcreate [model ID] [color 1] [color 2]");
+			return SendSyntaxMessage(playerid, "/dvcreate [model ID] [color 1] [color 2]");
 		}
 		if(!(400 < iVehicle < 612)) return SendClientMessage(playerid, COLOR_GRAD2, "Invalid Model ID");
 		else if(IsATrain(iVehicle)) {
@@ -4078,7 +4078,7 @@ CMD:dvedit(playerid, params[])
 		new vehicleid, name[24], Float:value, slot;
 		if(sscanf(params, "is[24]F(0)D(0)", vehicleid, name, value, slot))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /dvedit [vehicleid] [v parameter] [value] [slot] (if applicable - indicated by *)");
+			SendSyntaxMessage(playerid, "/dvedit [vehicleid] [v parameter] [value] [slot] (if applicable - indicated by *)");
 			SendClientMessageEx(playerid, COLOR_GREY, "Parameters: vmodel vcol1 vcol2 groupid divid loadmax maxhealth upkeep vtype vw delete");
 			SendClientMessageEx(playerid, COLOR_GREY, "Parameters: disabled rank siren objmodel* objx* objy* objz* objrx* objry* objrz*");
 			SendClientMessageEx(playerid, COLOR_GREY, "Parameters: objmatsize* objsize* (Object Offsets)");
@@ -4098,7 +4098,7 @@ CMD:dveditslot(playerid, params[])
 	{
 		new iDvSlotID, name[24], Float:value, slot;
 		if(sscanf(params, "is[24]F(0)D(0)", iDvSlotID, name, value, slot)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /dveditslot [dv slot id] [v parameter] [value] [slot] (if applicable - indicated by *)");
+			SendSyntaxMessage(playerid, "/dveditslot [dv slot id] [v parameter] [value] [slot] (if applicable - indicated by *)");
 			SendClientMessageEx(playerid, COLOR_GREY, "Parameters: vmodel vcol1 vcol2 groupid divid loadmax maxhealth upkeep vtype vw delete");
 			SendClientMessageEx(playerid, COLOR_GREY, "Parameters: disabled rank siren objmodel* objx* objy* objz* objrx* objry* objrz*");
 			SendClientMessageEx(playerid, COLOR_GREY, "Parameters: objmatsize* objsize* (Object Offsets)");
@@ -4116,7 +4116,7 @@ CMD:dvtextobj(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pFactionModerator] >= 2 || PlayerInfo[playerid][pGangModerator] >= 2)
 	{
 		new vehicleid, name[24], value[32], slot, string[128];
-		if(sscanf(params, "ids[8]s[32]", vehicleid, slot, name, value)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /dvtextobj [vehicleid] [object slot] [text/font/color/bgcolor] [value]");
+		if(sscanf(params, "ids[8]s[32]", vehicleid, slot, name, value)) return SendSyntaxMessage(playerid, "/dvtextobj [vehicleid] [object slot] [text/font/color/bgcolor] [value]");
 
 		new iDvSlotID = DynVeh[vehicleid];
 		if(iDvSlotID == -1 || iDvSlotID > MAX_DYNAMIC_VEHICLES || DynVehicleInfo[iDvSlotID][gv_iSpawnedID] != vehicleid) return SendClientMessageEx(playerid, COLOR_GRAD1, " Invalid Dynamic Vehicle ID Provided " );
@@ -4172,7 +4172,7 @@ CMD:dvplate(playerid, params[])
 		new vehicleid, plate[32];
         if(sscanf(params, "ds[32]", vehicleid, plate))
 		{
-		    SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /dvplate [vehicleid] [plate/remove]");
+		    SendSyntaxMessage(playerid, "/dvplate [vehicleid] [plate/remove]");
 		    SendClientMessageEx(playerid, COLOR_GREY, "COLORS: (black/white/blue/red/green/purple/yellow/lightblue/navy/beige/darkgreen/darkblue/darkgrey/gold/brown/darkbrown/darkred");
 			SendClientMessageEx(playerid, COLOR_GREY, "/pink) USAGE: (red)Hi(white)how are you? NOTE: Each color counts for 8 characters");
 			return 1;
@@ -4253,7 +4253,7 @@ CMD:deploy(playerid, params[])
 		new type, object[12], string[128];
 		if(sscanf(params, "s[12]D(0)", object, type))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /deploy [object] [type (option for barricades/signs)]");
+			SendSyntaxMessage(playerid, "/deploy [object] [type (option for barricades/signs)]");
 			SendClientMessageEx(playerid, COLOR_GRAD1, "Objects: Cade, Spikes, Flare, Cone, Barrel, Ladder, Sign, Tape");
 			return 1;
 		}
@@ -4566,7 +4566,7 @@ CMD:destroy(playerid, params[])
 		new type, object[12];
 		if(sscanf(params, "s[12]d", object, type))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /destroy [object] [ID]");
+			SendSyntaxMessage(playerid, "/destroy [object] [ID]");
 			SendClientMessageEx(playerid, COLOR_GRAD1, "Objects: Cade, Spikes, Flare, Cone, Barrel, Ladder, Sign, Tape");
 			return 1;
 		}
@@ -5193,7 +5193,7 @@ CMD:bug(playerid, params[])
 			iTargetID;
 
         if(sscanf(params, "u", iTargetID)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /bug [player]");
+			SendSyntaxMessage(playerid, "/bug [player]");
 		}
         else if(PlayerInfo[iTargetID][pAdmin] >= 2) {
 			SendClientMessageEx(playerid, COLOR_GREY, "You cannot place a bug on this person.");
@@ -5239,7 +5239,7 @@ CMD:gov(playerid, params[])
 			SendClientMessageToAllEx(arrGroupData[iGroupID][g_hDutyColour] * 256 + 255, string);
 			format(string, sizeof(string), "** %s %s %s(%d): %s **", arrGroupData[iGroupID][g_szGroupName], arrGroupRanks[iGroupID][iRank], GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), params);
 			Log("logs/gov.log", string);
-		} else SendClientMessageEx(playerid, COLOR_GREY, "USAGE: (/gov)ernment [text]");
+		} else SendSyntaxMessage(playerid, "(/gov)ernment [text]");
 	} else SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 	return 1;
 }
@@ -5258,7 +5258,7 @@ CMD:groupcsfban(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pFactionModerator] >= 1)
 	{
 		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /groupcsfban [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/groupcsfban [player]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -5297,7 +5297,7 @@ CMD:groupunban(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 1337)
 	{
 		new giveplayerid, group;
-		if(sscanf(params, "ud", giveplayerid, group)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /groupunban [player] [groupid]");
+		if(sscanf(params, "ud", giveplayerid, group)) return SendSyntaxMessage(playerid, "/groupunban [player] [groupid]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -5323,7 +5323,7 @@ CMD:groupcsfunban(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 1337)
 	{
 		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /faccsfunban [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/faccsfunban [player]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -5349,7 +5349,7 @@ CMD:groupban(playerid, params[])
 		new giveplayerid, group , reason[64];
 		if(sscanf(params, "uds[64]", giveplayerid, group, reason))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /groupban [player] [group id] [reason]");
+			SendSyntaxMessage(playerid, "/groupban [player] [group id] [reason]");
 			return 1;
 		}
 
@@ -5383,7 +5383,7 @@ CMD:showbadge(playerid, params[])
 	if(0 <= PlayerInfo[playerid][pMember] < MAX_GROUPS && (arrGroupData[PlayerInfo[playerid][pMember]][g_iGroupType] != GROUP_TYPE_CRIMINAL && arrGroupData[PlayerInfo[playerid][pMember]][g_iCrimeType] != GROUP_CRIMINAL_TYPE_RACE))
 	{
 		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /showbadge [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/showbadge [player]");
 
 		if(giveplayerid != INVALID_PLAYER_ID) {
 			if(ProxDetectorS(5.0, playerid, giveplayerid)) {
@@ -5420,7 +5420,7 @@ CMD:groupkick(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pFactionModerator] >= 1)
 	{
 		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /groupkick [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/groupkick [player]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -5480,7 +5480,7 @@ CMD:m(playerid, params[]) {
 		}
 		else SendClientMessageEx(playerid, COLOR_GRAD2, "   You do not have authority to use the megaphone.");
 	}
-	else SendClientMessageEx(playerid, COLOR_GREY, "USAGE: (/m)egaphone [megaphone chat]");
+	else SendSyntaxMessage(playerid, "(/m)egaphone [megaphone chat]");
 	return 1;
 }
 
@@ -5522,7 +5522,7 @@ CMD:r(playerid, params[]) {
 						}
 					}
 				}
-				else return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: (/r)adio [radio chat]");
+				else return SendSyntaxMessage(playerid, "(/r)adio [radio chat]");
 			}
 			else return SendClientMessageEx(playerid, COLOR_GREY, "Your radio is currently turned off, type /tog radio to turn it back on.");
 		}
@@ -5577,7 +5577,7 @@ CMD:international(playerid, params[])
 	            format(szRadio, sizeof(szRadio), "(radio) %s", params);
              	SetPlayerChatBubble(playerid, szRadio, COLOR_WHITE, 15.0, 5000);
              }
-             else return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: (/int(ernational) [text]");
+             else return SendSyntaxMessage(playerid, "(/int(ernational) [text]");
 		}
 		else return SendClientMessageEx(playerid, COLOR_GREY, "You do not have access to this radio frequency!");
 	}
@@ -5656,7 +5656,7 @@ CMD:dept(playerid, params[])
 						}
 					}
 				}
-				else return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: (/dept) [department chat]");
+				else return SendSyntaxMessage(playerid, "(/dept) [department chat]");
 			}
 			else return SendClientMessageEx(playerid, COLOR_GREY, "Your department radio is currently turned off, turn it on by typing /togdept.");
 		}
@@ -5684,7 +5684,7 @@ CMD:makeleader(playerid, params[])
 	{
 		new giveplayerid;
 		if(sscanf(params, "u", giveplayerid)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /makeleader [player]");
+			SendSyntaxMessage(playerid, "/makeleader [player]");
 		}
 		else {
 			if(IsPlayerConnected(giveplayerid))	{
@@ -5699,7 +5699,7 @@ CMD:makeleader(playerid, params[])
 	{
 		new makingleader, string[128];
 		if(sscanf(params, "u", makingleader)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /makeleader [player]");
+			SendSyntaxMessage(playerid, "/makeleader [player]");
 		}
 		else {
 			if(!IsPlayerConnected(makingleader)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
@@ -5726,7 +5726,7 @@ CMD:makeleader(playerid, params[])
 	{
 		new giveplayerid;
 		if(sscanf(params, "u", giveplayerid)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /makeleader [player]");
+			SendSyntaxMessage(playerid, "/makeleader [player]");
 		}
 		else {
 			if(IsPlayerConnected(giveplayerid))	{
@@ -5784,7 +5784,7 @@ CMD:hfind(playerid, params[])
 				return SendClientMessageEx(playerid, COLOR_GREY, "You cannot use this command as of this moment!");
 			}
 			if(sscanf(params, "u", iTargetID)) {
-				return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /hfind [player]");
+				return SendSyntaxMessage(playerid, "/hfind [player]");
 			}
 			else if(iTargetID == playerid) {
 				return SendClientMessageEx(playerid, COLOR_GREY, "You can't use this command on yourself.");
@@ -5872,7 +5872,7 @@ CMD:g(playerid, params[])
 	if(PlayerInfo[playerid][pJailTime] && strfind(PlayerInfo[playerid][pPrisonReason], "[OOC]", true) != -1) return SendClientMessageEx(playerid, COLOR_GREY, "OOC prisoners are restricted to only speak in /b");
 	new iGroupID = PlayerInfo[playerid][pMember],
 		iRank = PlayerInfo[playerid][pRank];
-	if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: (/g)roup [group chat]");
+	if(isnull(params)) return SendSyntaxMessage(playerid, "(/g)roup [group chat]");
 	if(iGroupID == INVALID_GROUP_ID) return SendClientMessageEx(playerid, COLOR_GRAD2, "You're not a part of a group!");
 	if(iRank >= arrGroupData[iGroupID][g_iOOCChat])
 	{
@@ -6050,7 +6050,7 @@ CMD:uninvite(playerid, params[]) {
 			iGroupID = PlayerInfo[playerid][pLeader];
 
 		if(sscanf(params, "u", iTargetID)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /uninvite [player]");
+			SendSyntaxMessage(playerid, "/uninvite [player]");
 		}
 		else if(IsPlayerConnected(iTargetID)) {
 			if(iGroupID == PlayerInfo[iTargetID][pMember]) {
@@ -6137,7 +6137,7 @@ CMD:giverank(playerid, params[]) {
             szMessage[128];
 
 		if(sscanf(params, "ui", iTargetID, iRank)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /giverank [player] [rank]");
+			SendSyntaxMessage(playerid, "/giverank [player] [rank]");
 		}
 		else if(!(0 <= iRank <= Group_GetMaxRank(iGroupID))) {
 		    format(szMessage, sizeof(szMessage), "Invalid rank specified (must be between 0 and %d)", Group_GetMaxRank(iGroupID));
@@ -6191,7 +6191,7 @@ CMD:setdivname(playerid, params[])
 
 		if(sscanf(params, "is[16]", iDiv, iName))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /setdivname [division] [name] -- Use 'none' as name to remove division");
+			SendSyntaxMessage(playerid, "/setdivname [division] [name] -- Use 'none' as name to remove division");
 			format(szMessage, sizeof(szMessage), "%s", "0 (None), ");
 			for(new i; i < MAX_GROUP_DIVS; i++)
 			{
@@ -6268,7 +6268,7 @@ CMD:setdiv(playerid, params[]) {
 			szMessage[128];
 
 		if(sscanf(params, "ui", iTargetID, iDiv)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /setdiv [player] [div]");
+			SendSyntaxMessage(playerid, "/setdiv [player] [div]");
 			format(szMessage, sizeof(szMessage), "%s", "0 (None), ");
 			for(new i; i < MAX_GROUP_DIVS; i++)
 			{
@@ -6331,7 +6331,7 @@ CMD:setbadge(playerid, params[])
 			szMessage[128],
 			tmp[9];
 
-		if(sscanf(params, "us[8]", iTargetID, iBadge)) SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /setbadge [player] [number] -- Use 'none' as number to remove badge");
+		if(sscanf(params, "us[8]", iTargetID, iBadge)) SendSyntaxMessage(playerid, "/setbadge [player] [number] -- Use 'none' as number to remove badge");
 		else if(IsPlayerConnected(iTargetID))
 		{
 			if(iGroupID == PlayerInfo[iTargetID][pMember])
@@ -6372,7 +6372,7 @@ CMD:invite(playerid, params[]) {
 			iTargetID;
 
 		if(sscanf(params, "u", iTargetID)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /invite [player]");
+			SendSyntaxMessage(playerid, "/invite [player]");
 		}
 		else if(IsPlayerConnected(iTargetID)) {
 		    if (iTargetID != playerid) {
@@ -6477,7 +6477,7 @@ CMD:sanrank(playerid, params[])
 				arrGroupData[iGroupID][g_iWithdrawRank][3]);
 
 			SendClientMessageEx(playerid, COLOR_GREY, szMiscArray);
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /sanrank [choice] [rank]");
+			SendSyntaxMessage(playerid, "/sanrank [choice] [rank]");
 			return SendClientMessageEx(playerid, COLOR_GREY, "CHOICES: Cameraman(0) Show Host(1) Broadcast Editor/Director(2) All(3)");
 		}
 		if(!(0 <= iChoice <= 3)) {

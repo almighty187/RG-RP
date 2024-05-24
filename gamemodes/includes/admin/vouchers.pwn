@@ -568,7 +568,7 @@ CMD:checkvouchers(playerid, params[])
 {
 	new targetid;
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "You're not authorized to use this command!");
-	if(sscanf(params, "u", targetid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /checkvouchers [playerid/PartOfName]");
+	if(sscanf(params, "u", targetid)) return SendSyntaxMessage(playerid, "/checkvouchers [playerid/PartOfName]");
 	if(!IsPlayerConnected(targetid)) return SendClientMessageEx(playerid, COLOR_GRAD1, "Invalid player specified.");
 	
 	ShowVouchers(playerid, targetid);
@@ -580,7 +580,7 @@ CMD:sellvoucher(playerid, params[])
 	new choice[32], amount, price, buyer;
     if(sscanf(params, "s[32]ddu", choice, amount, price, buyer))
 	{
-	    SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /sellvoucher [name] [amount] [price] [buyer]");
+	    SendSyntaxMessage(playerid, "/sellvoucher [name] [amount] [price] [buyer]");
 		SendClientMessageEx(playerid, COLOR_GREY, "Available names: CarVoucher, SilverVIP, GoldVIP, PVIP, RestrictedCar, Advert, 7DaySVIP, 7DayGVIP");
 		return 1;
 	}

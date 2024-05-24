@@ -208,7 +208,7 @@ CMD:sweep(playerid, params[])
 		if(PlayerInfo[playerid][pSweepLeft] > 0)
 		{
 			new string[128], giveplayerid;
-			if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /sweep [player]");
+			if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/sweep [player]");
 
 			if(!ProxDetectorS(4.0, playerid, giveplayerid)) return SendClientMessageEx(playerid, COLOR_GRAD1, "You need to be close to the person.");
 			PlayerInfo[playerid][pSweepLeft]--;
@@ -379,7 +379,7 @@ CMD:craft(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_GRAD2, "dildo (300)          spraycan(2000)");
 		SendClientMessageEx(playerid, COLOR_GRAD2, "rimkit (400000)");
 		SendClientMessageEx(playerid, COLOR_GREEN, "________________________________________________");
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /craft [player] [craftname]");
+		SendSyntaxMessage(playerid, "/craft [player] [craftname]");
 		return 1;
 	}
 	if(IsPlayerConnected(giveplayerid))
@@ -406,7 +406,7 @@ CMD:craft(playerid, params[])
 			SendClientMessageEx(playerid, COLOR_GRAD2, "dildo (300)          spraycan(2000)");
 			SendClientMessageEx(playerid, COLOR_GRAD2, "rimkit (400000)");
 			SendClientMessageEx(playerid, COLOR_GREEN, "________________________________________________");
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /craft [player] [craftname]");
+			SendSyntaxMessage(playerid, "/craft [player] [craftname]");
 			return 1;
 		}
 		/*if(strcmp(choice,"bag",true) == 0)

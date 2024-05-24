@@ -55,7 +55,7 @@ CMD:random(playerid, params[]) {
 			iBroadcast;
 
 		if(sscanf(params, "dd", iHours, iBroadcast)) {
-			return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /random [hours] [broadcast]");
+			return SendSyntaxMessage(playerid, "/random [hours] [broadcast]");
 		}
 
 		new
@@ -94,7 +94,7 @@ CMD:vrandom(playerid, params[]) {
 			iBroadcast;
 
 		if(sscanf(params, "dd", iHours, iBroadcast)) {
-			return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /vrandom [hours] [broadcast]");
+			return SendSyntaxMessage(playerid, "/vrandom [hours] [broadcast]");
 		}
 
 		new
@@ -130,7 +130,7 @@ CMD:givetokens(playerid, params[])
 	if(PlayerInfo[playerid][pDonateRank] > 0)
 	{
 		new string[128], giveplayerid, amount;
-		if(sscanf(params, "ud", giveplayerid, amount)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /givetokens [player] [amount]");
+		if(sscanf(params, "ud", giveplayerid, amount)) return SendSyntaxMessage(playerid, "/givetokens [player] [amount]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -187,7 +187,7 @@ CMD:settoken(playerid, params[])
 	if (PlayerInfo[playerid][pAdmin] >= 1337)
 	{
 		new string[128], giveplayerid, amount;
-		if(sscanf(params, "ud", giveplayerid, amount)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /settoken [player] [amount]");
+		if(sscanf(params, "ud", giveplayerid, amount)) return SendSyntaxMessage(playerid, "/settoken [player] [amount]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -214,7 +214,7 @@ CMD:givetoken(playerid, params[])
 	if (PlayerInfo[playerid][pAdmin] >= 1337)
 	{
 		new string[128], giveplayerid, amount;
-		if(sscanf(params, "ud", giveplayerid, amount)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /givetoken [player] [amount]");
+		if(sscanf(params, "ud", giveplayerid, amount)) return SendSyntaxMessage(playerid, "/givetoken [player] [amount]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{

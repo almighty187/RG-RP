@@ -46,7 +46,7 @@ CMD:chm(playerid, params[]) return cmd_checkhelmet(playerid, params);
 CMD:checkhelmet(playerid, params[])
 {
 	new giveplayerid;
-	if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /checkhelmet [player]");
+	if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/checkhelmet [player]");
 
     if(GetPlayerState(giveplayerid) == PLAYER_STATE_ONFOOT)
 	{

@@ -63,10 +63,10 @@ CMD:bemine(playerid, params[])
 		return 1;
 	}
 	new giveplayerid, style;
-	if(sscanf(params, "ud", giveplayerid, style)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /bemine [player] [kissing style (1-6)]");
+	if(sscanf(params, "ud", giveplayerid, style)) return SendSyntaxMessage(playerid, "/bemine [player] [kissing style (1-6)]");
 	if(!IsPlayerConnected(giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "That player is not connected");
 	if(playerid == giveplayerid) return SendClientMessageEx(playerid, COLOR_GREY, "It cannot be yourself. </3");
-	if(!(0 < style < 7)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /bemine [player] [kissing style (1-6)]");
+	if(!(0 < style < 7)) return SendSyntaxMessage(playerid, "/bemine [player] [kissing style (1-6)]");
 
 	new Float:ppFloats[3];
 	GetPlayerPos(giveplayerid, ppFloats[0], ppFloats[1], ppFloats[2]);

@@ -50,7 +50,7 @@ CMD:revokelicense(playerid, params[])
 		new string[128], giveplayerid, type, reason[64], sz_FacInfo[3][64];
 		if(sscanf(params, "uds[64]", giveplayerid, type, reason))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /revokelicense [player] [type] [reason]");
+			SendSyntaxMessage(playerid, "/revokelicense [player] [type] [reason]");
 			SendClientMessageEx(playerid, COLOR_GRAD2, "Types: 1 = Driving, 2 = Boating, 3 = Flying, 4 = Firearm License");
 			return 1;
 		}
@@ -144,7 +144,7 @@ CMD:givelicense(playerid, params[])
 		new string[128], giveplayerid, type;
 		if(sscanf(params, "ud", giveplayerid, type))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /givelicense [player] [type]");
+			SendSyntaxMessage(playerid, "/givelicense [player] [type]");
 			SendClientMessageEx(playerid, COLOR_GRAD2, "Types: 1 = Driving, 2 = Boating, 3 = Flying, 4 = Taxi.");
 			return 1;
 		}
@@ -237,7 +237,7 @@ CMD:droplicense(playerid, params[])
 	new string[128], type;
 	if(sscanf(params, "d", type))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /droplicense [type]");
+		SendSyntaxMessage(playerid, "/droplicense [type]");
 		SendClientMessageEx(playerid, COLOR_GRAD2, "Types: 1 = Driving, 2 = Boating, 3 = Flying, 4 = Taxi.");
 		return 1;
 	}
@@ -332,7 +332,7 @@ CMD:showid(playerid, params[])
 CMD:showlicenses(playerid, params[])
 {
 	new giveplayerid;
-	if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /showlicenses [player]");
+	if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/showlicenses [player]");
 
 	if(IsPlayerConnected(giveplayerid))
 	{

@@ -871,7 +871,7 @@ CMD:sellmyhouse(playerid, params[])
 	{
 		if(PlayerInfo[playerid][pFreezeHouse] == 1) return SendClientMessageEx(playerid, COLOR_WHITE, "ERROR: Your house assets are frozen, you cannot sell your house!");
 		new string[128], giveplayerid, price;
-		if(sscanf(params, "ud", giveplayerid, price)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /sellmyhouse [player] [price]");
+		if(sscanf(params, "ud", giveplayerid, price)) return SendSyntaxMessage(playerid, "/sellmyhouse [player] [price]");
 		if(price < 1) return SendClientMessageEx(playerid, COLOR_GREY, "Price must be higher than 0.");
 		if(!IsPlayerConnected(giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "Player is currently not connected to the server.");
 		if(Homes[giveplayerid] >= MAX_OWNABLE_HOUSES && PlayerInfo[giveplayerid][pDonateRank] < 4) return SendClientMessageEx(playerid, COLOR_GREY, "They cannot own another home.");
@@ -925,7 +925,7 @@ CMD:asellhouse(playerid, params[])
 		GetPlayerName(playerid, playername, sizeof(playername));
 
 		new string[128], house;
-		if(sscanf(params, "d", house)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /asellhouse [houseid]");
+		if(sscanf(params, "d", house)) return SendSyntaxMessage(playerid, "/asellhouse [houseid]");
 
 		HouseInfo[house][hLock] = 1;
 		foreach(new p : Player) {
@@ -961,7 +961,7 @@ CMD:goinhouse(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pShopTech] >= 1)
 	{
 		new housenum;
-		if(sscanf(params, "d", housenum)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /goinhouse [housenumber]");
+		if(sscanf(params, "d", housenum)) return SendSyntaxMessage(playerid, "/goinhouse [housenumber]");
 
 		if(housenum <= 0 || housenum >= MAX_HOUSES)
 		{
@@ -986,7 +986,7 @@ CMD:goinhouse(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pShopTech] >= 1)
 	{
 		new housenum;
-		if(sscanf(params, "d", housenum)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gotohouse [housenumber]");
+		if(sscanf(params, "d", housenum)) return SendSyntaxMessage(playerid, "/gotohouse [housenumber]");
 
 		if(housenum <= 0 || housenum >= MAX_HOUSES)
 		{
@@ -1039,7 +1039,7 @@ CMD:hname(playerid, params[])
 	}
 
 	new string[128], houseid, ownername[24];
-	if(sscanf(params, "ds[24]", houseid, ownername)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /hname [houseid] [name]");
+	if(sscanf(params, "ds[24]", houseid, ownername)) return SendSyntaxMessage(playerid, "/hname [houseid] [name]");
 
 	format(HouseInfo[houseid][hOwnerName], 24, "%s", ownername);
 	format(string, sizeof(string), "You have set the house owner to %s", ownername);
@@ -1065,7 +1065,7 @@ CMD:hedit(playerid, params[])
 	new string[128], choice[32], houseid, amount;
 	if(sscanf(params, "s[32]dD", choice, houseid, amount))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /hedit [name] [houseid] [(Optional)amount]");
+		SendSyntaxMessage(playerid, "/hedit [name] [houseid] [(Optional)amount]");
 		SendClientMessageEx(playerid, COLOR_GREY, "Available names: Exterior, Interior, VW, CustomInterior, CustomExterior, Class (1-3), Level, Price, Delete, Ignore");
 		return 1;
 	}
@@ -1280,7 +1280,7 @@ CMD:shophouse(playerid, params[])
 	new string[128], choice[32], houseid, amount, invoice[64];
 	if(sscanf(params, "s[32]dDs[64]", choice, houseid, amount, invoice))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /shophouse [name] [houseid] [amount] [invoice #]");
+		SendSyntaxMessage(playerid, "/shophouse [name] [houseid] [amount] [invoice #]");
 		SendClientMessageEx(playerid, COLOR_GREY, "Available names: Exterior, Interior, CustomInterior, Class (1-3), Level, Price");
 		return 1;
 	}
@@ -1388,7 +1388,7 @@ CMD:shophousename(playerid, params[])
 	}
 
 	new string[128], houseid, ownername[MAX_PLAYER_NAME], invoice[64];
-	if(sscanf(params, "ds[24]s[64]", houseid, ownername, invoice)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /shophousename [houseid] [name] [invoice]");
+	if(sscanf(params, "ds[24]s[64]", houseid, ownername, invoice)) return SendSyntaxMessage(playerid, "/shophousename [houseid] [name] [invoice]");
 	format(HouseInfo[houseid][hOwnerName], sizeof(ownername), "%s", ownername);
 	format(string, sizeof(string), "You have set the house owner to %s", ownername);
 	HouseInfo[houseid][hOwned] = 1;
@@ -1408,7 +1408,7 @@ CMD:houseinvite(playerid, params[])
 	if(Homes[playerid] > 0)
 	{
 		new giveplayerid, hstring[1024], title[64], zone[MAX_ZONE_NAME];
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /houseinvite [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/houseinvite [player]");
 		if(gettime()-GetPVarInt(playerid, "LastHouseInvite") < 15) return SendClientMessageEx(playerid, COLOR_GRAD2, "You can only use /houseinvite once every 15 seconds, please wait!");
 		if(giveplayerid != INVALID_PLAYER_ID)
 		{
@@ -1475,7 +1475,7 @@ CMD:setrent(playerid, params[])
 			if(GetPlayerSQLId(playerid) == HouseInfo[i][hOwnerID] && ((IsPlayerInRangeOfPoint(playerid, 5.0, HouseInfo[i][hExteriorX], HouseInfo[i][hExteriorY], HouseInfo[i][hExteriorZ]) && GetPlayerVirtualWorld(playerid) == HouseInfo[i][hExtVW] && GetPlayerInterior(playerid) == HouseInfo[i][hExtIW]) ||
 			(IsPlayerInRangeOfPoint(playerid, 50, HouseInfo[i][hInteriorX], HouseInfo[i][hInteriorY], HouseInfo[i][hInteriorZ]) && GetPlayerVirtualWorld(playerid) == HouseInfo[i][hIntVW] && GetPlayerInterior(playerid) == HouseInfo[i][hIntIW])))
 			{
-				if(sscanf(params, "d", fee)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /setrent [fee]");
+				if(sscanf(params, "d", fee)) return SendSyntaxMessage(playerid, "/setrent [fee]");
 				if(!(1 <= fee <= 10000)) return SendClientMessageEx(playerid, COLOR_WHITE, "Minimum rent is $1, maximum rent is $10,000.");
 				else
 				{
@@ -1504,7 +1504,7 @@ CMD:evict(playerid, params[])
 			if(GetPlayerSQLId(playerid) == HouseInfo[i][hOwnerID] && ((IsPlayerInRangeOfPoint(playerid, 5.0, HouseInfo[i][hExteriorX], HouseInfo[i][hExteriorY], HouseInfo[i][hExteriorZ]) && GetPlayerVirtualWorld(playerid) == HouseInfo[i][hExtVW] && GetPlayerInterior(playerid) == HouseInfo[i][hExtIW]) ||
 			(IsPlayerInRangeOfPoint(playerid, 50, HouseInfo[i][hInteriorX], HouseInfo[i][hInteriorY], HouseInfo[i][hInteriorZ]) && GetPlayerVirtualWorld(playerid) == HouseInfo[i][hIntVW] && GetPlayerInterior(playerid) == HouseInfo[i][hIntIW])))
 			{
-				if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /evict [player]");
+				if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/evict [player]");
 				if(IsPlayerConnected(giveplayerid))
 				{
 					if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_WHITE, "You can't evict yourself.");
@@ -1596,7 +1596,7 @@ CMD:hstatus(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1 && PlayerInfo[playerid][pShopTech] < 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
 	new hid;
-	if(sscanf(params, "i", hid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /hstatus [hid]");
+	if(sscanf(params, "i", hid)) return SendSyntaxMessage(playerid, "/hstatus [hid]");
 	new string[128];
 	format(string,sizeof(string),"|___________ House Status (ID: %d) (OwnerID: %d)___________|", hid, HouseInfo[hid][hOwnerID]);
 	SendClientMessageEx(playerid, COLOR_GREEN, string);

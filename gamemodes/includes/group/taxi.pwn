@@ -49,7 +49,7 @@ CMD:fare(playerid, params[])
 	if(IsATaxiDriver(playerid))
 	{
 		new string[128], fare;
-		if(sscanf(params, "d", fare)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /fare [price]");
+		if(sscanf(params, "d", fare)) return SendSyntaxMessage(playerid, "/fare [price]");
 
 		if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot do this at this time.");
 
@@ -172,7 +172,7 @@ CMD:ataxi(playerid, params[])
 		iTarget;
 	if(TransportDuty[playerid] == 1)
 	{
-		if(sscanf(params, "u", iTarget)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /ataxi [player]");
+		if(sscanf(params, "u", iTarget)) return SendSyntaxMessage(playerid, "/ataxi [player]");
 		if(!IsPlayerConnected(iTarget)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
 		if(iTarget == playerid) return SendClientMessageEx(playerid, COLOR_GREY, "You can't accept your own taxi call.");
 		if(TaxiCallTime[playerid] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "You have already accepted a call.");
@@ -189,7 +189,7 @@ CMD:ataxi(playerid, params[])
 	}
 	if(TransportDuty[playerid] == 2)
 	{
-		if(sscanf(params, "u", iTarget)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /abus [player]");
+		if(sscanf(params, "u", iTarget)) return SendSyntaxMessage(playerid, "/abus [player]");
 		if(!IsPlayerConnected(iTarget)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
 		if(iTarget == playerid) return SendClientMessageEx(playerid, COLOR_GREY, "You can't accept your own bus call.");
 		if(BusCallTime[playerid] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "You have already accepted a call.");

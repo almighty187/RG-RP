@@ -108,11 +108,11 @@ CMD:gotopoint(playerid, params[])
 	}
 
 	new points;
-	if(sscanf(params, "d", points)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gotopoint [pointid]");
+	if(sscanf(params, "d", points)) return SendSyntaxMessage(playerid, "/gotopoint [pointid]");
 
 	if(points >= MAX_EVENTPOINTS || points < 0)
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gotopoint [pointid]");
+		SendSyntaxMessage(playerid, "/gotopoint [pointid]");
 		return 1;
 	}
 	SetPlayerPos(playerid, EventPoints[points][epPosX], EventPoints[points][epPosY], EventPoints[points][epPosZ]);
@@ -130,7 +130,7 @@ CMD:createpoint(playerid, params[])
 	}
 
 	new string[128], objectid, flagable, pointid, prize[64];
-	if(sscanf(params, "ddds[64]", objectid, flagable, pointid, prize)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /createpoint [objectid] [flagable] [pointid] [prize]");
+	if(sscanf(params, "ddds[64]", objectid, flagable, pointid, prize)) return SendSyntaxMessage(playerid, "/createpoint [objectid] [flagable] [pointid] [prize]");
 
 	if(EventPoints[pointid][epObjectID] != 0)
 	{
@@ -179,7 +179,7 @@ CMD:deletepoint(playerid, params[])
 	}
 
 	new string[128], pointid;
-	if(sscanf(params, "d", pointid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /deletepoint [pointid]");
+	if(sscanf(params, "d", pointid)) return SendSyntaxMessage(playerid, "/deletepoint [pointid]");
 
 	if(pointid >= MAX_EVENTPOINTS || pointid < 0)
 	{

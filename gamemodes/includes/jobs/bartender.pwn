@@ -5,7 +5,7 @@ CMD:selldrink(playerid, params[])
 		if(IsAtBar(playerid))
 		{
 			new string[128], giveplayerid;
-			if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /selldrink [player]");
+			if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/selldrink [player]");
 
 			if(IsPlayerConnected(giveplayerid))
 			{

@@ -276,7 +276,7 @@ CMD:makezombie(playerid, params[])
  		if(zombieevent == 1)
 	    {
     		new giveplayerid;
-			if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /makezombie [player]");
+			if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/makezombie [player]");
 			MakeZombie(giveplayerid);
 	    }
 	}
@@ -304,7 +304,7 @@ CMD:setvials(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 1337)
 	{
 		new giveplayerid, vials;
-		if(sscanf(params, "ui", giveplayerid, vials)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /setvials [player] [number]");
+		if(sscanf(params, "ui", giveplayerid, vials)) return SendSyntaxMessage(playerid, "/setvials [player] [number]");
 		if(vials < 0) return 1;
 		new string[128];
 
@@ -324,7 +324,7 @@ CMD:unzombie(playerid, params[])
  		if(zombieevent == 1)
 	    {
     		new giveplayerid;
-			if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /unzombie [player]");
+			if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/unzombie [player]");
 			SendClientMessageEx(playerid, COLOR_GREY, "Done!");
 			UnZombie(giveplayerid);
 	    }
@@ -422,7 +422,7 @@ CMD:curevirus(playerid, params[])
 	if(zombieevent == 1 && PlayerInfo[playerid][pVials])
 	{
 		new giveplayerid, string[128];
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /curevirus [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/curevirus [player]");
 		if(!GetPVarType(giveplayerid, "pZombieBit")) return SendClientMessageEx(playerid, COLOR_GREY, "That person does not have the virus, or they're already a zombie!");
 		new Float:X, Float:Y, Float:Z;
 		GetPlayerPos(giveplayerid, X, Y, Z);

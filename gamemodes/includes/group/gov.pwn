@@ -43,7 +43,7 @@ CMD:settax(playerid, params[])
 	}
 
 	new string[128], tax;
-	if(sscanf(params, "d", tax)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /settax [percentage]");
+	if(sscanf(params, "d", tax)) return SendSyntaxMessage(playerid, "/settax [percentage]");
 
 	if (tax < 1 || tax > 29)
 	{
@@ -80,7 +80,7 @@ CMD:taxwithdraw(playerid, params[])
 	{
 		if(sscanf(params, "ds[64]", amount, reason))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /taxwithdraw [amount] [reason]");
+			SendSyntaxMessage(playerid, "/taxwithdraw [amount] [reason]");
 			format(string, sizeof(string), "* VAULT BALANCE: $%s.", number_format(Tax));
 			SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
 			return 1;
@@ -114,7 +114,7 @@ CMD:taxwithdraw(playerid, params[])
 	{
 		if(sscanf(params, "ds[64]", amount, reason))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /taxwithdraw [amount] [reason]");
+			SendSyntaxMessage(playerid, "/taxwithdraw [amount] [reason]");
 			format(string, sizeof(string), "* VAULT BALANCE: $%s.", number_format(TRTax));
 			SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
 			return 1;
@@ -159,7 +159,7 @@ CMD:taxdeposit(playerid, params[])
 	{
 		if(sscanf(params, "d", amount))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /taxdeposit [amount]");
+			SendSyntaxMessage(playerid, "/taxdeposit [amount]");
 			format(string, sizeof(string), "* VAULT BALANCE: $%s.", number_format(Tax));
 			SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
 			return 1;
@@ -188,7 +188,7 @@ CMD:taxdeposit(playerid, params[])
 	{
 		if(sscanf(params, "d", amount))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /taxdeposit [amount]");
+			SendSyntaxMessage(playerid, "/taxdeposit [amount]");
 			format(string, sizeof(string), "* VAULT BALANCE: $%s.", number_format(TRTax));
 			SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
 			return 1;
@@ -227,7 +227,7 @@ CMD:settaxmoney(playerid, params[])
 	new string[128], country, amount;
 	if(sscanf(params, "dd", country, amount))
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /settaxmoney [SA(1)/NE(2)] [amount]");
+		SendSyntaxMessage(playerid, "/settaxmoney [SA(1)/NE(2)] [amount]");
 		format(string, sizeof(string), "* CURRENT SA VAULT BALANCE: $%s.", number_format(Tax));
 		SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
 		format(string, sizeof(string), "* CURRENT NE VAULT BALANCE: $%s.", number_format(TRTax));

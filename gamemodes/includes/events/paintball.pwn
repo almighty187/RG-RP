@@ -3502,7 +3502,7 @@ CMD:lockarena(playerid, params[])
 	}
 
 	new arenaid;
-	if(sscanf(params, "d", arenaid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /lockarena [arenaid]");
+	if(sscanf(params, "d", arenaid)) return SendSyntaxMessage(playerid, "/lockarena [arenaid]");
 
 	arenaid--;
 
@@ -3595,7 +3595,7 @@ CMD:unlockarena(playerid, params[])
 	}
 
 	new arenaid;
-	if(sscanf(params, "d", arenaid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /unlockarena [arenaid]");
+	if(sscanf(params, "d", arenaid)) return SendSyntaxMessage(playerid, "/unlockarena [arenaid]");
 
 	arenaid--;
 
@@ -3618,7 +3618,7 @@ CMD:unlockarena(playerid, params[])
 CMD:givepainttokens(playerid, params[])
 {
 	new giveplayerid, amount;
-	if(sscanf(params, "ud", giveplayerid, amount)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /givepainttokens [player] [amount]");
+	if(sscanf(params, "ud", giveplayerid, amount)) return SendSyntaxMessage(playerid, "/givepainttokens [player] [amount]");
 
 	if(IsPlayerConnected(giveplayerid))
 	{

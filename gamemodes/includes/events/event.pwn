@@ -572,7 +572,7 @@ CMD:seteventtype(playerid, params[])
 		{
 			if(isnull(params))
 			{
-				SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /seteventtype [type]");
+				SendSyntaxMessage(playerid, "/seteventtype [type]");
 				SendClientMessageEx(playerid, COLOR_GREY, "Available names: DM, TDM, Infection");
 				return 1;
 			}
@@ -618,7 +618,7 @@ CMD:editevent(playerid, params[])
 			{
 			    if(sscanf(params, "s[32]S[64]", choice, opstring))
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editevent [name]");
+					SendSyntaxMessage(playerid, "/editevent [name]");
 					SendClientMessageEx(playerid, COLOR_GREY, "Available names: Jointext, Limit, Health, Armor, Gun1, Gun2, Gun3, Gun4, Gun5");
 					return 1;
 				}
@@ -627,7 +627,7 @@ CMD:editevent(playerid, params[])
 			{
 			    if(sscanf(params, "s[32]S[64]", choice, opstring))
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editevent [name]");
+					SendSyntaxMessage(playerid, "/editevent [name]");
 					SendClientMessageEx(playerid, COLOR_GREY, "Available names: Jointext, Limit, CustomInterior, Team1Skin, Team2Skin, Team1Color, Team2Color");
 					SendClientMessageEx(playerid, COLOR_GREY, "Team1Spawn, Team2Spawn, Health, Armor, Gun1, Gun2, Gun3, Gun4, Gun5");
 					return 1;
@@ -637,7 +637,7 @@ CMD:editevent(playerid, params[])
 			{
 			    if(sscanf(params, "s[32]S("")[64]", choice, opstring))
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editevent [name]");
+					SendSyntaxMessage(playerid, "/editevent [name]");
 					SendClientMessageEx(playerid, COLOR_GREY, "Available names: Jointext, Limit, Health, Hours, CheckPoints, RaceType(Future Development), OnFoot(0/1)");
 					SendClientMessageEx(playerid, COLOR_GREY, "Relay For Life Note: Set hours to something between 1-5 and don't touch the limit!");
 					SendClientMessageEx(playerid, COLOR_GREY, "Relay For Life Note: Enable OnFoot!");
@@ -648,7 +648,7 @@ CMD:editevent(playerid, params[])
 			{
 			    if(sscanf(params, "s[32]S[64]", choice, opstring))
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editevent [name]");
+					SendSyntaxMessage(playerid, "/editevent [name]");
 					SendClientMessageEx(playerid, COLOR_GREY, "Available names: Jointext, Limit, Health, Armor, Gun1, Gun2, Gun3, Gun4, Gun5");
 					return 1;
 				}
@@ -663,7 +663,7 @@ CMD:editevent(playerid, params[])
 			{
 				if(!opstring[0])
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editevent jointext [text]");
+					SendSyntaxMessage(playerid, "/editevent jointext [text]");
 					return 1;
 				}
 				strmid(EventKernel[EventInfo], opstring, 0, strlen(opstring), 64);
@@ -679,7 +679,7 @@ CMD:editevent(playerid, params[])
 
 				if(!opstring[0])
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editevent health [health]");
+					SendSyntaxMessage(playerid, "/editevent health [health]");
 					return 1;
 				}
 				new Float: health;
@@ -697,7 +697,7 @@ CMD:editevent(playerid, params[])
 
 				if(!opstring[0])
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editevent armor [armor]");
+					SendSyntaxMessage(playerid, "/editevent armor [armor]");
 					return 1;
 				}
 				new Float: armor;
@@ -716,7 +716,7 @@ CMD:editevent(playerid, params[])
 
 				if(!opstring[0])
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editevent team1skin [skinid]");
+					SendSyntaxMessage(playerid, "/editevent team1skin [skinid]");
 					return 1;
 				}
 
@@ -735,7 +735,7 @@ CMD:editevent(playerid, params[])
 
 				if(!opstring[0])
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editevent team2skin [skinid]");
+					SendSyntaxMessage(playerid, "/editevent team2skin [skinid]");
 					return 1;
 				}
 
@@ -754,7 +754,7 @@ CMD:editevent(playerid, params[])
 
 				if(!strlen(opstring))
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editevent team1color [color]");
+					SendSyntaxMessage(playerid, "/editevent team1color [color]");
 					SendClientMessageEx(playerid, COLOR_GREY, "black | white | blue | red | green | purple | yellow | lightblue |");
 					SendClientMessageEx(playerid, COLOR_GREY, "darkgreen | darkblue | darkgrey | brown | darkbrown | darkred | pink ");
 					return 1;
@@ -772,7 +772,7 @@ CMD:editevent(playerid, params[])
 
 				if(!strlen(opstring))
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editevent team2color [color]");
+					SendSyntaxMessage(playerid, "/editevent team2color [color]");
 					SendClientMessageEx(playerid, COLOR_GREY, "black | white | blue | red | green | purple | yellow | lightblue |");
 					SendClientMessageEx(playerid, COLOR_GREY, "darkgreen | darkblue | darkgrey | brown | darkbrown | darkred | pink ");
 					return 1;
@@ -806,7 +806,7 @@ CMD:editevent(playerid, params[])
 			        return SendClientMessageEx(playerid, COLOR_GRAD2, "This feature is not available for this event, everyone is free to join. If you want to enable this please set the hours to 0.");
 				if(!opstring[0])
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editevent limit [limit 0-60]");
+					SendSyntaxMessage(playerid, "/editevent limit [limit 0-60]");
 					return 1;
 				}
 
@@ -825,7 +825,7 @@ CMD:editevent(playerid, params[])
 				}
 				if(!opstring[0])
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editevent hours [hours 0-5]");
+					SendSyntaxMessage(playerid, "/editevent hours [hours 0-5]");
 					return 1;
 				}
 
@@ -876,7 +876,7 @@ CMD:editevent(playerid, params[])
 
 				if(!opstring[0])
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editevent gun1 [weaponid]");
+					SendSyntaxMessage(playerid, "/editevent gun1 [weaponid]");
 					return 1;
 				}
 
@@ -896,7 +896,7 @@ CMD:editevent(playerid, params[])
 
 				if(!opstring[0])
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editevent gun1 [weaponid]");
+					SendSyntaxMessage(playerid, "/editevent gun1 [weaponid]");
 					return 1;
 				}
 
@@ -916,7 +916,7 @@ CMD:editevent(playerid, params[])
 
 				if(!opstring[0])
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editevent gun1 [weaponid]");
+					SendSyntaxMessage(playerid, "/editevent gun1 [weaponid]");
 					return 1;
 				}
 
@@ -936,7 +936,7 @@ CMD:editevent(playerid, params[])
 
 				if(!opstring[0])
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editevent gun1 [weaponid]");
+					SendSyntaxMessage(playerid, "/editevent gun1 [weaponid]");
 					return 1;
 				}
 
@@ -956,7 +956,7 @@ CMD:editevent(playerid, params[])
 
 				if(!opstring[0])
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editevent gun1 [weaponid]");
+					SendSyntaxMessage(playerid, "/editevent gun1 [weaponid]");
 					return 1;
 				}
 
@@ -968,7 +968,7 @@ CMD:editevent(playerid, params[])
 			}
 			else if(strcmp(choice, "custominterior", true) == 0)
 			{
-				if(!opstring[0]) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /editevent custominterior [0/1]");
+				if(!opstring[0]) return SendSyntaxMessage(playerid, "/editevent custominterior [0/1]");
 				
 				EventKernel[EventCustomInterior] = strval(opstring);
 				
@@ -987,7 +987,7 @@ CMD:seteventviponly(playerid, params[])
 	{
 		if(EventKernel[EventCreator] == playerid || PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1)
 		{
-			if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /seteventviponly [0/1]");
+			if(isnull(params)) return SendSyntaxMessage(playerid, "/seteventviponly [0/1]");
 
 			if(PlayerInfo[playerid][pVIPMod] && PlayerInfo[playerid][pAdmin] == 0)
 			{
@@ -1017,7 +1017,7 @@ CMD:seteventinfo(playerid, params[])
 	{
 		if( EventKernel[EventCreator] == playerid || PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1)
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /seteventtype /editevent /seteventviponly (once ready, type /startevent)");
+			SendSyntaxMessage(playerid, "/seteventtype /editevent /seteventviponly (once ready, type /startevent)");
 			return 1;
 		}
 	}

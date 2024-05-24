@@ -136,12 +136,12 @@ CMD:speedopos(playerid, params[])
 		{
 			if(TPosX[0] < 0 || TPosX[0] > 640)
 			{
-				SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /speedopos (optional) [X] [Y]");
+				SendSyntaxMessage(playerid, "/speedopos (optional) [X] [Y]");
 				return SendClientMessageEx(playerid, COLOR_GREY, "X must be above 0 and below 640");
 			}
 			if(TPosY[0] < 0 || TPosY[0] > 640)
 			{
-				SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /speedopos (optional) [X] [Y]");
+				SendSyntaxMessage(playerid, "/speedopos (optional) [X] [Y]");
 				return SendClientMessageEx(playerid, COLOR_GREY, "Y must be above 0 and below 480");
 			}
 			TPosX[1] = TPosX[0] + 60.0;

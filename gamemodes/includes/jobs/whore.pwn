@@ -10,7 +10,7 @@ CMD:sex(playerid, params[])
 		new Car = GetPlayerVehicleID(playerid);
 
 		new string[128], giveplayerid, money;
-		if(sscanf(params, "ud", giveplayerid, money)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /sex [player] [price]");
+		if(sscanf(params, "ud", giveplayerid, money)) return SendSyntaxMessage(playerid, "/sex [player] [price]");
 
 		if(money < 1 || money > 10000) { SendErrorMessage(playerid, "Price not lower then $1 or above $10,000!"); return 1; }
 		if(IsPlayerConnected(giveplayerid))

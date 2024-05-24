@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-					Dynamic	Garages System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 #include <YSI\y_hooks>
 
 stock SaveGarages()
@@ -54,23 +17,23 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		if(response)
 		{
 			new i = GetPVarInt(playerid, "Garage");
-			if(isnull(inputtext)) return SendClientMessage(playerid, COLOR_GREY, "You did not enter anything" );
-			if(strlen(inputtext) > 24) return SendClientMessageEx(playerid, COLOR_GREY, "The password can not be greater than 24 characters.");
+			if(isnull(inputtext)) return SendErrorMessage(playerid, "You did not enter anything" );
+			if(strlen(inputtext) > 24) return SendErrorMessage(playerid, "The password can not be greater than 24 characters.");
 			if(strcmp(inputtext, GarageInfo[i][gar_Pass], true) == 0)
 			{
 				if(GarageInfo[i][gar_Locked] == 0)
 				{
 					GarageInfo[i][gar_Locked] = 1;
-					SendClientMessageEx(playerid, COLOR_WHITE, "Password accepted, garage locked.");
+					SendServerMessage(playerid, "Password accepted, garage locked.");
 				}
 				else
 				{
 					GarageInfo[i][gar_Locked] = 0;
-					SendClientMessageEx(playerid, COLOR_WHITE, "Password accepted, garage unlocked.");
+					SendServerMessage(playerid, "Password accepted, garage unlocked.");
 				}
 				SaveGarage(i);
 			}
-			else SendClientMessageEx(playerid, COLOR_WHITE, "Password declined.");
+			else SendErrorMessage(playerid, "Password declined.");
 		}
 	}
 	return 0;
@@ -86,16 +49,16 @@ CMD:changegaragepass(playerid, params[])
 			if(sscanf(params, "s[24]", garagepass))
 			{
 				SendSyntaxMessage(playerid, "/changegaragepass [pass]");
-				SendClientMessageEx(playerid, COLOR_WHITE, "To remove the password on the door set the password to 'none'.");
+				SendServerMessage(playerid, "To remove the password on the door set the password to 'none'.");
 				return 1;
 			}
 			if(GarageInfo[i][gar_Owner] == GetPlayerSQLId(playerid))
 			{
 				format(GarageInfo[i][gar_Pass], 24, "%s", garagepass);
-				SendClientMessageEx(playerid, COLOR_WHITE, "You have changed the password of this door.");
+				SendServerMessage(playerid, "You have changed the password of this door.");
 				SaveGarage(i);
 			}
-			else SendClientMessageEx(playerid, COLOR_GREY, "You cannot change the password on this lock.");
+			else SendErrorMessage(playerid, "You cannot change the password on this lock.");
 		}
 	}
 	return 1;
@@ -112,15 +75,15 @@ CMD:lockgarage(playerid, params[])
 				if(GarageInfo[i][gar_Locked] == 0)
 				{
 					GarageInfo[i][gar_Locked] = 1;
-					SendClientMessageEx(playerid, COLOR_WHITE, "This garage has been locked.");
+					SendServerMessage(playerid, "This garage has been locked.");
 				}
 				else if(GarageInfo[i][gar_Locked] == 1)
 				{
 					GarageInfo[i][gar_Locked] = 0;
-					SendClientMessageEx(playerid, COLOR_GREY, "This garage has been unlocked.");
+					SendServerMessage(playerid, "This garage has been unlocked.");
 				}
 			}
-			else SendClientMessageEx(playerid, COLOR_GREY, "You cannot lock this garage.");
+			else SendErrorMessage(playerid, "You cannot lock this garage.");
 		}
 	}
 	return 1;
@@ -147,19 +110,19 @@ CMD:garageedit(playerid, params[])
 	new option[128], garageid, value, string[128];
 	if(sscanf(params, "s[128]iD(0)", option, garageid, value))
 	{
-		SendClientMessage(playerid, COLOR_GRAD2, "USAGE: /garageedit [option] [garageid] [value]");
+		SendSyntaxMessage(playerid, "/garageedit [option] [garageid] [value]");
 		SendClientMessage(playerid, COLOR_GRAD2, "Available Options: Exterior, CustomExterior, Size, VW, Delete");
 		SendClientMessageEx(playerid, COLOR_GRAD1, "Valid Sizes: 1 = Small | 2 = Medium | 3 = Large | 4 = Extra Large");
 		return 1;
 	}
-	if(garageid >= MAX_GARAGES) return SendClientMessageEx(playerid, COLOR_WHITE, "Invalid Garage ID!");
+	if(garageid >= MAX_GARAGES) return SendErrorMessage(playerid, "Invalid Garage ID!");
 	if(strcmp(option, "exterior", true) == 0)
 	{
 		GetPlayerPos(playerid, GarageInfo[garageid][gar_ExteriorX], GarageInfo[garageid][gar_ExteriorY], GarageInfo[garageid][gar_ExteriorZ]);
 		GetPlayerFacingAngle(playerid, GarageInfo[garageid][gar_ExteriorA]);
 		GarageInfo[garageid][gar_ExteriorVW] = GetPlayerVirtualWorld(playerid);
 		GarageInfo[garageid][gar_ExteriorInt] = GetPlayerInterior(playerid);
-		SendClientMessageEx(playerid, COLOR_WHITE, "You have changed the exterior!");
+		SendServerMessage(playerid, "You have changed the exterior!");
 		DestroyDynamicPickup(GarageInfo[garageid][gar_PickupID]);
 		CreateGarage(garageid);
 		format(string, sizeof(string), "%s has edited Garage ID: %d's Exterior.", GetPlayerNameEx(playerid), garageid);
@@ -170,12 +133,12 @@ CMD:garageedit(playerid, params[])
 		if(GarageInfo[garageid][gar_CustomExterior] == 0)
 		{
 			GarageInfo[garageid][gar_CustomExterior] = 1;
-			SendClientMessageEx(playerid, COLOR_WHITE, "Garage set to custom exterior!");
+			SendServerMessage(playerid, "Garage set to custom exterior!");
 		}
 		else
 		{
 			GarageInfo[garageid][gar_CustomExterior] = 0;
-			SendClientMessageEx(playerid, COLOR_WHITE, "Garage set to normal (not custom) exterior!");
+			SendServerMessage(playerid, "Garage set to normal (not custom) exterior!");
 		}
 		CreateGarage(garageid);
 		format(string, sizeof(string), "%s has edited Garage ID: %d's CustomExterior.", GetPlayerNameEx(playerid), garageid);
@@ -252,11 +215,11 @@ CMD:garageedit(playerid, params[])
 		GarageInfo[garageid][gar_InteriorZ] = 0.0;
 		GarageInfo[garageid][gar_InteriorA] = 0.0;
 		GarageInfo[garageid][gar_InteriorVW] = 0;
-		format(GarageInfo[garageid][gar_Pass], MAX_PLAYER_NAME, "none");
+		format(GarageInfo[garageid][gar_Pass], MAX_PLAYER_NAME, "None");
 		GarageInfo[garageid][gar_Locked] = 0;
 		CreateGarage(garageid);
 	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD2, "Invalid option!");
+	else return SendErrorMessage(playerid, "Invalid option!");
 	SaveGarage(garageid);
 	return 1;
 }
@@ -266,8 +229,8 @@ CMD:changeddtogarage(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1 && PlayerInfo[playerid][pShopTech] < 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command.");
 	new doorid;
 	if(sscanf(params, "d", doorid)) return SendClientMessageEx(playerid, COLOR_GRAD2, "USAGE: /changeddtogarage [doorid]");
-	if(doorid >= MAX_DDOORS) return SendClientMessageEx(playerid, COLOR_WHITE, "Invalid Door ID!");
-	if(DDoorsInfo[doorid][ddType] != 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "This door is not owned by a player, please confirm and modify door type if needed!");
+	if(doorid >= MAX_DDOORS) return SendErrorMessage(playerid, "Invalid Door ID!");
+	if(DDoorsInfo[doorid][ddType] != 1) return SendErrorMessage(playerid, "This door is not owned by a player, please confirm and modify door type if needed!");
 	new next, bool:available = false;
 	for(new i; i < MAX_GARAGES; i++)
 	{
@@ -278,7 +241,7 @@ CMD:changeddtogarage(playerid, params[])
 			break;
 		}
 	}
-	if(available == false) return SendClientMessageEx(playerid, COLOR_GRAD2, "No Garages available.");
+	if(available == false) return SendErrorMessage(playerid, "No Garages available.");
 	new string[128];
 	GarageInfo[next][gar_Owner] = DDoorsInfo[doorid][ddOwner];
 	format(GarageInfo[next][gar_OwnerName], MAX_PLAYER_NAME, "%s", DDoorsInfo[doorid][ddOwnerName]);
@@ -302,7 +265,7 @@ CMD:changeddtogarage(playerid, params[])
 	Log("logs/garage.log", string);
 	CreateGarage(next);
 	SaveGarage(next);
-	SendClientMessageEx(playerid, COLOR_GRAD2, "If garage has been successfully transferred delete the door. /ddedit delete");
+	SendServerMessage(playerid, "If garage has been successfully transferred delete the door. /ddedit delete");
 	return 1;
 }
 
@@ -318,7 +281,7 @@ CMD:garageowner(playerid, params[])
 		{
 			format(GarageInfo[garageid][gar_OwnerName], MAX_PLAYER_NAME, "%s", GetPlayerNameEx(giveplayerid));
 			GarageInfo[garageid][gar_Owner] = GetPlayerSQLId(giveplayerid);
-			SendClientMessageEx(playerid, COLOR_WHITE, "You have successfully changed the owner of this garage.");
+			SendServerMessage(playerid, "You have successfully changed the owner of this garage.");
 			CreateGarage(garageid);
 			SaveGarage(garageid);
 			format(string, sizeof(string), "%s has edited Garage ID: %d's owner to %s (SQL ID: %d).", GetPlayerNameEx(playerid), garageid, GetPlayerNameEx(giveplayerid), GetPlayerSQLId(giveplayerid));
@@ -330,7 +293,7 @@ CMD:garageowner(playerid, params[])
 			mysql_tquery(MainPipeline, string, "OnSetGarageOwner", "ii", playerid, garageid);
 		}
 	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command!");
+	else return SendErorrMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 
@@ -344,7 +307,7 @@ CMD:agaragepass(playerid, params[])
 
 	if(sscanf(params, "ds[24]", garageid, garagepass)) return SendSyntaxMessage(playerid, "/agaragepass [garageid] [pass]"), SendClientMessageEx(playerid, COLOR_WHITE, "To remove the password on the garage set the password to 'none' ");
 	format(GarageInfo[garageid][gar_Pass], 24, "%s", garagepass);
-	SendClientMessageEx(playerid, COLOR_WHITE, "You have changed the password of that garage.");
+	SendServerMessage(playerid, "You have changed the password of that garage.");
 	SaveGarage(garageid);
 	format(string, sizeof(string), "%s has edited Garage ID: %d's password to %s.", GetPlayerNameEx(playerid), garageid, garagepass);
 	Log("logs/garage.log", string);
@@ -356,7 +319,7 @@ CMD:garagenext(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pShopTech] >= 1)
 	{
 		new string[128];
-		SendClientMessageEx(playerid, COLOR_RED, "* Listing next available garage...");
+		SendServerMessage(playerid, "Listing next available garage...");
 		for(new x; x < MAX_GARAGES; x++)
 		{
 			if(GarageInfo[x][gar_ExteriorX] == 0.0)
@@ -367,11 +330,7 @@ CMD:garagenext(playerid, params[])
 			}
 		}
 	}
-	else
-	{
-	    SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command.");
-		return 1;
-	}
+	else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 
@@ -408,7 +367,7 @@ CMD:gotogarage(playerid, params[])
 			format(string, sizeof(string), "GarageID must be between 0 and %d.", MAX_GARAGES - 1);
 			return SendClientMessageEx(playerid, COLOR_GREY, string);
 		}
-		if(GarageInfo[garage][gar_ExteriorX] == 0.0) return SendClientMessageEx(playerid, COLOR_GRAD2, "No exterior is set for this garage");
+		if(GarageInfo[garage][gar_ExteriorX] == 0.0) return SendErrorMessage(playerid, "No exterior is set for this garage");
 		SetPlayerInterior(playerid,GarageInfo[garage][gar_ExteriorInt]);
 		SetPlayerPos(playerid,GarageInfo[garage][gar_ExteriorX],GarageInfo[garage][gar_ExteriorY],GarageInfo[garage][gar_ExteriorZ]);
 		SetPlayerFacingAngle(playerid, GarageInfo[garage][gar_ExteriorA]);
@@ -635,7 +594,7 @@ public OnSetGarageOwner(playerid, garageid)
 			format(string, sizeof(string), "%s has edited Garage ID: %d's owner to %s (SQL ID: %d).", GetPlayerNameEx(playerid), garageid, GarageInfo[garageid][gar_OwnerName], GarageInfo[garageid][gar_Owner]);
 			Log("logs/garage.log", string);
 		}
-		else SendClientMessageEx(playerid, COLOR_GREY, "That account name does not appear to exist.");
+		else SendErrorMessage(playerid, "That account name does not appear to exist.");
 	}
 	return 1;
 }

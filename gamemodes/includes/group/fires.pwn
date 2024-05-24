@@ -397,7 +397,7 @@ CMD:destroyfire(playerid, params[]) {
 
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1 && PlayerInfo[playerid][pGangModerator] < 1 && PlayerInfo[playerid][pFactionModerator] < 1) return 1;
 	new fire;
-	if(sscanf(params, "d", fire)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /destroyfire [fireid]");
+	if(sscanf(params, "d", fire)) return SendSyntaxMessage(playerid, "/destroyfire [fireid]");
 	if(!(0 <= fire <= MAX_FIRES)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid Fire ID!");
 	DeleteStructureFire(fire);
 	return 1;
@@ -419,7 +419,7 @@ CMD:gotofire(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1 && PlayerInfo[playerid][pGangModerator] < 1 && PlayerInfo[playerid][pFactionModerator] < 1) return 1;
 	new fire,
 		Float:fPos[3];
-	if(sscanf(params, "d", fire)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gotofire [fireid]");
+	if(sscanf(params, "d", fire)) return SendSyntaxMessage(playerid, "/gotofire [fireid]");
 	if(!(0 <= fire <= MAX_FIRES)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid Fire ID!");
 	if(!IsValidStructureFire(fire)) return SendClientMessageEx(playerid, COLOR_GREY, "Fire has not been created!");
 	GetDynamicObjectPos(arrFires[fire][fire_iObjectID], fPos[0], fPos[1], fPos[2]);
@@ -431,7 +431,7 @@ CMD:setfstrength(playerid, params[]) {
 
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1 && PlayerInfo[playerid][pGangModerator] < 1 && PlayerInfo[playerid][pFactionModerator] < 1) return 1;
 	new fire, strength;
-	if(sscanf(params, "dd", fire, strength)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /setfstrength [fireid] [strength]");
+	if(sscanf(params, "dd", fire, strength)) return SendSyntaxMessage(playerid, "/setfstrength [fireid] [strength]");
 	if(!(0 <= fire <= MAX_FIRES)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid Fire ID!");
 	if(!IsValidStructureFire(fire)) return SendClientMessageEx(playerid, COLOR_GREY, "Fire has not been created!");
 	arrFires[fire][fire_iHealth] = strength;

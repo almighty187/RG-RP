@@ -2349,7 +2349,7 @@ CMD:destroyfurniture(playerid, params[]) {
 
 	if(!IsAdminLevel(playerid, ADMIN_GAME, 1)) return 1;
 	if(iHouseID == INVALID_HOUSE_ID) return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not in a house");
-	if(sscanf(params, "d", iSlotID)) return SendClientMessageEx(playerid, COLOR_GREY, "Usage: /destroyfurniture [slot].");
+	if(sscanf(params, "d", iSlotID)) return SendSyntaxMessage(playerid, "/destroyfurniture [slot].");
 	if(!IsValidFurniture(iHouseID, iSlotID, 1)) return SendClientMessageEx(playerid, COLOR_GRAD1, "You specified an invalid slot.");
 	DestroyFurniture(iHouseID, iSlotID);
 	return 1;

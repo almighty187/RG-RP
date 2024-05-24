@@ -210,7 +210,7 @@ CMD:travel(playerid, params[])
 	    {
 	        if(isnull(params))
 			{
-				SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /travel [famed, sffamed, trfamed]");
+				SendSyntaxMessage(playerid, "/travel [famed, sffamed, trfamed]");
 				return 1;
 			}
             if(strcmp(params,"famed",true) == 0)
@@ -286,7 +286,7 @@ CMD:travel(playerid, params[])
 		{
 			if(isnull(params))
 			{
-				SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /travel [location]");
+				SendSyntaxMessage(playerid, "/travel [location]");
 				SendClientMessageEx(playerid, COLOR_GRAD1, "Locations: LS, SF, RC, LSVIP, SFVIP, LVVIP, APVIP, FC, BAYSIDE, FLINT");
 				return 1;
 			}
@@ -536,7 +536,7 @@ CMD:v(playerid, params[]) {
 	if(PlayerInfo[playerid][pJailTime] && strfind(PlayerInfo[playerid][pPrisonReason], "[OOC]", true) != -1) return SendClientMessageEx(playerid, COLOR_GREY, "OOC prisoners are restricted to only speak in /b");
 	if(PlayerInfo[playerid][pDonateRank] >= 1 || PlayerInfo[playerid][pAdmin] >= 2 || PlayerInfo[playerid][pVIPMod]) {
 		if(isnull(params)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /v [message]");
+			SendSyntaxMessage(playerid, "/v [message]");
 		}
 		else if(gettime() < GetPVarInt(playerid, "timeVIP")) {
 
@@ -583,7 +583,7 @@ CMD:searchvipm(playerid, params[])
 	        vipm,
 	        string[128];
 
- 		if(sscanf(params, "d", vipm)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /searchvipm [vipm]");
+ 		if(sscanf(params, "d", vipm)) return SendSyntaxMessage(playerid, "/searchvipm [vipm]");
 
   		foreach(new i: Player)
 		{
@@ -631,7 +631,7 @@ CMD:sellvip(playerid, params[]) {
 			viptype[7];
 
 		if(sscanf(params, "ud", player, price)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /sellvip [player] [price]");
+			SendSyntaxMessage(playerid, "/sellvip [player] [price]");
 		}
 		else if(price < 0) {
 			SendErrorMessage(playerid, "The price can't be below zero.");
@@ -679,7 +679,7 @@ CMD:newgvip(playerid, params[])
 			szMessage[128];
 
 		if(sscanf(params, "ud", iTargetID, iOrderID)) {
-		    SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /newgvip [Player] [OrderID]");
+		    SendSyntaxMessage(playerid, "/newgvip [Player] [OrderID]");
 		}
 		else if(!IsPlayerConnected(iTargetID)) {
 		    SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
@@ -740,7 +740,7 @@ CMD:renewgvip(playerid, params[])
 			months;
 
 		if(sscanf(params, "udd", iTargetID, iOrderID, months)) {
-		    SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /renewgvip [player] [order ID] [months]");
+		    SendSyntaxMessage(playerid, "/renewgvip [player] [order ID] [months]");
 		}
 		else if(!IsPlayerConnected(iTargetID)) {
 		    SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
@@ -788,7 +788,7 @@ CMD:setvip(playerid, params[])
 		new string[128], giveplayerid, level, months, orderid[32];
 		if(sscanf(params, "udds[32]", giveplayerid, level, months, orderid))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /setvip [player] [level] [months] [orderID]");
+			SendSyntaxMessage(playerid, "/setvip [player] [level] [months] [orderID]");
 			SendClientMessageEx(playerid, COLOR_GRAD3, "Available Levels: |0| None |1| Bronze |2| Silver |4| Platinum");
 			return 1;
 		}
@@ -936,7 +936,7 @@ CMD:giftgvip(playerid, params[])
 		new string[128], giveplayerid, days,reason[32];
 		if(sscanf(params, "uds[32]", giveplayerid, days, reason))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /giftgvip [player] [days] [reason]");
+			SendSyntaxMessage(playerid, "/giftgvip [player] [days] [reason]");
 			return 1;
 		}
 
@@ -969,7 +969,7 @@ CMD:vsuspend(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 1337)
 	{
 		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /vsuspend [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/vsuspend [player]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -1015,7 +1015,7 @@ CMD:vmute(playerid, params[])
 	if (PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pVIPMod])
 	{
 		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /vmute [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/vmute [player]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -1062,7 +1062,7 @@ CMD:vto(playerid, params[])
 	if (PlayerInfo[playerid][pAdmin] >= 2 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pVIPMod])
 	{
 		new string[128], giveplayerid, reason[64];
-		if(sscanf(params, "us[64]", giveplayerid, reason)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /vto [player] [reason]");
+		if(sscanf(params, "us[64]", giveplayerid, reason)) return SendSyntaxMessage(playerid, "/vto [player] [reason]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -1102,7 +1102,7 @@ CMD:vtoreset(playerid, params[])
 	if (PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pVIPMod])
 	{
 		new string[128], giveplayerid, reason[64];
-		if(sscanf(params, "us[64]", giveplayerid, reason)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /vtoreset [player] [reason]");
+		if(sscanf(params, "us[64]", giveplayerid, reason)) return SendSyntaxMessage(playerid, "/vtoreset [player] [reason]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -1252,7 +1252,7 @@ CMD:vipm(playerid, params[])
 	if(PlayerInfo[playerid][pJailTime] && strfind(PlayerInfo[playerid][pPrisonReason], "[OOC]", true) != -1) return SendClientMessageEx(playerid, COLOR_GREY, "OOC prisoners are restricted to only speak in /b");
 	if(!PlayerInfo[playerid][pVIPMod] && PlayerInfo[playerid][pShopTech] < 3 && PlayerInfo[playerid][pAdmin] < 1338) return SendClientMessageEx(playerid, COLOR_GRAD1, "You're not authorized to use this command!");
 	if(GetPVarInt(playerid, "vStaffChat") == 0) return SendClientMessageEx(playerid, COLOR_GREY, "You have VIP staff chat disabled - /togvipm to enable it.");
-	if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /vipm [text]");
+	if(isnull(params)) return SendSyntaxMessage(playerid, "/vipm [text]");
 	new szMessage[128];
 	if(PlayerInfo[playerid][pVIPMod] == 1) format(szMessage, sizeof(szMessage), "* VIP Moderator %s: %s", GetPlayerNameEx(playerid), params);
 	else if(PlayerInfo[playerid][pVIPMod] == 2) format(szMessage, sizeof(szMessage), "* Senior VIP Moderator %s: %s", GetPlayerNameEx(playerid), params);
@@ -1274,7 +1274,7 @@ CMD:makevipmod(playerid, params[])
 	if(PlayerInfo[playerid][pShopTech] < 3 && PlayerInfo[playerid][pAdmin] < 1337) return SendClientMessageEx(playerid, COLOR_GRAD1, "You're not authorized to use this command!");
 	new target, level;
 	szMiscArray[0] = 0;
-	if(sscanf(params, "ud", target, level)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /makevipmod [player] [level(0-2)])");
+	if(sscanf(params, "ud", target, level)) return SendSyntaxMessage(playerid, "/makevipmod [player] [level(0-2)])");
 	if(!IsPlayerConnected(target)) return SendClientMessageEx(playerid, COLOR_GRAD2, "Invalid player specified.");
 	if(!(0 <= level <= 2)) return SendClientMessageEx(playerid, COLOR_GREY, "Valid levels are 0 - 2");
 	if(PlayerInfo[target][pVIPMod] == level) return SendClientMessageEx(playerid, COLOR_GREY, "This person already has this level.");

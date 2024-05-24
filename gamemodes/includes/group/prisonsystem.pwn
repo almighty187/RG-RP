@@ -839,7 +839,7 @@ CMD:docarrest(playerid, params[])
 			string[256];
 
         new suspect = GetClosestPlayer(playerid);
-  		/*if(sscanf(params, "dddd", moneys, time)) SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /docarrest [fine] [minutes]");
+  		/*if(sscanf(params, "dddd", moneys, time)) SendSyntaxMessage(playerid, "/docarrest [fine] [minutes]");
 		else if(!(1 <= moneys <= 250000)) SendClientMessageEx(playerid, COLOR_GREY, "The jail fine can't be below $1 or above $250,000.");
 		else if(!(1 <= time <= 120)) SendClientMessageEx(playerid, COLOR_GREY, "Jail time can't be below 1 or above 120 minutes - take the person to prison for more time.");*/
 		if(!IsPlayerConnected(suspect)) SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
@@ -900,7 +900,7 @@ CMD:listprisoners(playerid, params[])
 	new szInmates[1024],
 		szString[20],
 		id;
-	if(sscanf(params, "d", id)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /listprisoners [arrestpoint id]");
+	if(sscanf(params, "d", id)) return SendSyntaxMessage(playerid, "/listprisoners [arrestpoint id]");
 	foreach(Player, i)
 	{
 		if((GetPVarInt(i, "ArrestPoint") == id + 1) && PlayerInfo[i][pJailTime] > 0)
@@ -997,7 +997,7 @@ CMD:offerinmatefood(playerid, params[])
 {
 	new iGiveTo,
 		string[92];
-	if(sscanf(params, "u", iGiveTo)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /offerinmatefood [playerid]");
+	if(sscanf(params, "u", iGiveTo)) return SendSyntaxMessage(playerid, "/offerinmatefood [playerid]");
 	else if(iGiveTo == playerid) return SendClientMessageEx(playerid, COLOR_WHITE, "You cannot offer yourself food.");
 	else if(!IsPlayerConnected(iGiveTo)) return SendClientMessageEx(playerid, COLOR_WHITE, "That player is not connected");
 	//else if(GetPVarInt(playerid, "OfferingMeal") == 1) return SendClientMessageEx(playerid, COLOR_WHITE, "You may only offer food to one person at a time.");
@@ -1108,7 +1108,7 @@ CMD:extendsentence(playerid, params[])
 	new iTargetID,
 		iExtended, 
 		string[64];
-	if(sscanf(params, "ud", iTargetID, iExtended)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /extendsentence [playerid] [percentage to extend (1 - 30)]");
+	if(sscanf(params, "ud", iTargetID, iExtended)) return SendSyntaxMessage(playerid, "/extendsentence [playerid] [percentage to extend (1 - 30)]");
 	else if(strfind(PlayerInfo[iTargetID][pPrisonReason], "[IC]", true) == -1)  return SendClientMessageEx(playerid, COLOR_WHITE, "That player is not in IC Jail.");
 	else if(!IsPlayerConnected(iTargetID)) return SendClientMessageEx(playerid, COLOR_WHITE, "ERROR: That player is not connected.");
 	else if(iTargetID == playerid) return SendClientMessageEx(playerid, COLOR_WHITE, "ERROR: You cannot use this command on yourself.");
@@ -1142,7 +1142,7 @@ CMD:reducesentence(playerid, params[])
 	new iTargetID,
 		iReduce,
 		string[64];
-	if(sscanf(params, "ud", iTargetID, iReduce)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /reducesentence [playerid] [percentage to reduce (1 - 30)]");
+	if(sscanf(params, "ud", iTargetID, iReduce)) return SendSyntaxMessage(playerid, "/reducesentence [playerid] [percentage to reduce (1 - 30)]");
 	else if(strfind(PlayerInfo[iTargetID][pPrisonReason], "[IC]", true) == -1)  return SendClientMessageEx(playerid, COLOR_WHITE, "That player is not in IC Jail.");
 	else if(!IsPlayerConnected(iTargetID)) return SendClientMessageEx(playerid, COLOR_WHITE, "ERROR: That player is not connected.");
 	else if(iTargetID == playerid) return SendClientMessageEx(playerid, COLOR_WHITE, "ERROR: You cannot use this command on yourself.");
@@ -1178,7 +1178,7 @@ CMD:isolateinmate(playerid, params[])
 		iCellID,
 		string[128];
 	
-	if(sscanf(params, "ud", iTargetID, iCellID)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /isolateinmate [playerid] [cellid]");
+	if(sscanf(params, "ud", iTargetID, iCellID)) return SendSyntaxMessage(playerid, "/isolateinmate [playerid] [cellid]");
 	else if(iTargetID == playerid) return SendClientMessageEx(playerid, COLOR_WHITE, "ERROR: You cannot use this command on yourself.");
 	else if(!IsPlayerConnected(iTargetID)) return SendClientMessageEx(playerid, COLOR_WHITE, "ERROR: That player is not connected.");
 	else if(strfind(PlayerInfo[iTargetID][pPrisonReason], "[IC]", true) == -1) return SendClientMessageEx(playerid, COLOR_WHITE, "That player is not in IC Jail.");
@@ -1206,7 +1206,7 @@ CMD:unisolateinmate(playerid, params[])
 	new iTargetID,
 		string[128];
 	
-	if(sscanf(params, "u", iTargetID)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /unisolateinmate [playerid]");
+	if(sscanf(params, "u", iTargetID)) return SendSyntaxMessage(playerid, "/unisolateinmate [playerid]");
 	else if(strfind(PlayerInfo[iTargetID][pPrisonReason], "[IC]", true) == -1) return SendClientMessageEx(playerid, COLOR_WHITE, "That player is not in IC Jail");
 	else if(iTargetID == playerid) return SendClientMessageEx(playerid, COLOR_WHITE, "ERROR: You cannot use this command on yourself.");
 	else if(PlayerInfo[iTargetID][pIsolated] == 0) return SendClientMessageEx(playerid, COLOR_WHITE, "That player is not in isolation");
@@ -1275,7 +1275,7 @@ CMD:startbrawl(playerid, params[])
 	new iTargetID, 
 		string[MAX_PLAYER_NAME + 35];
 
-	if(sscanf(params, "u", iTargetID)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /startbrawl [playerid]");
+	if(sscanf(params, "u", iTargetID)) return SendSyntaxMessage(playerid, "/startbrawl [playerid]");
 	else if(strfind(PlayerInfo[playerid][pPrisonReason], "[IC]", true) == -1) return SendClientMessageEx(playerid, COLOR_WHITE, "You must be in IC jail to do this.");
 	else if(!ProxDetectorS(8.0, playerid, iTargetID)) return SendClientMessageEx(playerid, COLOR_WHITE, "You are not in range of that player.");
 	else if(IsPlayerConnected(iTargetID))
@@ -1300,7 +1300,7 @@ CMD:docjudgesubpoena(playerid, params[])
 		szCaseName[128],
 		szString[128];
 	
-	if(sscanf(params, "us[128]", iTargetID, szCaseName)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /docjudgesubpoena [playerid] [case reason]");
+	if(sscanf(params, "us[128]", iTargetID, szCaseName)) return SendSyntaxMessage(playerid, "/docjudgesubpoena [playerid] [case reason]");
 	if(!IsPlayerConnected(playerid)) return SendClientMessageEx(playerid, COLOR_GREY, "ERROR: That player is not connected");
 	if(!IsPlayerInRangeOfPoint(playerid, 15, 525.86, 1427.05, 11001.28)) return SendClientMessageEx(playerid, COLOR_GREY, "You must be at the DOC courthouse to use this");
 	else if(IsAJudge(playerid))
@@ -1325,7 +1325,7 @@ CMD:docjudgecharge(playerid, params[])
 		szCrime[128],
 		szMessage[128];
 		
-	if(sscanf(params, "udds[128]", iTargetID, iTime, iFine, szReason)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /docjudgecharge [playerid] [time] [fine] [reason]");
+	if(sscanf(params, "udds[128]", iTargetID, iTime, iFine, szReason)) return SendSyntaxMessage(playerid, "/docjudgecharge [playerid] [time] [fine] [reason]");
 	if(!IsPlayerInRangeOfPoint(playerid, 15, 525.86, 1427.05, 11001.28)) return SendClientMessageEx(playerid, COLOR_GREY, "You must be at the DOC courthouse to use this");
 	if(!IsPlayerConnected(playerid)) return SendClientMessageEx(playerid, COLOR_GREY, "ERROR: That player is not connected");
 	if(!IsAJudge(playerid)) return SendClientMessageEx(playerid, COLOR_GREY, "You must be a judge to use this command");
@@ -1366,7 +1366,7 @@ CMD:docjudgesentence(playerid, params[])
 	new iSuspect,
 		string[256];
 	
-	if(sscanf(params, "u", iSuspect)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /docjudgesentence [suspect]");
+	if(sscanf(params, "u", iSuspect)) return SendSyntaxMessage(playerid, "/docjudgesentence [suspect]");
 	if(!IsPlayerInRangeOfPoint(playerid, 15, 525.86, 1427.05, 11001.28)) return SendClientMessageEx(playerid, COLOR_GREY, "You must be at the DOC courthouse to use this");
 	if(!IsPlayerConnected(playerid)) return SendClientMessageEx(playerid, COLOR_GREY, "ERROR: That player is not connected");
 	if(!IsAJudge(playerid)) return SendClientMessageEx(playerid, COLOR_GREY, "You must be a judge to use this command");
@@ -1390,7 +1390,7 @@ CMD:docjudgesentence(playerid, params[])
 		JailPhone = GetClosestPrisonPhone(playerid), 
 		string[128];
 	
-	if(sscanf(params, "d", phonenumb)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /jailcall [phone number]");
+	if(sscanf(params, "d", phonenumb)) return SendSyntaxMessage(playerid, "/jailcall [phone number]");
 	if(!IsPlayerInRangeOfJailPhone(playerid)) return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not in range of a prison call phone");
 	if(bJailPhoneUse[JailPhone] == true) return SendClientMessageEx(playerid, COLOR_GREY, "That phone is in use, please find another");
 	if(Mobile[playerid] != INVALID_PLAYER_ID) return SendClientMessageEx(playerid, COLOR_GRAD2, "  You are already on a call...");
@@ -1493,7 +1493,7 @@ CMD:jailcuff(playerid, params[])
 		}
 
 		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /jailcuff [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/jailcuff [player]");
 		if(IsPlayerConnected(giveplayerid))
 		{
 			if (ProxDetectorS(8.0, playerid, giveplayerid))

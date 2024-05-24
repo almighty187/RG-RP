@@ -1267,7 +1267,7 @@ CMD:gangnpc(playerid, params[])
 	{
 		if(sscanf(params, "ii", type, skinid))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /gangnpc [type] [skinid]");
+			SendSyntaxMessage(playerid, "/gangnpc [type] [skinid]");
 			SendClientMessageEx(playerid, COLOR_GREY, "Types: (1) Arms Dealer (2) Drug Dealer");
 			return 1;
 		}
@@ -1311,7 +1311,7 @@ CMD:destroygangnpc(playerid, params[])
 	{
 		if(sscanf(params, "i", type))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /destroygangnpc [type]");
+			SendSyntaxMessage(playerid, "/destroygangnpc [type]");
 			SendClientMessageEx(playerid, COLOR_GREY, "Types: (1) Arms Dealer (2) Drug Dealer");
 			return 1;
 		}
@@ -1362,7 +1362,7 @@ CMD:deletegangnpc(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pGangModerator] >= 2)
 	{
 		if(sscanf(params, "i", type)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /deletegangnpc [type] ");
+			SendSyntaxMessage(playerid, "/deletegangnpc [type] ");
 			SendClientMessageEx(playerid, COLOR_GREY, "Types: (1) Arms Dealer (2) Drug Dealer");
 			return 1;
 		}
@@ -1476,7 +1476,7 @@ CMD:getgangslot(playerid, params[]) {
 	{
 		if(sscanf(params, "s[32]", iGroupName))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /getgangslot [name]");
+			SendSyntaxMessage(playerid, "/getgangslot [name]");
 			SendClientMessageEx(playerid, COLOR_GREY, "You need 5,000,000$ cash in-hand to buy a gang slot.");
 			return 1;
 		}
@@ -1652,7 +1652,7 @@ CMD:creategang(playerid, params[]) {
 		new giveplayerid;
 		if(sscanf(params, "us[32]", giveplayerid, iGroupName))
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /creategang [player] [name]");
+			SendSyntaxMessage(playerid, "/creategang [player] [name]");
 			return 1;
 		}
 	
@@ -1820,7 +1820,7 @@ CMD:makesh(playerid, params[])
 	{
 		new giveplayerid, announce;
 		if(sscanf(params, "ui(0)", giveplayerid, announce)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /makesh [player] [announce(0=no / 1=yes)]");
+			SendSyntaxMessage(playerid, "/makesh [player] [announce(0=no / 1=yes)]");
 		}
 		else {
 			if(IsPlayerConnected(giveplayerid))	{
@@ -1842,7 +1842,7 @@ CMD:takesh(playerid, params[])
 	{
 		new giveplayerid, string[256];
 		if(sscanf(params, "u", giveplayerid)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /takesh [player]");
+			SendSyntaxMessage(playerid, "/takesh [player]");
 		}
 		else {
 			if(IsPlayerConnected(giveplayerid))	{
@@ -1871,7 +1871,7 @@ CMD:takeleader(playerid, params[])
 	{
 		new giveplayerid, string[256];
 		if(sscanf(params, "u", giveplayerid)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /takeleader [player]");
+			SendSyntaxMessage(playerid, "/takeleader [player]");
 		}
 		else {
 			if(!IsPlayerConnected(giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
@@ -1891,7 +1891,7 @@ CMD:takeleader(playerid, params[])
 	{
 		new takingleader, string[128];
 		if(sscanf(params, "u", takingleader)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /takeleader [player]");
+			SendSyntaxMessage(playerid, "/takeleader [player]");
 		}
 		else {
 			if(!IsPlayerConnected(takingleader)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");

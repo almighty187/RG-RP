@@ -139,7 +139,7 @@ Medic_GetPatient(playerid, params[]) {
 	if(IsAMedic(playerid) || IsFirstAid(playerid))
 	{
 		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /getpt(patient) [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/getpt(patient) [player]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -252,7 +252,7 @@ CMD:loadpt(playerid, params[])
         }
 
         new string[128], giveplayerid, seat;
-        if(sscanf(params, "ud", giveplayerid, seat)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /loadpt [player] [seatid]");
+        if(sscanf(params, "ud", giveplayerid, seat)) return SendSyntaxMessage(playerid, "/loadpt [player] [seatid]");
 
         if(IsPlayerConnected(giveplayerid))
 		{
@@ -336,7 +336,7 @@ CMD:triage(playerid, params[])
 	    }
 
 	    new string[128], giveplayerid;
-	    if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /triage [player]");
+	    if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/triage [player]");
 
    		if(IsPlayerConnected(giveplayerid))
    		{
@@ -363,7 +363,7 @@ CMD:triage(playerid, params[])
 CMD:heal(playerid, params[])
 {
 	new giveplayerid, price = 1000;
-	if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /heal [player]");
+	if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/heal [player]");
 
 	if (giveplayerid == playerid)
 	{
@@ -435,7 +435,7 @@ CMD:movept(playerid, params[])
 	if(IsAMedic(playerid) || IsFirstAid(playerid))
 	{
 		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /movepatient [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/movepatient [player]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -484,7 +484,7 @@ CMD:deliverpt(playerid, params[])
         if(IsPlayerInAnyVehicle(playerid))
 		{
 			new string[128], giveplayerid;
-		    if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /deliverpt [player]");
+		    if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/deliverpt [player]");
 
             new carid = GetPlayerVehicleID(playerid);
             new caridex = GetPlayerVehicleID(giveplayerid);

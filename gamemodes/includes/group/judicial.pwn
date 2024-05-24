@@ -183,7 +183,7 @@ CMD:present(playerid, params[])
   	if(IsAJudge(playerid))
 	{
 		new giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /present [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/present [player]");
 		if(IsPlayerConnected(giveplayerid))
 		{
 			if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_GRAD1, "You can't use this command on yourself!");
@@ -265,7 +265,7 @@ CMD:freezeassets(playerid, params[])
   	if(!IsAJudge(playerid)) return SendClientMessageEx(playerid, COLOR_GREY, "You are not part of the Judicial System!");
 	if(PlayerInfo[playerid][pRank] < 4) return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command - only rank 4+ can do this.");
 	new giveplayerid, houseorcar[8];
-	if(sscanf(params, "us[8]", giveplayerid, houseorcar)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /freezeassets [player] [house/car/bank]");
+	if(sscanf(params, "us[8]", giveplayerid, houseorcar)) return SendSyntaxMessage(playerid, "/freezeassets [player] [house/car/bank]");
 	if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_GRAD1, "You can't use this command on yourself!");
 	if(!IsPlayerConnected(giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
 	new string[128],
@@ -360,7 +360,7 @@ CMD:freezeassets(playerid, params[])
 	}
 	else
 	{
-	    return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /freezeassets [player] [house/car/bank]");
+	    return SendSyntaxMessage(playerid, "/freezeassets [player] [house/car/bank]");
 	}
 	GroupLogEx(PlayerInfo[playerid][pMember], szMiscArray, 1);
 	return 1;
@@ -376,7 +376,7 @@ CMD:reward(playerid, params[])
 		giveplayerid,
 		money;
 
-	if(sscanf(params, "ud", giveplayerid, money)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /reward [player] [money(max of $50,000)]");
+	if(sscanf(params, "ud", giveplayerid, money)) return SendSyntaxMessage(playerid, "/reward [player] [money(max of $50,000)]");
 	if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_GRAD1, "You can't use this command on yourself!");
 	if(IsPlayerConnected(giveplayerid))
 	{
@@ -410,7 +410,7 @@ CMD:reversejudgement(playerid, params[])
 	new
 		giveplayerid; // For future reference - sscanf plugin is 3 times as fast as ReturnUser, even when used on only one argument
 
-	if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /reversejudgement [player]");
+	if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/reversejudgement [player]");
 	if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_GRAD1, "You can't use this command on yourself!");
 	if(IsPlayerConnected(giveplayerid))
 	{
@@ -449,7 +449,7 @@ CMD:pardon(playerid, params[])
 		new
 			giveplayerid;
 
-        if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /pardon [player]");
+        if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/pardon [player]");
 		if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_GRAD1, "You can't use this command on yourself!");
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -586,7 +586,7 @@ CMD:deliver(playerid, params[])
 		return 1;
 	}
 	new giveplayerid;
-	if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /deliver [player]");
+	if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/deliver [player]");
 	if(PlayerInfo[playerid][pRank] < 1)
 	{
 		SendClientMessageEx(playerid, COLOR_WHITE, "You must be at least rank 1.");
@@ -653,7 +653,7 @@ CMD:warrant(playerid, params[])
 	}
 
 	new string[128], crime[64], giveplayerid;
-	if(sscanf(params, "us[64]", giveplayerid, crime)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /warrant [player] [crime]");
+	if(sscanf(params, "us[64]", giveplayerid, crime)) return SendSyntaxMessage(playerid, "/warrant [player] [crime]");
 
 	if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_GRAD1, "You can't place warrants on yourself!");
 	if(IsPlayerConnected(giveplayerid))
@@ -686,7 +686,7 @@ CMD:warrantwd(playerid, params[])
   	}
 
   	new string[128], giveplayerid;
-  	if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /warrantwd [player]");
+  	if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/warrantwd [player]");
 
 	if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_GRAD1, "You can't remove warrants on yourself!");
 	if(IsPlayerConnected(giveplayerid))
@@ -780,7 +780,7 @@ CMD:adjourn(playerid, params[])
 
     if(!IsAJudge(playerid)) return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not part of the Judicial System!");
 	if(PlayerInfo[playerid][pRank] < 3) return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command - only rank 3+ can do this.");
-	if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /adjourn [player]");
+	if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/adjourn [player]");
 	if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_GRAD1, "You can't use this command on yourself!");
 	if(IsPlayerConnected(giveplayerid))
 	{
@@ -812,7 +812,7 @@ CMD:sentence(playerid, params[]) {
 		SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command - only rank 3+ can do this.");
 	}
 	else if(sscanf(params, "u", giveplayerid)) {
-		SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /sentence [player]");
+		SendSyntaxMessage(playerid, "/sentence [player]");
 	}
 	else if(IsPlayerConnected(giveplayerid)) {
 		if(giveplayerid == playerid) {
@@ -847,7 +847,7 @@ CMD:trial(playerid, params[])
 
     if(!IsAJudge(playerid)) return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not part of the Judicial System!");
 	if(PlayerInfo[playerid][pRank] < 3) return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command - only rank 3+ can do this.");
-	if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /trial [player]");
+	if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/trial [player]");
 	if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_GRAD1, "You can't use this command on yourself!");
 	if(IsPlayerConnected(giveplayerid))
 	{
@@ -870,7 +870,7 @@ CMD:subpoena(playerid, params[])
 
     if(!IsAJudge(playerid)) return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not part of the Judicial System!");
 	if(PlayerInfo[playerid][pRank] < 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command - only rank 1+ can do this.");
-	if(sscanf(params, "us[32]s[64]", giveplayerid, dates, message)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /subpoena [player] [date] [message]");
+	if(sscanf(params, "us[32]s[64]", giveplayerid, dates, message)) return SendSyntaxMessage(playerid, "/subpoena [player] [date] [message]");
 	if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_GRAD1, "You can't use this command on yourself!");
 	if(IsPlayerConnected(giveplayerid))
 	{
@@ -898,7 +898,7 @@ CMD:judgejail(playerid, params[])
 	}
 
 	new string[128], giveplayerid, jailtime, reason[64];
-	if(sscanf(params, "uds[64]", giveplayerid, jailtime, reason)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /judgejail [player] [time (minutes)] [reason]");
+	if(sscanf(params, "uds[64]", giveplayerid, jailtime, reason)) return SendSyntaxMessage(playerid, "/judgejail [player] [time (minutes)] [reason]");
 
 	if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_GRAD1, "You can't use this command on yourself!");
 	if(IsPlayerConnected(giveplayerid))
@@ -953,7 +953,7 @@ CMD:judgeprison(playerid, params[])
 	}
 
 	new string[128], giveplayerid, jailtime, reason[64];
-	if(sscanf(params, "uds[64]", giveplayerid, jailtime, reason)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /judgeprison [player] [time (mins)] [reason]");
+	if(sscanf(params, "uds[64]", giveplayerid, jailtime, reason)) return SendSyntaxMessage(playerid, "/judgeprison [player] [time (mins)] [reason]");
 
 	if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_GRAD1, "You can't use this command on yourself!");
 	if(IsPlayerConnected(giveplayerid))
@@ -1001,7 +1001,7 @@ CMD:judgefine(playerid, params[])
 
 	new giveplayerid, judgefine, reason[64], totalwealth;
 
-	if(sscanf(params, "uds[64]", giveplayerid, judgefine, reason)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /judgefine [player] [amount] [reason]");
+	if(sscanf(params, "uds[64]", giveplayerid, judgefine, reason)) return SendSyntaxMessage(playerid, "/judgefine [player] [amount] [reason]");
 	if(!IsPlayerConnected(giveplayerid)) return SendClientMessageEx(playerid, COLOR_GRAD2, "Invalid player specified.");
 	totalwealth = PlayerInfo[giveplayerid][pCash] + PlayerInfo[giveplayerid][pAccount];
 	if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_GRAD1, "You can't use this command on yourself!");
@@ -1029,7 +1029,7 @@ CMD:probation(playerid, params[])
     }
 
 	new string[128], giveplayerid, probtime, reason[64];
-	if(sscanf(params, "uds[64]", giveplayerid, probtime, reason)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /probation [player] [time 1-360 Minutes] [reason and terms]");
+	if(sscanf(params, "uds[64]", giveplayerid, probtime, reason)) return SendSyntaxMessage(playerid, "/probation [player] [time 1-360 Minutes] [reason and terms]");
 
     if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_GRAD1, "You can't use this command on yourself!");
     if(IsPlayerConnected(giveplayerid))
@@ -1052,7 +1052,7 @@ CMD:viewassets(playerid, params[])
 	
 	new giveplayerid;
 
-	if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /viewassets [player]");
+	if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/viewassets [player]");
 	if(!IsPlayerConnected(giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
 	
 	format(szMiscArray, sizeof(szMiscArray), "%s's assets | Vehicle Status: %d - House Status: %d - Bank Account Status: %d", GetPlayerNameEx(giveplayerid), PlayerInfo[giveplayerid][pFreezeCar], PlayerInfo[giveplayerid][pFreezeHouse], PlayerInfo[giveplayerid][pFreezeBank]);
@@ -1069,7 +1069,7 @@ CMD:alimony(playerid, params[]) {
 	if(PlayerInfo[playerid][pRank] < 3) 
   		return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not authorized to use that command - only rank 3+ can do this.");
   	new charged, recieved, amount;
-  	if(sscanf(params, "iii", charged, amount, recieved)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /alimony [charging id] [percentage] [reciever id]");
+  	if(sscanf(params, "iii", charged, amount, recieved)) return SendSyntaxMessage(playerid, "/alimony [charging id] [percentage] [reciever id]");
   	if(charged == playerid || recieved == playerid) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot use this command on yourself!");
   	
   	new totalwealth = PlayerInfo[charged][pAccount] + GetPlayerCash(charged),

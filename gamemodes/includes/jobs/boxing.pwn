@@ -3,7 +3,7 @@
 	if(PlayerInfo[playerid][pAdmin] >= 4)
 	{
 		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /setchamp [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/setchamp [player]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -116,7 +116,7 @@ CMD:fight(playerid, params[])
 	}
 
 	new string[128], giveplayerid;
-	if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /fight [player]");
+	if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/fight [player]");
 
 	if(IsPlayerConnected(giveplayerid))
 	{

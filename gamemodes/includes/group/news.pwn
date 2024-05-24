@@ -80,7 +80,7 @@ CMD:liveban(playerid, params[])
 	    new giveplayerid,
 	        string[128];
 
-	    if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /liveban [player]");
+	    if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/liveban [player]");
 		if(!IsPlayerConnected(giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "That player is not connected.");
 	    if(PlayerInfo[giveplayerid][pLiveBanned] == 0)
 	    {
@@ -101,7 +101,7 @@ CMD:liveunban(playerid, params[])
 		
 	if(IsAReporter(playerid) && PlayerInfo[playerid][pRank] >= 7)
 	{
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /liveban [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/liveban [player]");
 		if(!IsPlayerConnected(giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "That player is not connected.");
 		if(PlayerInfo[giveplayerid][pLiveBanned] == 1)
 		{
@@ -136,7 +136,7 @@ CMD:live(playerid, params[])
 		}
 
 		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /live [player]");
+		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/live [player]");
 
 		if (IsPlayerConnected(giveplayerid))
 		{

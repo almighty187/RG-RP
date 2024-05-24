@@ -404,7 +404,7 @@ CMD:givehit(playerid, params[])
 	{
 
 		new string[128], giveplayerid, targetid;
-		if(sscanf(params, "uu", giveplayerid, targetid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /givehit [player] [targetid]");
+		if(sscanf(params, "uu", giveplayerid, targetid)) return SendSyntaxMessage(playerid, "/givehit [player] [targetid]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
@@ -481,7 +481,7 @@ CMD:profile(playerid, params[])
     if(IsAHitman(playerid))
     {
         new string[600], giveplayerid, employer[GROUP_MAX_NAME_LEN], rank[GROUP_MAX_RANK_LEN], division[GROUP_MAX_DIV_LEN];
-        if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /profile [player]");
+        if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/profile [player]");
 
         if(IsPlayerConnected(giveplayerid))
         {
@@ -1689,7 +1689,7 @@ CMD:setmylevel(playerid, params[])
 {
     if (!IsAHitman(playerid)) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use this command.");
     new level;
-    if(sscanf(params, "d", level)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /setmylevel [level]");
+    if(sscanf(params, "d", level)) return SendSyntaxMessage(playerid, "/setmylevel [level]");
     if(PlayerInfo[playerid][pLevel] < level)  return SendClientMessageEx(playerid, COLOR_GREY, "The new level can't be greater than your current level.");
     if(level < 1 || level > 80) return SendClientMessage(playerid, COLOR_GREY, "The new level cannot be below 1 or above 80.");
     DeletePVar(playerid, "TempLevel");
@@ -1704,7 +1704,7 @@ CMD:givemehit(playerid, params[])
     if (IsAHitman(playerid))
     {
         new string[128], targetid;
-        if(sscanf(params, "u", targetid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /givemehit [targetid]");
+        if(sscanf(params, "u", targetid)) return SendSyntaxMessage(playerid, "/givemehit [targetid]");
 
         if(IsPlayerConnected(targetid))
         {
@@ -1743,7 +1743,7 @@ CMD:deletehit(playerid, params[])
     if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || IsAHitmanLeader(playerid))
     {
         new string[128], giveplayerid;
-        if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /deletehit [player]");
+        if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/deletehit [player]");
 
         if(!IsPlayerConnected(giveplayerid))
         {
@@ -1784,7 +1784,7 @@ CMD:contract(playerid, params[])
 
     new string[128], giveplayerid, moneys, detail[32];
     if(sscanf(params, "uds[32]", giveplayerid, moneys, detail))
-        return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /contract [player] [amount] [details]");
+        return SendSyntaxMessage(playerid, "/contract [player] [amount] [details]");
 
     if (IsPlayerConnected(giveplayerid) && giveplayerid != INVALID_PLAYER_ID)
     {

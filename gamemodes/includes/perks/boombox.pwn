@@ -20,7 +20,7 @@ CMD:shopboombox(playerid, params[])
 	}
 
 	new giveplayerid, invoice;
-	if(sscanf(params, "ui", giveplayerid, invoice)) return SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /shopboombox [player] [invoice #]");
+	if(sscanf(params, "ui", giveplayerid, invoice)) return SendSyntaxMessage(playerid, "/shopboombox [player] [invoice #]");
 	new string[128];
 
 	if(PlayerInfo[giveplayerid][pBoombox] == 1)

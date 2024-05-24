@@ -286,7 +286,7 @@ CMD:dpplate(playerid, params[])
 	if(IsPlayerConnected(playerid))
 	{
 	    if(isnull(params))
-	        return SendClientMessageEx(playerid, COLOR_GREY, "Usage: /dpplate [dp/superdp/remove]");
+	        return SendSyntaxMessage(playerid, "/dpplate [dp/superdp/remove]");
 
 		inpveh = false;
 	    for(new d = 0 ; d < MAX_PLAYERVEHICLES; d++)
@@ -322,7 +322,7 @@ CMD:dpplate(playerid, params[])
 	            }
 	            else
 	            {
-	                SendClientMessageEx(playerid, COLOR_GREY, "Usage: /dpplate [dp/superdp/remove]");
+	                SendSyntaxMessage(playerid, "/dpplate [dp/superdp/remove]");
 	            }
 			}
 		}

@@ -51,7 +51,7 @@ CMD:find(playerid, params[]) {
 			iTargetID;
 
 		if(sscanf(params, "u", iTargetID)) {
-			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /find [player]");
+			SendSyntaxMessage(playerid, "/find [player]");
 		}
 		else if(iTargetID == playerid) {
 			SendClientMessageEx(playerid, COLOR_GREY, "You can't use this command on yourself.");

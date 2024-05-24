@@ -414,7 +414,7 @@ CMD:selltreasure(playerid, params[])
 	new choice[32], amount;
     if(sscanf(params, "s[32]d", choice, amount))
 	{
-	    SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /selltreasure [name] [amount]");
+	    SendSyntaxMessage(playerid, "/selltreasure [name] [amount]");
 		SendClientMessageEx(playerid, COLOR_GREY, "Available names: junkmetal ($150), newcoin ($50), oldcoin ($100), brokenwatch ($5), oldkey ($20), goldwatch ($50000)");
 		SendClientMessageEx(playerid, COLOR_GREY, "Available names: goldnugget ($100000), silvernugget ($25000), treasurechest ($1000000)");
 		return 1;
