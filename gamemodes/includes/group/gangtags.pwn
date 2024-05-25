@@ -123,29 +123,30 @@ GangTag_Load()
 forward GangTag_OnLoad();
 public GangTag_OnLoad()
 {
-	new iRows;
-	cache_get_row_count(iRows);
-	if(!iRows) return print("[Gang Tags] There are no gang tags in the database.");
-	new idx,
-		szResult[MAX_GANGTAGS_LEN],
-		value,
-		Float:fValue,Float:fx,Float:fy,Float:fz,Float:frx,Float:fry,Float:frz,frfont,frcolor,textgg[1024];
-	for(idx = 0; idx < iRows; ++idx) {
-		cache_get_value_name(idx, "text", textgg);
-	       cache_get_value_name_float(idx, "x", fx);
-			cache_get_value_name_float(idx, "y", fy);
-			cache_get_value_name_float(idx, "z", fz);
-			cache_get_value_name_float(idx, "rx", frx);
-			cache_get_value_name_float(idx, "ry", fry);
-			cache_get_value_name_float(idx, "rz", frz);
-			cache_get_value_name_int(idx, "fontid", frfont);
-			cache_get_value_name_int(idx, "color", frcolor);
+    new iRows;
+    cache_get_row_count(iRows);
+    if (!iRows) return print("[Gang Tags] There are no gang tags in the database.");
 
-		GangTag_AdmProcess(idx,fx,fy,fz,frx,fry,frz,textgg,frfont,frcolor);
-	}
-	printf("[Gang Tags] Loaded %d gang tags.", idx);
-	return 1;
+    new idx,
+        Float:fx, Float:fy, Float:fz, Float:frx, Float:fry, Float:frz, frfont, frcolor, textgg[1024];
+
+    for (idx = 0; idx < iRows; ++idx) {
+        cache_get_value_name(idx, "text", textgg);
+        cache_get_value_name_float(idx, "x", fx);
+        cache_get_value_name_float(idx, "y", fy);
+        cache_get_value_name_float(idx, "z", fz);
+        cache_get_value_name_float(idx, "rx", frx);
+        cache_get_value_name_float(idx, "ry", fry);
+        cache_get_value_name_float(idx, "rz", frz);
+        cache_get_value_name_int(idx, "fontid", frfont);
+        cache_get_value_name_int(idx, "color", frcolor);
+
+        GangTag_AdmProcess(idx, fx, fy, fz, frx, fry, frz, textgg, frfont, frcolor);
+    }
+    printf("[Gang Tags] Loaded %d gang tags.", idx);
+    return 1;
 }
+
 
 GangTag_Create(iPlayerID)
 {
@@ -285,7 +286,7 @@ public OnGetGangTags(iPlayerID)
 			i,
 			szResult[MAX_GANGTAGS_LEN];
 
-  	for(idx = 0; idx < iRows; ++idx) {
+		for(idx = 0; idx < iRows; ++idx) {
 			cache_get_value_name(idx,  "text", szResult);
 			cache_get_value_name_int(idx, "gangid", i);
 			format(szMiscArray, sizeof(szMiscArray), "%s(%d) %s (%d)\t%s\n", szMiscArray, idx, arrGroupData[i][g_szGroupName], i, szResult);
