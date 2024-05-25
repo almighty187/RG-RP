@@ -23,6 +23,6 @@ CMD:points(playerid, params[])
 			}
 		}
 	}
-	ShowPlayerDialogEx(playerid, 0, DIALOG_STYLE_MSGBOX, "\\c{C93CCE}Points List", szMiscArray, "Close", "");
+	ShowPlayerDialogEx(playerid, 0, DIALOG_STYLE_MSGBOX, "{C93CCE}Points List", szMiscArray, "Close", "");
 	return 1;
 }
