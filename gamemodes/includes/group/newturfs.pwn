@@ -151,7 +151,7 @@ CMD:turfs(playerid, params[])
 			}
 		}
 	}
-    ShowPlayerDialogEx(playerid, DIALOG_TURFLIST, DIALOG_STYLE_MSGBOX, "\\cTurfs List", tsstring1, "Next", "Cancel");
+    ShowPlayerDialogEx(playerid, DIALOG_TURFLIST, DIALOG_STYLE_MSGBOX, "Turfs List", tsstring1, "Next", "Cancel");
 	return 1;
 }
 
@@ -626,7 +626,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				}
 				else
 				{
-				    ShowPlayerDialogEx(playerid, DIALOG_TURFLIST2, DIALOG_STYLE_MSGBOX, "\\cTurfs List", tsstring2, "Previous", "Cancel");
+				    ShowPlayerDialogEx(playerid, DIALOG_TURFLIST2, DIALOG_STYLE_MSGBOX, "Turfs List", tsstring2, "Previous", "Cancel");
 				}
 			}
 		}
@@ -635,7 +635,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		    if(response)
 		    {
 				//SendClientMessageEx(playerid, COLOR_GREY, "Please use /turfs to enable turf bounds");
-				ShowPlayerDialogEx(playerid, DIALOG_TURFLIST, DIALOG_STYLE_MSGBOX, "\\cTurfs List", tsstring1, "Next", "Cancel");
+				ShowPlayerDialogEx(playerid, DIALOG_TURFLIST, DIALOG_STYLE_MSGBOX, "Turfs List", tsstring1, "Next", "Cancel");
 			}
 		}
 		case TWADMINMENU: // Turf Wars System

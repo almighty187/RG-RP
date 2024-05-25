@@ -7,6 +7,7 @@ hook OnGameModeInit() {
 	// General
 	CreateDynamic3DTextLabel("Paintball Rooms\n\nType /joinarena to choose rooms",COLOR_TWGREEN,1294.5062,-1445.0599,0.4403+0.5,6.0); // Paintball Arena
 	CreateDynamic3DTextLabel("Name Change Point \nType /changename to change your name",COLOR_TWGREEN,1154.7295,-1440.2323,15.7969+0.6,18.0); // Namechange at mall
+	CreateDynamic3DTextLabel("Press F to access to the DOC control panel", COLOR_TWGREEN, 569.0477, 1448.6146, 6000.475+10.6,4.0) // DOC Interior Control Panel
 
 	// VIP Dedicated Famed aka perk related
     CreateDynamic3DTextLabel("To change your number type /vipnum",COLOR_TWGREEN,2549.548095, 1404.047729, 7699.584472+0.6,4.0); // LS VIP Lounge
