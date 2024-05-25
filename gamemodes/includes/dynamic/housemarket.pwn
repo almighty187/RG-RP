@@ -153,8 +153,8 @@ CMD:dli(playerid, params[]) return cmd_denylisting(playerid, params);
 CMD:houselistinghelp(playerid, params[])
 {
 	SendClientMessageEx(playerid, COLOR_WHITE, "** HOUSE LISTING COMMANDS **");
-	SendClientMessageEx(playerid, COLOR_GREY, "� /listhouse - Allows you to place a house listing ($500,000).");
-	SendClientMessageEx(playerid, COLOR_GREY, "� /renewlisting - Allows you to renew an active house listing ($100,000).");
+	SendClientMessageEx(playerid, COLOR_GREY, "� /listhouse - Allows you to place a house listing ($15,000).");
+	SendClientMessageEx(playerid, COLOR_GREY, "� /renewlisting - Allows you to renew an active house listing ($5,000).");
 	SendClientMessageEx(playerid, COLOR_GREY, "� /listingdate - Allows you to view the date your house listing will expire on.");
 	SendClientMessageEx(playerid, COLOR_GREY, "� /deletelisting - Allows you to delete a house listing you placed previously.");
 	SendClientMessageEx(playerid, COLOR_GREY, "� /houselistings - Allows you to view a list of active house listings.");
@@ -172,7 +172,7 @@ CMD:houselistinghelp(playerid, params[])
 
 CMD:denylisting(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use that CMD");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	new houseid, reason[64], string[128];
 	if(sscanf(params, "ds[64]", houseid, reason)) return SendSyntaxMessage(playerid, "/denylisting [House ID] [Reason]");
 	if(houseid < 1 || houseid >= MAX_HOUSES)
@@ -181,9 +181,9 @@ CMD:denylisting(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_GREY, szMiscArray);
 		return 1;
 	}
-	if(strlen(reason) < 3 || strlen(reason) > 60) return SendClientMessageEx(playerid, COLOR_GREY, "The specified reason cannot be under 3 characters or over 60 characters.");
-	if(HouseInfo[houseid][hOwned] == 0) return SendClientMessageEx(playerid, COLOR_GREY, "The specified house is not currently owned.");
-	if(HouseInfo[houseid][Listed] == 0 || HouseInfo[houseid][PendingApproval] == 0) return SendClientMessageEx(playerid, COLOR_GREY, "The specified house is not currently pending approval to be listed.");
+	if(strlen(reason) < 3 || strlen(reason) > 60) return SendErrorMessage(playerid,"The specified reason cannot be under 3 characters or over 60 characters.");
+	if(HouseInfo[houseid][hOwned] == 0) return SendErrorMessage(playerid, "The specified house is not currently owned.");
+	if(HouseInfo[houseid][Listed] == 0 || HouseInfo[houseid][PendingApproval] == 0) return SendErrorMessage(playerid, "The specified house is not currently pending approval to be listed.");
 	ClearHouseSaleVariables(houseid);
 	format(string, sizeof(string), "You have denied house ID %d's house listing request (owner: %s), reason: %s.", houseid, StripUnderscore(HouseInfo[houseid][hOwnerName]), reason);
 	SendClientMessageEx(playerid, COLOR_YELLOW, string);
@@ -205,7 +205,7 @@ CMD:denylisting(playerid, params[])
 
 CMD:approvelisting(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use that CMD");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	new houseid, seller, string[128];
 	if(sscanf(params, "d", houseid)) return SendSyntaxMessage(playerid, "/approvelisting [House ID]");
 	if(houseid < 1 || houseid >= MAX_HOUSES)
@@ -214,8 +214,8 @@ CMD:approvelisting(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_GREY, szMiscArray);
 		return 1;
 	}
-	if(HouseInfo[houseid][hOwned] == 0) return SendClientMessageEx(playerid, COLOR_GREY, "The specified house is not currently owned.");
-	if(HouseInfo[houseid][Listed] == 0 || HouseInfo[houseid][PendingApproval] == 0) return SendClientMessageEx(playerid, COLOR_GREY, "The specified house is not currently pending approval to be listed.");
+	if(HouseInfo[houseid][hOwned] == 0) return SendErrorMessage(playerid, "The specified house is not currently owned.");
+	if(HouseInfo[houseid][Listed] == 0 || HouseInfo[houseid][PendingApproval] == 0) return SendErrorMessage(playerid, "The specified house is not currently pending approval to be listed.");
 	seller = INVALID_PLAYER_ID;
 	foreach(new i: Player) 
 	{
@@ -238,10 +238,10 @@ CMD:approvelisting(playerid, params[])
 		}
 		default:
 		{
-			if(GetPlayerCash(seller) < 500000)
+			if(GetPlayerCash(seller) < 15000)
 			{
 				ClearHouseSaleVariables(houseid);
-				SendClientMessageEx(seller, COLOR_GREY, "Your house listing has been approved by an administrator, however you no longer have $500,000.");
+				SendClientMessageEx(seller, COLOR_GREY, "Your house listing has been approved by an administrator, however you no longer have $15,000.");
 				SendClientMessageEx(seller, COLOR_GREY, "Your house listing has not been placed on the market as you could not afford the initial posting fee.");
 				PlayerInfo[playerid][pAcceptReport] ++;
 				ReportCount[playerid] ++;
@@ -253,13 +253,13 @@ CMD:approvelisting(playerid, params[])
 				Log("logs/admin.log", string);
 				return 1;
 			}
-			else if(GetPlayerCash(seller) >= 500000)
+			else if(GetPlayerCash(seller) >= 15000)
 			{
-				GivePlayerCashEx(seller, TYPE_ONHAND, -500000);
+				GivePlayerCashEx(seller, TYPE_ONHAND, -15000);
 				HouseInfo[houseid][PendingApproval] = 0;
 				HouseInfo[houseid][ListedTimeStamp] = gettime() + 259200;
 				SaveHouse(houseid);
-				SendClientMessageEx(seller, COLOR_GREEN, "Your house listing has been approved by an administrator, you have been charged $500,000.");
+				SendClientMessageEx(seller, COLOR_GREEN, "Your house listing has been approved by an administrator, you have been charged $15,000.");
 				PlayerInfo[playerid][pAcceptReport] ++;
 				ReportCount[playerid] ++;
 				ReportHourCount[playerid] ++;
@@ -278,7 +278,7 @@ CMD:approvelisting(playerid, params[])
 
 CMD:adeletelisting(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use that CMD");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	new houseid, string[128];
 	if(sscanf(params, "d", houseid)) return SendSyntaxMessage(playerid, "/adeletelisting [House ID]");
 	if(houseid < 1 || houseid >= MAX_HOUSES)
@@ -287,8 +287,8 @@ CMD:adeletelisting(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_GREY, szMiscArray);
 		return 1;
 	}
-	if(HouseInfo[houseid][hOwned] == 0) return SendClientMessageEx(playerid, COLOR_GREY, "The specified house is not currently owned.");
-	if(HouseInfo[houseid][Listed] == 0 || HouseInfo[houseid][PendingApproval] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "The specified house is not currently listed.");
+	if(HouseInfo[houseid][hOwned] == 0) return SendErrorMessage(playerid, "The specified house is not currently owned.");
+	if(HouseInfo[houseid][Listed] == 0 || HouseInfo[houseid][PendingApproval] == 1) return SendErrorMessage(playerid, "The specified house is not currently listed.");
 	ClearHouseSaleVariables(houseid);
 	format(string, sizeof(string), "You have deleted house ID %d's listing (owner: %s).", houseid, StripUnderscore(HouseInfo[houseid][hOwnerName]));
 	SendClientMessageEx(playerid, COLOR_YELLOW, string);
@@ -300,7 +300,7 @@ CMD:adeletelisting(playerid, params[])
 
 CMD:listingdetails(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use that CMD");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	new houseid;
 	if(sscanf(params, "d", houseid)) return SendSyntaxMessage(playerid, "/listingdetails [House ID]");
 	szMiscArray[0] = 0;
@@ -310,15 +310,15 @@ CMD:listingdetails(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_GREY, szMiscArray);
 		return 1;
 	}
-	if(HouseInfo[houseid][hOwned] == 0) return SendClientMessageEx(playerid, COLOR_GREY, "The specified house is not currently owned.");
-	if(HouseInfo[houseid][Listed] == 0 || HouseInfo[houseid][PendingApproval] == 0) return SendClientMessageEx(playerid, COLOR_GREY, "The specified house is not currently pending approval to be listed.");
+	if(HouseInfo[houseid][hOwned] == 0) return SendErrorMessage(playerid, "The specified house is not currently owned.");
+	if(HouseInfo[houseid][Listed] == 0 || HouseInfo[houseid][PendingApproval] == 0) return SendErrorMessage(playerid, "The specified house is not currently pending approval to be listed.");
 	ShowListingInformation(playerid, houseid, DIALOG_LISTINGINFORMATION);
 	return 1;
 }
 
 CMD:pendinglistings(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use that CMD");
+	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	new count, string[64];
 	SendClientMessageEx(playerid, COLOR_WHITE, "** HOUSE LISTINGS PENDING APPROVAL: **");
 	for(new i = 0; i < sizeof(HouseInfo); i ++)
@@ -330,24 +330,24 @@ CMD:pendinglistings(playerid, params[])
 			count ++;
 		}
 	}
-	if(count == 0) return SendClientMessageEx(playerid, COLOR_GREY, "There are not currently any house listings pending approval.");
+	if(count == 0) return SendErrorMessage(playerid, "There are not currently any house listings pending approval.");
 	return 1;
 }
 
 CMD:listhouse(playerid, params[])
 {
-	if(gPlayerLogged{playerid} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "You're not logged in.");
-	if(PlayerInfo[playerid][pADMute] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are muted from advertisements.");
-	if(GetPVarType(playerid, "Injured")) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while injured.");
-	if(PlayerCuffed[playerid] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings right now.");
-	if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while in jail.");
-	if(PlayerInfo[playerid][pLevel] < 3) return SendClientMessageEx(playerid, COLOR_GREY, "You must be at least level 3 to access house listings.");
-	if(GetPlayerCash(playerid) < 500000) return SendClientMessageEx(playerid, COLOR_GREY, "You must have at least $500,000 to place a house listing.");
+	if(gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You're not logged in.");
+	if(PlayerInfo[playerid][pADMute] == 1) return SendErrorMessage(playerid, "You are muted from advertisements.");
+	if(GetPVarType(playerid, "Injured")) return SendErrorMessage(playerid, "You can't use house listings while injured.");
+	if(PlayerCuffed[playerid] != 0) return SendErrorMessage(playerid, "You can't use house listings while cuffed.");
+	if(PlayerInfo[playerid][pJailTime] > 0) return SendErrorMessage(playerid, "You can't use house listings while in jail.");
+	if(PlayerInfo[playerid][pLevel] < 3) return SendErrorMessage(playerid, "You must be at least level 3 to access house listings.");
+	if(GetPlayerCash(playerid) < 15000) return SendErrorMessage(playerid, "You must have at least $15,000 to place a house listing.");
 	new houseid;
-	if(servernumber == 2) return SendClientMessage(playerid, COLOR_WHITE, "This command is disabled!");
+	if(servernumber == 2) return SendErrorMessage(playerid, "This command is disabled!");
 	houseid = GetNearestOwnedHouse(playerid);
-	if(houseid == -1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not near a house that you own.");
-	if(HouseInfo[houseid][Listed] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "This house is already listed on the house market.");
+	if(houseid == -1) return SendErrorMessage(playerid, "You are not near a house that you own.");
+	if(HouseInfo[houseid][Listed] == 1) return SendErrorMessage(playerid, "This house is already listed on the house market.");
 	HouseInfo[houseid][ListingPrice] = 0;
 	HouseInfo[houseid][PendingApproval] = 0;
 	HouseInfo[houseid][ListedTimeStamp] = 0;
@@ -364,16 +364,16 @@ CMD:listhouse(playerid, params[])
 
 CMD:listingdate(playerid, params[])
 {
-	if(gPlayerLogged{playerid} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "You're not logged in.");
-	if(GetPVarType(playerid, "Injured")) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while injured.");
-	if(PlayerCuffed[playerid] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings right now.");
-	if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while in jail.");
-	if(PlayerInfo[playerid][pLevel] < 3) return SendClientMessageEx(playerid, COLOR_GREY, "You must be at least level 3 to access house listings.");
+	if(gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You're not logged in.");
+	if(GetPVarType(playerid, "Injured")) return SendErrorMessage(playerid, "You can't use house listings while injured.");
+	if(PlayerCuffed[playerid] != 0) return SendErrorMessage(playerid, "You can't use house listings right now.");
+	if(PlayerInfo[playerid][pJailTime] > 0) return SendErrorMessage(playerid, "You can't use house listings while in jail.");
+	if(PlayerInfo[playerid][pLevel] < 3) return SendErrorMessage(playerid, "You must be at least level 3 to access house listings.");
 	new houseid, string[128];
 	if(servernumber == 2) return SendClientMessage(playerid, COLOR_WHITE, "This command is disabled!");
 	houseid = GetNearestOwnedHouse(playerid);
-	if(houseid == -1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not near a house that you own.");
-	if(HouseInfo[houseid][Listed] == 0 || HouseInfo[houseid][PendingApproval] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "This house is not currently listed on the house market.");
+	if(houseid == -1) return SendErrorMessage(playerid, "You are not near a house that you own.");
+	if(HouseInfo[houseid][Listed] == 0 || HouseInfo[houseid][PendingApproval] == 1) return SendErrorMessage(playerid, "This house is not currently listed on the house market.");
 	format(string, sizeof(string), "Your house listing will expire on %s.", date(HouseInfo[houseid][ListedTimeStamp], 4));
 	SendClientMessageEx(playerid, COLOR_WHITE, string);
     return 1;
@@ -381,17 +381,17 @@ CMD:listingdate(playerid, params[])
 
 CMD:renewlisting(playerid, params[])
 {
-	if(gPlayerLogged{playerid} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "You're not logged in.");
-	if(GetPVarType(playerid, "Injured")) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while injured.");
-	if(PlayerCuffed[playerid] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings right now.");
-	if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while in jail.");
-	if(PlayerInfo[playerid][pLevel] < 3) return SendClientMessageEx(playerid, COLOR_GREY, "You must be at least level 3 to access house listings.");
-	if(GetPlayerCash(playerid) < 100000) return SendClientMessageEx(playerid, COLOR_GREY, "You must have at least $100,000 to renew your house listing.");
+	if(gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You're not logged in.");
+	if(GetPVarType(playerid, "Injured")) return SendErrorMessage(playerid, "You can't use house listings while injured.");
+	if(PlayerCuffed[playerid] != 0) return SendErrorMessage(playerid, "You can't use house listings right now.");
+	if(PlayerInfo[playerid][pJailTime] > 0) return SendErrorMessage(playerid, "You can't use house listings while in jail.");
+	if(PlayerInfo[playerid][pLevel] < 3) return SendErrorMessage(playerid, "You must be at least level 3 to access house listings.");
+	if(GetPlayerCash(playerid) < 5000) return SendErrorMessage(playerid, "You must have at least $5,000 to renew your house listing.");
 	new houseid, string[128];
 	if(servernumber == 2) return SendClientMessage(playerid, COLOR_WHITE, "This command is disabled!");
 	houseid = GetNearestOwnedHouse(playerid);
-	if(houseid == -1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not near a house that you own.");
-	if(HouseInfo[houseid][Listed] == 0 || HouseInfo[houseid][PendingApproval] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "This house is not currently listed on the house market.");
+	if(houseid == -1) return SendErrorMessage(playerid, "You are not near a house that you own.");
+	if(HouseInfo[houseid][Listed] == 0 || HouseInfo[houseid][PendingApproval] == 1) return SendErrorMessage(playerid, "This house is not currently listed on the house market.");
 	HouseInfo[houseid][ListedTimeStamp] += 86400;
 	SaveHouse(houseid);
 	format(string, sizeof(string), "You have renewed your house listing by a day, it will expire on %s.", date(HouseInfo[houseid][ListedTimeStamp], 4));
@@ -402,28 +402,28 @@ CMD:renewlisting(playerid, params[])
 
 CMD:deletelisting(playerid, params[])
 {
-	if(gPlayerLogged{playerid} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "You're not logged in.");
-	if(GetPVarType(playerid, "Injured")) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while injured.");
-	if(PlayerCuffed[playerid] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings right now.");
-	if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while in jail.");
-	if(PlayerInfo[playerid][pLevel] < 3) return SendClientMessageEx(playerid, COLOR_GREY, "You must be at least level 3 to access house listings.");
+	if(gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You're not logged in.");
+	if(GetPVarType(playerid, "Injured")) return SendErrorMessage(playerid, "You can't use house listings while injured.");
+	if(PlayerCuffed[playerid] != 0) return SendErrorMessage(playerid, "You can't use house listings right now.");
+	if(PlayerInfo[playerid][pJailTime] > 0) return SendErrorMessage(playerid, "You can't use house listings while in jail.");
+	if(PlayerInfo[playerid][pLevel] < 3) return SendErrorMessage(playerid, "You must be at least level 3 to access house listings.");
 	new houseid;
 	if(servernumber == 2) return SendClientMessage(playerid, COLOR_WHITE, "This command is disabled!");
 	houseid = GetNearestOwnedHouse(playerid);
-	if(houseid == -1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not near a house that you own.");
-	if(HouseInfo[houseid][Listed] == 0 || HouseInfo[houseid][PendingApproval] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "This house is not currently listed on the house market.");
+	if(houseid == -1) return SendErrorMessage(playerid, "You are not near a house that you own.");
+	if(HouseInfo[houseid][Listed] == 0 || HouseInfo[houseid][PendingApproval] == 1) return SendErrorMessage(playerid, "This house is not currently listed on the house market.");
 	ClearHouseSaleVariables(houseid);
-	SendClientMessageEx(playerid, COLOR_GREY, "You have taken your house listing off of the market.");
+	SendServerMessage(playerid, "You have taken your house listing off of the market.");
     return 1;
 }
 
 CMD:houselistings(playerid, params[])
 {
-	if(gPlayerLogged{playerid} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "You're not logged in.");
-	if(GetPVarType(playerid, "Injured")) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while injured.");
-	if(PlayerCuffed[playerid] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings right now.");
-	if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while in jail.");
-	if(PlayerInfo[playerid][pLevel] < 3) return SendClientMessageEx(playerid, COLOR_GREY, "You must be at least level 3 to access house listings.");
+	if(gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You're not logged in.");
+	if(GetPVarType(playerid, "Injured")) return SendErrorMessage(playerid, "You can't use house listings while injured.");
+	if(PlayerCuffed[playerid] != 0) return SendErrorMessage(playerid, "You can't use house listings right now.");
+	if(PlayerInfo[playerid][pJailTime] > 0) return SendErrorMessage(playerid, "You can't use house listings while in jail.");
+	if(PlayerInfo[playerid][pLevel] < 3) return SendErrorMessage(playerid, "You must be at least level 3 to access house listings.");
 	new count[4], location[MAX_ZONE_NAME];
 	szMiscArray[0] = 0;
 	for(new i = 0; i < sizeof(HouseInfo); i ++)
@@ -466,15 +466,15 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				case false: if(houseid != -1)  return ClearHouseSaleVariables(houseid);
 				case true:
 				{
-					if(gPlayerLogged{playerid} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "You're not logged in.");
-					if(PlayerInfo[playerid][pADMute] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are muted from advertisements.");
-					if(GetPVarType(playerid, "Injured")) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while injured.");
-					if(PlayerCuffed[playerid] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings right now.");
-					if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while in jail.");
-					if(PlayerInfo[playerid][pLevel] < 3) return SendClientMessageEx(playerid, COLOR_GREY, "You must be at least level 3 to access house listings.");
-					if(GetPlayerCash(playerid) < 500000) return SendClientMessageEx(playerid, COLOR_GREY, "You must have at least $500,000 to place a house listing.");
-					if(houseid == -1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not near a house that you own.");
-					if(HouseInfo[houseid][Listed] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "This house is already listed on the house market.");
+					if(gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You're not logged in.");
+					if(PlayerInfo[playerid][pADMute] == 1) return SendErrorMessage(playerid, "You are muted from advertisements.");
+					if(GetPVarType(playerid, "Injured")) return SendErrorMessage(playerid, "You can't use house listings while injured.");
+					if(PlayerCuffed[playerid] != 0) return SendErrorMessage(playerid, "You can't use house listings right now.");
+					if(PlayerInfo[playerid][pJailTime] > 0) return SendErrorMessage(playerid, "You can't use house listings while in jail.");
+					if(PlayerInfo[playerid][pLevel] < 3) return SendErrorMessage(playerid, "You must be at least level 3 to access house listings.");
+					if(GetPlayerCash(playerid) < 15000) return SendErrorMessage(playerid, "You must have at least $15000,000 to place a house listing.");
+					if(houseid == -1) return SendErrorMessage(playerid, "You are not near a house that you own.");
+					if(HouseInfo[houseid][Listed] == 1) return SendErrorMessage(playerid, "This house is already listed on the house market.");
 					switch(listitem)
 					{
 						case 0: return ShowPlayerDialogEx(playerid, DIALOG_LISTHOUSEPRICE, DIALOG_STYLE_INPUT, "House Listings", "Input the price of your listing below.", "Okay", "Cancel");
@@ -495,7 +495,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 						{
 							if(HouseInfo[houseid][ListingPrice] == 0)
 							{
-								SendClientMessageEx(playerid, COLOR_GREY, "You must specify a price before submitting your listing.");
+								SendErrorMessage(playerid, "You must specify a price before submitting your listing.");
 								ShowMainListingDialog(playerid);
 								return 1;
 							}
@@ -525,26 +525,26 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				case false: return ShowMainListingDialog(playerid);
 				case true:
 				{
-					if(gPlayerLogged{playerid} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "You're not logged in.");
-					if(PlayerInfo[playerid][pADMute] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are muted from advertisements.");
-					if(GetPVarType(playerid, "Injured")) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while injured.");
-					if(PlayerCuffed[playerid] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings right now.");
-					if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while in jail.");
-					if(PlayerInfo[playerid][pLevel] < 3) return SendClientMessageEx(playerid, COLOR_GREY, "You must be at least level 3 to access house listings.");
-					if(GetPlayerCash(playerid) < 500000) return SendClientMessageEx(playerid, COLOR_GREY, "You must have at least $500,000 to place a house listing.");
+					if(gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You're not logged in.");
+					if(PlayerInfo[playerid][pADMute] == 1) return SendErrorMessage(playerid, "You are muted from advertisements.");
+					if(GetPVarType(playerid, "Injured")) return SendErrorMessage(playerid, "You can't use house listings while injured.");
+					if(PlayerCuffed[playerid] != 0) return SendErrorMessage(playerid, "You can't use house listings right now.");
+					if(PlayerInfo[playerid][pJailTime] > 0) return SendErrorMessage(playerid, "You can't use house listings while in jail.");
+					if(PlayerInfo[playerid][pLevel] < 3) return SendErrorMessage(playerid, "You must be at least level 3 to access house listings.");
+					if(GetPlayerCash(playerid) < 15000) return SendErrorMessage(playerid, "You must have at least $15000,000 to place a house listing.");
 					new houseid, price;
 					houseid = GetNearestOwnedHouse(playerid);
-					if(houseid == -1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not near a house that you own.");
-					if(HouseInfo[houseid][Listed] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "This house is already listed on the house market.");
+					if(houseid == -1) return SendErrorMessage(playerid, "You are not near a house that you own.");
+					if(HouseInfo[houseid][Listed] == 1) return SendErrorMessage(playerid, "This house is already listed on the house market.");
 					if(sscanf(inputtext, "d", price))
 					{
-						SendClientMessageEx(playerid, COLOR_GREY, "The specified price must be numerical.");
+						SendErrorMessage(playerid, "The specified price must be numerical.");
 						ShowPlayerDialogEx(playerid, DIALOG_LISTHOUSEPRICE, DIALOG_STYLE_INPUT, "House Listings", "Input the price of your listing below.", "Okay", "Cancel");
 						return 1;
 					}
 					if(price < 100000 || price > 500000000)
 					{
-						SendClientMessageEx(playerid, COLOR_GREY, "The specified price cannot be under $100,000 or over $500,000,000.");
+						SendErrorMessage(playerid, "The specified price cannot be under $100,000 or over $500,000,000.");
 						ShowPlayerDialogEx(playerid, DIALOG_LISTHOUSEPRICE, DIALOG_STYLE_INPUT, "House Listings", "Input the price of your listing below.", "Okay", "Cancel");
 						return 1;
 					}
@@ -571,26 +571,26 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				case false: return ShowMainListingDialog(playerid);
 				case true:
 				{
-					if(gPlayerLogged{playerid} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "You're not logged in.");
-					if(PlayerInfo[playerid][pADMute] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are muted from advertisements.");
-					if(GetPVarType(playerid, "Injured")) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while injured.");
-					if(PlayerCuffed[playerid] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings right now.");
-					if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while in jail.");
-					if(PlayerInfo[playerid][pLevel] < 3) return SendClientMessageEx(playerid, COLOR_GREY, "You must be at least level 3 to access house listings.");
-					if(GetPlayerCash(playerid) < 500000) return SendClientMessageEx(playerid, COLOR_GREY, "You must have at least $500,000 to place a house listing.");
+					if(gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You're not logged in.");
+					if(PlayerInfo[playerid][pADMute] == 1) return SendErrorMessage(playerid, "You are muted from advertisements.");
+					if(GetPVarType(playerid, "Injured")) return SendErrorMessage(playerid, "You can't use house listings while injured.");
+					if(PlayerCuffed[playerid] != 0) return SendErrorMessage(playerid, "You can't use house listings right now.");
+					if(PlayerInfo[playerid][pJailTime] > 0) return SendErrorMessage(playerid, "You can't use house listings while in jail.");
+					if(PlayerInfo[playerid][pLevel] < 3) return SendErrorMessage(playerid, "You must be at least level 3 to access house listings.");
+					if(GetPlayerCash(playerid) < 15000) return SendErrorMessage(playerid, "You must have at least $15,000 to place a house listing.");
 					new houseid;
 					houseid = GetNearestOwnedHouse(playerid);
-					if(houseid == -1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not near a house that you own.");
-					if(HouseInfo[houseid][Listed] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "This house is already listed on the house market.");
+					if(houseid == -1) return SendErrorMessage(playerid, "You are not near a house that you own.");
+					if(HouseInfo[houseid][Listed] == 1) return SendErrorMessage(playerid, "This house is already listed on the house market.");
 					if(strlen(inputtext) < 1 || strlen(inputtext) > 128)
 					{
-						SendClientMessageEx(playerid, COLOR_GREY, "The listing description cannot be under 1 character or over 128 characters.");
+						SendErrorMessage(playerid, "The listing description cannot be under 1 character or over 128 characters.");
 						ShowPlayerDialogEx(playerid, DIALOG_LISTHOUSEDESCRIPTION, DIALOG_STYLE_INPUT, "House Listings", "Input the description of your listing below.", "Okay", "Cancel");
 						return 1;
 					}
 					if(strcmp(inputtext, HouseInfo[houseid][ListingDescription], false) == 0)
 					{
-						SendClientMessageEx(playerid, COLOR_GREY, "The description you have specified is already set the set description.");
+						SendErrorMessage(playerid, "The description you have specified is already set the set description.");
 						ShowPlayerDialogEx(playerid, DIALOG_LISTHOUSEDESCRIPTION, DIALOG_STYLE_INPUT, "House Listings", "Input the description of your listing below.", "Okay", "Cancel");
 						return 1;
 					}
@@ -622,26 +622,26 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				case false: return ShowMainListingDialog(playerid);
 				case true:
 				{
-					if(gPlayerLogged{playerid} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "You're not logged in.");
-					if(PlayerInfo[playerid][pADMute] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are muted from advertisements.");
-					if(GetPVarType(playerid, "Injured")) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while injured.");
-					if(PlayerCuffed[playerid] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings right now.");
-					if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while in jail.");
-					if(PlayerInfo[playerid][pLevel] < 3) return SendClientMessageEx(playerid, COLOR_GREY, "You must be at least level 3 to access house listings.");
-					if(GetPlayerCash(playerid) < 500000) return SendClientMessageEx(playerid, COLOR_GREY, "You must have at least $500,000 to place a house listing.");
+					if(gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You're not logged in.");
+					if(PlayerInfo[playerid][pADMute] == 1) return SendErrorMessage(playerid, "You are muted from advertisements.");
+					if(GetPVarType(playerid, "Injured")) return SendErrorMessage(playerid, "You can't use house listings while injured.");
+					if(PlayerCuffed[playerid] != 0) return SendErrorMessage(playerid, "You can't use house listings right now.");
+					if(PlayerInfo[playerid][pJailTime] > 0) return SendErrorMessage(playerid, "You can't use house listings while in jail.");
+					if(PlayerInfo[playerid][pLevel] < 3) return SendErrorMessage(playerid, "You must be at least level 3 to access house listings.");
+					if(GetPlayerCash(playerid) < 15000) return SendErrorMessage(playerid, "You must have at least $15,000 to place a house listing.");
 					new houseid, doorid;
 					houseid = GetNearestOwnedHouse(playerid);
-					if(houseid == -1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not near a house that you own.");
-					if(HouseInfo[houseid][Listed] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "This house is already listed on the house market.");
+					if(houseid == -1) return SendErrorMessage(playerid, "You are not near a house that you own.");
+					if(HouseInfo[houseid][Listed] == 1) return SendErrorMessage(playerid, "This house is already listed on the house market.");
 					if(sscanf(inputtext, "d", doorid))
 					{
-						SendClientMessageEx(playerid, COLOR_GREY, "The specified door ID must be numerical.");
+						SendErrorMessage(playerid, "The specified door ID must be numerical.");
 						ShowPlayerDialogEx(playerid, DIALOG_LISTHOUSEDOORS, DIALOG_STYLE_INPUT, "House Listings", "Input the ID of a door to link it to your listing. Input \"0\" to remove a dynamic door.", "Okay", "Cancel");
 						return 1;
 					}
 					if(doorid < 0 || doorid >= MAX_DDOORS)
 					{
-						SendClientMessageEx(playerid, COLOR_GREY, "Invalid door ID specified.");
+						SendErrorMessage(playerid, "Invalid door ID specified.");
 						ShowPlayerDialogEx(playerid, DIALOG_LISTHOUSEDOORS, DIALOG_STYLE_INPUT, "House Listings", "Input the ID of a door to link it to your listing. Input \"0\" to remove a dynamic door.", "Okay", "Cancel");
 						return 1;
 					}
@@ -649,7 +649,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					{
 						if(HouseInfo[houseid][LinkedDoor][i] == doorid && doorid != 0)
 						{
-							SendClientMessageEx(playerid, COLOR_GREY, "The specified dynamic door is already linked to your listing.");
+							SendErrorMessage(playerid, "The specified dynamic door is already linked to your listing.");
 							ShowPlayerDialogEx(playerid, DIALOG_LISTHOUSEDOORS, DIALOG_STYLE_INPUT, "House Listings", "Input the ID of a door to link it to your listing. Input \"0\" to remove a dynamic door.", "Okay", "Cancel");
 							return 1;
 						}
@@ -660,7 +660,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 						{
 							if(HouseInfo[houseid][LinkedDoor][HouseMarketTracking[playerid]] == 0)
 							{
-								SendClientMessageEx(playerid, COLOR_GREY, "You do not currently have a linked dynamic door in the specified slot.");
+								SendErrorMessage(playerid, "You do not currently have a linked dynamic door in the specified slot.");
 								ShowPlayerDialogEx(playerid, DIALOG_LISTHOUSEDOORS, DIALOG_STYLE_INPUT, "House Listings", "Input the ID of a door to link it to your listing. Input \"0\" to remove a dynamic door.", "Okay", "Cancel");
 								return 1;
 							}
@@ -674,13 +674,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 						{
 							if(DDoorsInfo[doorid][ddOwner] != GetPlayerSQLId(playerid))
 							{
-								SendClientMessageEx(playerid, COLOR_GREY, "You do not own the specified dynamic door.");
+								SendErrorMessage(playerid, "You do not own the specified dynamic door.");
 								ShowPlayerDialogEx(playerid, DIALOG_LISTHOUSEDOORS, DIALOG_STYLE_INPUT, "House Listings", "Input the ID of a door to link it to your listing. Input \"0\" to remove a dynamic door.", "Okay", "Cancel");
 								return 1;
 							}
 							if(HouseInfo[houseid][hIntIW] != DDoorsInfo[doorid][ddInteriorInt] || HouseInfo[houseid][hIntVW] != DDoorsInfo[doorid][ddInteriorVW])
 							{
-								SendClientMessageEx(playerid, COLOR_GREY, "The specified dynamic door is not linked to your house.");
+								SendErrorMessage(playerid, "The specified dynamic door is not linked to your house.");
 								ShowPlayerDialogEx(playerid, DIALOG_LISTHOUSEDOORS, DIALOG_STYLE_INPUT, "House Listings", "Input the ID of a door to link it to your listing. Input \"0\" to remove a dynamic door.", "Okay", "Cancel");
 								return 1;
 							}
@@ -703,26 +703,26 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				case false: return ShowMainListingDialog(playerid);
 				case true:
 				{
-					if(gPlayerLogged{playerid} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "You're not logged in.");
-					if(PlayerInfo[playerid][pADMute] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "You are muted from advertisements.");
-					if(GetPVarType(playerid, "Injured")) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while injured.");
-					if(PlayerCuffed[playerid] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings right now.");
-					if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while in jail.");
-					if(PlayerInfo[playerid][pLevel] < 3) return SendClientMessageEx(playerid, COLOR_GREY, "You must be at least level 3 to access house listings.");
-					if(GetPlayerCash(playerid) < 500000) return SendClientMessageEx(playerid, COLOR_GREY, "You must have at least $500,000 to place a house listing.");
+					if(gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You're not logged in.");
+					if(PlayerInfo[playerid][pADMute] == 1) return SendErrorMessage(playerid, "You are muted from advertisements.");
+					if(GetPVarType(playerid, "Injured")) return SendErrorMessage(playerid, "You can't use house listings while injured.");
+					if(PlayerCuffed[playerid] != 0) return SendErrorMessage(playerid, "You can't use house listings right now.");
+					if(PlayerInfo[playerid][pJailTime] > 0) return SendErrorMessage(playerid, "You can't use house listings while in jail.");
+					if(PlayerInfo[playerid][pLevel] < 3) return SendErrorMessage(playerid, "You must be at least level 3 to access house listings.");
+					if(GetPlayerCash(playerid) < 15000) return SendErrorMessage(playerid, "You must have at least $15,000 to place a house listing.");
 					new houseid, garageid;
 					houseid = GetNearestOwnedHouse(playerid);
-					if(houseid == -1) return SendClientMessageEx(playerid, COLOR_GREY, "You are not near a house that you own.");
-					if(HouseInfo[houseid][Listed] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "This house is already listed on the house market.");
+					if(houseid == -1) return SendErrorMessage(playerid, "You are not near a house that you own.");
+					if(HouseInfo[houseid][Listed] == 1) return SendErrorMessage(playerid, "This house is already listed on the house market.");
 					if(sscanf(inputtext, "d", garageid))
 					{
-						SendClientMessageEx(playerid, COLOR_GREY, "The specified garage ID must be numerical.");
+						SendErrorMessage(playerid, "The specified garage ID must be numerical.");
 						ShowPlayerDialogEx(playerid, DIALOG_LISTHOUSEGARAGES, DIALOG_STYLE_INPUT, "House Listings", "Input the ID of a garage to link it to your listing. Input \"0\" to remove a garage..", "Okay", "Cancel");
 						return 1;
 					}
 					if(garageid < 0 || garageid >= MAX_GARAGES)
 					{
-						SendClientMessageEx(playerid, COLOR_GREY, "Invalid garage ID specified.");
+						SendErrorMessage(playerid, "Invalid garage ID specified.");
 						ShowPlayerDialogEx(playerid, DIALOG_LISTHOUSEGARAGES, DIALOG_STYLE_INPUT, "House Listings", "Input the ID of a garage to link it to your listing. Input \"0\" to remove a garage..", "Okay", "Cancel");
 						return 1;
 					}
@@ -730,7 +730,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					{
 						if(HouseInfo[houseid][LinkedGarage][i] == garageid && garageid != 0)
 						{
-							SendClientMessageEx(playerid, COLOR_GREY, "The specified garage is already linked to your listing.");
+							SendErrorMessage(playerid, "The specified garage is already linked to your listing.");
 							ShowPlayerDialogEx(playerid, DIALOG_LISTHOUSEGARAGES, DIALOG_STYLE_INPUT, "House Listings", "Input the ID of a garage to link it to your listing. Input \"0\" to remove a garage..", "Okay", "Cancel");
 							return 1;
 						}
@@ -741,7 +741,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 						{
 							if(HouseInfo[houseid][LinkedGarage][HouseMarketTracking[playerid]] == 0)
 							{
-								SendClientMessageEx(playerid, COLOR_GREY, "You do not currently have a linked garage in the specified slot.");
+								SendErrorMessage(playerid, "You do not currently have a linked garage in the specified slot.");
 								ShowPlayerDialogEx(playerid, DIALOG_LISTHOUSEGARAGES, DIALOG_STYLE_INPUT, "House Listings", "Input the ID of a garage to link it to your listing. Input \"0\" to remove a garage..", "Okay", "Cancel");
 								return 1;
 							}
@@ -755,7 +755,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 						{
 							if(DDoorsInfo[garageid][ddOwner] != GetPlayerSQLId(playerid))
 							{
-								SendClientMessageEx(playerid, COLOR_GREY, "You do not own the specified garage.");
+								SendErrorMessage(playerid, "You do not own the specified garage.");
 								ShowPlayerDialogEx(playerid, DIALOG_LISTHOUSEGARAGES, DIALOG_STYLE_INPUT, "House Listings", "Input the ID of a garage to link it to your listing. Input \"0\" to remove a garage..", "Okay", "Cancel");
 								return 1;
 							}
@@ -775,11 +775,11 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		{
 			if(response)
 			{
-				if(gPlayerLogged{playerid} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "You're not logged in.");
-				if(GetPVarType(playerid, "Injured")) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while injured.");
-				if(PlayerCuffed[playerid] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings right now.");
-				if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while in jail.");
-				if(PlayerInfo[playerid][pLevel] < 3) return SendClientMessageEx(playerid, COLOR_GREY, "You must be at least level 3 to access house listings.");
+				if(gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You're not logged in.");
+				if(GetPVarType(playerid, "Injured")) return SendErrorMessage(playerid, "You can't use house listings while injured.");
+				if(PlayerCuffed[playerid] != 0) return SendErrorMessage(playerid, "You can't use house listings right now.");
+				if(PlayerInfo[playerid][pJailTime] > 0) return SendErrorMessage(playerid, "You can't use house listings while in jail.");
+				if(PlayerInfo[playerid][pLevel] < 3) return SendErrorMessage(playerid, "You must be at least level 3 to access house listings.");
 				szMiscArray[0] = 0;
 				new houseid, position[2], count[4], location[MAX_ZONE_NAME];
 				if(strcmp(inputtext, "[Next Page...]", true) == 0)
@@ -814,7 +814,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				houseid = strval(string);
 				if(HouseInfo[houseid][hOwned] == 0 || HouseInfo[houseid][Listed] == 0 || HouseInfo[houseid][PendingApproval] == 1)
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "The specified house is not currently for sale.");
+					SendErrorMessage(playerid, "The specified house is not currently for sale.");
 					cmd_houselistings(playerid, "");
 					return 1;
 				}
@@ -825,11 +825,11 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		}
 		case DIALOG_SELECTEDLISTING:
 		{
-			if(gPlayerLogged{playerid} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "You're not logged in.");
-			if(GetPVarType(playerid, "Injured")) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while injured.");
-			if(PlayerCuffed[playerid] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings right now.");
-			if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while in jail.");
-			if(PlayerInfo[playerid][pLevel] < 3) return SendClientMessageEx(playerid, COLOR_GREY, "You must be at least level 3 to access house listings.");
+			if(gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You're not logged in.");
+			if(GetPVarType(playerid, "Injured")) return SendErrorMessage(playerid, "You can't use house listings while injured.");
+			if(PlayerCuffed[playerid] != 0) return SendErrorMessage(playerid, "You can't use house listings right now.");
+			if(PlayerInfo[playerid][pJailTime] > 0) return SendErrorMessage(playerid, "You can't use house listings while in jail.");
+			if(PlayerInfo[playerid][pLevel] < 3) return SendErrorMessage(playerid, "You must be at least level 3 to access house listings.");
 			switch(response)
 			{
 				case false: return cmd_houselistings(playerid, "");
@@ -837,7 +837,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				{
 					if(HouseInfo[HouseMarketTracking[playerid]][hOwned] == 0 || HouseInfo[HouseMarketTracking[playerid]][Listed] == 0 || HouseInfo[HouseMarketTracking[playerid]][PendingApproval] == 1)
 					{
-						SendClientMessageEx(playerid, COLOR_GREY, "The specified house is not currently for sale.");
+						SendErrorMessage(playerid, "The specified house is not currently for sale.");
 						cmd_houselistings(playerid, "");
 						return 1;
 					}
@@ -849,14 +849,14 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		}
 		case DIALOG_LISTINGOPTIONS:
 		{
-			if(gPlayerLogged{playerid} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "You're not logged in.");
-			if(GetPVarType(playerid, "Injured")) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while injured.");
-			if(PlayerCuffed[playerid] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings right now.");
-			if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can't use house listings while in jail.");
-			if(PlayerInfo[playerid][pLevel] < 3) return SendClientMessageEx(playerid, COLOR_GREY, "You must be at least level 3 to access house listings.");
+			if(gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You're not logged in.");
+			if(GetPVarType(playerid, "Injured")) return SendErrorMessage(playerid, "You can't use house listings while injured.");
+			if(PlayerCuffed[playerid] != 0) return SendErrorMessage(playerid, "You can't use house listings right now.");
+			if(PlayerInfo[playerid][pJailTime] > 0) return SendErrorMessage(playerid, "You can't use house listings while in jail.");
+			if(PlayerInfo[playerid][pLevel] < 3) return SendErrorMessage(playerid, "You must be at least level 3 to access house listings.");
 			if(HouseInfo[HouseMarketTracking[playerid]][hOwned] == 0 || HouseInfo[HouseMarketTracking[playerid]][Listed] == 0 || HouseInfo[HouseMarketTracking[playerid]][PendingApproval] == 1)
 			{
-				SendClientMessageEx(playerid, COLOR_GREY, "The specified house is not currently for sale.");
+				SendErrorMessage(playerid, "The specified house is not currently for sale.");
 				cmd_houselistings(playerid, "");
 				return 1;
 			}
@@ -871,13 +871,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 						{
 							if(GetPlayerSQLId(playerid) == HouseInfo[HouseMarketTracking[playerid]][hOwnerID])
 							{
-								SendClientMessageEx(playerid, COLOR_GREY, "You cannot visit your own house through house listings, use (/home).");
+								SendErrorMessage(playerid, "You cannot visit your own house through house listings, use (/home).");
 								ShowPlayerDialogEx(playerid, DIALOG_LISTINGOPTIONS, DIALOG_STYLE_LIST, "House Listings", "Visit House\nPurchase House", "Okay", "Cancel");
 								return 1;
 							}
 							if(HouseInfo[HouseMarketTracking[playerid]][hExtIW] != 0 || HouseInfo[HouseMarketTracking[playerid]][hExtVW] != 0)
 							{
-								SendClientMessageEx(playerid, COLOR_GREY, "The specified house's entry point is not outside. Contact the owner to visit it.");
+								SendErrorMessage(playerid, "The specified house's entry point is not outside. Contact the owner to visit it.");
 								ShowPlayerDialogEx(playerid, DIALOG_LISTINGOPTIONS, DIALOG_STYLE_LIST, "House Listings", "Visit House\nPurchase House", "Okay", "Cancel");
 								return 1;
 							}
@@ -892,13 +892,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 						{
 							if(GetPlayerSQLId(playerid) == HouseInfo[HouseMarketTracking[playerid]][hOwnerID])
 							{
-								SendClientMessageEx(playerid, COLOR_GREY, "You cannot purchase your own house.");
+								SendErrorMessage(playerid, "You cannot purchase your own house.");
 								ShowPlayerDialogEx(playerid, DIALOG_LISTINGOPTIONS, DIALOG_STYLE_LIST, "House Listings", "Visit House\nPurchase House", "Okay", "Cancel");
 								return 1;
 							}
 							if(Homes[playerid] >= MAX_OWNABLE_HOUSES)
 							{
-								SendClientMessageEx(playerid, COLOR_GREY, "You cannot own any more houses.");
+								SendErrorMessage(playerid, "You cannot own any more houses.");
 								ShowPlayerDialogEx(playerid, DIALOG_LISTINGOPTIONS, DIALOG_STYLE_LIST, "House Listings", "Visit House\nPurchase House", "Okay", "Cancel");
 								return 1;
 							}
