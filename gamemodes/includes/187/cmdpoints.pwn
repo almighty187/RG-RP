@@ -12,10 +12,10 @@ CMD:points(playerid, params[])
 					if(DynPoints[i][poLocked] != 1)
 					{
 						if((0 <= DynPoints[i][poCaptureGroup] < MAX_GROUPS)) {
-							format(szMiscArray, sizeof(szMiscArray), "%s {8B0000}Name: {FFFFFF}%s{C93CCE} | Owner: {%s}%s{C93CCE} | Captured By: {FFFFFF}%s{C93CCE} | Hours: {FFFFFF}%d\n", szMiscArray, DynPoints[i][poName],Group_NumToDialogHex(arrGroupData[DynPoints[i][poCaptureGroup]][g_hDutyColour]),arrGroupData[DynPoints[i][poCaptureGroup]][g_szGroupName],DynPoints[i][poCaptureName],DynPoints[i][poTimer]);
+							format(szMiscArray, sizeof(szMiscArray), "%s {8B0000}Name: {FFFFFF}%s{8B0000} | Owner: {%s}%s{8B0000} | Captured By: {FFFFFF}%s{8B0000} | Hours: {FFFFFF}%d\n", szMiscArray, DynPoints[i][poName],Group_NumToDialogHex(arrGroupData[DynPoints[i][poCaptureGroup]][g_hDutyColour]),arrGroupData[DynPoints[i][poCaptureGroup]][g_szGroupName],DynPoints[i][poCaptureName],DynPoints[i][poTimer]);
 						}
 						else {
-							format(szMiscArray, sizeof(szMiscArray), "%s {8B0000}Name: {FFFFFF}%s{8B0000} | Owner: {FFFFFF}Nobody{C93CCE} | Captured By: {FFFFFF}Nobody{C93CCE} | Hours: {FFFFFF}%d\n", szMiscArray, DynPoints[i][poName], DynPoints[i][poTimer]);
+							format(szMiscArray, sizeof(szMiscArray), "%s {8B0000}Name: {FFFFFF}%s{8B0000} | Owner: {FFFFFF}Nobody{8B0000} | Captured By: {FFFFFF}Nobody{8B0000} | Hours: {FFFFFF}%d\n", szMiscArray, DynPoints[i][poName], DynPoints[i][poTimer]);
 						}
 
 					}
@@ -23,6 +23,6 @@ CMD:points(playerid, params[])
 			}
 		}
 	}
-	ShowPlayerDialogEx(playerid, 0, DIALOG_STYLE_MSGBOX, "{C93CCE}Points List", szMiscArray, "Close", "");
+	ShowPlayerDialogEx(playerid, 0, DIALOG_STYLE_MSGBOX, "{8B0000}Points List", szMiscArray, "Close", "");
 	return 1;
 }
