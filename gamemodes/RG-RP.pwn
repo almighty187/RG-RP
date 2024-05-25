@@ -103,6 +103,7 @@
 
 // 187
 #include "./includes/187/mydrugs.pwn"
+#include "./includes/187/cmdpoints.pwn"
 
 //core includes
 #include "./includes/core/acceptcancel.pwn"

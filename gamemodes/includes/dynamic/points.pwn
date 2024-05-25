@@ -270,7 +270,7 @@ stock FetchPoint(playerid, &point, Float:range)
  	}
 }
 
-CMD:points(playerid, params[])
+/*CMD:points(playerid, params[])
 {
 	szMiscArray[0] = 0;
 
@@ -296,7 +296,7 @@ CMD:points(playerid, params[])
 		}
 	}
 	return 1;
-}
+}*/
 
 CMD:editpoint(playerid, params[])
 {
