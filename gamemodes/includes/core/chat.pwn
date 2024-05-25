@@ -418,10 +418,10 @@ CMD:accent(playerid, params[])
 	if(sscanf(params, "d", accent))
 	{
 		SendSyntaxMessage(playerid, "/accent [accent ID]");
-		SendClientMessageEx(playerid, COLOR_GRAD2, "Available Accents: Normal [1], British [2], Japanese [3], Asian [4], Scottish [6], Irish [7], Russian [8]");
-		SendClientMessageEx(playerid, COLOR_GRAD2, "Available Accents: American [9], Spanish [10], Southern [11], Italian [13], Gangsta [14], Australian [15], Arabic [16]");
-		SendClientMessageEx(playerid, COLOR_GRAD2, "Available Accents: Balkan [17], Canadian [18], Jamaican [19], Israeli [20], Dutch [21], Brazilian [22], German [23], Turkish [24]");
-		SendClientMessageEx(playerid, COLOR_GRAD2, "Available Accents: Kiwi [25], French [26], Korean [27], Thai [28], Swedish [29], Danish [30], Norwegian [31]");
+		SendClientMessageEx(playerid, COLOR_WHITE, "Available Accents: Normal [1], British [2], Japanese [3], Asian [4], Scottish [6], Irish [7], Russian [8]");
+		SendClientMessageEx(playerid, COLOR_WHITE, "Available Accents: American [9], Spanish [10], Southern [11], Italian [13], Gangsta [14], Australian [15], Arabic [16]");
+		SendClientMessageEx(playerid, COLOR_WHITE, "Available Accents: Balkan [17], Canadian [18], Jamaican [19], Israeli [20], Dutch [21], Brazilian [22], German [23], Turkish [24]");
+		SendClientMessageEx(playerid, COLOR_WHITE, "Available Accents: Kiwi [25], French [26], Korean [27], Thai [28], Swedish [29], Danish [30], Norwegian [31]");
 		return 1;
 	}
 
@@ -430,157 +430,157 @@ CMD:accent(playerid, params[])
 		case 1:
 		{
 			PlayerInfo[playerid][pAccent] = 1;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Normal accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Normal accent, use /accent to change it." );
 		}
 		case 2:
 		{
 			PlayerInfo[playerid][pAccent] = 2;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the British accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the British accent, use /accent to change it." );
 		}
 		case 3:
 		{
 			PlayerInfo[playerid][pAccent] = 3;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Japanese accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Japanese accent, use /accent to change it." );
 		}
 		case 4:
 		{
 			PlayerInfo[playerid][pAccent] = 4;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Chinese accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Chinese accent, use /accent to change it." );
 		}
 		case 5:
 		{
 			PlayerInfo[playerid][pAccent] = 5;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Korean accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Korean accent, use /accent to change it." );
 		}
 		case 6:
 		{
 			PlayerInfo[playerid][pAccent] = 6;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Scottish accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Scottish accent, use /accent to change it." );
 		}
 		case 7:
 		{
 			PlayerInfo[playerid][pAccent] = 7;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Irish accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Irish accent, use /accent to change it." );
 		}
 		case 8:
 		{
 			PlayerInfo[playerid][pAccent] = 8;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Russian accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Russian accent, use /accent to change it." );
 		}
 		case 9:
 		{
 			PlayerInfo[playerid][pAccent] = 9;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the American accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the American accent, use /accent to change it." );
 		}
 		case 10:
 		{
 			PlayerInfo[playerid][pAccent] = 10;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Spanish accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Spanish accent, use /accent to change it." );
 		}
 		case 11:
 		{
 			PlayerInfo[playerid][pAccent] = 11;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Texan accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Texan accent, use /accent to change it." );
 		}
 		case 12:
 		{
 			PlayerInfo[playerid][pAccent] = 12;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Cuban accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Cuban accent, use /accent to change it." );
 		}
 		case 13:
 		{
 			PlayerInfo[playerid][pAccent] = 13;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Italian accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Italian accent, use /accent to change it." );
 		}
 		case 14:
 		{
 			PlayerInfo[playerid][pAccent] = 14;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Gangsta accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Gangsta accent, use /accent to change it." );
 		}
 		case 15:
 		{
 			PlayerInfo[playerid][pAccent] = 15;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Australian accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Australian accent, use /accent to change it." );
 		}
 		case 16:
 		{
 			PlayerInfo[playerid][pAccent] = 16;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Arabic accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Arabic accent, use /accent to change it." );
 		}
 		case 17:
 		{
 			PlayerInfo[playerid][pAccent] = 17;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Balkan accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Balkan accent, use /accent to change it." );
 		}
 		case 18:
 		{
 			PlayerInfo[playerid][pAccent] = 18;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Canadian accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Canadian accent, use /accent to change it." );
 		}
 		case 19:
 		{
 			PlayerInfo[playerid][pAccent] = 19;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Jamaican accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Jamaican accent, use /accent to change it." );
 		}
 		case 20:
 		{
 			PlayerInfo[playerid][pAccent] = 20;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Israeli accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Israeli accent, use /accent to change it." );
 		}
 		case 21:
 	    {
 	        PlayerInfo[playerid][pAccent] = 21;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Dutch accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Dutch accent, use /accent to change it." );
 	    }
 		case 22:
 	    {
 	        PlayerInfo[playerid][pAccent] = 22;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Brazilian accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Brazilian accent, use /accent to change it." );
 	    }
    		case 23:
 	    {
 	        PlayerInfo[playerid][pAccent] = 23;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the German accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the German accent, use /accent to change it." );
 	    }
 	    case 24:
 	    {
 	        PlayerInfo[playerid][pAccent] = 24;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Turkish accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Turkish accent, use /accent to change it." );
 	    } 
 		case 25:
 	    {
 	        PlayerInfo[playerid][pAccent] = 25;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Kiwi accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Kiwi accent, use /accent to change it." );
 	    }
 		case 26:
 	    {
 	        PlayerInfo[playerid][pAccent] = 26;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the French accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the French accent, use /accent to change it." );
 	    }
 		case 27:
 	    {
 	        PlayerInfo[playerid][pAccent] = 27;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Korean accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Korean accent, use /accent to change it." );
 	    }
 		case 28:
 	    {
 	        PlayerInfo[playerid][pAccent] = 28;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Thai accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Thai accent, use /accent to change it." );
 	    }
 		case 29:
 		{
 			PlayerInfo[playerid][pAccent] = 29;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Swedish accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Swedish accent, use /accent to change it." );
 		}
 		case 30:
 		{
 			PlayerInfo[playerid][pAccent] = 30;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Danish accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Danish accent, use /accent to change it." );
 		}
 		case 31:
 		{
 			PlayerInfo[playerid][pAccent] = 31;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the Norwegian accent, use /accent to change it." );
+			SendServerMessage(playerid, "You will now speak in the Norwegian accent, use /accent to change it." );
 		}
 	}
 	return 1;
@@ -605,13 +605,10 @@ CMD:pr(playerid, params[])
 		}
 		else
 		{
-			SendClientMessageEx(playerid, COLOR_GRAD2, "The frequency of your radio is set to 0, you can not broadcast over that frequency.");
+			SendServerMessage(playerid, "The frequency of your radio is set to 0, you can not broadcast over that frequency.");
 		}
 	}
-	else
-	{
-		SendClientMessageEx(playerid, COLOR_GRAD2, "You do not have a portable radio!");
-	}
+	else SendErrorMessage(playerid, "You do not have a portable radio!");
 	return 1;
 }
 
@@ -632,10 +629,7 @@ CMD:setfreq(playerid, params[])
 		format(string, sizeof(string), "You have set the frequency of your portable radio to %d khz.",frequency);
 		SendClientMessageEx(playerid, COLOR_WHITE, string);
 	}
-	else
-	{
-		SendClientMessageEx(playerid, COLOR_GRAD2, "You do not have a portable radio!");
-	}
+	else SendErrorMessage(playerid, "You do not have a portable radio!");
 	return 1;
 }
 
@@ -757,7 +751,7 @@ CMD:ldo(playerid, params[])
 		iPos,
 		iChar;
 	while((iChar = params[iPos++])) if(iChar == '@') iCount++;
-	if(iCount >= 5) return SendClientMessageEx(playerid, COLOR_GREY, "The specified message must not contain more than 4 '@' symbols.");
+	if(iCount >= 5) return SendErrorMessage(playerid, "The specified message must not contain more than 4 '@' symbols.");
 
 	new string[150];
 	format(string, sizeof(string), "* %s (( %s ))", params, GetPlayerNameEx(playerid));
@@ -770,9 +764,9 @@ CMD:resetexamine(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1) return 1;
 	new target;
 	if(sscanf(params, "u", target)) return SendSyntaxMessage(playerid, "/resetexamine [playerid/PartOfName]");
-	if(!IsPlayerConnected(target)) return SendClientMessageEx(playerid, COLOR_GREY, "Error: Player is not connected!");
+	if(!IsPlayerConnected(target)) return SendErrorMessage(playerid, "Player is not connected!");
 	format(PlayerInfo[target][pExamineDesc], 256, "None");
-	return SendClientMessageEx(playerid, COLOR_GREY, "You have successfully reset their examine description.");
+	return SendServerMessage(playerid, "You have successfully reset their examine description.");
 }
 
 CMD:se(playerid, params[]) return cmd_setexamine(playerid, params);
@@ -782,7 +776,7 @@ CMD:examine(playerid, params[])
 {
 	new target;
 	if(sscanf(params, "u", target)) return SendSyntaxMessage(playerid, "/examine [playerid/PartOfName]");
-	if(!IsPlayerConnected(target)) return SendClientMessageEx(playerid, COLOR_GREY, "Error: Player is not connected!");
+	if(!IsPlayerConnected(target)) return SendErrorMessage(playerid, "Player is not connected!");
 	if(!ProxDetectorS(5.0, playerid, target) && PlayerInfo[playerid][pAdmin] < 2) return SendClientMessageEx(playerid, COLOR_GREY, "That person isn't near you.");
 	if(!strlen(PlayerInfo[target][pExamineDesc]) || !strcmp(PlayerInfo[target][pExamineDesc], "None", true)) return SendClientMessageEx(playerid, COLOR_GREY, "That person doesn't have a description set.");
 	if(strlen(PlayerInfo[target][pExamineDesc]) > 101)

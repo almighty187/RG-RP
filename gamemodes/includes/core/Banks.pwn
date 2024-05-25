@@ -1,29 +1,3 @@
-/*
-
-
-		  _____     _____       _____    _____
-		 |  __ \   / ____|  _  |  __ \  |  __ \
-		 | |__) | | |  __  (_) | |__) | | |__) |
-		 |  _  /  | | |_ |     |  _  /  |  ___/
-		 | | \ \  | |__| |  _  | | \ \  | |
-		 |_|  \_\  \_____| (_) |_|  \_\ |_|
-
-
-
-//--------------------------------[bank.PWN]------------------------------------
-
-					Bank System
-
-				Rebound Gaming
-	(created by Rebound Gaming Development Team)
-
-	* Copyright (c) 2024, Rebound Gaming
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-*/
 #include <YSI\y_hooks>
 
 #define BANK					10004
@@ -118,7 +92,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			
 			if(!response) {
 				TogglePlayerControllable(playerid, 1);
-				return SendClientMessageEx(playerid, COLOR_YELLOW, "   You are no longer being attended by the banker.");
+				return SendServerMessage(playerid, "You are no longer being attended by the banker.");
 			}
 
 			TogglePlayerControllable(playerid, 0);
@@ -133,11 +107,11 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				    	//GivePlayerCash(playerid,PlayerInfo[playerid][pCheckCash]);
 				    	GivePlayerCashEx(playerid, TYPE_BANK, PlayerInfo[playerid][pCheckCash]);
 				     	PlayerInfo[playerid][pCheckCash] = 0;
-				      	SendClientMessageEx(playerid, COLOR_YELLOW, "  You have successfully cashed-in all your checks to your bank.");
+				      	SendServerMessage(playerid, "You have successfully cashed-in all your checks to your bank.");
 				       	return ShowBankMenu(playerid);
 					}		
 					else {
-						SendClientMessageEx(playerid, COLOR_YELLOW, "   You did not have any undeposited checks on hand.");
+						SendServerMessage(playerid, "You did not have any undeposited checks on hand.");
 						return ShowBankMenu(playerid);
 					}
 				}
@@ -157,17 +131,17 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			if(GetPVarType(playerid, "BankWithdraw")) {
 				
 				if(iAmount < 1) {
-					SendClientMessageEx(playerid, COLOR_WHITE, "  Negative amounts cannot be transfered!");
+					SendErrorMessage(playerid, "Negative amounts cannot be transfered!");
 					return ShowBankMenu(playerid, 1);
 				}
 
 				if(iAmount > PlayerInfo[playerid][pAccount]) {
-					SendClientMessageEx(playerid, COLOR_WHITE, "  You are trying to withdraw more than you have!");
+					SendErrorMessage(playerid, "You are trying to withdraw more than you have!");
 					return ShowBankMenu(playerid, 1);
 				}
 
 				if(gettime()-GetPVarInt(playerid, "LastTransaction") < 10) {
-					SendClientMessageEx(playerid, COLOR_GRAD2, "You can only make a transaction once every 10 seconds, please wait!");
+					SendErrorMessage(playerid, "You can only make a transaction once every 10 seconds, please wait!");
 					ShowBankMenu(playerid, 1);
 				}
 				SetPVarInt(playerid, "LastTransaction", gettime());
@@ -175,7 +149,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				if(!Bank_TransferCheck(-iAmount)) return 1;
 				GivePlayerCash(playerid, iAmount);
 				PlayerInfo[playerid][pAccount] -= iAmount;
-				format(szMiscArray, sizeof(szMiscArray), "  You have withdrawn $%s from your account. ", number_format(iAmount));
+				format(szMiscArray, sizeof(szMiscArray), "You have withdrawn $%s from your account. ", number_format(iAmount));
 				SendClientMessageEx(playerid, COLOR_YELLOW, szMiscArray);
 
 				if(PlayerInfo[playerid][pTut] == 16)
@@ -193,17 +167,17 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			else if(GetPVarType(playerid, "BankDeposit")) {
 
 				if(iAmount < 1) {
-					SendClientMessageEx(playerid, COLOR_WHITE, "  Negative amounts cannot be transfered!");
+					SendErrorMessage(playerid, "Negative amounts cannot be transfered!");
 					return ShowBankMenu(playerid, 2);
 				}
 
 				if(iAmount > GetPlayerCash(playerid)) {
-					SendClientMessageEx(playerid, COLOR_WHITE, "  You are trying to deopsit more than you have!");
+					SendErrorMessage(playerid, "You are trying to deopsit more than you have!");
 					return ShowBankMenu(playerid, 2);
 				}
 
 				if(gettime()-GetPVarInt(playerid, "LastTransaction") < 10) {
-					SendClientMessageEx(playerid, COLOR_GRAD2, "You can only make a transaction once every 10 seconds, please wait!");
+					SendErrorMessage(playerid, "You can only make a transaction once every 10 seconds, please wait!");
 					ShowBankMenu(playerid, 2);
 				}
 				SetPVarInt(playerid, "LastTransaction", gettime());
@@ -211,7 +185,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				if(!Bank_TransferCheck(iAmount)) return 1;
 				GivePlayerCash(playerid, -iAmount);
 				PlayerInfo[playerid][pAccount] += iAmount; 
-				format(szMiscArray, sizeof(szMiscArray), "  You have deposited $%s to your account. ", number_format(iAmount));
+				format(szMiscArray, sizeof(szMiscArray), "You have deposited $%s to your account. ", number_format(iAmount));
 				SendClientMessageEx(playerid, COLOR_YELLOW, szMiscArray);
 
 				OnPlayerStatsUpdate(playerid);
@@ -231,7 +205,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			new id = strval(inputtext);
 			
 			if(!IsPlayerConnected(id) || !gPlayerLogged{id}) {
-				SendClientMessageEx(playerid, COLOR_WHITE, "  The player you are trying to transfer to is not connected!");
+				SendErrorMessage(playerid, "The player you are trying to transfer to is not connected!");
 				return ShowBankMenu(playerid, 3);
 			}
 
@@ -252,19 +226,19 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
 
 			if(restarting) {
-				SendClientMessageEx(playerid, COLOR_GRAD2, "Transactions are currently disabled due to the server being restarted for maintenance.");
+				SendErrorMessage(playerid, "Transactions are currently disabled due to the server being restarted for maintenance.");
 				return ShowBankMenu(playerid, 3);
 			}
 			if(PlayerInfo[playerid][pLevel] < 3) {
-				SendClientMessageEx(playerid, COLOR_GRAD1, "   You must be at least level 3 to use this feature!");
+				SendErrorMessage(playerid, "You must be at least level 3 to use this feature!");
 				return ShowBankMenu(playerid, 3);
 			}
-			if(gettime()-GetPVarInt(playerid, "LastTransaction") < 10) {
-				SendClientMessageEx(playerid, COLOR_GRAD2, "You can only make a transaction once every 10 seconds, please wait!");
+			if(gettime()-GetPVarInt(playerid, "LastTransaction") < 5) {
+				SendErrorMessage(playerid, "You can only make a transaction once every 5 seconds, please wait!");
 				return ShowBankMenu(playerid, 3);
 			}
 
-			if(iAmount > PlayerInfo[playerid][pAccount] || iAmount < 0) return SendClientMessageEx(playerid, COLOR_WHITE, "You are trying to send more than you have!");
+			if(iAmount > PlayerInfo[playerid][pAccount] || iAmount < 0) return SendErrorMessage(playerid, "You are trying to send more than you have!");
 
 			// Use these as they update the MySQL Directly with less function calls
 			GivePlayerCashEx(playerid, TYPE_BANK, -iAmount);
