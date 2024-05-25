@@ -8,3 +8,5 @@ Fixed some minor bugs in the script
 Fixed some warnings in the script
 
 Gamemode Changes
+- Adjusted LS VIP /buytoys position
+- Adjusted coloring in /points & /turfs
