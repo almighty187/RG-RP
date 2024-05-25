@@ -144,6 +144,10 @@
 		9) Toy
 		10) Voucher
 		11) Park Meter
+		12) House Listing
+		13) Garage
+		14) Door
+		15) Gate
 */
 
 #include <YSI\y_hooks>
@@ -1200,6 +1204,34 @@ stock Help_ListCat(playerid, dialogid = DIALOG_HELPCATMAIN, response = 0, listit
 				SetPVarInt(playerid, string, 11);
 				j++;
 				format(szMiscArray, sizeof(szMiscArray), "%sPark Meter\n", szMiscArray);
+			}
+			if(Help_Perm(playerid, 14, 12, 1))
+			{
+				format(string, sizeof(string), "HelpResultCat%i", j);
+				SetPVarInt(playerid, string, 11);
+				j++;
+				format(szMiscArray, sizeof(szMiscArray), "%sHouse Listing\n", szMiscArray);
+			}
+			if(Help_Perm(playerid, 14, 13, 1))
+			{
+				format(string, sizeof(string), "HelpResultCat%i", j);
+				SetPVarInt(playerid, string, 11);
+				j++;
+				format(szMiscArray, sizeof(szMiscArray), "%sGarage\n", szMiscArray);
+			}
+			if(Help_Perm(playerid, 14, 14, 1))
+			{
+				format(string, sizeof(string), "HelpResultCat%i", j);
+				SetPVarInt(playerid, string, 11);
+				j++;
+				format(szMiscArray, sizeof(szMiscArray), "%sDoor\n", szMiscArray);
+			}
+			if(Help_Perm(playerid, 14, 15, 1))
+			{
+				format(string, sizeof(string), "HelpResultCat%i", j);
+				SetPVarInt(playerid, string, 11);
+				j++;
+				format(szMiscArray, sizeof(szMiscArray), "%sGate\n", szMiscArray);
 			}
 			Help_GenerateCMDList(playerid, 3, -1, 14, 0);
 			if(!isnull(szMiscArray)) ShowPlayerDialogEx(playerid, DIALOG_HELPCATOTHER, DIALOG_STYLE_LIST, "Help System", szMiscArray, "Select", "Cancel");

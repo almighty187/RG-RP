@@ -746,7 +746,7 @@ CMD:businessdate(playerid, params[]) {
 	return 1;
 }
 
-CMD:businesshelp(playerid, params[])
+CMD:obusinesshelp(playerid, params[])
 {
     SendClientMessageEx(playerid, COLOR_GREEN,"_______________________________________");
     SendClientMessageEx(playerid, COLOR_WHITE,"*** BUSINESS HELP *** - type a command for more infomation.");
@@ -778,7 +778,7 @@ CMD:businesshelp(playerid, params[])
 }
 
 CMD:bhelp(playerid, params[]) {
-	return cmd_businesshelp(playerid, params);
+	return cmd_obusinesshelp(playerid, params);
 }
 
 CMD:bonline(playerid, params[]) {

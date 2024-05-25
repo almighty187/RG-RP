@@ -464,7 +464,12 @@ CMD:lockdoor(playerid, params[])
 	}
 	return 1;
 }
-
+CMD:doorhelp(playerid, params[])
+{
+	SetPVarInt(playerid, "HelpResultCat0", 14);
+	Help_ListCat(playerid, DIALOG_HELPCATOTHER1);
+	return 1;
+}
 CMD:doorpass(playerid, params[])
 {
     for(new i = 0; i < sizeof(DDoorsInfo); i++) {

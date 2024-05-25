@@ -152,6 +152,12 @@ CMD:dli(playerid, params[]) return cmd_denylisting(playerid, params);
 
 CMD:houselistinghelp(playerid, params[])
 {
+	SetPVarInt(playerid, "HelpResultCat0", 12);
+	Help_ListCat(playerid, DIALOG_HELPCATOTHER1);
+	return 1;
+}
+CMD:ohouselistinghelp(playerid, params[])
+{
 	SendClientMessageEx(playerid, COLOR_WHITE, "** HOUSE LISTING COMMANDS **");
 	SendClientMessageEx(playerid, COLOR_GREY, "� /listhouse - Allows you to place a house listing ($15,000).");
 	SendClientMessageEx(playerid, COLOR_GREY, "� /renewlisting - Allows you to renew an active house listing ($5,000).");
@@ -396,7 +402,7 @@ CMD:renewlisting(playerid, params[])
 	SaveHouse(houseid);
 	format(string, sizeof(string), "You have renewed your house listing by a day, it will expire on %s.", date(HouseInfo[houseid][ListedTimeStamp], 4));
 	SendClientMessageEx(playerid, COLOR_GREEN, string);
-	GivePlayerCashEx(playerid, TYPE_ONHAND, -100000);
+	GivePlayerCashEx(playerid, TYPE_ONHAND, -5000);
     return 1;
 }
 

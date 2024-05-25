@@ -923,7 +923,12 @@ CMD:reloadgate(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_WHITE, string);
 	return 1;
 }
-
+CMD:gatehelp(playerid, params[])
+{
+	SetPVarInt(playerid, "HelpResultCat0", 15);
+	Help_ListCat(playerid, DIALOG_HELPCATOTHER1);
+	return 1;
+}
 CreateGate(gateid) {
 	if(IsValidDynamicObject(GateInfo[gateid][gGATE])) DestroyDynamicObject(GateInfo[gateid][gGATE]);
 	GateInfo[gateid][gGATE] = -1;

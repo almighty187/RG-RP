@@ -457,8 +457,13 @@ CMD:garagenear(playerid, params[])
 	}
 	return 1;
 }
-
 CMD:garagehelp(playerid, params[])
+{
+	SetPVarInt(playerid, "HelpResultCat0", 13);
+	Help_ListCat(playerid, DIALOG_HELPCATOTHER1);
+	return 1;
+}
+CMD:ogaragehelp(playerid, params[])
 {
 	SendClientMessageEx(playerid, COLOR_GRAD2, "*** GARAGE *** /garagepass /lockgarage /changegaragepass");
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pShopTech] >= 1)
