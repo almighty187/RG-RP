@@ -22,6 +22,17 @@ new GunObjectIDs[200] = {
     368, 369, 1575
 };
 
+new const WeaponNames[][32] = {
+    "", "Brass Knuckles", "Golf Club", "Nightstick", "Knife", "Baseball Bat", "Shovel", "Pool Cue",
+    "Katana", "Chainsaw", "Purple Dildo", "Dildo", "Vibrator", "Silver Vibrator", "Flowers",
+    "Cane", "Grenade", "Tear Gas", "Molotov", "Rocket", "Rocket HS", "Freefall Bomb", "Pistol",
+    "Pistol Silenced", "Desert Eagle", "Shotgun", "Sawed-Off Shotgun", "Combat Shotgun", "Uzi",
+    "MP5", "AK47", "M4", "Tec9", "Rifle", "Sniper Rifle", "Rocket Launcher", "Heat-Seeking RPG",
+    "Flamethrower", "Minigun", "Satchel Charge", "Detonator", "Spray Can", "Fire Extinguisher",
+    "Camera", "Night Vision Goggles", "Thermal Goggles", "Parachute"
+};
+
+
 stock GetGunObjectID(WeaponID)
 {
     if (WeaponID < 0 || WeaponID > 64)
@@ -58,13 +69,40 @@ stock DropGun(playerid, GunID, GunAmmo, Float:X, Float:Y, Float:Z, world, interi
     return 1;
 }
 
-/*hook OnPlayerDeath(playerid, killerid, reason)
+hook OnPlayerDeath(playerid, killerid, reason)
 {
     new Float:X, Float:Y, Float:Z;
     GetPlayerPos(playerid, X, Y, Z);
     DropGun(playerid, GetPlayerWeapon(playerid), GetPlayerAmmo(playerid), X, Y, Z, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
     return 1;
-}*/
+}
+hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
+
+	if(newkeys & KEY_YES)
+	{
+	    for (new i = 0; i < sizeof(DropInfo); i++)
+    	{
+			if (DropInfo[i][IsUsed] && IsPlayerInRangeOfPoint(playerid, 2.0, DropInfo[i][DropGunPosX], DropInfo[i][DropGunPosY], DropInfo[i][DropGunPosZ]))
+	        {
+	            if (GetPlayerVirtualWorld(playerid) == DropInfo[i][DropGunVWorld] && GetPlayerInterior(playerid) == DropInfo[i][DropGunInterior])
+	            {
+	                new sendername[MAX_PLAYER_NAME], string[128]; // Adjust size as needed
+	                GetPlayerName(playerid, sendername, sizeof(sendername));
+	                DestroyDynamicObject(DropObject[i]);
+	                DropInfo[i][IsUsed] = false;
+	                GivePlayerValidWeapon(playerid, DropInfo[i][DropGunModelID]);
+	                format(string, sizeof(string), "* %s picks up a weapon from the pavement.", sendername);
+                 	SetPlayerChatBubble(playerid, string, COLOR_PURPLE, 30.0, 4000);
+					ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+	                PlayAnimEx(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0, 1);
+   					SetTimerEx("ClearAnims", 2000, false, "d", playerid);
+	                return 1;
+	            }
+	        }
+	    }
+	}
+	return 1;
+}
 
 CMD:dropgun(playerid, params[])
 {
@@ -77,8 +115,11 @@ CMD:dropgun(playerid, params[])
     GetPlayerPos(playerid, X, Y, Z);
     RemovePlayerWeapon(playerid, GunID);
     DropGun(playerid, GunID, GunAmmo, X, Y, Z, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
-    format(string, sizeof(string), "* %s drops his weapon to the pavement.", sendername);
-    SetPlayerChatBubble(playerid, string, COLOR_PURPLE, 10.0, 4000);
+    format(string, sizeof(string), "* %s drops %s weapon to the pavement.", sendername, CheckSex(playerid));
+    SetPlayerChatBubble(playerid, string, COLOR_PURPLE, 30.0, 4000);
+	ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+    PlayAnimEx(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0, 1);
+    SetTimerEx("ClearAnims", 2000, false, "d", playerid);
     return 1;
 }
 
@@ -95,11 +136,14 @@ CMD:pickupgun(playerid, params[])
                 GetPlayerName(playerid, sendername, sizeof(sendername));
                 DestroyDynamicObject(DropObject[i]);
                 DropInfo[i][IsUsed] = false;
-                GivePlayerWeapon(playerid, DropInfo[i][DropGunModelID], DropInfo[i][DropGunAmmo]);
+                GivePlayerValidWeapon(playerid, DropInfo[i][DropGunModelID]);
                 format(string, sizeof(string), "* %s picks up a weapon from the pavement.", sendername);
-                SetPlayerChatBubble(playerid, string, COLOR_PURPLE, 10.0, 4000);
+                SetPlayerChatBubble(playerid, string, COLOR_PURPLE, 30.0, 4000);
+				ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+                PlayAnimEx(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0, 1);
+               	SetTimerEx("ClearAnims", 2000, false, "d", playerid);
                 return 1;
-            }
+            }    									
         }
     }
     return 1;

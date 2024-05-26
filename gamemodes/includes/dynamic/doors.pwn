@@ -690,7 +690,7 @@ CMD:ddowner(playerid, params[])
 		new playername[MAX_PLAYER_NAME], doorid, szName[128];
 		if(sscanf(params, "ds[24]", doorid, playername)) return SendClientMessageEx(playerid, COLOR_WHITE, "USAGE: /ddowner [door] [player name]");
 
-		if(DDoorsInfo[doorid][ddType] != 1) return SendServerMessage(playerid, "This door is not owned by a player!");
+		if(DDoorsInfo[doorid][ddType] != 1) return SendErrorMessage(playerid, "This door is not owned by a player!");
 		new giveplayerid = ReturnUser(playername);
 		if(PlayerInfo[giveplayerid][pLevel] == 1 && PlayerInfo[giveplayerid][pAdmin] < 2) return SendClientMessageEx(playerid, COLOR_RED, "You can't use /ddowner on level 1's");
 		if(IsPlayerConnected(giveplayerid))

@@ -1,6 +1,7 @@
 Changelog - May 24, 2024
 
 Gamemode Additions
+Added famed interior and garage
 
 
 Gamemode Fixes
@@ -9,5 +10,5 @@ Fixed some warnings in the script
 Fixed group cmd so now should be working for members too
 
 Gamemode Changes
-- Adjusted LS VIP /buytoys position
-- Adjusted coloring in /points & /turfs
+Adjusted LS VIP /buytoys position
+Adjusted coloring in /points & /turfs

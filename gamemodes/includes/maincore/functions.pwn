@@ -1317,21 +1317,31 @@ public UpdateCarRadars()
 }
 			
 /*  ---------------- STOCK FUNCTIONS ----------------- */
-stock SendErrorMessage(playerid, const message[])
+stock CheckSex(playerid) // Added by N0FeaR
+{
+    new stext[5];
+	switch(PlayerInfo[playerid][pSex])
+	{
+        case 1: stext = "his";
+	    case 2: stext = "her";
+	}
+    return stext;
+}
+stock SendErrorMessage(playerid, const message[]) // Added by N0FeaR
 {
     new _msg[256];
     format(_msg, sizeof(_msg), "[WARNING]:{FFFFFF} %s", message);
     SendClientMessage(playerid, COLOR_LIGHTRED, _msg);
     return 1;
 }
-stock SendServerMessage(playerid, const message[])
+stock SendServerMessage(playerid, const message[]) // Added by N0FeaR
 {
     new _msg[256];
     format(_msg, sizeof(_msg), "[SERVER]:{FFFFFF} %s", message);
     SendClientMessage(playerid, COLOR_CLIENT, _msg);
     return 1;
 }
-stock PlaySoundInArea(soundid,Float:x,Float:y,Float:z,Float:radi)
+stock PlaySoundInArea(soundid,Float:x,Float:y,Float:z,Float:radi) // Added by N0FeaR
 {
     foreach(new i : Player)
 	{
@@ -1345,7 +1355,7 @@ stock PlaySoundInArea(soundid,Float:x,Float:y,Float:z,Float:radi)
 	}
 	return 1;
 }
-stock CreateLableText(playerid,lable[],text[])
+stock CreateLableText(playerid,lable[],text[]) // Added by N0FeaR
 {
 	if(PlayerInfo[playerid][pReg] < 1) return 1;
     if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 1;

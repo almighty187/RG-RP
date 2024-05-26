@@ -1207,28 +1207,28 @@ stock Help_ListCat(playerid, dialogid = DIALOG_HELPCATMAIN, response = 0, listit
 			if(Help_Perm(playerid, 14, 12, 1))
 			{
 				format(string, sizeof(string), "HelpResultCat%i", j);
-				SetPVarInt(playerid, string, 11);
+				SetPVarInt(playerid, string, 12);
 				j++;
 				format(szMiscArray, sizeof(szMiscArray), "%sHouse Listing\n", szMiscArray);
 			}
 			if(Help_Perm(playerid, 14, 13, 1))
 			{
 				format(string, sizeof(string), "HelpResultCat%i", j);
-				SetPVarInt(playerid, string, 11);
+				SetPVarInt(playerid, string, 13);
 				j++;
 				format(szMiscArray, sizeof(szMiscArray), "%sGarage\n", szMiscArray);
 			}
 			if(Help_Perm(playerid, 14, 14, 1))
 			{
 				format(string, sizeof(string), "HelpResultCat%i", j);
-				SetPVarInt(playerid, string, 11);
+				SetPVarInt(playerid, string, 14);
 				j++;
 				format(szMiscArray, sizeof(szMiscArray), "%sDoor\n", szMiscArray);
 			}
 			if(Help_Perm(playerid, 14, 15, 1))
 			{
 				format(string, sizeof(string), "HelpResultCat%i", j);
-				SetPVarInt(playerid, string, 11);
+				SetPVarInt(playerid, string, 15);
 				j++;
 				format(szMiscArray, sizeof(szMiscArray), "%sGate\n", szMiscArray);
 			}
