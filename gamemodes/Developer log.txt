@@ -6,6 +6,7 @@ Gamemode Additions
 Gamemode Fixes
 Fixed some minor bugs in the script
 Fixed some warnings in the script
+Fixed group cmd so now should be working for members too
 
 Gamemode Changes
 - Adjusted LS VIP /buytoys position

@@ -1125,7 +1125,7 @@ CMD:giveweapon(playerid, params[])
 	return 1;
 }
 
-CMD:dropgun(playerid, params[])
+/*CMD:dropgun(playerid, params[])
 {
 	if(isnull(params))
 	{
@@ -1601,7 +1601,7 @@ CMD:dropgun(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_GRAD1, "You have entered an invalid weapon name.");
 	}
 	return 1;
-}
+}*/
 
 CMD:holster(playerid, params[])
 {

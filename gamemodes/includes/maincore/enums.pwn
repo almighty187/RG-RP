@@ -108,6 +108,7 @@ new const ArmsDealerCosts[][] =
 	"30000"
 };
 
+
 enum eGroupData {
 	g_SlotHolder[MAX_PLAYER_NAME],
 	g_iGroupType,
