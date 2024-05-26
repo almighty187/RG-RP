@@ -101,6 +101,7 @@
 #include "./includes/n0fear/walkstyle.pwn"
 #include "./includes/n0fear/newturfs.pwn"
 #include "./includes/n0fear/dropweapon.pwn"
+#include "./includes/n0fear/dropdrug.pwn"
 
 // 187
 #include "./includes/187/mydrugs.pwn"

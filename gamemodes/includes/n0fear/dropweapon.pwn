@@ -22,7 +22,7 @@ new GunObjectIDs[200] = {
     368, 369, 1575
 };
 
-new const WeaponNames[][32] = {
+new WeaponNames[][32] = {
     "", "Brass Knuckles", "Golf Club", "Nightstick", "Knife", "Baseball Bat", "Shovel", "Pool Cue",
     "Katana", "Chainsaw", "Purple Dildo", "Dildo", "Vibrator", "Silver Vibrator", "Flowers",
     "Cane", "Grenade", "Tear Gas", "Molotov", "Rocket", "Rocket HS", "Freefall Bomb", "Pistol",
@@ -115,7 +115,7 @@ CMD:dropgun(playerid, params[])
     GetPlayerPos(playerid, X, Y, Z);
     RemovePlayerWeapon(playerid, GunID);
     DropGun(playerid, GunID, GunAmmo, X, Y, Z, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
-    format(string, sizeof(string), "* %s drops %s weapon to the pavement.", sendername, CheckSex(playerid));
+    format(string, sizeof(string), "* %s drops %s %s to the pavement.", sendername, CheckSex(playerid), WeaponNames);
     SetPlayerChatBubble(playerid, string, COLOR_PURPLE, 30.0, 4000);
 	ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
     PlayAnimEx(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0, 1);
