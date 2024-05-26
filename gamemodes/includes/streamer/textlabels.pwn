@@ -17,6 +17,8 @@ hook OnGameModeInit() {
 	CreateDynamic3DTextLabel("/dplocker\nTo open the Dedicated locker.",COLOR_TWGREEN,166.6540, -2001.0413, 3499.6482+0.6,4.0);/// Dedicated Locker
 	CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_TWGREEN,2561.3562,1404.1563,7699.5845+0.6,4.0); // LS VIP Lounge
 	CreateDynamic3DTextLabel("Famed Locker \nType /famedlocker to access the locker", COLOR_FAMED,901.4825,1429.7404,-82.3235+0.6,4.0); // Famed Locker
+	//CreateDynamic3DTextLabel("Famed Locker \nType /famedlocker to access the locker", COLOR_FAMED,901.3110,1430.1034,-82.3256+0.6,4.0); // Famed Locker
+	CreateDynamic3DTextLabel("Famed Locker \nType /famedlocker to access the locker",COLOR_TWGREEN,901.3110,1430.1034,-82.3256,15.0); // Famed Locker
 
 	
 	// Business & Job related
