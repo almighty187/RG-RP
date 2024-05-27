@@ -1,20 +1,19 @@
 /*
 
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
+					 _______      ______     _______     _______
+					|_   __ \   .' ___  |  _|_   __ \   |_   __ \
+					  | |__) | / .'   \_| (_) | |__) |    | |__) |
+					  |  __ /  | |   ____  _  |  __ /     |  ___/
+					 _| |  \ \_\ `.___]  |(_)_| |  \ \_  _| |_
+					|____| |___|`._____.'   |____| |___||_____|
+
 
 						Speedo System
 
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
+					Rebound Gaming
+	(created by Rebound Gaming Development Team)
 					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
+	* Copyright (c) 2024, Rebound Gaming
 	*
 	* All rights reserved.
 	*
@@ -48,34 +47,34 @@ stock UpdateVehicleHUDForPlayer(p, fuel, speed)
 	}
 
 	if (IsVIPcar(vehicleid) || IsAdminSpawnedVehicle(vehicleid) || IsFamedVeh(vehicleid) || GetVehicleModel(vehicleid) == 481 || GetVehicleModel(vehicleid) == 509 || GetVehicleModel(vehicleid) == 510)
-		format(str, sizeof(str), "~b~Fuel: ~w~U");
+		format(str, sizeof(str), "~w~Fuel: ~w~U");
 	else
-		format(str, sizeof(str), "~b~Fuel: ~w~%i",fuel);
+		format(str, sizeof(str), "~w~Fuel: ~w~%i",fuel);
 
 	PlayerTextDrawSetString(p, _vhudTextFuel[p], str);
 
-	format(str, sizeof(str), "~b~MPH: %s%i",szColor, speed);
+	format(str, sizeof(str), "~w~MPH: %s%i",szColor, speed);
 	PlayerTextDrawSetString(p, _vhudTextSpeed[p], str);
 	
 	if(Seatbelt[p] == 0)
 	{
-		format(str, sizeof(str), "~b~%s: ~r~OFF", IsABike(vehicleid) ? ("HM"):("SB"));
+		format(str, sizeof(str), "~w~%s: ~r~OFF", IsABike(vehicleid) ? ("HM"):("SB"));
 		PlayerTextDrawSetString(p, _vhudSeatBelt[p], str);
 	}
 	else if(Seatbelt[p] == 2) {
-		format(str, sizeof(str), "~b~HM: ~g~ON");
+		format(str, sizeof(str), "~w~HM: ~g~ON");
 		PlayerTextDrawSetString(p, _vhudSeatBelt[p], str);
 	}
 	else {
-		format(str, sizeof(str), "~b~SB: ~g~ON");
+		format(str, sizeof(str), "~w~SB: ~g~ON");
 		PlayerTextDrawSetString(p, _vhudSeatBelt[p], str);
 	}
 	if(lights != VEHICLE_PARAMS_ON) {
-		format(str, sizeof(str), "~b~Lights: ~r~OFF");
+		format(str, sizeof(str), "~w~Lights: ~r~OFF");
 		PlayerTextDrawSetString(p, _vhudLights[p], str);	
 	}
 	else {
-		format(str, sizeof(str), "~b~Lights: ~g~ON");
+		format(str, sizeof(str), "~w~Lights: ~g~ON");
 		PlayerTextDrawSetString(p, _vhudLights[p], str);
 	}
 }
@@ -137,12 +136,12 @@ CMD:speedopos(playerid, params[])
 		{
 			if(TPosX[0] < 0 || TPosX[0] > 640)
 			{
-				SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /speedopos (optional) [X] [Y]");
+				SendSyntaxMessage(playerid, COLOR_GREY, "USAGE: /speedopos (optional) [X] [Y]");
 				return SendClientMessageEx(playerid, COLOR_GREY, "X must be above 0 and below 640");
 			}
 			if(TPosY[0] < 0 || TPosY[0] > 640)
 			{
-				SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /speedopos (optional) [X] [Y]");
+				SendSyntaxMessage(playerid, COLOR_GREY, "USAGE: /speedopos (optional) [X] [Y]");
 				return SendClientMessageEx(playerid, COLOR_GREY, "Y must be above 0 and below 480");
 			}
 			TPosX[1] = TPosX[0] + 60.0;
@@ -180,7 +179,7 @@ CMD:speedopos(playerid, params[])
 		}
 		
 		PlayerTextDrawDestroy(playerid, _vhudTextFuel[playerid]);
-		_vhudTextFuel[playerid] = CreatePlayerTextDraw(playerid, TPosX[0], TPosY[0], "~b~Fuel: N/A");
+		_vhudTextFuel[playerid] = CreatePlayerTextDraw(playerid, TPosX[0], TPosY[0], "~w~Fuel: N/A");
 		PlayerTextDrawBackgroundColor(playerid, _vhudTextFuel[playerid], 255);
 		PlayerTextDrawFont(playerid, _vhudTextFuel[playerid], 1);
 		PlayerTextDrawLetterSize(playerid, _vhudTextFuel[playerid], 0.270000, 2.000000);
@@ -189,7 +188,7 @@ CMD:speedopos(playerid, params[])
 		PlayerTextDrawSetProportional(playerid, _vhudTextFuel[playerid], 1);
 
 		PlayerTextDrawDestroy(playerid, _vhudTextSpeed[playerid]);
-		_vhudTextSpeed[playerid] = CreatePlayerTextDraw(playerid, TPosX[1], TPosY[0], "~b~MPH: N/A");
+		_vhudTextSpeed[playerid] = CreatePlayerTextDraw(playerid, TPosX[1], TPosY[0], "~w~MPH: N/A");
 		PlayerTextDrawBackgroundColor(playerid, _vhudTextSpeed[playerid], 255);
 		PlayerTextDrawFont(playerid, _vhudTextSpeed[playerid], 1);
 		PlayerTextDrawLetterSize(playerid, _vhudTextSpeed[playerid], 0.270000, 2.000000);
@@ -198,7 +197,7 @@ CMD:speedopos(playerid, params[])
 		PlayerTextDrawSetProportional(playerid, _vhudTextSpeed[playerid], 1);
 
 		PlayerTextDrawDestroy(playerid, _vhudSeatBelt[playerid]);
-		_vhudSeatBelt[playerid] = CreatePlayerTextDraw(playerid, TPosX[1], TPosY[1], "~b~SB: ~r~OFF");
+		_vhudSeatBelt[playerid] = CreatePlayerTextDraw(playerid, TPosX[1], TPosY[1], "~w~SB: ~r~OFF");
 		PlayerTextDrawBackgroundColor(playerid, _vhudSeatBelt[playerid], 255);
 		PlayerTextDrawFont(playerid, _vhudSeatBelt[playerid], 1);
 		PlayerTextDrawLetterSize(playerid, _vhudSeatBelt[playerid], 0.270000, 2.000000);
@@ -207,7 +206,7 @@ CMD:speedopos(playerid, params[])
 		PlayerTextDrawSetProportional(playerid, _vhudSeatBelt[playerid], 1);
 
 		PlayerTextDrawDestroy(playerid, _vhudLights[playerid]);
-		_vhudLights[playerid] = CreatePlayerTextDraw(playerid, TPosX[0], TPosY[1], "~b~Lights: ~r~OFF");
+		_vhudLights[playerid] = CreatePlayerTextDraw(playerid, TPosX[0], TPosY[1], "~w~Lights: ~r~OFF");
 		PlayerTextDrawBackgroundColor(playerid, _vhudLights[playerid], 255);
 		PlayerTextDrawFont(playerid, _vhudLights[playerid], 1);
 		PlayerTextDrawLetterSize(playerid, _vhudLights[playerid], 0.270000, 2.000000);
