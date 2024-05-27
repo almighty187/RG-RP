@@ -2,7 +2,6 @@
 #include <YSI\y_utils>
 
 
-
 new CountingPlayer;
 hook OnGameModeInit()
 {
@@ -85,12 +84,77 @@ stock SendDiscordMessage(channel, message[])
 	}
 	return 1;
 }
+/*public DCC_OnMessageCreate(DCC_Message:message)
+{
+    new realMsg[100], DCC_Channel:channel, DCC_User:author, channel_name[128], user_name[32 + 1], author_id[20 + 1], szMessage[128];
+    DCC_GetMessageContent(message, realMsg);
+    printf("Received message content: '%s'\n", realMsg);
+
+    // Get the channel name for further processing
+    DCC_GetMessageChannel(message, channel);
+    DCC_GetMessageAuthor(message, author);
+    DCC_GetChannelName(channel, channel_name, sizeof(channel_name));
+    DCC_GetUserName(author, user_name, sizeof(user_name));
+    DCC_GetUserId(author, author_id);
+    printf("[DCC] OnChannelMessage (Channel %s): Author %s sent message: %s", channel_name, user_name, realMsg);
+
+    // Check if the message content is not empty
+    if(strlen(realMsg) == 0)
+	{
+	    printf("Empty message content\n");
+	    return 1;
+	}
+	else
+	{
+	    printf("Message content: %s\n", realMsg);
+	}
+    // Check if the command is intended for the ip-whitelist channel
+    if(!strcmp(channel_name, "ip-whitelist", true))
+    {
+        // Check if the message starts with the command prefix
+        if(realMsg[0] == '/')
+        {
+            new cmd[128];
+            // Extract the command and parameters
+            sscanf(realMsg, "/%s %[^\n]", cmd, realMsg);
+
+            // Check if the command is ipwhitelist
+            if(!strcmp(cmd, "ipwhitelist", true))
+            {
+                new giveplayer[MAX_PLAYER_NAME], ip[16];
+                // Parse the parameters
+                if(sscanf(realMsg, "%s %s", giveplayer, ip) < 2)
+                {
+                    SendDiscordMessage(5, "USAGE: /ipwhitelist [admin name] [IP]");
+                    return 1;
+                }
+
+                // Execute the command logic
+                new tmpName[128], tmpIP[16], query[228];
+                mysql_escape_string(giveplayer, tmpName);
+                mysql_escape_string(ip, tmpIP);
+                mysql_format(MainPipeline, query, sizeof(query), "UPDATE `accounts` SET `SecureIP`='%s' WHERE `Username`='%s'", tmpIP, tmpName);
+                mysql_tquery(MainPipeline, query, "OnIPWhitelistDiscord", "ss", author_id, tmpName);
+                DCC_DeleteMessage(message);
+                return 1;
+            }
+        }
+    }
+
+    // Other command handling blocks can be similarly fixed
+
+    return 1;
+}*/
 
 public DCC_OnMessageCreate(DCC_Message:message)
 {
 	new realMsg[100], DCC_Channel:channel, DCC_User:author, channel_name[32], user_name[32 + 1], author_id[20 + 1], szMessage[128];
     DCC_GetMessageContent(message, realMsg);
+    printf("Received message content: '%s'\n", realMsg);
 
+	// Get the channel name for further processing
+	DCC_GetChannelName(channel, channel_name, sizeof(channel_name));
+    printf("Channel name: '%s'\n", channel_name);
     new bool:IsBot;
     DCC_IsUserBot(author, IsBot);
 
@@ -100,43 +164,6 @@ public DCC_OnMessageCreate(DCC_Message:message)
     DCC_GetUserName(author, user_name);
 	DCC_GetUserId(author, author_id);
     printf("[DCC] OnChannelMessage (Channel %s): Author %s sent message: %s", channel_name, user_name, realMsg);
-	/*new command_name[25], params[150];
-	if(sscanf(realMsg, "s[25]S()[150]", command_name, params))
-    {
-		return 0;
-    }
-    if(!strcmp(command_name, "<@1033336963610202183> help", true))
-    {
-		new str[256];
-		new DCC_Embed:embed = DCC_CreateEmbed();
-				format(str, sizeof str, "__**List of commands**__");
-				DCC_SetEmbedTitle(embed, str);
-				DCC_SetEmbedColor(embed, 0x669900);
-				format(str, sizeof(str),"***<@1033336963610202183> player*** - Show stats for the specified player.\n\
-										***<@1033336963610202183> turfs*** - Turfs information; who occupies them and when they're vulnerable again.\n\
-										***<@1033336963610202183> points*** - Points information; who occupies them and when they're vulnerable again.\n\
-										***<@1033336963610202183> gangs*** - List of the official gangs and their respective leaders.\n\
-										***<@1033336963610202183> factions*** - List of the official factions and their respective leaders.");
-				DCC_SetEmbedDescription(embed, str);
-				DCC_SendChannelEmbedMessage(g_ServerBotChannelId, embed);
-				printf("%d", channel);
-	}
-	if(!strcmp(command_name, "<@1033336963610202183> player", true))
-    {
-				new name[MAX_PLAYER_NAME];
-                if(sscanf(params, "s[32]", name))
-				{
-					new string[144];
-					format(string, sizeof(string), "<@%s>, use the following format: /player <player_name> (Example usage: /player John_Smith)", author_id);
-					return SendDiscordMessage(7, string);
-				}
-
-				new tmpName[24], str[256];
-				mysql_escape_string(name, tmpName);
-				mysql_format(MainPipeline, str, sizeof(str), "SELECT `Username`, `DonateRank`, `Level`, `ConnectedTime`, `Member`, `PhoneNr`, `Model` FROM `accounts` WHERE `Username` = '%s'", tmpName);
-				mysql_tquery(MainPipeline, str, "OnBotCheck", "s", author_id);
-	}*/
-
 	if(!strcmp(channel_name, "admin", true))
     {
         if(realMsg[0] == '/') // Prefix for bot commands.
@@ -193,32 +220,8 @@ public DCC_OnMessageCreate(DCC_Message:message)
     }
 	if(!strcmp(channel_name, "bot-channel", true))
     {
-		/*if(!strcmp(realMsg, "<@1033336963610202183> player",true)) // Prefix for bot commands.
-		{
-			new name[MAX_PLAYER_NAME];
-			if(sscanf(realMsg[31], "s[32]", name))
-			{
-					SendDiscordMessage(7, "string 1");
-			}
-			SendDiscordMessage(7, "string 2");
-		}*/
         if(realMsg[0] == '/') // Prefix for bot commands.
         {
-			if(strfind(realMsg, "help", true, 1) != -1 && realMsg[5] == '\0')
-            {
-				new str[2000];
-				new DCC_Embed:embed = DCC_CreateEmbed();
-				format(str, sizeof str, "__**List of commands**__");
-				DCC_SetEmbedTitle(embed, str);
-				DCC_SetEmbedColor(embed, 0x669900);
-				format(str, sizeof(str),"***/player*** - Show stats for the specified player.\n\
-										***/gangs*** - List of the official gangs and their respective leaders.\n\
-										***/factions*** - List of the official factions and their respective leaders.\n\
-										***/turfs*** - Turfs information; who occupies them and when they're vulnerable again.\n\
-										***/points*** - Points information; who occupies them and when they're vulnerable again.");
-				DCC_SetEmbedDescription(embed, str);
-				DCC_SendChannelEmbedMessage(g_ServerBotChannelId, embed);
-			}
             if(strfind(realMsg, "player", true, 1) != -1)
             {
 
@@ -237,11 +240,34 @@ public DCC_OnMessageCreate(DCC_Message:message)
 					if (name[i] == ' ')
 						name[i] = '_';
 				}
-				mysql_escape_string(name, tmpName);
 				mysql_format(MainPipeline, str, sizeof(str), "SELECT `Username`, `DonateRank`, `Level`, `ConnectedTime`, `Member`, `PhoneNr`, `Model` FROM `accounts` WHERE `Username` = '%s'", tmpName);
 				mysql_tquery(MainPipeline, str, "OnBotCheck", "s", author_id);
 
             }
+            if(strfind(realMsg, "turfs", true, 1) != -1)
+            {
+				new turfid, name[32], timeleft[32], tsstring[4096], tmpName[128];
+				tsstring = "";
+				new DCC_Embed:embed = DCC_CreateEmbed();
+				DCC_SetEmbedTitle(embed, "__**Turfs**__");
+				//DCC_SetEmbed
+				mysql_escape_string(name, tmpName);
+				//mysColor(embed, 0x669900);
+				for(turfid = 0; turfid < MAX_TURFS; turfid++)
+				{
+					if(TurfWars[turfid][twLocked] < 1 && TurfWars[turfid][twMinX])
+					{
+						if(TurfWars[turfid][twOwnerId] >= 0) strcpy(name, arrGroupData[TurfWars[turfid][twOwnerId]][g_szGroupName]);
+						else if(TurfWars[turfid][twOwnerId] == -2) name = "Law Enforcement";
+						else name = "Vacant";
+						if(TurfWars[turfid][twVulnerable] > 0) format(timeleft, sizeof(timeleft), "%d hours left", TurfWars[turfid][twVulnerable]);
+						else format(timeleft, sizeof(timeleft), "Vulnerable :timer:");
+						format(tsstring, sizeof(tsstring), "%s **%s** | Owner: **%s** | Perks: **%s** | **%s** \n", tsstring, TurfWars[turfid][twName], name, getTurftype(turfid), timeleft);
+					}
+				}
+				DCC_SetEmbedDescription(embed, tsstring);
+				DCC_SendChannelEmbedMessage(channel, embed);
+			}
 			if(strfind(realMsg, "points", true, 1) != -1)
             {
 				new DCC_Embed:embed = DCC_CreateEmbed(), tsstring[2048], name[32], timeleft[32];
@@ -257,6 +283,37 @@ public DCC_OnMessageCreate(DCC_Message:message)
 						if(DynPoints[point][poTimer] > 0) format(timeleft, sizeof(timeleft), "%d hours left", DynPoints[point][poTimer]);
 						else format(timeleft, sizeof(timeleft), "Vulnerable :timer:");
 						format(tsstring, sizeof(tsstring), "%s **%s** | Owner: **%s** (%s) | **%s** \n\n", tsstring, DynPoints[point][poName],name,DynPoints[point][poCaptureName],timeleft);
+					}
+				}
+				DCC_SetEmbedDescription(embed, tsstring);
+				DCC_SendChannelEmbedMessage(channel, embed);
+			}
+			if(strfind(realMsg, "gangs", true, 1) != -1)
+            {
+				new DCC_Embed:embed = DCC_CreateEmbed(), tsstring[2048];//, title[5], str[256];
+				DCC_SetEmbedTitle(embed, "__**Gangs**__");
+				DCC_SetEmbedColor(embed, 0x669900);
+				for(new i = 0; i < MAX_GROUPS; i++)
+				{
+					if(arrGroupData[i][g_iGroupType] == GROUP_TYPE_CRIMINAL && strlen(arrGroupData[i][g_szGroupName]) > 0)
+					{
+						format(tsstring, sizeof tsstring, "%s **%s** | Slot Holder: **%s** \n", tsstring, arrGroupData[i][g_szGroupName], arrGroupData[i][g_SlotHolder]);
+					}
+				}
+				DCC_SetEmbedDescription(embed, tsstring);
+				DCC_SendChannelEmbedMessage(channel, embed);
+			}
+			if(strfind(realMsg, "factions", true, 1) != -1)
+            {
+				new DCC_Embed:embed = DCC_CreateEmbed(), tsstring[2048];//, title[5], str[256];
+				DCC_SetEmbedTitle(embed, "__**Factions**__");
+				DCC_SetEmbedColor(embed, 0x669900);
+				for(new i = 0; i < MAX_GROUPS; i++)
+				{
+					if(arrGroupData[i][g_iGroupType] != GROUP_TYPE_CRIMINAL && strlen(arrGroupData[i][g_szGroupName]) > 0)
+					{
+						format(tsstring, sizeof tsstring, "%s **%s** | Slot Holder: **%s** \n", tsstring, arrGroupData[i][g_szGroupName], arrGroupData[i][g_SlotHolder]);
+
 					}
 				}
 				DCC_SetEmbedDescription(embed, tsstring);

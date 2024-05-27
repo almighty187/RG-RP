@@ -106,6 +106,7 @@
 // 187
 #include "./includes/187/mydrugs.pwn"
 #include "./includes/187/cmdpoints.pwn"
+//#include "./includes/187/rankname.pwn"
 
 //core includes
 #include "./includes/core/acceptcancel.pwn"
