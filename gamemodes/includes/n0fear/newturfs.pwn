@@ -4,78 +4,37 @@ new tsstring1[2500];
 new tsstring2[2500];
 #define  DIALOG_TURFLIST	(9751)
 #define  DIALOG_TURFLIST2   (9750)
-			/*	foreach(new x: Player)
-				{
 
-						if( IsPlayerInDynamicArea(x, TurfWars[i][twAreaId]) ) {
-							SetPlayerToTeamColor(playerid);
-							SetPlayerToTeamColor(x);
-						}
-				}*/
-			
-/*hook OnPlayerStateChange(playerid, newstate, oldstate) {
-	new tw = GetPlayerTurfWarsZone(playerid);
-	if((newstate == PLAYER_STATE_DRIVER || newstate == PLAYER_STATE_PASSENGER) && tw != -1 && IsPlayerInDynamicArea(playerid, TurfWars[tw][twAreaId]) && TurfWars[tw][twFlash] == 1 ) {
-
-			foreach(new x: Player)
-				{
-					if(PlayerInfo[playerid][pMember] != INVALID_GROUP_ID && PlayerInfo[x][pMember] != INVALID_GROUP_ID) {
-						if( IsPlayerInDynamicArea(x, TurfWars[tw][twAreaId]) ) {
-							SetPlayerMarkerForPlayer( playerid, x, (arrGroupData[PlayerInfo[x][pMember]][g_hDutyColour] * 256 + 255));
-							SetPlayerMarkerForPlayer( x, playerid, GetPlayerColor(playerid));
-						}
-					}
-				}
-			//SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "You left an active turf %d! (ENTER CAR)", tw);
-
-	}
-	if((oldstate == PLAYER_STATE_DRIVER || oldstate == PLAYER_STATE_PASSENGER) && newstate == PLAYER_STATE_ONFOOT && tw != -1  && IsPlayerInDynamicArea(playerid, TurfWars[tw][twAreaId]) && TurfWars[tw][twFlash] == 1) {
-
-			foreach(new x: Player)
-				{
-					if(PlayerInfo[playerid][pMember] != INVALID_GROUP_ID && PlayerInfo[x][pMember] != INVALID_GROUP_ID) {
-						if( IsPlayerInDynamicArea(x, TurfWars[tw][twAreaId]) ) {
-							SetPlayerMarkerForPlayer( playerid, x, (arrGroupData[PlayerInfo[x][pMember]][g_hDutyColour] * 256 + 255));
-							SetPlayerMarkerForPlayer( x, playerid, (arrGroupData[PlayerInfo[playerid][pMember]][g_hDutyColour] * 256 + 255));
-						}
-					}
-				}
-			//SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "You entered an active turf %d! (EXIT CAR)", tw);
-	}
-	
-}
 
 hook OnPlayerEnterDynamicArea(playerid, areaid) {
 	for(new i; i < MAX_TURFS; ++i) {
 		if(areaid == TurfWars[i][twAreaId] && TurfWars[i][twFlash] == 1 && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)		
 		{
 			foreach(new x: Player)
+			{
+				if(PlayerInfo[playerid][pMember] != INVALID_GROUP_ID && PlayerInfo[x][pMember] != INVALID_GROUP_ID)
 				{
-					if(PlayerInfo[playerid][pMember] != INVALID_GROUP_ID && PlayerInfo[x][pMember] != INVALID_GROUP_ID) {
-						if( IsPlayerInDynamicArea(x, TurfWars[i][twAreaId]) ) {
-							SetPlayerMarkerForPlayer( playerid, x, (arrGroupData[PlayerInfo[x][pMember]][g_hDutyColour] * 256 + 255));
-							SetPlayerMarkerForPlayer( x, playerid, (arrGroupData[PlayerInfo[playerid][pMember]][g_hDutyColour] * 256 + 255));
-						}
+					if( IsPlayerInDynamicArea(x, TurfWars[i][twAreaId]) )
+					{
+						SetPlayerMarkerForPlayer( playerid, x, (arrGroupData[PlayerInfo[x][pMember]][g_hDutyColour] * 256 + 255));
+						SetPlayerMarkerForPlayer( x, playerid, (arrGroupData[PlayerInfo[playerid][pMember]][g_hDutyColour] * 256 + 255));
 					}
 				}
-			
-			
-			//SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "You entered an active turf %d! (ON FOOT)", i);
+			}
+			SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "You entered an active turf %d! (ON FOOT)", i);
 		}
 		else if(areaid == TurfWars[i][twAreaId] && TurfWars[i][twFlash] == 1 && (GetPlayerState(playerid) == PLAYER_STATE_DRIVER || GetPlayerState(playerid) == PLAYER_STATE_PASSENGER ))		
 		{
 			foreach(new x: Player)
-				{
-					if(PlayerInfo[playerid][pMember] != INVALID_GROUP_ID && PlayerInfo[x][pMember] != INVALID_GROUP_ID) {
-						if( IsPlayerInDynamicArea(x, TurfWars[i][twAreaId]) ) {
-							SetPlayerMarkerForPlayer( playerid, x, (arrGroupData[PlayerInfo[x][pMember]][g_hDutyColour] * 256 + 255));
-							SetPlayerMarkerForPlayer( x, playerid, GetPlayerColor(playerid));
-						}
+			{
+				if(PlayerInfo[playerid][pMember] != INVALID_GROUP_ID && PlayerInfo[x][pMember] != INVALID_GROUP_ID) {
+					if( IsPlayerInDynamicArea(x, TurfWars[i][twAreaId]) ) {
+						SetPlayerMarkerForPlayer( playerid, x, (arrGroupData[PlayerInfo[x][pMember]][g_hDutyColour] * 256 + 255));
+						SetPlayerMarkerForPlayer( x, playerid, GetPlayerColor(playerid));
 					}
 				}
-			
-			
-			//SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "You entered an active turf %d! (ON CAR)", i);
+			}
+			SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "You entered an active turf %d! (ON CAR)", i);
 		}
 	}
 	return 1;
@@ -86,18 +45,18 @@ hook OnPlayerLeaveDynamicArea(playerid, areaid) {
 		if(areaid == TurfWars[i][twAreaId] && TurfWars[i][twFlash] == 1)		
 		{
 			foreach(new x: Player)
-				{
-					if(PlayerInfo[playerid][pMember] != INVALID_GROUP_ID && PlayerInfo[x][pMember] != INVALID_GROUP_ID) {
-						if( IsPlayerInDynamicArea(x, TurfWars[i][twAreaId]) ) {
-							SetPlayerMarkerForPlayer( playerid, x, GetPlayerColor(x));
-							SetPlayerMarkerForPlayer( x, playerid, GetPlayerColor(playerid));
-						}
+			{
+				if(PlayerInfo[playerid][pMember] != INVALID_GROUP_ID && PlayerInfo[x][pMember] != INVALID_GROUP_ID) {
+					if( IsPlayerInDynamicArea(x, TurfWars[i][twAreaId]) ) {
+						SetPlayerMarkerForPlayer( playerid, x, GetPlayerColor(x));
+						SetPlayerMarkerForPlayer( x, playerid, GetPlayerColor(playerid));
 					}
 				}
-			//SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "You left an active turf %d!", i);
+			}
+			SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "You left an active turf %d!", i);
 		}
 	}
-}*/
+}
 
 getTurftype(tid)
 {
@@ -115,7 +74,7 @@ getTurftype(tid)
 CMD:turfs(playerid, params[])
 {
 	new turfid, name[32], color[32], timeleft[32];
-	//SendClientMessageEx(playerid, COLOR_GREEN, "Use /showturfs to enable turf minimap radar.");
+	SendClientMessageEx(playerid, COLOR_GREEN, "Use /showturfs to enable turf minimap radar.");
 	tsstring1 = "{FFFFFF}";
 	tsstring2 = "{FFFFFF}";
 	for(turfid = 0; turfid < MAX_TURFS; turfid++)

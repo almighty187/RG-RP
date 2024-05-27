@@ -5,6 +5,6 @@ Gamemode Additions
 
 
 Gamemode Fixes
-
+Fixed the discord bot
 
 Gamemode Changes
