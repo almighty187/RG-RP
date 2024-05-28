@@ -1298,24 +1298,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				}
 				case 3:
 				{
-					if(arrGroupData[iGroupID][g_iJCount] == 0)
-					{
-						format(string, sizeof(string), "%s doesn't have any jurisdiction. Add it via /groupaddjurisdiction", arrGroupData[iGroupID][g_szGroupName]);
-						SendClientMessage(playerid, COLOR_GRAD2, string);
-						return Group_DisplayDialog(playerid, iGroupID);
-					}
-					else
-					{
-						new szDialog[2500];
-
-						for(new i; i < arrGroupData[iGroupID][g_iJCount]; ++i)
-						{
-							strcat(szDialog, "\n"), strcat(szDialog, arrGroupJurisdictions[iGroupID][i][g_iAreaName]);
-						}
-
-						format(szTitle, sizeof szTitle, "Edit Group Jurisdiction {%s}(%s)", Group_NumToDialogHex(arrGroupData[iGroupID][g_hDutyColour]), arrGroupData[iGroupID][g_szGroupName]);
-						ShowPlayerDialogEx(playerid, DIALOG_GROUP_JURISDICTION_LIST, DIALOG_STYLE_LIST, szTitle, szDialog, "Remove", "Go Back");
-					}
+					ShowPlayerDialog(playerid, DIALOG_GROUP_JURISDICTION, DIALOG_STYLE_MSGBOX, "Jurisdiction", "Jurisdiction\n\tAllow you to change Jurisdiction of a group", "Add","Remove");
 				}
 				case 4: {
 					format(szTitle, sizeof szTitle, "Edit Group Duty Color {%s}(%s)", Group_NumToDialogHex(arrGroupData[iGroupID][g_hDutyColour]), arrGroupData[iGroupID][g_szGroupName]);
@@ -2523,6 +2506,24 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				Log("logs/editgroup.log", string);
 			}
 			else return Group_DisplayDialog(playerid, iGroupID);
+		}
+		case DIALOG_GROUP_JURISDICTION: {
+			new iGroupID = GetPVarInt(playerid, "Group_EditID");
+			new szDialog[2500], szTitle[128];
+			if(response == 1)
+			{
+			    Group_ListGroups(playerid, DIALOG_GROUP_JURISDICTION_ADD);
+   			}
+   			else if(response == 0)
+			{
+	  			for(new i; i < arrGroupData[iGroupID][g_iJCount]; ++i)
+				{
+					strcat(szDialog, "\n"), strcat(szDialog, arrGroupJurisdictions[iGroupID][i][g_iAreaName]);
+				}
+				format(szTitle, sizeof szTitle, "Edit Group Jurisdiction {%s}(%s)", Group_NumToDialogHex(arrGroupData[iGroupID][g_hDutyColour]), arrGroupData[iGroupID][g_szGroupName]);
+				ShowPlayerDialogEx(playerid, DIALOG_GROUP_JURISDICTION_LIST, DIALOG_STYLE_LIST, szTitle, szDialog, "Remove", "Go Back");
+			}
+			return 1;
 		}
 		case DIALOG_GROUP_GARAGEPOS: {
 			new
