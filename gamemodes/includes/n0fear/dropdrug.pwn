@@ -262,7 +262,7 @@ CMD:dropdrug(playerid, params[])
   	                   	DropDrug[i][dWorld] = GetPlayerVirtualWorld(playerid);
   	                   	DropDrug[i][dType] = 2;
   	                   	DropDrug[i][dObject] = CreateDynamicObject(1578, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
-  	                   	DropDrug[i][dText] = CreateDynamic3DTextLabel("[WEED]", COLOR_TWGREEN, DropDrug[i][ddX],DropDrug[i][ddY], DropDrug[i][ddZ],10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[i][dWorld], -1, -1);
+  	                   	DropDrug[i][dText] = CreateDynamic3DTextLabel("[WEED]/nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[i][ddX],DropDrug[i][ddY], DropDrug[i][ddZ]-0.7,10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[i][dWorld], -1, -1);
   	                   	SaveDrop();
 	                   	return 1;
              		}
@@ -309,7 +309,7 @@ CMD:dropdrug(playerid, params[])
 		else if(strcmp(type, "meth", true) == 0)
 	    {
 	        if (gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You must be logged in to use this.");
-	        if (PlayerInfo[playerid][pDrugs][2] == 0) return SendErrorMessage(playerid, "You don't have any crack on you.");
+	        if (PlayerInfo[playerid][pDrugs][2] == 0) return SendErrorMessage(playerid, "You don't have any meth on you.");
             if (IsPlayerInAnyVehicle(playerid)) return SendErrorMessage(playerid, "You can't be in a vehicle while you use this !");
             SendServerMessage(playerid, "You dropped your meth onto the ground.");
            	format(string, sizeof(string), "*** %s reaches for %s pocket, withdraws a bag of meth, and drops it.", sendername, CheckSex(playerid));
@@ -346,7 +346,7 @@ CMD:dropdrug(playerid, params[])
 		else if(strcmp(type, "ecstasy", true) == 0)
 	    {
 	        if (gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You must be logged in to use this.");
-	        if (PlayerInfo[playerid][pDrugs][2] == 0) return SendErrorMessage(playerid, "You don't have any crack on you.");
+	        if (PlayerInfo[playerid][pDrugs][3] == 0) return SendErrorMessage(playerid, "You don't have any ecstasy on you.");
             if (IsPlayerInAnyVehicle(playerid)) return SendErrorMessage(playerid, "You can't be in a vehicle while you use this !");
             SendServerMessage(playerid, "You dropped your ecstasy onto the ground.");
            	format(string, sizeof(string), "*** %s reaches for %s pocket, withdraws a bag of ecstasy, and drops it.", sendername, CheckSex(playerid));
@@ -383,7 +383,7 @@ CMD:dropdrug(playerid, params[])
 		else if(strcmp(type, "heroin", true) == 0)
 	    {
 	        if (gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You must be logged in to use this.");
-	        if (PlayerInfo[playerid][pDrugs][2] == 0) return SendErrorMessage(playerid, "You don't have any crack on you.");
+	        if (PlayerInfo[playerid][pDrugs][4] == 0) return SendErrorMessage(playerid, "You don't have any heroin on you.");
             if (IsPlayerInAnyVehicle(playerid)) return SendErrorMessage(playerid, "You can't be in a vehicle while you use this !");
             SendServerMessage(playerid, "You dropped your heroin onto the ground.");
            	format(string, sizeof(string), "*** %s reaches for %s pocket, withdraws a bag of heroin, and drops it.", sendername, CheckSex(playerid));
