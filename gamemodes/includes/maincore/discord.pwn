@@ -168,11 +168,11 @@ public DCC_OnMessageCreate(DCC_Message:message)
     {
         if(realMsg[0] == '/') // Prefix for bot commands.
         {
-			if(strfind(realMsg, "help", true, 1) != -1)
+			if(strfind(realMsg, "helpserver", true, 1) != -1)
             {
                 SendDiscordMessage(0, "works");
             }
-            if(strfind(realMsg, "kick", true, 1) != -1)
+            if(strfind(realMsg, "kickserver", true, 1) != -1)
             {
                 new player, reason[128];
                 if(sscanf(realMsg[6], "us[128]", player, reason)) return SendDiscordMessage(0, "USAGE: /kick [player] [reason]");
