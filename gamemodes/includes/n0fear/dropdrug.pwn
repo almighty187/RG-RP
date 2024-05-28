@@ -21,6 +21,7 @@ enum ddData
 	Float:ddY,
 	Float:ddZ,
 	dPrint[MAX_PLAYER_NAME],
+	dText,
 }
 new DropDrug[MAX_DROP_DRUGS][ddData];
 
@@ -135,6 +136,7 @@ COMMAND:pickitem(playerid, params[])
 			      	{
 		    	      	ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0);
 		    	      	if(DropDrug[i][dObject] > 0) DestroyDynamicObject(DropDrug[i][dObject]);
+		    	      	DestroyDynamic3DTextLabel(DropDrug[i][dText]);
 	                  	DropDrug[i][dObject]=0;
                       	DropDrug[i][ddX] = 0.0;
     		          	DropDrug[i][ddY] = 0.0;
@@ -260,6 +262,7 @@ CMD:dropdrug(playerid, params[])
   	                   	DropDrug[i][dWorld] = GetPlayerVirtualWorld(playerid);
   	                   	DropDrug[i][dType] = 2;
   	                   	DropDrug[i][dObject] = CreateDynamicObject(1578, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
+  	                   	DropDrug[i][dText] = CreateDynamic3DTextLabel("[WEED]", COLOR_TWGREEN, DropDrug[i][ddX],DropDrug[i][ddY], DropDrug[i][ddZ],10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[i][dWorld], -1, -1);
   	                   	SaveDrop();
 	                   	return 1;
              		}

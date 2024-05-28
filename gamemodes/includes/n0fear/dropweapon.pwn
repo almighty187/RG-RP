@@ -67,7 +67,7 @@ stock DropGun(playerid, GunID, GunAmmo, Float:X, Float:Y, Float:Z, world, interi
                 DropInfo[i][DropGunInterior] = interior;
                 DropInfo[i][IsUsed] = true;
                 DropObject[i] = CreateDynamicObject(GetGunObjectID(GunID), X, Y, Z-1, 80.0, 0.0, 0.0, world);
-                DropInfo[i][GunText] = CreateDynamic3DTextLabel("Press Y to pick up item", COLOR_TWGREEN, DropInfo[i][DropGunPosX],DropInfo[i][DropGunPosY], DropInfo[i][DropGunPosZ]+1,10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropInfo[i][DropGunVWorld], DropInfo[i][DropGunInterior], -1);
+                DropInfo[i][GunText] = CreateDynamic3DTextLabel("Press Y to pick up item", COLOR_TWGREEN, DropInfo[i][DropGunPosX],DropInfo[i][DropGunPosY], DropInfo[i][DropGunPosZ],10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropInfo[i][DropGunVWorld], DropInfo[i][DropGunInterior], -1);
                 return 1;
             }
         }
