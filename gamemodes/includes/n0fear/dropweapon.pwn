@@ -119,11 +119,12 @@ CMD:dropgun(playerid, params[])
     new GunAmmo = GetPlayerAmmo(playerid);
     new sendername[MAX_PLAYER_NAME];
     new string[128]; // Adjust size as needed
+    if(GetPlayerWeapon(playerid) == 0) return SendErrorMessage(playerid, "You do not have a valid weapon.");
     GetPlayerName(playerid, sendername, sizeof(sendername));
     GetPlayerPos(playerid, X, Y, Z);
     RemovePlayerWeapon(playerid, GunID);
     DropGun(playerid, GunID, GunAmmo, X, Y, Z, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
-    format(string, sizeof(string), "* %s drops %s %s to the pavement.", sendername, CheckSex(playerid), WeaponNames);
+    format(string, sizeof(string), "* %s drops %s Weapon to the pavement.", sendername, CheckSex(playerid));
     SetPlayerChatBubble(playerid, string, COLOR_PURPLE, 30.0, 4000);
 	ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
     PlayAnimEx(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0, 1);
