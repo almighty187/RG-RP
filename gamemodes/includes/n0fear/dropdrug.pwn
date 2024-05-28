@@ -26,12 +26,77 @@ new DropDrug[MAX_DROP_DRUGS][ddData];
 
 hook OnGameModeInit()
 {
+    LoadDrop();
 	for(new f =0; f < sizeof(DropDrug);f++)
 	{
 	    strmid(DropDrug[f][dOwner], "None", 0, strlen("None"), 255);
 	    strmid(DropDrug[f][dPrint], "None", 0, strlen("None"), 255);
 	}
 	return 1;
+}
+CreateDrop(idx)
+{
+	switch(DropDrug[idx][dType])
+	{
+ 		case 1: DropDrug[idx][dObject] = CreateDynamicObject(1578, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
+ 		case 2: DropDrug[idx][dObject] = CreateDynamicObject(1578, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
+ 		case 3: DropDrug[idx][dObject] = CreateDynamicObject(1578, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
+ 		case 4: DropDrug[idx][dObject] = CreateDynamicObject(1578, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
+	}
+}
+LoadDrop()
+{
+	new arrCoords[25][64];
+	new strFromFile2[256];
+	new File: file = fopen("drop.cfg", io_read);
+	if (file)
+	{
+		new idx = 0; // Initialize idx to 0
+		while (fread(file, strFromFile2))
+		{
+			// Assuming DropDrug is properly defined and sized elsewhere
+			splits(strFromFile2, arrCoords, '|');
+	  		DropDrug[idx][dType] = strval(arrCoords[0]);
+	  		DropDrug[idx][dWeapon] = strval(arrCoords[1]);
+	  		DropDrug[idx][dAmmo] = strval(arrCoords[2]);
+	  		DropDrug[idx][ddX] = floatstr(arrCoords[3]);
+	  		DropDrug[idx][ddY] = floatstr(arrCoords[4]);
+	  		DropDrug[idx][ddZ] = floatstr(arrCoords[5]);
+	  		strmid(DropDrug[idx][dOwner], arrCoords[6], 0, strlen(arrCoords[6]), 80);
+	  		DropDrug[idx][dWorld] = strval(arrCoords[7]);
+	  		CreateDrop(idx);
+	  		idx++; // Increment idx to avoid infinite loop
+			if (idx >= sizeof(DropDrug)) // Check array bounds
+			{
+				break;
+			}
+		}
+		fclose(file);
+	}
+	return 1;
+}
+
+
+SaveDrop()
+{
+
+	new
+		szFileStr[512],
+		File: fHandle = fopen("drop.cfg", io_write);
+
+	for(new iIndex; iIndex < MAX_DROP_DRUGS; iIndex++) {
+		format(szFileStr, sizeof(szFileStr), "%d|%d|%d|%f|%f|%f|%s\r\n",
+			DropDrug[iIndex][dType],
+			DropDrug[iIndex][dWeapon],
+			DropDrug[iIndex][dAmmo],
+			DropDrug[iIndex][ddX],
+			DropDrug[iIndex][ddY],
+			DropDrug[iIndex][ddZ],
+			DropDrug[iIndex][dWorld]
+		);
+		fwrite(fHandle, szFileStr);
+	}
+	return fclose(fHandle);
 }
 
 COMMAND:pickitem(playerid, params[])
@@ -75,6 +140,7 @@ COMMAND:pickitem(playerid, params[])
     		          	DropDrug[i][ddY] = 0.0;
     		          	DropDrug[i][ddZ] = 0.0;
     		          	DropDrug[i][dType] = 0;
+    		          	SaveDrop();
     		          	strmid(DropDrug[i][dOwner], "None", 0, strlen("None"), 255);
     		          	PlayerInfo[playerid][pDrugs][0] = DropDrug[i][dAmmo]+PlayerInfo[playerid][pDrugs][0]; // Weed
         	          	SendClientMessage(playerid, COLOR_WHITE, "Weed taken from the ground.");
@@ -90,6 +156,7 @@ COMMAND:pickitem(playerid, params[])
     		          	DropDrug[i][ddY] = 0.0;
     		          	DropDrug[i][ddZ] = 0.0;
     		          	DropDrug[i][dType] = 0;
+    		          	SaveDrop();
     		          	strmid(DropDrug[i][dOwner], "None", 0, strlen("None"), 255);
     		          	PlayerInfo[playerid][pDrugs][1] = DropDrug[i][dAmmo]+PlayerInfo[playerid][pDrugs][1]; // Crack
         	          	SendClientMessage(playerid, COLOR_WHITE, "Crack taken from the ground.");
@@ -105,6 +172,7 @@ COMMAND:pickitem(playerid, params[])
     		          	DropDrug[i][ddY] = 0.0;
     		          	DropDrug[i][ddZ] = 0.0;
     		          	DropDrug[i][dType] = 0;
+    		          	SaveDrop();
     		          	strmid(DropDrug[i][dOwner], "None", 0, strlen("None"), 255);
     		          	PlayerInfo[playerid][pDrugs][2] = DropDrug[i][dAmmo]+PlayerInfo[playerid][pDrugs][2]; // Meth
         	          	SendClientMessage(playerid, COLOR_WHITE, "Meth taken from the ground.");
@@ -120,6 +188,7 @@ COMMAND:pickitem(playerid, params[])
     		          	DropDrug[i][ddY] = 0.0;
     		          	DropDrug[i][ddZ] = 0.0;
     		          	DropDrug[i][dType] = 0;
+    		          	SaveDrop();
     		          	strmid(DropDrug[i][dOwner], "None", 0, strlen("None"), 255);
     		          	PlayerInfo[playerid][pDrugs][3] = DropDrug[i][dAmmo]+PlayerInfo[playerid][pDrugs][3]; // Ecstasy
         	          	SendClientMessage(playerid, COLOR_WHITE, "Meth taken from the ground.");
@@ -135,6 +204,7 @@ COMMAND:pickitem(playerid, params[])
     		          	DropDrug[i][ddY] = 0.0;
     		          	DropDrug[i][ddZ] = 0.0;
     		          	DropDrug[i][dType] = 0;
+    		          	SaveDrop();
     		          	strmid(DropDrug[i][dOwner], "None", 0, strlen("None"), 255);
     		          	PlayerInfo[playerid][pDrugs][4] = DropDrug[i][dAmmo]+PlayerInfo[playerid][pDrugs][4]; // Heroin
         	          	SendClientMessage(playerid, COLOR_WHITE, "Meth taken from the ground.");
@@ -190,6 +260,7 @@ CMD:dropdrug(playerid, params[])
   	                   	DropDrug[i][dWorld] = GetPlayerVirtualWorld(playerid);
   	                   	DropDrug[i][dType] = 2;
   	                   	DropDrug[i][dObject] = CreateDynamicObject(1578, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
+  	                   	SaveDrop();
 	                   	return 1;
              		}
 	           	}
@@ -227,6 +298,7 @@ CMD:dropdrug(playerid, params[])
   	                   	DropDrug[i][dWorld] = GetPlayerVirtualWorld(playerid);
   	                   	DropDrug[i][dType] = 4;
   	                   	DropDrug[i][dObject] = CreateDynamicObject(1576, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
+  	                   	SaveDrop();
                    	}
            		}
       		}
@@ -263,6 +335,7 @@ CMD:dropdrug(playerid, params[])
   	                   	DropDrug[i][dWorld] = GetPlayerVirtualWorld(playerid);
   	                   	DropDrug[i][dType] = 4;
   	                   	DropDrug[i][dObject] = CreateDynamicObject(1576, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
+  	                   	SaveDrop();
                 	}
            		}
       		}
@@ -299,6 +372,7 @@ CMD:dropdrug(playerid, params[])
   	                   	DropDrug[i][dWorld] = GetPlayerVirtualWorld(playerid);
   	                   	DropDrug[i][dType] = 4;
   	                   	DropDrug[i][dObject] = CreateDynamicObject(1575, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
+  	                   	SaveDrop();
                 	}
            		}
       		}
@@ -335,6 +409,7 @@ CMD:dropdrug(playerid, params[])
   	                   	DropDrug[i][dWorld] = GetPlayerVirtualWorld(playerid);
   	                   	DropDrug[i][dType] = 4;
   	                   	DropDrug[i][dObject] = CreateDynamicObject(1577, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
+  	                   	SaveDrop();
     				}
 				}
 			}

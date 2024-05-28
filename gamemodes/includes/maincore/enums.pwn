@@ -181,6 +181,8 @@ enum eGroupData {
 	gDrugDealer,
 	gArmsSkin,
 	gDrugSkin,
+	gArmsDealerUse,
+	gDrugDealerUse,
 	Float:gArmsX,
 	Float:gArmsY,
 	Float:gArmsZ,

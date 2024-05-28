@@ -1275,29 +1275,33 @@ CMD:gangnpc(playerid, params[])
 
 		if(type == 1)
 		{
-		    if(!arrGroupData[family][gArmsDealer]) return SendClientMessageEx(playerid, COLOR_GREY, "Your gang doesn't have the arms dealer upgrade. (/gangupgrade)");
-			if(arrGroupData[family][gArmsX] != 0.0 && arrGroupData[family][gArmsY] != 0.0 && arrGroupData[family][gArmsZ] != 0.0) return SendClientMessageEx(playerid, COLOR_GREY, "Your arms dealer is already placed.");
+		    if(!arrGroupData[family][gArmsDealer]) return SendErrorMessage(playerid, "Your gang doesn't have the arms dealer upgrade. (/gangupgrade)");
+			if(arrGroupData[family][gArmsX] != 0.0 && arrGroupData[family][gArmsY] != 0.0 && arrGroupData[family][gArmsZ] != 0.0) return SendErrorMessage(playerid, "Your arms dealer is already placed.");
+			if(arrGroupData[family][gArmsDealerUse] == 1) return SendErrorMessage(playerid, "You may only place 1 arms dealer");
 			GetPlayerPos(playerid, arrGroupData[family][gArmsX], arrGroupData[family][gArmsY], arrGroupData[family][gArmsZ]);
 			SetPlayerPos(playerid, arrGroupData[family][gArmsX] + 1.0, arrGroupData[family][gArmsY], arrGroupData[family][gArmsZ] + 1.0);
 	        GetPlayerFacingAngle(playerid, arrGroupData[family][gArmsA]);
 	        arrGroupData[family][gArmsWorld] = GetPlayerVirtualWorld(playerid);
 			arrGroupData[family][gArmsSkin] = skinid;
+			arrGroupData[family][gArmsDealerUse] = 1;
 			SaveGroup(family);
 			ReloadGang(family);
-	        SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "You have placed the arms dealer for your gang.");
+	        SendServerMessage(playerid, "You have placed the arms dealer for your gang.");
 		}
 		else if(type == 2)
 		{
 		    if(!arrGroupData[family][gDrugDealer]) return SendClientMessageEx(playerid, COLOR_GREY, "Your gang doesn't have the drug dealer upgrade. (/gangupgrade)");
 			if(arrGroupData[family][gDrugX] != 0.0 && arrGroupData[family][gDrugY] != 0.0 && arrGroupData[family][gDrugZ] != 0.0) return SendClientMessageEx(playerid, COLOR_GREY, "Your drug dealer is already placed.");
+			if(arrGroupData[family][gDrugDealerUse] == 1) return SendErrorMessage(playerid, "You may only place 1 drug dealer");
 			GetPlayerPos(playerid, arrGroupData[family][gDrugX], arrGroupData[family][gDrugY], arrGroupData[family][gDrugZ]);
 			SetPlayerPos(playerid, arrGroupData[family][gDrugX] + 1.0, arrGroupData[family][gDrugY], arrGroupData[family][gDrugZ] + 1.0);
 	        GetPlayerFacingAngle(playerid, arrGroupData[family][gDrugA]);
 	        arrGroupData[family][gDrugWorld] = GetPlayerVirtualWorld(playerid);
 			arrGroupData[family][gDrugSkin] = skinid;
+			arrGroupData[family][gDrugDealerUse] = 1;
 			SaveGroup(family);
 			ReloadGang(family);
-	        SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "You have placed the drug dealer for your gang.");
+	        SendServerMessage(playerid, "You have placed the drug dealer for your gang.");
 		}
 	}
 	else SendClientMessageEx(playerid, COLOR_GRAD1, "Only group leaders may use this command.");

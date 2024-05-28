@@ -5427,8 +5427,11 @@ public Group_QueryFinish(iType, iExtraID) {
 			cache_get_value_name_int(iIndex, "Ecstasy_Price", arrGroupData[iIndex][gDrugPrices][3]);
 			cache_get_value_name_int(iIndex, "Heroin_Price", arrGroupData[iIndex][gDrugPrices][4]);
 			cache_get_value_name_int(iIndex, "ArmsMaterials", arrGroupData[iIndex][gArmsMaterials]);
-			cache_get_value_name_int(iIndex, "Drug_Skin", arrGroupData[iIndex][gDrugSkin]);
 			cache_get_value_name_int(iIndex, "Arms_Skin", arrGroupData[iIndex][gArmsSkin]);
+			cache_get_value_name_int(iIndex, "Drug_Skin", arrGroupData[iIndex][gDrugSkin]);
+			cache_get_value_name_int(iIndex, "ArmsDealerUse", arrGroupData[iIndex][gArmsDealerUse]);
+			cache_get_value_name_int(iIndex, "DrugDealerUse", arrGroupData[iIndex][gDrugDealerUse]);
+			
 
 			for(i = 0; i < sizeof(ArmsDealerItems); ++i)
 			{
