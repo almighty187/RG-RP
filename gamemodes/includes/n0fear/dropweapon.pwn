@@ -17,6 +17,7 @@ enum dData
     DropGunVWorld,
     DropGunInterior,
     IsUsed, // Additional flag to mark if the slot is used
+	GunText,
 }
 
 new DropInfo[MAX_DROP_ITEMS][dData];
@@ -66,6 +67,7 @@ stock DropGun(playerid, GunID, GunAmmo, Float:X, Float:Y, Float:Z, world, interi
                 DropInfo[i][DropGunInterior] = interior;
                 DropInfo[i][IsUsed] = true;
                 DropObject[i] = CreateDynamicObject(GetGunObjectID(GunID), X, Y, Z-1, 80.0, 0.0, 0.0, world);
+                DropInfo[i][GunText] = CreateDynamic3DTextLabel("Press Y to pick up item", COLOR_TWGREEN, DropInfo[i][DropGunPosX],DropInfo[i][DropGunPosY], DropInfo[i][DropGunPosZ]+1,10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropInfo[i][DropGunVWorld], DropInfo[i][DropGunInterior], -1);
                 return 1;
             }
         }
@@ -101,6 +103,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
 					ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 	                PlayAnimEx(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0, 1);
    					SetTimerEx("ClearAnims", 2000, false, "d", playerid);
+   					DestroyDynamic3DTextLabel(DropInfo[i][GunText]);
 	                return 1;
 	            }
 	        }
@@ -140,6 +143,7 @@ CMD:pickupgun(playerid, params[])
             {
                 GetPlayerName(playerid, sendername, sizeof(sendername));
                 DestroyDynamicObject(DropObject[i]);
+                DestroyDynamic3DTextLabel(DropInfo[i][GunText]);
                 DropInfo[i][IsUsed] = false;
                 GivePlayerValidWeapon(playerid, DropInfo[i][DropGunModelID]);
                 format(string, sizeof(string), "* %s picks up a weapon from the pavement.", sendername);
