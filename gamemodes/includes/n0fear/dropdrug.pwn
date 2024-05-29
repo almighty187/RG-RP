@@ -142,7 +142,6 @@ COMMAND:pickitem(playerid, params[])
     		          	DropDrug[i][ddY] = 0.0;
     		          	DropDrug[i][ddZ] = 0.0;
     		          	DropDrug[i][dType] = 0;
-    		          	SaveDrop();
     		          	strmid(DropDrug[i][dOwner], "None", 0, strlen("None"), 255);
     		          	PlayerInfo[playerid][pDrugs][0] = DropDrug[i][dAmmo]+PlayerInfo[playerid][pDrugs][0]; // Weed
         	          	SendClientMessage(playerid, COLOR_WHITE, "Weed taken from the ground.");
@@ -158,7 +157,6 @@ COMMAND:pickitem(playerid, params[])
     		          	DropDrug[i][ddY] = 0.0;
     		          	DropDrug[i][ddZ] = 0.0;
     		          	DropDrug[i][dType] = 0;
-    		          	SaveDrop();
     		          	strmid(DropDrug[i][dOwner], "None", 0, strlen("None"), 255);
     		          	PlayerInfo[playerid][pDrugs][1] = DropDrug[i][dAmmo]+PlayerInfo[playerid][pDrugs][1]; // Crack
         	          	SendClientMessage(playerid, COLOR_WHITE, "Crack taken from the ground.");
@@ -174,7 +172,6 @@ COMMAND:pickitem(playerid, params[])
     		          	DropDrug[i][ddY] = 0.0;
     		          	DropDrug[i][ddZ] = 0.0;
     		          	DropDrug[i][dType] = 0;
-    		          	SaveDrop();
     		          	strmid(DropDrug[i][dOwner], "None", 0, strlen("None"), 255);
     		          	PlayerInfo[playerid][pDrugs][2] = DropDrug[i][dAmmo]+PlayerInfo[playerid][pDrugs][2]; // Meth
         	          	SendClientMessage(playerid, COLOR_WHITE, "Meth taken from the ground.");
@@ -190,7 +187,6 @@ COMMAND:pickitem(playerid, params[])
     		          	DropDrug[i][ddY] = 0.0;
     		          	DropDrug[i][ddZ] = 0.0;
     		          	DropDrug[i][dType] = 0;
-    		          	SaveDrop();
     		          	strmid(DropDrug[i][dOwner], "None", 0, strlen("None"), 255);
     		          	PlayerInfo[playerid][pDrugs][3] = DropDrug[i][dAmmo]+PlayerInfo[playerid][pDrugs][3]; // Ecstasy
         	          	SendClientMessage(playerid, COLOR_WHITE, "Meth taken from the ground.");
@@ -206,7 +202,6 @@ COMMAND:pickitem(playerid, params[])
     		          	DropDrug[i][ddY] = 0.0;
     		          	DropDrug[i][ddZ] = 0.0;
     		          	DropDrug[i][dType] = 0;
-    		          	SaveDrop();
     		          	strmid(DropDrug[i][dOwner], "None", 0, strlen("None"), 255);
     		          	PlayerInfo[playerid][pDrugs][4] = DropDrug[i][dAmmo]+PlayerInfo[playerid][pDrugs][4]; // Heroin
         	          	SendClientMessage(playerid, COLOR_WHITE, "Meth taken from the ground.");
