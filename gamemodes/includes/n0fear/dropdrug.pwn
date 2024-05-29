@@ -39,10 +39,10 @@ CreateDrop(idx)
 {
 	switch(DropDrug[idx][dType])
 	{
- 		case 1: DropDrug[idx][dObject] = CreateDynamicObject(1578, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
- 		case 2: DropDrug[idx][dObject] = CreateDynamicObject(1576, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
+ 		case 2: DropDrug[idx][dObject] = CreateDynamicObject(1578, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
  		case 3: DropDrug[idx][dObject] = CreateDynamicObject(1576, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
- 		case 4: DropDrug[idx][dObject] = CreateDynamicObject(1577, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
+ 		case 4: DropDrug[idx][dObject] = CreateDynamicObject(1576, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
+ 		case 5: DropDrug[idx][dObject] = CreateDynamicObject(1577, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
 	}
 }
 LoadDrop()
