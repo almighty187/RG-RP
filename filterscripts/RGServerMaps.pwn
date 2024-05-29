@@ -4,6 +4,13 @@
 public OnFilterScriptInit()
 {
     print("[Streamer] Loading Filterscripts Dynamic Objects...");
+	// DOC Garage Interior
+	CreateDynamicObject(4032,-2054.00000000,-159.00000000,20.00000000,0.00000000,0.00000000,90.00000000); //object(carimp_lan) (1)
+	CreateDynamicObject(4232,-2054.00000000,-159.00000000,20.00000000,0.00000000,0.00000000,90.00000000); //object(carimp2_lan) (1)
+	CreateDynamicObject(10184,-2066.56494141,-130.35037231,16.57842636,0.00000000,0.00000000,180.00000000); //object(sfcopdr) (1)
+	CreateDynamicObject(10184,-2066.56445312,-130.34960938,21.57843018,0.00000000,180.00000000,359.99450684); //object(sfcopdr) (2)
+	CreateDynamicObject(3055,-2078.69921875,-202.65625000,16.26843262,0.00000000,0.00000000,0.00000000); //object(kmb_shutter) (1)
+	
     // Hall of Famed - EX VIP INTERIOR & GARAGE
 	CreateDynamicObject(14777,886.62890625,1429.77734375,-83.34485626,0.00000000,0.00000000,0.00000000); // FAMED LOUNGE -- object(int_5weecasino) (1)
 	CreateDynamicObject(1670,885.04125977,1418.45605469,-81.12625885,359.75000000,0.00000000,0.00000000); // FAMED LOUNGE -- object(propcollecttable) (1)
@@ -4022,7 +4029,7 @@ public OnFilterScriptInit()
 	tmpobjid = CreateDynamicObject(19443, 1366.215087, 1593.077026, 11.270310, -0.000003, 0.000057, -29.999982, .streamdistance = 400.00, .drawdistance = 500.00);
 	SetDynamicObjectMaterial(tmpobjid, 0, 16640, "a51", "ws_stationfloor", 0xFF68685E);
 	tmpobjid = CreateDynamicObject(19477, 1365.728881, 1592.432250, 10.310310, 0.000003, -0.000063, 149.999694, .streamdistance = 400.00, .drawdistance = 500.00);
-	SetDynamicObjectMaterialText(tmpobjid, 0, "San Andreas\nNational Government\n©2022", 130, "Verdana", 20, 0, 0xFFFFFFDD, 0x00000000, 0);
+	SetDynamicObjectMaterialText(tmpobjid, 0, "San Andreas\nNational Government\nï¿½2022", 130, "Verdana", 20, 0, 0xFFFFFFDD, 0x00000000, 0);
 	tmpobjid = CreateDynamicObject(19443, 1366.479370, 1593.374633, 11.500308, -0.000003, 0.000057, -29.999982, .streamdistance = 400.00, .drawdistance = 500.00);
 	SetDynamicObjectMaterial(tmpobjid, 0, 4828, "airport3_las", "gnhotelwall02_128", 0x00000000);
 	tmpobjid = CreateDynamicObject(19475, 1366.304687, 1593.446411, 12.020311, -89.999992, 107.004661, 77.004570, .streamdistance = 400.00, .drawdistance = 500.00);
@@ -4103,7 +4110,7 @@ public OnFilterScriptInit()
 	tmpobjid = CreateDynamicObject(19373, 1363.399047, 1607.228515, 11.640313, 0.000014, 0.000030, 44.999984, .streamdistance = 400.00, .drawdistance = 500.00);
 	SetDynamicObjectMaterial(tmpobjid, 0, 19853, "mihouse1", "brownwall1", 0xFFE3DBB4);
 	tmpobjid = CreateDynamicObject(19477, 1363.332641, 1607.098999, 9.590311, -0.000007, -0.000100, -135.000381, .streamdistance = 400.00, .drawdistance = 500.00);
-	SetDynamicObjectMaterialText(tmpobjid, 0, "San Andreas\nNational Government\n©2022", 130, "Verdana", 15, 0, 0xFF555555, 0x00000000, 0);
+	SetDynamicObjectMaterialText(tmpobjid, 0, "San Andreas\nNational Government\nï¿½2022", 130, "Verdana", 15, 0, 0xFF555555, 0x00000000, 0);
 	tmpobjid = CreateDynamicObject(19477, 1363.375122, 1607.056518, 11.640309, -0.000007, -0.000100, -135.000381, .streamdistance = 400.00, .drawdistance = 500.00);
 	SetDynamicObjectMaterialText(tmpobjid, 0, "M\nA\nP", 130, "Verdana", 70, 1, 0xFF555555, 0x00000000, 0);
 	tmpobjid = CreateDynamicObject(968, 1362.317993, 1608.234497, 5.820313, 0.000009, 0.000059, 45.000011, .streamdistance = 400.00, .drawdistance = 500.00);
@@ -4186,7 +4193,7 @@ public OnFilterScriptInit()
 	tmpobjid = CreateDynamicObject(19373, 1388.520874, 1598.562255, 11.640313, 0.000014, 0.000046, -0.000007, .streamdistance = 400.00, .drawdistance = 500.00);
 	SetDynamicObjectMaterial(tmpobjid, 0, 19853, "mihouse1", "brownwall1", 0xFFE3DBB4);
 	tmpobjid = CreateDynamicObject(19477, 1388.382324, 1598.517700, 9.590311, -0.000007, -0.000116, 179.999496, .streamdistance = 400.00, .drawdistance = 500.00);
-	SetDynamicObjectMaterialText(tmpobjid, 0, "San Andreas\nNational Government\n©2022", 130, "Verdana", 15, 0, 0xFF555555, 0x00000000, 0);
+	SetDynamicObjectMaterialText(tmpobjid, 0, "San Andreas\nNational Government\nï¿½2022", 130, "Verdana", 15, 0, 0xFF555555, 0x00000000, 0);
 	tmpobjid = CreateDynamicObject(19477, 1388.382324, 1598.457641, 11.640309, -0.000007, -0.000116, 179.999496, .streamdistance = 400.00, .drawdistance = 500.00);
 	SetDynamicObjectMaterialText(tmpobjid, 0, "M\nA\nP", 130, "Verdana", 70, 1, 0xFF555555, 0x00000000, 0);
 	tmpobjid = CreateDynamicObject(968, 1388.467773, 1600.037963, 5.820313, 0.000009, 0.000075, 0.000017, .streamdistance = 400.00, .drawdistance = 500.00);
@@ -8597,7 +8604,7 @@ public OnFilterScriptInit()
 	tmpobjid = CreateDynamicObject(19791, 1544.591796, -1607.291625, 7.709362, 0.000000, 0.000007, 0.000000, .streamdistance = 600.00, .drawdistance = 600.00);
 	SetDynamicObjectMaterial(tmpobjid, 0, 10101, "2notherbuildsfe", "ferry_build14", 0x00000000);
 	tmpobjid = CreateDynamicObject(19128, 1562.190551, -1614.441650, 12.329360, 0.000000, -0.000007, 179.999954, .streamdistance = 600.00, .drawdistance = 600.00);
-	SetDynamicObjectMaterialText(tmpobjid, 0, "«       «", 140, "Arial", 190, 1, 0xFFFF3E33, 0x00000000, 1);
+	SetDynamicObjectMaterialText(tmpobjid, 0, "ï¿½       ï¿½", 140, "Arial", 190, 1, 0xFFFF3E33, 0x00000000, 1);
 	tmpobjid = CreateDynamicObject(968, 1544.701171, -1630.830322, 12.972799, 0.000000, 0.000000, 90.000000, .streamdistance = 600.00, .drawdistance = 600.00);
 	SetDynamicObjectMaterial(tmpobjid, 0, 4552, "ammu_lan2", "sunsetammu2", 0x00000000);
 	SetDynamicObjectMaterial(tmpobjid, 1, 4552, "ammu_lan2", "sunsetammu2", 0x00000000);
@@ -8620,15 +8627,15 @@ public OnFilterScriptInit()
 	tmpobjid = CreateDynamicObject(18762, 1549.704711, -1603.117919, 13.086158, 0.000000, -179.999984, -0.000029, .streamdistance = 600.00, .drawdistance = 600.00);
 	SetDynamicObjectMaterial(tmpobjid, 0, 11013, "crackdrive_sfse", "ws_asphalt2", 0x00000000);
 	tmpobjid = CreateDynamicObject(19128, 1554.848876, -1614.441650, 12.329360, 0.000000, -0.000007, 179.999954, .streamdistance = 600.00, .drawdistance = 600.00);
-	SetDynamicObjectMaterialText(tmpobjid, 0, "«       «", 140, "Arial", 190, 1, 0xFFFF3E33, 0x00000000, 1);
+	SetDynamicObjectMaterialText(tmpobjid, 0, "ï¿½       ï¿½", 140, "Arial", 190, 1, 0xFFFF3E33, 0x00000000, 1);
 	tmpobjid = CreateDynamicObject(18762, 1549.724731, -1615.390380, 15.496151, 90.000000, -179.999984, -0.000029, .streamdistance = 600.00, .drawdistance = 600.00);
 	SetDynamicObjectMaterial(tmpobjid, 0, 11013, "crackdrive_sfse", "ws_asphalt2", 0x00000000);
 	tmpobjid = CreateDynamicObject(10558, 1549.364501, -1606.085937, 16.609384, 0.000000, -0.000014, 179.999908, .streamdistance = 600.00, .drawdistance = 600.00);
 	SetDynamicObjectMaterialText(tmpobjid, 0, "ENTER", 130, "Arial", 80, 1, 0xFF333333, 0x00000000, 1);
 	tmpobjid = CreateDynamicObject(19128, 1554.675781, -1605.900634, 12.329360, 0.000000, 0.000007, 0.000000, .streamdistance = 600.00, .drawdistance = 600.00);
-	SetDynamicObjectMaterialText(tmpobjid, 0, "«       «", 140, "Arial", 190, 1, 0xFF0FF591, 0x00000000, 1);
+	SetDynamicObjectMaterialText(tmpobjid, 0, "ï¿½       ï¿½", 140, "Arial", 190, 1, 0xFF0FF591, 0x00000000, 1);
 	tmpobjid = CreateDynamicObject(19128, 1561.656372, -1605.900634, 12.329360, 0.000000, 0.000007, 0.000000, .streamdistance = 600.00, .drawdistance = 600.00);
-	SetDynamicObjectMaterialText(tmpobjid, 0, "«       «", 140, "Arial", 190, 1, 0xFF0FF591, 0x00000000, 1);
+	SetDynamicObjectMaterialText(tmpobjid, 0, "ï¿½       ï¿½", 140, "Arial", 190, 1, 0xFF0FF591, 0x00000000, 1);
 	tmpobjid = CreateDynamicObject(18762, 1549.724731, -1610.469970, 15.496151, 90.000000, -179.999984, -0.000029, .streamdistance = 600.00, .drawdistance = 600.00);
 	SetDynamicObjectMaterial(tmpobjid, 0, 11013, "crackdrive_sfse", "ws_asphalt2", 0x00000000);
 	tmpobjid = CreateDynamicObject(18762, 1549.724731, -1605.499633, 15.496151, 90.000000, -179.999984, -0.000029, .streamdistance = 600.00, .drawdistance = 600.00);
