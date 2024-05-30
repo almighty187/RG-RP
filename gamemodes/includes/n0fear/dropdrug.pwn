@@ -85,7 +85,7 @@ SaveDrop()
 		szFileStr[512],
 		File: fHandle = fopen("drop.cfg", io_write);
 
-	for(new iIndex; iIndex < MAX_DROP_DRUGS; iIndex++) {
+	for(new iIndex; iIndex < 1; iIndex++) {
 		format(szFileStr, sizeof(szFileStr), "%d|%d|%d|%f|%f|%f|%s\r\n",
 			DropDrug[iIndex][dType],
 			DropDrug[iIndex][dWeapon],
