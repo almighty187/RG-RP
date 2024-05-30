@@ -17,6 +17,7 @@ new bool:pCBugging[MAX_PLAYERS];
 new ptmCBugFreezeOver[MAX_PLAYERS];
 new ptsLastFiredWeapon[MAX_PLAYERS];
 
+
 hook OnPlayerDisconnect(playerid, reason)
 {
 	ResetPlayerVariables(playerid);
@@ -41,12 +42,16 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		{
 			if((gettime() - ptsLastFiredWeapon[playerid]) < 1)
 			{
+                new string[128];
 				TogglePlayerControllable(playerid, false);
 
 				pCBugging[playerid] = true;
 
 				GameTextForPlayer(playerid, "~r~~h~DON'T C-BUG!", 3000, 4);
-
+                format(string,sizeof(string),"{AA3333}AdmWarning{FFFF00}: %s (ID: %d) may be c bugging)", GetPlayerNameEx(playerid), playerid);
+				ABroadCast(COLOR_YELLOW, string, 2);
+				format(string,sizeof(string),"AdmWarning: %s(%d) (ID: %d) may be c bugging", GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), playerid);
+				Log("logs/cbug.log", string);
 				KillTimer(ptmCBugFreezeOver[playerid]);
 				ptmCBugFreezeOver[playerid] = SetTimerEx("CBugFreezeOver", 1500, false, "i", playerid);
 			}
