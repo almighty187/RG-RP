@@ -3066,7 +3066,6 @@ CMD:aduty(playerid, params[])
 		    SetArmour(playerid, 0x7FB00000);
 		    SetPVarInt(playerid, "pGodMode", 1);
 
-		    SetPlayerColor(playerid, COLOR_RED);
 			switch(PlayerInfo[playerid][pAdminLevel])
 			{
    				case 2: SetPlayerColor(playerid, 0x87CEEBFF); // Trial Administrator
@@ -4335,9 +4334,28 @@ CMD:spec(playerid, params[])
 			SetPVarInt(playerid, "SpecOff", 1 );
 			TogglePlayerSpectating(playerid, false);
 			SetCameraBehindPlayer(playerid);
+			return 1;
+		}
+		else if(Spectating[playerid] > 0 && PlayerInfo[playerid][pAdmin] >= 2)
+		{
+			switch(PlayerInfo[playerid][pAdminLevel])
+			{
+   				case 2: SetPlayerColor(playerid, 0x87CEEBFF); // Trial Administrator
+				case 3: SetPlayerColor(playerid, 0x00FF00FF); // General Administrator
+				case 4: SetPlayerColor(playerid, 0xFFA500FF); // Senior Administrator
+				case 1337: SetPlayerColor(playerid, 0xE80C0CFF); // Lead Administrator
+				case 1338: SetPlayerColor(playerid, 0xE80C0CFF); // Executive Director
+			}
 			DutyLabel[playerid] = Create3DTextLabel("Admin On Duty \n Do NOT Attack",0xFF000099,0,0,0,50,-1,1);
 			Attach3DTextLabelToPlayer(DutyLabel[playerid], playerid, 0,0,0);
-			return 1;
+			GettingSpectated[Spectate[playerid]] = INVALID_PLAYER_ID;
+			Spectating[playerid] = 0;
+			Spectate[playerid] = INVALID_PLAYER_ID;
+			SpecTime[playerid] = 0;
+			SetPVarInt(playerid, "SpecOff", 1 );
+			TogglePlayerSpectating(playerid, false);
+			SetCameraBehindPlayer(playerid);		
+		
 		}
 		else
 		{
