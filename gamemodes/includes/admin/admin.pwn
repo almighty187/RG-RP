@@ -3067,6 +3067,14 @@ CMD:aduty(playerid, params[])
 		    SetPVarInt(playerid, "pGodMode", 1);
 
 		    SetPlayerColor(playerid, COLOR_RED);
+			switch(PlayerInfo[playerid][pAdminLevel])
+			{
+   				case 2: SetPlayerColor(playerid, 0x87CEEBFF); // Trial Administrator
+				case 3: SetPlayerColor(playerid, 0x00FF00FF); // General Administrator
+				case 4: SetPlayerColor(playerid, 0xFFA500FF); // Senior Administrator
+				case 1337: SetPlayerColor(playerid, 0xE80C0CFF); // Lead Administrator
+				case 1338: SetPlayerColor(playerid, 0xE80C0CFF); // Executive Director
+			}
 			DutyLabel[playerid] = Create3DTextLabel("Admin On Duty \n Do NOT Attack",0xFF000099,0,0,0,50,-1,1);
 			Attach3DTextLabelToPlayer(DutyLabel[playerid], playerid, 0,0,0);
 			
