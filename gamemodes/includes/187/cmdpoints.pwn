@@ -3,6 +3,7 @@
 /////////////// This is made by 187    /////
 /////////////// DO NOT REMOVE THIS     /////
 ////////////////////////////////////////////
+#include <YSI\y_hooks>
 CMD:points(playerid, params[])
 {
 	szMiscArray[0] = 0;
@@ -30,4 +31,14 @@ CMD:points(playerid, params[])
 	}
 	ShowPlayerDialogEx(playerid, 0, DIALOG_STYLE_MSGBOX, "{8B0000}Points List", szMiscArray, "Close", "");
 	return 1;
+}
+hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
+    if(arrAntiCheat[playerid][ac_iFlags][AC_DIALOGSPOOFING] > 0) return 1;
+
+    if (dialogid == 0) {
+        if (response) {
+            return 1;
+        }
+    }
+    return 1;
 }
