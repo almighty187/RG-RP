@@ -2880,7 +2880,6 @@ CMD:drop(playerid, params[])
 	{
 		SendSyntaxMessage(playerid, "/drop [name] [(optional) amount]");
 		SendClientMessageEx(playerid, COLOR_GREY, "Available names: Weapons, Materials, Packages, Radio, Pizza, Syringes, Backpack, Phone");
-		SendClientMessageEx(playerid, COLOR_GREY, "Available names: Pot, Crack, Meth, Ecstasy, Heroin");
 		return 1;
 	}
 	else if(strcmp(choice,"backpack",true) == 0)
@@ -2912,97 +2911,6 @@ CMD:drop(playerid, params[])
 			SendClientMessageEx(playerid, COLOR_GREY, "You are not carrying any syringes to throw away!");
 		}
 	}
-	else if(strcmp(choice,"pot",true) == 0)
-	{
-		if(PlayerInfo[playerid][pDrugs][0] > 0)
-		{
-			if(amount < 1) return SendClientMessageEx(playerid, COLOR_GREY, "Please specify an amount.");
-			if(amount > PlayerInfo[playerid][pDrugs][0]) return SendClientMessageEx(playerid, COLOR_GREY, "You don't have that many grams of pot!");
-			PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
-			format(string, sizeof(string), "You have dropped %d pot.", amount);
-			SendClientMessageEx(playerid, COLOR_WHITE, string);
-			PlayerInfo[playerid][pDrugs][0] -= amount;
-			format(string, sizeof(string), "* %s has thrown away some pot.", GetPlayerNameEx(playerid));
-			ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-		}
-		else
-		{
-			SendClientMessageEx(playerid, COLOR_GREY, "You are not carrying any pot to throw away!");
-		}
-	}
-	else if(strcmp(choice,"crack",true) == 0)
-	{
-		if(PlayerInfo[playerid][pDrugs][1] > 0)
-		{
-			if(amount < 1) return SendClientMessageEx(playerid, COLOR_GREY, "Please specify an amount.");
-			if(amount > PlayerInfo[playerid][pDrugs][1]) return SendClientMessageEx(playerid, COLOR_GREY, "You don't have that many grams of crack!");
-			PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
-			format(string, sizeof(string), "You have dropped %d crack.", amount);
-			SendClientMessageEx(playerid, COLOR_WHITE, string);
-			PlayerInfo[playerid][pDrugs][1] -= amount;
-			format(string, sizeof(string), "* %s has thrown away some crack.", GetPlayerNameEx(playerid));
-			ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-		}
-		else
-		{
-			SendClientMessageEx(playerid, COLOR_GREY, "You are not carrying any crack to throw away!");
-		}
-	}
-	else if(strcmp(choice,"meth",true) == 0)
-	{
-		if(PlayerInfo[playerid][pDrugs][2] > 0)
-		{
-			if(amount < 1) return SendClientMessageEx(playerid, COLOR_GREY, "Please specify an amount.");
-			if(amount > PlayerInfo[playerid][pDrugs][2]) return SendClientMessageEx(playerid, COLOR_GREY, "You don't have that many grams of meth!");
-			PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
-			format(string, sizeof(string), "You have dropped %d meth.", amount);
-			SendClientMessageEx(playerid, COLOR_WHITE, string);
-			PlayerInfo[playerid][pDrugs][2] -= amount;
-			format(string, sizeof(string), "* %s has thrown away some meth.", GetPlayerNameEx(playerid));
-			ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-		}
-		else
-		{
-			SendClientMessageEx(playerid, COLOR_GREY, "You are not carrying any meth to throw away!");
-		}
-	}
-	else if(strcmp(choice,"ecstasy",true) == 0)
-	{
-		if(PlayerInfo[playerid][pDrugs][3] > 0)
-		{
-			if(amount < 1) return SendClientMessageEx(playerid, COLOR_GREY, "Please specify an amount.");
-			if(amount > PlayerInfo[playerid][pDrugs][3]) return SendClientMessageEx(playerid, COLOR_GREY, "You don't have that many grams of ecstasy!");
-			PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
-			format(string, sizeof(string), "You have dropped %d ecstasy.", amount);
-			SendClientMessageEx(playerid, COLOR_WHITE, string);
-			PlayerInfo[playerid][pDrugs][3] -= amount;
-			format(string, sizeof(string), "* %s has thrown away some ecstasy.", GetPlayerNameEx(playerid));
-			ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-		}
-		else
-		{
-			SendClientMessageEx(playerid, COLOR_GREY, "You are not carrying any ecstasy to throw away!");
-		}
-	}
-	else if(strcmp(choice,"heroin",true) == 0)
-	{
-		if(PlayerInfo[playerid][pDrugs][4] > 0)
-		{
-			if(amount < 1) return SendClientMessageEx(playerid, COLOR_GREY, "Please specify an amount.");
-			if(amount > PlayerInfo[playerid][pDrugs][4]) return SendClientMessageEx(playerid, COLOR_GREY, "You don't have that many grams of heroin!");
-			PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
-			format(string, sizeof(string), "You have dropped %d heroin.", amount);
-			SendClientMessageEx(playerid, COLOR_WHITE, string);
-			PlayerInfo[playerid][pDrugs][4] -= amount;
-			format(string, sizeof(string), "* %s has thrown away some heroin.", GetPlayerNameEx(playerid));
-			ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-		}
-		else
-		{
-			SendClientMessageEx(playerid, COLOR_GREY, "You are not carrying any heroin to throw away!");
-		}
-	}
-
 	else if(strcmp(choice,"materials",true) == 0)
 	{
 		if(PlayerInfo[playerid][pMats] > 0)

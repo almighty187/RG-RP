@@ -7,7 +7,7 @@
 
 #include <YSI\y_hooks>
 
-#define MAX_DROP_DRUGS 1000//Change it to set the max weapons that can be dropped.
+#define MAX_DROP_DRUGS (1000)//Change it to set the max weapons that can be dropped.
 
 enum ddData
 {
@@ -27,7 +27,7 @@ new DropDrug[MAX_DROP_DRUGS][ddData];
 
 hook OnGameModeInit()
 {
-    LoadDrop();
+    //LoadDrop();
 	for(new f =0; f < sizeof(DropDrug);f++)
 	{
 	    strmid(DropDrug[f][dOwner], "None", 0, strlen("None"), 255);
@@ -45,7 +45,7 @@ CreateDrop(idx)
  		case 5: DropDrug[idx][dObject] = CreateDynamicObject(1577, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
 	}
 }
-LoadDrop()
+/*LoadDrop()
 {
 	new arrCoords[25][64];
 	new strFromFile2[256];
@@ -77,28 +77,30 @@ LoadDrop()
 	return 1;
 }
 
+SaveDrop() {
+    new szFileStr[512];
+    new File: fHandle = fopen("drop.cfg", io_write);
 
-SaveDrop()
-{
+    if (fHandle == File:0) {
+        // Handle file opening error
+        return 0;
+    }
 
-	new
-		szFileStr[512],
-		File: fHandle = fopen("drop.cfg", io_write);
+    for (new iIndex = 1; iIndex < MAX_DROP_DRUGS; iIndex++) {
+        format(szFileStr, sizeof(szFileStr), "%d|%d|%d|%f|%f|%f|%s\r\n",
+            DropDrug[iIndex][dType],
+            DropDrug[iIndex][dWeapon],
+            DropDrug[iIndex][dAmmo],
+            float(DropDrug[iIndex][ddX]),
+            float(DropDrug[iIndex][ddY]),
+            float(DropDrug[iIndex][ddZ]),
+            DropDrug[iIndex][dWorld]
+        );
+        fwrite(fHandle, szFileStr);
+    }
 
-	for(new iIndex; iIndex < 1; iIndex++) {
-		format(szFileStr, sizeof(szFileStr), "%d|%d|%d|%f|%f|%f|%s\r\n",
-			DropDrug[iIndex][dType],
-			DropDrug[iIndex][dWeapon],
-			DropDrug[iIndex][dAmmo],
-			DropDrug[iIndex][ddX],
-			DropDrug[iIndex][ddY],
-			DropDrug[iIndex][ddZ],
-			DropDrug[iIndex][dWorld]
-		);
-		fwrite(fHandle, szFileStr);
-	}
-	return fclose(fHandle);
-}
+    return fclose(fHandle);
+}*/
 
 COMMAND:pickitem(playerid, params[])
 {
@@ -257,8 +259,7 @@ CMD:dropdrug(playerid, params[])
   	                   	DropDrug[i][dWorld] = GetPlayerVirtualWorld(playerid);
   	                   	DropDrug[i][dType] = 2;
   	                   	DropDrug[i][dObject] = CreateDynamicObject(1578, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
-  	                   	DropDrug[i][dText] = CreateDynamic3DTextLabel("[WEED]/nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[i][ddX],DropDrug[i][ddY], DropDrug[i][ddZ]-0.7,10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[i][dWorld], -1, -1);
-  	                   	SaveDrop();
+  	                   	DropDrug[i][dText] = CreateDynamic3DTextLabel("[WEED]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[i][ddX],DropDrug[i][ddY], DropDrug[i][ddZ]-0.7,10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[i][dWorld], -1, -1);
 	                   	return 1;
              		}
 	           	}
@@ -296,7 +297,7 @@ CMD:dropdrug(playerid, params[])
   	                   	DropDrug[i][dWorld] = GetPlayerVirtualWorld(playerid);
   	                   	DropDrug[i][dType] = 4;
   	                   	DropDrug[i][dObject] = CreateDynamicObject(1576, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
-  	                   	SaveDrop();
+  	                   	DropDrug[i][dText] = CreateDynamic3DTextLabel("[CRACK]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[i][ddX],DropDrug[i][ddY], DropDrug[i][ddZ]-0.7,10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[i][dWorld], -1, -1);
                    	}
            		}
       		}
@@ -333,7 +334,7 @@ CMD:dropdrug(playerid, params[])
   	                   	DropDrug[i][dWorld] = GetPlayerVirtualWorld(playerid);
   	                   	DropDrug[i][dType] = 4;
   	                   	DropDrug[i][dObject] = CreateDynamicObject(1576, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
-  	                   	SaveDrop();
+  	                   	DropDrug[i][dText] = CreateDynamic3DTextLabel("[METH]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[i][ddX],DropDrug[i][ddY], DropDrug[i][ddZ]-0.7,10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[i][dWorld], -1, -1);
                 	}
            		}
       		}
@@ -370,7 +371,7 @@ CMD:dropdrug(playerid, params[])
   	                   	DropDrug[i][dWorld] = GetPlayerVirtualWorld(playerid);
   	                   	DropDrug[i][dType] = 4;
   	                   	DropDrug[i][dObject] = CreateDynamicObject(1575, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
-  	                   	SaveDrop();
+  	                   	DropDrug[i][dText] = CreateDynamic3DTextLabel("[ECSTASY]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[i][ddX],DropDrug[i][ddY], DropDrug[i][ddZ]-0.7,10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[i][dWorld], -1, -1);
                 	}
            		}
       		}
@@ -407,7 +408,7 @@ CMD:dropdrug(playerid, params[])
   	                   	DropDrug[i][dWorld] = GetPlayerVirtualWorld(playerid);
   	                   	DropDrug[i][dType] = 4;
   	                   	DropDrug[i][dObject] = CreateDynamicObject(1577, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
-  	                   	SaveDrop();
+  	                   	DropDrug[i][dText] = CreateDynamic3DTextLabel("[HEROIN]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[i][ddX],DropDrug[i][ddY], DropDrug[i][ddZ]-0.7,10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[i][dWorld], -1, -1);
     				}
 				}
 			}
