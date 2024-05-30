@@ -48,9 +48,9 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				pCBugging[playerid] = true;
 
 				GameTextForPlayer(playerid, "~r~~h~DON'T C-BUG!", 3000, 4);
-                format(string,sizeof(string),"{AA3333}AdmWarning{FFFF00}: %s (ID: %d) may be c bugging)", GetPlayerNameEx(playerid), playerid);
+                format(string,sizeof(string),"{AA3333}AdmWarning{FFFF00}: %s (ID: %d) may be using C bug", GetPlayerNameEx(playerid), playerid);
 				ABroadCast(COLOR_YELLOW, string, 2);
-				format(string,sizeof(string),"AdmWarning: %s(%d) (ID: %d) may be c bugging", GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), playerid);
+				format(string,sizeof(string),"AdmWarning: %s(%d) (ID: %d) may be using C bug", GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), playerid);
 				Log("logs/cbug.log", string);
 				KillTimer(ptmCBugFreezeOver[playerid]);
 				ptmCBugFreezeOver[playerid] = SetTimerEx("CBugFreezeOver", 1500, false, "i", playerid);
