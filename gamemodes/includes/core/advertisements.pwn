@@ -219,19 +219,19 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				else if(PlayerInfo[playerid][pFreeAdsLeft] > 0)
 				{
 				}
-				else if(PlayerInfo[playerid][pDonateRank] == 2 && GetPlayerCash(playerid) < 125000) {
+				else if(PlayerInfo[playerid][pDonateRank] == 2 && GetPlayerCash(playerid) < 10000) {
 					ShowMainAdvertMenu(playerid);
 					return SendErrorMessage(playerid, "You don't have enough cash for this.");
 				}
-				else if(PlayerInfo[playerid][pDonateRank] == 3 && GetPlayerCash(playerid) < 100000) {
+				else if(PlayerInfo[playerid][pDonateRank] == 3 && GetPlayerCash(playerid) < 3000) {
 					ShowMainAdvertMenu(playerid);
 					return SendErrorMessage(playerid, "You don't have enough cash for this.");
 				}
-				else if(PlayerInfo[playerid][pDonateRank] >= 4 && GetPlayerCash(playerid) < 50000) {
+				else if(PlayerInfo[playerid][pDonateRank] >= 4 && GetPlayerCash(playerid) < 1000) {
 					ShowMainAdvertMenu(playerid);
 					return SendErrorMessage(playerid, "You don't have enough cash for this.");
 				}
-				else if(PlayerInfo[playerid][pDonateRank] <= 1 && GetPlayerCash(playerid) < 150000) {
+				else if(PlayerInfo[playerid][pDonateRank] <= 1 && GetPlayerCash(playerid) < 5000) {
 					ShowMainAdvertMenu(playerid);
 					return SendErrorMessage(playerid, "You don't have enough cash for this.");
 				}
