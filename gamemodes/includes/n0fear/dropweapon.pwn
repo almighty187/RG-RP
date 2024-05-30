@@ -81,6 +81,7 @@ hook OnPlayerDeath(playerid, killerid, reason)
     new Float:X, Float:Y, Float:Z;
     GetPlayerPos(playerid, X, Y, Z);
     DropGun(playerid, GetPlayerWeapon(playerid), GetPlayerAmmo(playerid), X, Y, Z, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
+    ResetPlayerWeaponsEx(playerid);
     return 1;
 }
 hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {

@@ -366,7 +366,7 @@ task UpdateFacilityCrates[1000]()
 					SaveFacility(i);
 					TriggerGates(i, 0);
 					foreach(new g: Player) {
-						if(IsACriminal(g) || IsACop(g)) {
+						if(IsACriminal(g)) {
 							SendClientMessageEx(g, COLOR_YELLOW, "SMS: %s facility is now on lockdown. (( Cooldown Period )), Sender: Unknown.", CrateFacility[i][cfName]);
 							SendClientMessageEx(g, COLOR_YELLOW, "** You can no longer raid the facility, it'll be on cooldown for a random time period. **", CrateFacility[i][cfName]);
 						}
