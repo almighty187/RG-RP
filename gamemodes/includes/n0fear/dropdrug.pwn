@@ -219,51 +219,52 @@ COMMAND:pickitem(playerid, params[])
 }
 CMD:dropdrug(playerid, params[])
 {
-	new type[128],amount,sendername[MAX_PLAYER_NAME],Float:X,Float:Y,Float:Z,string[128];
-	if(sscanf(params, "s[128]I(-1)", type,amount)) SendSyntaxMessage(playerid, "/dropdrug [weed/crack/meth/ecstasy/heroin]");
-	else
-	{
-	    if (gPlayerLogged{playerid} == 0) return SendClientMessage(playerid, COLOR_WHITE, "You must be logged in to use this.");
-	    if (GetPVarInt(playerid, "Injured") > 0) return SendClientMessage(playerid, COLOR_WHITE, "You are not able to use this !");
-        if (GetPVarInt(playerid, "PlayerCuffed") != 0) return SendClientMessage(playerid, COLOR_WHITE, "You are not able to use this !");
+	new type[128], amount, dropamount, sendername[MAX_PLAYER_NAME], Float:X, Float:Y, Float:Z, string[128];
+	if (sscanf(params, "s[128]i", type, dropamount)) {
+	    SendSyntaxMessage(playerid, "/dropdrug [weed/crack/meth/ecstasy/heroin] [amount]");
+	} else {
+	    if (gPlayerLogged[playerid] == 0) return SendErrorMessage(playerid, "You must be logged in to use this.");
+	    if (GetPVarInt(playerid, "Injured") > 0) return SendErrorMessage(playerid, "You are not able to use this !");
+	    if (GetPVarInt(playerid, "PlayerCuffed") != 0) return SendErrorMessage(playerid, "You are not able to use this !");
 	    format(sendername, sizeof(sendername), "%s", GetPlayerNameEx(playerid));
-        if(strcmp(type, "weed", true) == 0)
-	    {
-	        if (gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You must be logged in to use this.");
+
+	    // Ensure dropamount is positive
+	    if (dropamount <= 0) return SendErrorMessage(playerid, "The amount to drop must be a positive number.");
+
+	    if (strcmp(type, "weed", true) == 0)
+		{
 	        if (PlayerInfo[playerid][pDrugs][0] == 0) return SendErrorMessage(playerid, "You don't have any weed on you.");
-            if (IsPlayerInAnyVehicle(playerid)) return SendErrorMessage(playerid, "You can't be in a vehicle while you use this !");
-            SendServerMessage(playerid, "You dropped your weed onto the ground.");
-        	format(string, sizeof(string), "*** %s reaches for %s pocket, withdraws a bag of weed, and drops it.", sendername, CheckSex(playerid));
-			ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-            GetPlayerPos(playerid,X,Y,Z);
-            new amount2 = 0, amounto = PlayerInfo[playerid][pDrugs][0];
-            PlayerInfo[playerid][pDrugs][0] = 0;
-            for(new i = 0; i < sizeof(DropDrug); i++)
-  	        {
-  	            if(strcmp(GetPlayerNameEx(playerid), DropDrug[i][dOwner], true) == 0)
-  	            {
-  	                amount2++;
-  	            }
-  	        }
-			if(amount2 <= 2)
-           	{
-               	for(new i = 0; i < sizeof(DropDrug); i++)
-  	           	{
-  	               	if(DropDrug[i][ddX] == 0.0 && DropDrug[i][ddY] == 0.0 && DropDrug[i][ddZ] == 0.0)
-                   	{
-                   		strmid(DropDrug[i][dOwner], GetPlayerNameEx(playerid), 0, strlen(GetPlayerNameEx(playerid)), 255);
-  	                   	DropDrug[i][dAmmo] = amounto;
-  	                   	DropDrug[i][ddX] = X;
-  	                   	DropDrug[i][ddY] = Y;
-  	                   	DropDrug[i][ddZ] = Z;
-  	                   	DropDrug[i][dWorld] = GetPlayerVirtualWorld(playerid);
-  	                   	DropDrug[i][dType] = 2;
-  	                   	DropDrug[i][dObject] = CreateDynamicObject(1578, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
-  	                   	DropDrug[i][dText] = CreateDynamic3DTextLabel("[WEED]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[i][ddX],DropDrug[i][ddY], DropDrug[i][ddZ]-0.7,10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[i][dWorld], -1, -1);
-	                   	return 1;
-             		}
-	           	}
-           	}
+	        if (IsPlayerInAnyVehicle(playerid)) return SendErrorMessage(playerid, "You can't be in a vehicle while you use this !");
+	        SendServerMessage(playerid, "You dropped your weed onto the ground.");
+	        format(string, sizeof(string), "*** %s reaches for %s pocket, withdraws a bag of weed, and drops it.", sendername, CheckSex(playerid));
+	        ProxDetector(10.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+	        GetPlayerPos(playerid, X, Y, Z);
+	        new amount2 = 0;
+	        PlayerInfo[playerid][pDrugs][0] -= dropamount;
+	        for (new i = 0; i < sizeof(DropDrug); i++)
+			{
+	            if (strcmp(GetPlayerNameEx(playerid), DropDrug[i][dOwner], true) == 0) {
+	                amount2++;
+	            }
+	        }
+	        if (amount2 <= 2)
+			{
+	            for (new i = 0; i < sizeof(DropDrug); i++)
+				{
+	                if (DropDrug[i][ddX] == 0.0 && DropDrug[i][ddY] == 0.0 && DropDrug[i][ddZ] == 0.0) {
+	                    strmid(DropDrug[i][dOwner], GetPlayerNameEx(playerid), 0, strlen(GetPlayerNameEx(playerid)), 255);
+	                    DropDrug[i][dAmmo] = dropamount;
+	                    DropDrug[i][ddX] = X;
+	                    DropDrug[i][ddY] = Y;
+	                    DropDrug[i][ddZ] = Z;
+	                    DropDrug[i][dWorld] = GetPlayerVirtualWorld(playerid);
+	                    DropDrug[i][dType] = 2;
+	                    DropDrug[i][dObject] = CreateDynamicObject(1578, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
+	                    DropDrug[i][dText] = CreateDynamic3DTextLabel("[WEED]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[i][ddX], DropDrug[i][ddY], DropDrug[i][ddZ] - 0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[i][dWorld], -1, -1);
+	                    return 1;
+	                }
+	            }
+	        }
 	    }
 	    else if(strcmp(type, "crack", true) == 0)
 	    {
@@ -274,8 +275,8 @@ CMD:dropdrug(playerid, params[])
            	format(string, sizeof(string), "*** %s reaches for %s pocket, withdraws a bag of crack, and drops it.", sendername, CheckSex(playerid));
 			ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
             GetPlayerPos(playerid,X,Y,Z);
-            new amount2 = 0, amounto = PlayerInfo[playerid][pDrugs][1];
-            PlayerInfo[playerid][pDrugs][1] = 0;
+            new amount2 = 0;
+            PlayerInfo[playerid][pDrugs][1] -= dropamount;
             for(new i = 0; i < sizeof(DropDrug); i++)
   	        {
   	            if(strcmp(GetPlayerNameEx(playerid), DropDrug[i][dOwner], true) == 0)
@@ -290,7 +291,7 @@ CMD:dropdrug(playerid, params[])
                		if(DropDrug[i][ddX] == 0.0 && DropDrug[i][ddY] == 0.0 && DropDrug[i][ddZ] == 0.0)
                  	{
                   		strmid(DropDrug[i][dOwner], GetPlayerNameEx(playerid), 0, strlen(GetPlayerNameEx(playerid)), 255);
-	                   	DropDrug[i][dAmmo] = amounto;
+	                   	DropDrug[i][dAmmo] = dropamount;
  	                   	DropDrug[i][ddX] = X;
   	                   	DropDrug[i][ddY] = Y;
   	                   	DropDrug[i][ddZ] = Z;
@@ -311,8 +312,8 @@ CMD:dropdrug(playerid, params[])
            	format(string, sizeof(string), "*** %s reaches for %s pocket, withdraws a bag of meth, and drops it.", sendername, CheckSex(playerid));
 			ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
             GetPlayerPos(playerid,X,Y,Z);
-            new amount2 = 0, amounto = PlayerInfo[playerid][pDrugs][2];
-            PlayerInfo[playerid][pDrugs][2] = 0;
+            new amount2 = 0;
+            PlayerInfo[playerid][pDrugs][2] -= dropamount;
             for(new i = 0; i < sizeof(DropDrug); i++)
   	        {
   	            if(strcmp(GetPlayerNameEx(playerid), DropDrug[i][dOwner], true) == 0)
@@ -327,7 +328,7 @@ CMD:dropdrug(playerid, params[])
                		if(DropDrug[i][ddX] == 0.0 && DropDrug[i][ddY] == 0.0 && DropDrug[i][ddZ] == 0.0)
                  	{
                   		strmid(DropDrug[i][dOwner], GetPlayerNameEx(playerid), 0, strlen(GetPlayerNameEx(playerid)), 255);
-	                   	DropDrug[i][dAmmo] = amounto;
+	                   	DropDrug[i][dAmmo] = dropamount;
  	                   	DropDrug[i][ddX] = X;
   	                   	DropDrug[i][ddY] = Y;
   	                   	DropDrug[i][ddZ] = Z;
@@ -348,8 +349,8 @@ CMD:dropdrug(playerid, params[])
            	format(string, sizeof(string), "*** %s reaches for %s pocket, withdraws a bag of ecstasy, and drops it.", sendername, CheckSex(playerid));
 			ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
             GetPlayerPos(playerid,X,Y,Z);
-            new amount2 = 0, amounto = PlayerInfo[playerid][pDrugs][3];
-            PlayerInfo[playerid][pDrugs][3] = 0;
+            new amount2 = 0;
+            PlayerInfo[playerid][pDrugs][3] -= dropamount;
             for(new i = 0; i < sizeof(DropDrug); i++)
   	        {
   	            if(strcmp(GetPlayerNameEx(playerid), DropDrug[i][dOwner], true) == 0)
@@ -364,7 +365,7 @@ CMD:dropdrug(playerid, params[])
                		if(DropDrug[i][ddX] == 0.0 && DropDrug[i][ddY] == 0.0 && DropDrug[i][ddZ] == 0.0)
                  	{
                   		strmid(DropDrug[i][dOwner], GetPlayerNameEx(playerid), 0, strlen(GetPlayerNameEx(playerid)), 255);
-	                   	DropDrug[i][dAmmo] = amounto;
+	                   	DropDrug[i][dAmmo] = dropamount;
  	                   	DropDrug[i][ddX] = X;
   	                   	DropDrug[i][ddY] = Y;
   	                   	DropDrug[i][ddZ] = Z;
@@ -385,8 +386,8 @@ CMD:dropdrug(playerid, params[])
            	format(string, sizeof(string), "*** %s reaches for %s pocket, withdraws a bag of heroin, and drops it.", sendername, CheckSex(playerid));
 			ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
             GetPlayerPos(playerid,X,Y,Z);
-            new amount2 = 0, amounto = PlayerInfo[playerid][pDrugs][4];
-            PlayerInfo[playerid][pDrugs][4] = 0;
+            new amount2 = 0;
+            PlayerInfo[playerid][pDrugs][4] -= dropamount;
             for(new i = 0; i < sizeof(DropDrug); i++)
   	        {
   	            if(strcmp(GetPlayerNameEx(playerid), DropDrug[i][dOwner], true) == 0)
@@ -401,7 +402,7 @@ CMD:dropdrug(playerid, params[])
                		if(DropDrug[i][ddX] == 0.0 && DropDrug[i][ddY] == 0.0 && DropDrug[i][ddZ] == 0.0)
                  	{
                   		strmid(DropDrug[i][dOwner], GetPlayerNameEx(playerid), 0, strlen(GetPlayerNameEx(playerid)), 255);
-	                   	DropDrug[i][dAmmo] = amounto;
+	                   	DropDrug[i][dAmmo] = dropamount;
  	                   	DropDrug[i][ddX] = X;
   	                   	DropDrug[i][ddY] = Y;
   	                   	DropDrug[i][ddZ] = Z;
