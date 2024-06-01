@@ -32,7 +32,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		{
 			switch(GetPlayerWeapon(playerid))
 			{
-				case WEAPON_DEAGLE, WEAPON_SHOTGUN, WEAPON_SNIPER:
+				case WEAPON_DEAGLE, WEAPON_SHOTGUN, WEAPON_SNIPER, WEAPON_SILENCED, WEAPON_SAWEDOFF, WEAPON_SHOTGSPA, WEAPON_UZI, WEAPON_MP5:
 				{
 					ptsLastFiredWeapon[playerid] = gettime();
 				}

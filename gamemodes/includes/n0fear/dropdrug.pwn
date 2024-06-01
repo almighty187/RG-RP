@@ -35,7 +35,7 @@ hook OnGameModeInit()
 	}
 	return 1;
 }
-CreateDrop(idx)
+/*CreateDrop(idx)
 {
 	switch(DropDrug[idx][dType])
 	{
@@ -45,7 +45,7 @@ CreateDrop(idx)
  		case 5: DropDrug[idx][dObject] = CreateDynamicObject(1577, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
 	}
 }
-/*LoadDrop()
+LoadDrop()
 {
 	new arrCoords[25][64];
 	new strFromFile2[256];
@@ -219,7 +219,7 @@ COMMAND:pickitem(playerid, params[])
 }
 CMD:dropdrug(playerid, params[])
 {
-	new type[128], amount, dropamount, sendername[MAX_PLAYER_NAME], Float:X, Float:Y, Float:Z, string[128];
+	new type[128], dropamount, sendername[MAX_PLAYER_NAME], Float:X, Float:Y, Float:Z, string[128];
 	if (sscanf(params, "s[128]i", type, dropamount)) {
 	    SendSyntaxMessage(playerid, "/dropdrug [weed/crack/meth/ecstasy/heroin] [amount]");
 	} else {

@@ -103,6 +103,7 @@
 #include "./includes/n0fear/dropweapon.pwn"
 #include "./includes/n0fear/dropdrug.pwn"
 #include "./includes/n0fear/anticbug.pwn"
+#include "./includes/n0fear/antiairbreak.pwn"
 
 // 187
 #include "./includes/187/mydrugs.pwn"
