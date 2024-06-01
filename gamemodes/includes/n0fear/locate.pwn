@@ -45,7 +45,7 @@ LocateMethod(playerid, params[])
 	if(!strcmp(params, "dmv", true))
 	{
 	    gPlayerCheckpointStatus[playerid] = CHECKPOINT_MISC;
-	    SetPlayerCheckpoint(playerid, 1784.9786,-1720.8746,13.5446, 3.0);
+	    SetPlayerCheckpoint(playerid, 2052.4580,-1910.1168,13.2138, 3.0);
 	    SendClientMessage(playerid, COLOR_LIGHTBLUE, "** Checkpoint marked at the location of DMV.");
 	}
 	else if(!strcmp(params, "cityhall", true))
@@ -75,7 +75,7 @@ LocateMethod(playerid, params[])
 	else if(!strcmp(params, "vip", true))
 	{
 	    gPlayerCheckpointStatus[playerid] = CHECKPOINT_MISC;
-	    SetPlayerCheckpoint(playerid, 1310.30, -1368.20, 13.55, 3.0);
+	    SetPlayerCheckpoint(playerid, 1818.3251,-1577.2327,13.1143, 3.0);
 	    SendClientMessage(playerid, COLOR_LIGHTBLUE, "** Checkpoint marked at the location of the VIP lounge.");
 	}
 	else if(!strcmp(params, "pizzaman", true))
