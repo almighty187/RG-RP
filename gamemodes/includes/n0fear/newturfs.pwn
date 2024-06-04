@@ -75,8 +75,8 @@ CMD:turfs(playerid, params[])
 {
 	new turfid, name[32], color[32], timeleft[32];
 	SendClientMessageEx(playerid, COLOR_GREEN, "Use /showturfs to enable turf minimap radar.");
-	tsstring1 = "{FFFFFF}";
-	tsstring2 = "{FFFFFF}";
+	tsstring1 = "{8B0000}";
+	tsstring2 = "{8B0000}";
 	for(turfid = 0; turfid < MAX_TURFS; turfid++)
 	{
 	    if(TurfWars[turfid][twLocked] < 1 && TurfWars[turfid][twMinX])

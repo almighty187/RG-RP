@@ -1298,7 +1298,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				}
 				case 3:
 				{
-					ShowPlayerDialog(playerid, DIALOG_GROUP_JURISDICTION, DIALOG_STYLE_MSGBOX, "Jurisdiction", "Allow you to change Jurisdiction of a group", "Add","Remove");
+					ShowPlayerDialog(playerid, DIALOG_GROUP_JURISDICTION, DIALOG_STYLE_MSGBOX, "Jurisdiction", "Allow's you to change the Jurisdiction of a group", "Add","Remove");
 				}
 				case 4: {
 					format(szTitle, sizeof szTitle, "Edit Group Duty Color {%s}(%s)", Group_NumToDialogHex(arrGroupData[iGroupID][g_hDutyColour]), arrGroupData[iGroupID][g_szGroupName]);
