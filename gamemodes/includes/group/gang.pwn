@@ -1643,7 +1643,7 @@ CMD:getgangslot(playerid, params[]) {
 }
 
 CMD:editgang(playerid, params[]) {
-	if(0 <= PlayerInfo[playerid][pLeader] < MAX_GROUPS && IsACriminal(playerid))
+	if(0 <= PlayerInfo[playerid][pSlotHolder] < MAX_GROUPS && IsACriminal(playerid))
 	{
 		Gang_DisplayDialog(playerid, PlayerInfo[playerid][pMember]);
 	} else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
@@ -1820,7 +1820,7 @@ CMD:creategang(playerid, params[]) {
 }
 CMD:makesh(playerid, params[])
 {
-	if (PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pFactionModerator] >= 2)
+	if (PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pGangModerator] >= 2)
 	{
 		new giveplayerid, announce;
 		if(sscanf(params, "ui(0)", giveplayerid, announce)) {
@@ -1842,7 +1842,7 @@ CMD:makesh(playerid, params[])
 }
 CMD:takesh(playerid, params[])
 {
-	if (PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pFactionModerator] >= 2)
+	if (PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pGangModerator] >= 2)
 	{
 		new giveplayerid, string[256];
 		if(sscanf(params, "u", giveplayerid)) {
@@ -1871,7 +1871,7 @@ CMD:takesh(playerid, params[])
 }
 CMD:takeleader(playerid, params[])
 {
-	if (PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pFactionModerator] >= 2)
+	if (PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pFactionModerator] >= 2 || PlayerInfo[playerid][pGangModerator] >= 2)
 	{
 		new giveplayerid, string[256];
 		if(sscanf(params, "u", giveplayerid)) {
