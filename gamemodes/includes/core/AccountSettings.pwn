@@ -16,16 +16,17 @@ ShowAccountSettings(playerid, menu = 0) {
 
 	szMiscArray[0] = 0;
 	new szTitle[32];
+	switch(menu)
+	{
 
-	switch(menu) {
-
-		case 0: {
+		case 0:
+		{
 			format(szTitle, sizeof(szTitle), "Account Settings - %s", GetPlayerNameEx(playerid));
 			format(szMiscArray, sizeof(szMiscArray), "Toggle Menu\nChange Account Email\nAccount Password\nChange Shop Pin");
 			ShowPlayerDialogEx(playerid, ACCOUNT_SETTINGS, DIALOG_STYLE_LIST, szTitle, szMiscArray, "Select", "Cancel");
 		}
-
-		case 1: {
+		case 1:
+		{
 			
 			format(szMiscArray, sizeof(szMiscArray), "Item\tStatus\n\
 				{FFFFFF}---General---\t\n\
@@ -35,19 +36,19 @@ ShowAccountSettings(playerid, menu = 0) {
 				{FFFFFF}OOC Chat\t%s\n\
 				{FFFFFF}Whispers\t%s\n\
 				{FFFFFF}First ChatBox\t%s\n\
+				{FFFFFF}Secondary ChatBox\t%s\n\
 				{FFFFFF}Private Radio\t%s\n\
 				{FFFFFF}Phone\t%s\n\
 				{FFFFFF}Famed\t%s\n\
 				{FFFFFF}VIP\t%s\n",
-				(PlayerInfo[playerid][pToggledChats][20] == 1) ? ("{00FF00}On") : ("{FF0000}Off"),
+				(PlayerInfo[playerid][pToggledChats][20] == 0) ? ("{00FF00}On") : ("{FF0000}Off"),
 				(PlayerInfo[playerid][pToggledChats][0] == 0) ? ("{00FF00}On") : ("{FF0000}Off"),
 				(PlayerInfo[playerid][pToggledChats][1] == 0) ? ("{00FF00}On") : ("{FF0000}Off"),
 				(PlayerInfo[playerid][pToggledChats][2] == 0) ? ("{00FF00}On") : ("{FF0000}Off"),
 				(PlayerInfo[playerid][pToggledChats][3] == 0) ? ("{00FF00}On") : ("{FF0000}Off"),
 				(PlayerInfo[playerid][pToggledChats][4] == 0) ? ("{00FF00}On") : ("{FF0000}Off"),
-				// (PlayerInfo[playerid][pToggledChats][19] == 0) ? ("{00FF00}On") : ("{FF0000}Off"),
+				(PlayerInfo[playerid][pToggledChats][19] == 0) ? ("{00FF00}On") : ("{FF0000}Off"),
 				(PlayerInfo[playerid][pToggledChats][5] == 0) ? ("{00FF00}On") : ("{FF0000}Off"),
-				(PlayerInfo[playerid][pToggledChats][6] == 0) ? ("{00FF00}On") : ("{FF0000}Off"),
 				(PlayerInfo[playerid][pToggledChats][7] == 0) ? ("{00FF00}On") : ("{FF0000}Off"),
 				(PlayerInfo[playerid][pToggledChats][8] == 0) ? ("{00FF00}On") : ("{FF0000}Off"),
 				(PlayerInfo[playerid][pToggledChats][9] == 0) ? ("{00FF00}On") : ("{FF0000}Off")
@@ -72,11 +73,11 @@ ShowAccountSettings(playerid, menu = 0) {
 				(PlayerInfo[playerid][pToggledChats][12] == 0) ? ("{00FF00}On") : ("{FF0000}Off"),
 				(PlayerInfo[playerid][pToggledChats][13] == 0) ? ("{00FF00}On") : ("{FF0000}Off"),
 				(PlayerInfo[playerid][pToggledChats][14] == 0) ? ("{00FF00}On") : ("{FF0000}Off"),
-				(PlayerInfo[playerid][pToggledChats][15] == 0) ? ("{00FF00}On") : ("{FF0000}Off"),
 				(PlayerInfo[playerid][pToggledChats][22] == 0) ? ("{00FF00}On") : ("{FF0000}Off"),
+				(PlayerInfo[playerid][pToggledChats][15] == 0) ? ("{00FF00}On") : ("{FF0000}Off"),
 				(PlayerInfo[playerid][pToggledChats][16] == 0) ? ("{00FF00}On") : ("{FF0000}Off"),
-				(PlayerInfo[playerid][pToggledChats][17] == 0) ? ("{00FF00}On") : ("{FF0000}Off"),
-				(PlayerInfo[playerid][pToggledChats][18] == 0) ? ("{00FF00}On") : ("{FF0000}Off")
+				(PlayerInfo[playerid][pToggledChats][17] == 0) ? ("{00FF00}On") : ("{FF0000}Off")
+				//(PlayerInfo[playerid][pToggledChats][18] == 0) ? ("{00FF00}On") : ("{FF0000}Off")
 			);
 			ShowPlayerDialogEx(playerid, ACCOUNT_TOGGLEMENU, DIALOG_STYLE_TABLIST_HEADERS, "Toggle Menu", szMiscArray, "Select", "Cancel");
 		}
@@ -238,7 +239,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			else {
 
 				new id = -1;
-				if(strcmp(inputtext, "Newbie Chat", true) == 0) id = 0;
+				if(strcmp(inputtext, "RG:RP Phone Mod", true) == 0) id = 20;
+				else if(strcmp(inputtext, "Newbie Chat", true) == 0) id = 0;
 				else if(strcmp(inputtext, "News", true) == 0) id = 1;
 				else if(strcmp(inputtext, "OOC Chat", true) == 0) id = 2;
 				else if(strcmp(inputtext, "Whispers", true) == 0) id = 3;

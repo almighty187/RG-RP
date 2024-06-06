@@ -1,4 +1,4 @@
-public OnPlayerAirBreak(playerid)
+public OnPlayerAirbreak(playerid)
 {
 	new string[128];
     format(string,sizeof(string),"{AA3333}AdmWarning{FFFF00}: %s (ID: %d) may be using airbreak", GetPlayerNameEx(playerid), playerid);
