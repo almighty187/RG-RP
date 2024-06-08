@@ -148,6 +148,7 @@
 		13) Garage
 		14) Door
 		15) Gate
+		15) Prison
 */
 
 #include <YSI\y_hooks>
@@ -1231,6 +1232,13 @@ stock Help_ListCat(playerid, dialogid = DIALOG_HELPCATMAIN, response = 0, listit
 				SetPVarInt(playerid, string, 15);
 				j++;
 				format(szMiscArray, sizeof(szMiscArray), "%sGate\n", szMiscArray);
+			}
+			if(Help_Perm(playerid, 14, 16, 1))
+			{
+				format(string, sizeof(string), "HelpResultCat%i", j);
+				SetPVarInt(playerid, string, 16);
+				j++;
+				format(szMiscArray, sizeof(szMiscArray), "%sPrison\n", szMiscArray);
 			}
 			Help_GenerateCMDList(playerid, 3, -1, 14, 0);
 			if(!isnull(szMiscArray)) ShowPlayerDialogEx(playerid, DIALOG_HELPCATOTHER, DIALOG_STYLE_LIST, "Help System", szMiscArray, "Select", "Cancel");
