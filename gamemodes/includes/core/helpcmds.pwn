@@ -1566,7 +1566,7 @@ CMD:rules(playerid, params[])
 	format(szMiscArray, sizeof(szMiscArray), "%s\n\nMetagaming: Mixing of out of character and in character information. Using IC info oocly or using OOC info icly. Use of acronyms or smilies. (ex. 'wtf' or :)", szMiscArray);
 	format(szMiscArray, sizeof(szMiscArray), "%s\n\nNon-roleplay behavior: Acting in a manner that is deemed unrealstic or non-roleplay, including but not limited to: improper use of toys,\n ramming vehicles into players excessively, car surfing etc", szMiscArray);
 	format(szMiscArray, sizeof(szMiscArray), "%s\n\nAvoiding Roleplay: Disconnecting or using /kill to avoid roleplay/arrest etc.", szMiscArray);
-	ShowPlayerDialogEx(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "NG-RP: Server Offences", szMiscArray, "Okay", "");
+	ShowPlayerDialogEx(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "RG-RP: Server Offences", szMiscArray, "Okay", "");
 	return 1;
 }
 

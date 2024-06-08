@@ -1081,7 +1081,7 @@ public OnPlayerLoad(playerid)
 			PlayerInfo[playerid][pVIPSellable] = 1;
 			PlayerInfo[playerid][pVIPExpire] = 1430110800;
 			LoadPlayerDisabledVehicles(playerid);
-			SendClientMessageEx(playerid, -1, "You have been gifted Silver VIP for playing on RG:RP's B-Day weekend!");
+			SendClientMessageEx(playerid, -1, "You have been gifted Silver VIP for playing on RG-RP's B-Day weekend!");
 		}
 		if(PlayerInfo[playerid][pDonateRank] == 4 && !PlayerInfo[playerid][pReceivedPrize])
 		{

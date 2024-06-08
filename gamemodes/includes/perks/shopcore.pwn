@@ -903,11 +903,11 @@ CMD:nggshop(playerid, params[]) {
 		return SendClientMessage(playerid, COLOR_GRAD2, "You can't do this at this time!");
 	if(PlayerInfo[playerid][pWantedLevel] > 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "You are currently wanted, you cannot use this commmand.");
 	if(gettime() - LastShot[playerid] < 60) return SendClientMessageEx(playerid, COLOR_GRAD2, "You have been shot within the last 60 seconds, you cannot use this command.");
-	if(IsPlayerInDynamicArea(playerid, NGGShop)) return SendClientMessageEx(playerid, COLOR_GRAD2, "You are already at NGG's Shop");
+	if(IsPlayerInDynamicArea(playerid, NGGShop)) return SendClientMessageEx(playerid, COLOR_GRAD2, "You are already at RG-RP Shop");
 	if(IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_GRAD2, "You cannot do this while being inside a vehicle.");
-	if(GetPVarInt(playerid, "ShopTP") == 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "You have already requested a Teleport to the NGG Shop.");
+	if(GetPVarInt(playerid, "ShopTP") == 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "You have already requested a Teleport to the RG-RP Shop.");
 	
-	SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "You have requested a Teleport to the NGG Shop, please wait 30 seconds..");
+	SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "You have requested a Teleport to the RG-RP Shop, please wait 30 seconds..");
 	SetTimerEx("TeleportToShop", 30000, false, "i", playerid);
 	TogglePlayerControllable(playerid, 0);
 	SetPVarInt(playerid, "ShopTP", 1);

@@ -1392,7 +1392,7 @@ CMD:sendto(playerid, params[])
 			{
 				SetPlayerPos(giveplayerid, 2957.967041, -1459.404541, 10.809198);
 			}
-			format(string, sizeof(string), " You have sent %s to the NGG Shop.", GetPlayerNameEx(giveplayerid));
+			format(string, sizeof(string), " You have sent %s to the RG-RP Shop.", GetPlayerNameEx(giveplayerid));
 			SendClientMessageEx(playerid, COLOR_WHITE, string);
 			SendServerMessage(giveplayerid, "You have been teleported!");
 			SetPlayerInterior(giveplayerid,0);

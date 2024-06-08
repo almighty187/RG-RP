@@ -179,7 +179,7 @@ CharacterCreation(playerid)
 				GetPlayerNation(playerid),
 				GetPlayerAccent(playerid),
 				PlayerInfo[playerid][pModel]);
-			return ShowPlayerDialogEx(playerid, DIALOG_REGISTER_CREATION, DIALOG_STYLE_TABLIST, "RG:RP | Character Creation", szMiscArray, "Select", "");
+			return ShowPlayerDialogEx(playerid, DIALOG_REGISTER_CREATION, DIALOG_STYLE_TABLIST, "RG-RP | Character Creation", szMiscArray, "Select", "");
 		}
 		case 14: {
 
@@ -193,7 +193,7 @@ CharacterCreation(playerid)
 			SetHealth(playerid, 100);
 			ClearChatbox(playerid);
 
-			ShowPlayerDialogEx(playerid, DIALOG_TUTORIAL, DIALOG_STYLE_MSGBOX, "RG:RP Tutorial - Welcome", "Would you like to have the server provide you with objectives to guide you around the server?", "Yes, please!", "No, thanks.");
+			ShowPlayerDialogEx(playerid, DIALOG_TUTORIAL, DIALOG_STYLE_MSGBOX, "RG-RP Tutorial - Welcome", "Would you like to have the server provide you with objectives to guide you around the server?", "Yes, please!", "No, thanks.");
 		}
 	}
 	return 1;
@@ -213,10 +213,10 @@ ShowTutorialDialog(playerid, stage)
 			if(betaserver == 0) {
 				szMiscArray = "{FFFFFF}_______________________________________________________________________________________________________________________________________________________\n\n\n";
 				strcat(szMiscArray, "{7091B8}Welcome to Rebound Gaming!{FFFFFF}\n\n");
-				strcat(szMiscArray, "We are an english speaking community. At RG:RP, we specialize in Roleplay, the act of taking on the role of a character and acting as that character\n");
+				strcat(szMiscArray, "We are an english speaking community. At RG-RP, we specialize in Roleplay, the act of taking on the role of a character and acting as that character\n");
 				strcat(szMiscArray, "as you would in real life. Along the way your character learns new information and allows them to develop.\n\n");
 				strcat(szMiscArray, "As a community, we've been around since 2010 and have grown significantly since then.\n\n");
-				strcat(szMiscArray, "{FF0000}RG:RP Related Services{FFFFFF}:\n");
+				strcat(szMiscArray, "{FF0000}RG-RP Related Services{FFFFFF}:\n");
 				strcat(szMiscArray, "\t{F69500}Website{FFFFFF}: rg-rp.net - Sign up on our forums and interact with the community!\n");
 				//strcat(szMiscArray, "\t{F69500}User Control Panel{FFFFFF}: cp.ng-gaming.net - Control your account and take measures to ensure your account's security!\n");
 				//strcat(szMiscArray, "\t{F69500}Shop{FFFFFF}: shop.ng-gaming.net - Purchase credits from the shop and purchase items in game!\n");
@@ -224,7 +224,7 @@ ShowTutorialDialog(playerid, stage)
 				//strcat(szMiscArray, "\t{F69500}Image Sharing{FFFFFF}: ngg.up - Share your favourite images with your friends, with the press of a button.\n\n");
 				strcat(szMiscArray, "Please make sure you read this tutorial as you will be asked questions at the end.");
 				strcat(szMiscArray, "\n\n\n{FFFFFF}_______________________________________________________________________________________________________________________________________________________");
-				ShowPlayerDialogEx(playerid, DIALOG_TUTORIAL, DIALOG_STYLE_MSGBOX, "RG:RP Tutorial - Welcome", szMiscArray, countstring, "");
+				ShowPlayerDialogEx(playerid, DIALOG_TUTORIAL, DIALOG_STYLE_MSGBOX, "RG-RP Tutorial - Welcome", szMiscArray, countstring, "");
 			}
 			else {
 				szMiscArray = "{FFFFFF}___________________________________________________________________________________________\n\n\n";
@@ -232,7 +232,7 @@ ShowTutorialDialog(playerid, stage)
 				strcat(szMiscArray, "You are not required to sit through the tutorial, please just press \"Got it\" at the bottom.\n");
 				strcat(szMiscArray, "You'll be taken stright to the character creation screen.\n\n");
 				strcat(szMiscArray, "\n\n\n{FFFFFF}_______________________________________________________________________________");
-				ShowPlayerDialogEx(playerid, DIALOG_TUTORIAL, DIALOG_STYLE_MSGBOX, "RG:RP Beta Server - Welcome", szMiscArray, "Got It", "");
+				ShowPlayerDialogEx(playerid, DIALOG_TUTORIAL, DIALOG_STYLE_MSGBOX, "RG-RP Beta Server - Welcome", szMiscArray, "Got It", "");
 			}
 		}
 		case 1:
@@ -255,13 +255,13 @@ ShowTutorialDialog(playerid, stage)
 			strcat(szMiscArray, "\t\tExample: /do The stick is brown.\n\n");
 			strcat(szMiscArray, "Please read these definitions carefully as you will be quizzed on them afterwards.");
 			strcat(szMiscArray, "\n\n\n{FFFFFF}_______________________________________________________________________________________________________________________________________________________");
-			ShowPlayerDialogEx(playerid, DIALOG_TUTORIAL, DIALOG_STYLE_MSGBOX, "RG:RP Tutorial - Roleplay", szMiscArray, countstring, "");
+			ShowPlayerDialogEx(playerid, DIALOG_TUTORIAL, DIALOG_STYLE_MSGBOX, "RG-RP Tutorial - Roleplay", szMiscArray, countstring, "");
 		}
 		case 2:
 		{
 			szMiscArray = "{FFFFFF}_______________________________________________________________________________________________________________________________________________________\n\n\n";
 			strcat(szMiscArray, "{F69500}Rules{FFFFFF}\n\n");
-			strcat(szMiscArray, "Next, you should learn some common roleplay rules that are vital in ensuring you have the best possible experience on RG:RP.\n\n");
+			strcat(szMiscArray, "Next, you should learn some common roleplay rules that are vital in ensuring you have the best possible experience on RG-RP.\n\n");
 			strcat(szMiscArray, "\t{FF0000}Metagaming (MG){FFFFFF}: Mixing IC information with OOC information, or vice versa.\n");
 			strcat(szMiscArray, "\t\tExample: John_Doe doesn't know Jane_Doe, but he reports a crime she's commited to the police and tells the officer her name is Jane_Doe.\n");
 			strcat(szMiscArray, "\t\tExample: John_Doe is really upset, so he decides to put a frowny face in the in character chat.\n\n");
@@ -275,7 +275,7 @@ ShowTutorialDialog(playerid, stage)
 			strcat(szMiscArray, "\t\tExample: Jane_Doe kills John_Doe, John_Doe goes back up to Jane_Doe and roleplays killing her.\n\n");
 			strcat(szMiscArray, "Please read these rules carefully as you will be quizzed on them afterwards, and you may be punished if you break one!");
 			strcat(szMiscArray, "\n\n\n{FFFFFF}_______________________________________________________________________________________________________________________________________________________");
-			ShowPlayerDialogEx(playerid, DIALOG_TUTORIAL, DIALOG_STYLE_MSGBOX, "RG:RP Tutorial - Rules", szMiscArray, countstring, "");
+			ShowPlayerDialogEx(playerid, DIALOG_TUTORIAL, DIALOG_STYLE_MSGBOX, "RG-RP Tutorial - Rules", szMiscArray, countstring, "");
 		}
 		case 3:
 		{
@@ -294,7 +294,7 @@ ShowTutorialDialog(playerid, stage)
 			strcat(szMiscArray, "\t{FF0000}Criminal{FFFFFF}: A group of criminals who do illegal things.\n\n");
 			strcat(szMiscArray, "Some groups allow you to apply to join them once you meet certain requirements! Check out all the groups at forum.rg-rp.net.");
 			strcat(szMiscArray, "\n\n\n{FFFFFF}_______________________________________________________________________________________________________________________________________________________");
-			ShowPlayerDialogEx(playerid, DIALOG_TUTORIAL, DIALOG_STYLE_MSGBOX, "RG:RP Tutorial - Groups", szMiscArray, countstring, "");
+			ShowPlayerDialogEx(playerid, DIALOG_TUTORIAL, DIALOG_STYLE_MSGBOX, "RG-RP Tutorial - Groups", szMiscArray, countstring, "");
 		}
 		case 4:
 		{
@@ -309,7 +309,7 @@ ShowTutorialDialog(playerid, stage)
 			strcat(szMiscArray, "\t{FF0000}Vehicles{FFFFFF}: Players may purchase vehicles from dealerships at any time, and use them when they wish.\n\n");
 			strcat(szMiscArray, "You can enter and exit property by pressing 'N' on your keyboard when near the icon.");
 			strcat(szMiscArray, "\n\n\n{FFFFFF}_______________________________________________________________________________________________________________________________________________________");
-			ShowPlayerDialogEx(playerid, DIALOG_TUTORIAL, DIALOG_STYLE_MSGBOX, "RG:RP Tutorial - Groups", szMiscArray, countstring, "");
+			ShowPlayerDialogEx(playerid, DIALOG_TUTORIAL, DIALOG_STYLE_MSGBOX, "RG-RP Tutorial - Groups", szMiscArray, countstring, "");
 		}
 		case 5:
 		{
@@ -320,7 +320,7 @@ ShowTutorialDialog(playerid, stage)
 			strcat(szMiscArray, "\tIf you get any question wrong, you will be forced to retake the tutorial and will be quizzed again afterwards.\n\n");
 			strcat(szMiscArray, "{FF0000}What would you like to do?{FFFFFF}");
 			strcat(szMiscArray, "\n\n\n{FFFFFF}_______________________________________________________________________________________________________________________________________________________");
-			ShowPlayerDialogEx(playerid, DIALOG_TUTORIAL, DIALOG_STYLE_MSGBOX, "RG:RP Tutorial - Groups", szMiscArray, "Continue", "Repeat");
+			ShowPlayerDialogEx(playerid, DIALOG_TUTORIAL, DIALOG_STYLE_MSGBOX, "RG-RP Tutorial - Groups", szMiscArray, "Continue", "Repeat");
 		}
 		case 6:
 		{
@@ -348,7 +348,7 @@ ShowTutorialDialog(playerid, stage)
 			strcat(szMiscArray, "\t{FF0000}/interact{FFFFFF} - Interact with another player by giving/selling items, etc. (You may also use RMB+Y over a player to perform this)\n");
 			strcat(szMiscArray, "\t{FF0000}/pay{FFFFFF} - Pay another player a certain amount of money.\n");
 			strcat(szMiscArray, "\n\n\n{FFFFFF}_______________________________________________________________________________________________________________________________________________________");
-			ShowPlayerDialogEx(playerid, DIALOG_TUTORIAL, DIALOG_STYLE_MSGBOX, "RG:RP Tutorial - Commands", szMiscArray, "Continue", "");
+			ShowPlayerDialogEx(playerid, DIALOG_TUTORIAL, DIALOG_STYLE_MSGBOX, "RG-RP Tutorial - Commands", szMiscArray, "Continue", "");
 		}
 		case 12:
 		{
@@ -358,7 +358,7 @@ ShowTutorialDialog(playerid, stage)
 			strcat(szMiscArray, "\t\t{F69521}Director of Development{FFFFFF}:\n\t\t\tN0FeaR\n\n");
 			strcat(szMiscArray, "\t\t{F69521}Developers{FFFFFF}:\n\t\t\t187\n");
 			strcat(szMiscArray, "\n\n{FFFFFF}_______________________________________________________________________________________________________________________________________________________");
-			ShowPlayerDialogEx(playerid, DIALOG_TUTORIAL, DIALOG_STYLE_MSGBOX, "RG:RP - Developers", szMiscArray, "Continue", "");
+			ShowPlayerDialogEx(playerid, DIALOG_TUTORIAL, DIALOG_STYLE_MSGBOX, "RG-RP - Developers", szMiscArray, "Continue", "");
 		}
 	}
 	return 1;
@@ -526,9 +526,9 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			switch(listitem)
 			{
 				case 0: return CharacterCreation(playerid);
-				case 1: return ShowPlayerDialogEx(playerid, DIALOG_REGISTER_SEX, DIALOG_STYLE_LIST, "RG:RP Character Creation | Select Gender", "Male\nFemale", "Select", "<<");
+				case 1: return ShowPlayerDialogEx(playerid, DIALOG_REGISTER_SEX, DIALOG_STYLE_LIST, "RG-RP Character Creation | Select Gender", "Male\nFemale", "Select", "<<");
 				case 2: return ShowPlayerDialogEx(playerid, DIALOG_REGISTER_MONTH, DIALOG_STYLE_LIST, "{FF0000}Which month was your character born?", "January\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember", "Select", "<<");
-				case 3: return ShowPlayerDialogEx(playerid, DIALOG_REGISTER_NATION, DIALOG_STYLE_LIST, "RG:RP Character Creation | Nation", "San Andreas\nNew Robada", "Select", "<<");
+				case 3: return ShowPlayerDialogEx(playerid, DIALOG_REGISTER_NATION, DIALOG_STYLE_LIST, "RG-RP Character Creation | Nation", "San Andreas\nNew Robada", "Select", "<<");
 				case 4:
 				{
 					szMiscArray[0] = 0;
@@ -560,16 +560,16 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					French accent\n\
 					Korean accent\n\
 					Thai accent";
-					return ShowPlayerDialogEx(playerid, DIALOG_REGISTER_ACCENT, DIALOG_STYLE_LIST, "RG:RP Character Creation | Accent", szMiscArray, "Select", "<<");
+					return ShowPlayerDialogEx(playerid, DIALOG_REGISTER_ACCENT, DIALOG_STYLE_LIST, "RG-RP Character Creation | Accent", szMiscArray, "Select", "<<");
 				}
 				case 5:
 				{
 					if(PlayerInfo[playerid][pSex] == 0) { 
 						SendClientMessage(playerid, COLOR_YELLOW, "Please select your gender first.");
-						return ShowPlayerDialogEx(playerid, DIALOG_REGISTER_SEX, DIALOG_STYLE_LIST, "RG:RP Character Creation | Skin Model", "Male\nFemale", "Select", "<<");
+						return ShowPlayerDialogEx(playerid, DIALOG_REGISTER_SEX, DIALOG_STYLE_LIST, "RG-RP Character Creation | Skin Model", "Male\nFemale", "Select", "<<");
 					}
 
-               		ShowPlayerDialogEx(playerid, DIALOG_REGISTER_SKIN, DIALOG_STYLE_INPUT, "RG:RP Character Creation | Skin Model", "Please enter a skin ID for your character.", "Select", "<<");
+               		ShowPlayerDialogEx(playerid, DIALOG_REGISTER_SKIN, DIALOG_STYLE_INPUT, "RG-RP Character Creation | Skin Model", "Please enter a skin ID for your character.", "Select", "<<");
                	}
 				
 				case 6:
@@ -577,7 +577,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					if(PlayerInfo[playerid][pSex] == 0)
 					{
 						SendClientMessage(playerid, COLOR_YELLOW, "Please pick a gender.");
-						return ShowPlayerDialogEx(playerid, DIALOG_REGISTER_SEX, DIALOG_STYLE_LIST, "RG:RP Character Creation | Skin Model", "Male\nFemale", "Select", "<<");
+						return ShowPlayerDialogEx(playerid, DIALOG_REGISTER_SEX, DIALOG_STYLE_LIST, "RG-RP Character Creation | Skin Model", "Male\nFemale", "Select", "<<");
 
 					}
 					if(strcmp(PlayerInfo[playerid][pBirthDate], "0000-00-00") == 0)
@@ -586,7 +586,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 						return ShowPlayerDialogEx(playerid, DIALOG_REGISTER_MONTH, DIALOG_STYLE_LIST, "{FF0000}Which month was your character born?", "January\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember", "Select", "<<");
 					}
 
-					if(PlayerInfo[playerid][pNation] != 0 && PlayerInfo[playerid][pNation] != 1) return ShowPlayerDialogEx(playerid, DIALOG_REGISTER_NATION, DIALOG_STYLE_LIST, "RG:RP Character Creation | Nation", "San Andreas\nNew Robada", "Select", "<<");
+					if(PlayerInfo[playerid][pNation] != 0 && PlayerInfo[playerid][pNation] != 1) return ShowPlayerDialogEx(playerid, DIALOG_REGISTER_NATION, DIALOG_STYLE_LIST, "RG-RP Character Creation | Nation", "San Andreas\nNew Robada", "Select", "<<");
 
 					ShowPlayerDialogEx(playerid, DIALOG_REGISTER_REFERRED, DIALOG_STYLE_INPUT, "{FF0000}Referral System", "Have you been referred to our server by one of our players?\nIf so, please enter the player name below.\n\nIf you haven't been referred by anyone, you may press the skip button.\n\n{FF0000}Note: You must enter the player name with a underscore (Example: FirstName_LastName)", "Enter", "Skip");
 					return 1;

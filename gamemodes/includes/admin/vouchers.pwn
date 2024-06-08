@@ -142,7 +142,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 							DeletePVar(playerid, "WhoIsThis");
 							return ShowPlayerDialogEx(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "Voucher System", szDialog, "Close", "");
 						}
-						if(!IsPlayerInDynamicArea(playerid, NGGShop) && GetPlayerVirtualWorld(playerid) != 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "You must be at NGG's shop to redeem this voucher.");
+						if(!IsPlayerInDynamicArea(playerid, NGGShop) && GetPlayerVirtualWorld(playerid) != 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "You must be at RG-RP shop to redeem this voucher.");
 						ShowModelSelectionMenu(playerid, CarList3, "Car Shop");
 					}
 					case 5: // Gift Reset Voucher
@@ -388,7 +388,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 						DeletePVar(playerid, "voucherdialog");
 						DeletePVar(playerid, "WhoIsThis");
 						if(GetPlayerInterior(playerid) != 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "You cannot use this while being inside an interior.");
-						if(!IsPlayerInDynamicArea(playerid, NGGShop) && GetPlayerVirtualWorld(playerid) != 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "You must be at NGG's shop to redeem this voucher.");
+						if(!IsPlayerInDynamicArea(playerid, NGGShop) && GetPlayerVirtualWorld(playerid) != 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "You must be at RG-RP shop to redeem this voucher.");
 					}
 					else
 					{

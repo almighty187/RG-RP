@@ -888,7 +888,7 @@ public LoadTextDraws() {
 	textdrawscount++;
 
 	// Tutorial (Logo 1)
-	TutTxtdraw[2] = TextDrawCreate(270.000000, 241.000000, "RGRP");
+	TutTxtdraw[2] = TextDrawCreate(270.000000, 241.000000, "RG-RP");
 	TextDrawBackgroundColor(TutTxtdraw[2], 75);
 	TextDrawFont(TutTxtdraw[2], 1);
 	TextDrawLetterSize(TutTxtdraw[2], 1.119999, 5.599997);

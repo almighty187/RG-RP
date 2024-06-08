@@ -11,7 +11,7 @@ CMD:polls(playerid, params[])
 			format(szMiscArray, sizeof(szMiscArray), "%s\n%d | %s", szMiscArray, i, Polls[i][PollQuestion]);
 		}
 	}
-	ShowPlayerDialogEx(playerid, DIALOG_POLLS, DIALOG_STYLE_LIST, "NG:RP Polls", szMiscArray, "Select", "Cancel");
+	ShowPlayerDialogEx(playerid, DIALOG_POLLS, DIALOG_STYLE_LIST, "RG-RP Polls", szMiscArray, "Select", "Cancel");
 	return 1;
 }
 
@@ -25,7 +25,7 @@ CMD:editpolls(playerid, params[])
 		{
 			format(szMiscArray, sizeof(szMiscArray), "%s\n%d | %s", szMiscArray, i, Polls[i][PollQuestion]);
 		}
-		ShowPlayerDialogEx(playerid, DIALOG_EDITPOLLS, DIALOG_STYLE_LIST, "NG:RP Polls | Edit", szMiscArray, "Select", "Cancel");
+		ShowPlayerDialogEx(playerid, DIALOG_EDITPOLLS, DIALOG_STYLE_LIST, "RG-RP Polls | Edit", szMiscArray, "Select", "Cancel");
 	}
 	return 1;
 }
@@ -47,7 +47,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					{
 						format(szMiscArray, sizeof(szMiscArray), "%s\n%d | %s", szMiscArray, i, PollChoices[listitem][i]);
 					}
-					ShowPlayerDialogEx(playerid, DIALOG_POLLS_VOTE, DIALOG_STYLE_LIST, "NG:RP Polls | Vote", szMiscArray, "Select", "Cancel");
+					ShowPlayerDialogEx(playerid, DIALOG_POLLS_VOTE, DIALOG_STYLE_LIST, "RG-RP Polls | Vote", szMiscArray, "Select", "Cancel");
 				}
 			}
 		}
@@ -71,7 +71,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				case 0 .. MAX_POLLS:
 				{
 					SetPVarInt(playerid, "pEditingPoll", listitem);
-					ShowPlayerDialogEx(playerid, DIALOG_EDITPOLLS2, DIALOG_STYLE_LIST, "NG:RP Polls | Edit", "Edit Question\nEdit Choices\nReset Poll", "Select", "Cancel");
+					ShowPlayerDialogEx(playerid, DIALOG_EDITPOLLS2, DIALOG_STYLE_LIST, "RG-RP Polls | Edit", "Edit Question\nEdit Choices\nReset Poll", "Select", "Cancel");
 				}
 			}
 		}
@@ -79,7 +79,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		{
 			switch(listitem)
 			{
-				case 0: ShowPlayerDialogEx(playerid, DIALOG_EDITPOLLS_NAME, DIALOG_STYLE_MSGBOX, "NG:RP Polls | Edit Question", "Please enter the question for the poll below.", "Okay", "Cancel");
+				case 0: ShowPlayerDialogEx(playerid, DIALOG_EDITPOLLS_NAME, DIALOG_STYLE_MSGBOX, "RG-RP Polls | Edit Question", "Please enter the question for the poll below.", "Okay", "Cancel");
 				case 1:
 				{
 					szMiscArray[0] = 0;
@@ -88,7 +88,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					{
 						format(szMiscArray, sizeof(szMiscArray), "%s\n%d | %s", szMiscArray, i, PollChoices[GetPVarInt(playerid, "pEditingPoll")][i]);
 					}
-					ShowPlayerDialogEx(playerid, DIALOG_EDITPOLLS_CHOICES, DIALOG_STYLE_LIST, "NG:RP Polls | Edit Choices", szMiscArray, "Select", "Cancel");
+					ShowPlayerDialogEx(playerid, DIALOG_EDITPOLLS_CHOICES, DIALOG_STYLE_LIST, "RG-RP Polls | Edit Choices", szMiscArray, "Select", "Cancel");
 				}
 				case 2:
 				{
