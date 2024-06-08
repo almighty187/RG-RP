@@ -20,12 +20,12 @@
 #pragma disablerecursion
 #pragma warning disable 206
 #pragma warning disable 213
-#define SERVER_GM_TEXT "RG-RP v1.0.0"
+#define SERVER_GM_TEXT "RG:RP v1.0.0"
 #define SSCANF_NO_NICE_FEATURES
 
 #undef  MAX_PLAYERS
 #define MAX_PLAYERS (500)
-#include <RG-RP> // This prevent for theft of the script
+#include <RGRP> // This prevent for theft of the script
 
 #if defined SOCKET_ENABLED
 #include <socket>
@@ -103,7 +103,7 @@
 #include "./includes/n0fear/dropweapon.pwn"
 #include "./includes/n0fear/dropdrug.pwn"
 #include "./includes/n0fear/anticbug.pwn"
-//#include "./includes/n0fear/antiairbreak.pwn"
+#include "./includes/n0fear/checkpointstore.pwn"
 
 // 187
 #include "./includes/187/mydrugs.pwn"

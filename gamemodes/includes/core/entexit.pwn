@@ -656,7 +656,7 @@ Business_Enter(playerid, i)
 		if(Businesses[i][bVW] == 0) SetPlayerVirtualWorld(playerid, BUSINESS_BASE_VW + i), PlayerInfo[playerid][pVW] = BUSINESS_BASE_VW + i;
 		else SetPlayerVirtualWorld(playerid, Businesses[i][bVW]), PlayerInfo[playerid][pVW] = Businesses[i][bVW];
 
-
+        SetTimerEx("LoadChecks", 1500, false, "i", playerid);
 		SetPlayerInterior(playerid,Businesses[i][bInt]);
 		SetPlayerPos(playerid,Businesses[i][bIntPos][0],Businesses[i][bIntPos][1],Businesses[i][bIntPos][2]);
 		SetPlayerFacingAngle(playerid, Businesses[i][bIntPos][3]);

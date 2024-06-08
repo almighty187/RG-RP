@@ -239,6 +239,7 @@ stock GivePlayerStoreItem(playerid, type, business, item, price)
 			Log("logs/business.log", string);
 			format(string,sizeof(string),"* You have purchased a %s from %s for $%s.", StoreItems[item-1], Businesses[business][bName], number_format(price));
 			SendClientMessage(playerid, COLOR_GRAD2, string);
+			SetPVarInt(playerid, "OCC", 0);
 		}
 		case 1:
 		{
@@ -253,6 +254,7 @@ stock GivePlayerStoreItem(playerid, type, business, item, price)
 			DeletePVar(playerid, "Business_ItemPrice");
 			DeletePVar(playerid, "Business_ItemOfferer");
 			DeletePVar(playerid, "Business_ItemOffererSQLId");
+			SetPVarInt(playerid, "OCC", 0);
 		}
 	}
 	return 1;

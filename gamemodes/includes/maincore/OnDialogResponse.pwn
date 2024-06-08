@@ -3980,6 +3980,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 	}
 	if (dialogid == RESTAURANTMENU2)
 	{
+	    if (!response) return SetPVarInt(playerid, "OCC", 0);
 		if (response)
 		{
 			new business = InBusiness(playerid);
@@ -4002,6 +4003,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 	if(dialogid == STOREMENU)
 	{
 		new pvar[25];
+		if (!response) return SetPVarInt(playerid, "OCC", 0);
 		if (response)
 		{
 			new iBusiness = InBusiness(playerid);
@@ -4054,6 +4056,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 	}
 	if(dialogid == SHOPMENU)
 	{
+	    if (!response) return SetPVarInt(playerid, "OCC", 0);
 		if(response)
 		{
 			new biz = InBusiness(playerid);

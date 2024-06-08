@@ -50,6 +50,8 @@ native IsValidVehicle(vehicleid);
 #define 			CHECKPOINT_DELIVERSHIPMENT 	128
 #define  			CHECKPOINT_NOTHING 			129
 #define  			CHECKPOINT_MISC 			130
+#define             CHECKPOINT_STORE            131
+#define             CHECKPOINT_RESTAURANT       132
 /*  ---------------- SERVER DEFINES ----------------- */
 #define 		MAX_PING 					1200
 #define			INVALID_SAMP_ID				65535

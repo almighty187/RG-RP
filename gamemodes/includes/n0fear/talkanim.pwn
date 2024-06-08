@@ -14,7 +14,7 @@ hook OnPlayerText(playerid, text[])
 		{
 			switch(GetPVarInt(playerid, "ChatStyle"))
 			{
-				case 0: ApplyAnimation(playerid, "CARRY", "crry_prtial", 2.0, 0, 0, 0, 0, 0); 
+				case 0: ApplyAnimation(playerid, "CARRY", "crry_prtial", 2.0, 0, 0, 0, 0, 0);
 				case 1: ApplyAnimation(playerid, "GANGS", "prtial_gngtlkA", 3.1,0,1,1,1,1,1);
 				case 2: ApplyAnimation(playerid, "GANGS", "prtial_gngtlkB", 3.1,0,1,1,1,1,1); 
 				case 3: ApplyAnimation(playerid, "GANGS", "prtial_gngtlkC", 3.1,0,1,1,1,1,1);
@@ -49,11 +49,13 @@ CMD:chatstyle(playerid, params[])
 		    case 0:
 		    {
 		        DeletePVar(playerid,"ChatStyle");
+		        PlayerInfo[playerid][pAnimUse] = 1;
 		        SendClientMessage(playerid,COLOR_WHITE,"Chatstyle removed.");
 		    }
             case 1 .. 8:
             {
                 SetPVarInt(playerid, "ChatStyle", aimid);
+                PlayerInfo[playerid][pAnimUse] = 0;
 		        SendClientMessage(playerid,COLOR_WHITE,"Chatstyle set.");
             }
             default: SendClientMessage(playerid, COLOR_GREY, "USAGE: /chatstyle [0-8]");
