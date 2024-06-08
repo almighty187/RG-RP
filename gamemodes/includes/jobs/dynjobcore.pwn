@@ -279,7 +279,7 @@ CMD:gotojob(playerid, params[]) {
 }
 
 CMD:editjobpoint(playerid, params[]) {
-	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1)
+	if(PlayerInfo[playerid][pAdmin] >= 1337)
 	{
 		ListJobPoints(playerid);
 	}
@@ -289,7 +289,7 @@ CMD:editjobpoint(playerid, params[]) {
 
 CMD:editjob(playerid, params[]) {
 	szMiscArray[0] = 0;
-	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1)
+	if(PlayerInfo[playerid][pAdmin] >= 1337)
 	{
 		for(new i = 1; i != MAX_JOBTYPES; i++)
 			format(szMiscArray, sizeof(szMiscArray), "%s(%d) %s\n", szMiscArray, i, GetJobName(i));
