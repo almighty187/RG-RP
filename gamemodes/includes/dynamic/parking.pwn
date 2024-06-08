@@ -158,8 +158,13 @@ public OnLoadParkingMeters()
 	}
 	return 1;
 }
-
 CMD:parkingmeterhelp(playerid, params[])
+{
+	SetPVarInt(playerid, "HelpResultCat0", 11);
+	Help_ListCat(playerid, DIALOG_HELPCATOTHER1);
+	return 1;
+}
+CMD:oparkingmeterhelp(playerid, params[])
 {
 	SendClientMessageEx(playerid, COLOR_WHITE, "** PARKING METER COMMANDS **");
 	SendClientMessageEx(playerid, COLOR_GREY, "/rentmeter - Allows you to rent the nearest parking meter.");

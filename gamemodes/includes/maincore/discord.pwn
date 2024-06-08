@@ -222,6 +222,17 @@ public DCC_OnMessageCreate(DCC_Message:message)
     {
         if(realMsg[0] == '/') // Prefix for bot commands.
         {
+            if(strfind(realMsg, "savedata", true, 1) != -1)
+            {
+		        SaveEventPoints();
+		        SaveAllAccountsUpdate();
+		        SendDiscordMessage(4, "Update Process Started - Wait for Account Saving Finish Confirmation.");
+		        SaveHouses();
+		        SendDiscordMessage(4, "House saving process started.");
+		        SaveBusinesses();
+        		SendDiscordMessage(4, "Business saving process started.");
+	        	SendDiscordMessage(4, "All data has been saved");
+            }
             if(strfind(realMsg, "player", true, 1) != -1)
             {
 
@@ -230,7 +241,7 @@ public DCC_OnMessageCreate(DCC_Message:message)
 				{
 					new string[144];
 					format(string, sizeof(string), "<@%s>, use the following format: /player <player_name> (Example usage: /player John_Smith)", author_id);
-					return SendDiscordMessage(7, string);
+					return SendDiscordMessage(4, string);
 				}
 
 				new tmpName[24], str[256];

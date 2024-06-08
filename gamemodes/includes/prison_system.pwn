@@ -1720,7 +1720,7 @@ CMD:jailcuff(playerid, params[])
 
 // WINTERFIELD: VERSION .278 PRISON SYSTEM
 
-CMD:prisonhelp(playerid, params[])
+CMD:oprisonhelp(playerid, params[])
 {
 	SendClientMessageEx(playerid, COLOR_WHITE, "-------------------------------------------------------------------------------------------------------------------------------------");
  	SendClientMessageEx(playerid, COLOR_GREY, "GENERAL: /prisonhelp, /getfood, /eatfood, /dropfoodtray, /acceptinmatefood, /jailcall, /jailhangup, /prisoncraft, /prisoninv(entory)");
@@ -1737,6 +1737,12 @@ CMD:prisonhelp(playerid, params[])
    	if(GetPVarInt(playerid, "pPrisonCellChisel") >= 1) { SendClientMessageEx(playerid, COLOR_GREY, "CELL:	/celldeposit, /cellwithdraw"); }
    	if(GetPVarInt(playerid, "pPrisonWine") >= 1 || GetPVarInt(playerid, "pPrisonMWine") >= 1) { SendClientMessageEx(playerid, COLOR_GREY, "WINE:	/finishpruno, /drinkpruno - increases damage upon punching. | forces drunk walk."); }
     SendClientMessageEx(playerid, COLOR_WHITE, "-------------------------------------------------------------------------------------------------------------------------------------");
+	return 1;
+}
+CMD:prisonhelp(playerid, params[])
+{
+	SetPVarInt(playerid, "HelpResultCat0", 16);
+	Help_ListCat(playerid, DIALOG_HELPCATOTHER1);
 	return 1;
 }
 

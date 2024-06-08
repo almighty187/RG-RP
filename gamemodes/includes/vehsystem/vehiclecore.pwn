@@ -1530,7 +1530,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 	IsPlayerEntering{playerid} = true;
 	Seatbelt[playerid] = 0;
 	PlayerInfo[playerid][pSpeedo] = 1;
-	ShowVehicleHUDForPlayer(playerid);
+	//ShowVehicleHUDForPlayer(playerid);
     if (!ispassenger) // Check if the player is the driver
     {
         SendServerMessage(playerid, "Press ~k~~CONVERSATION_NO~ to start engine");

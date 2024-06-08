@@ -148,7 +148,7 @@
 		13) Garage
 		14) Door
 		15) Gate
-		15) Prison
+		16) Prison
 */
 
 #include <YSI\y_hooks>

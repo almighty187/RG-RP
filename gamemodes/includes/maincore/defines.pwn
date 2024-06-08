@@ -121,7 +121,7 @@ native IsValidVehicle(vehicleid);
 #define 		MAX_DMAPICONS 				(400)
 #define 		MAX_DDOORS					(3000)
 #define 		MAX_GARAGES					(3000)
-#define 		MAX_HOUSES 					(5500)
+#define 		MAX_HOUSES 					(1000)
 #define 		MAX_OWNABLE_HOUSES 			(2)
 #define 		MAX_GATES 					(4000)
 #define 		MAX_EVENTPOINTS 			(100)

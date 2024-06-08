@@ -1046,12 +1046,13 @@ CMD:savechars(playerid, params[])
     if (PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1) {
         SaveEventPoints();
         //mysql_SaveCrates();
-        SendClientMessageEx(playerid, COLOR_YELLOW, "All Crates Saved successfully.");
+        //SendClientMessageEx(playerid, COLOR_YELLOW, "All Crates Saved successfully.");
         SaveAllAccountsUpdate();
-		//g_mysql_DumpAccounts();
         SendClientMessageEx(playerid, COLOR_YELLOW, "Update Process Started - Wait for Account Saving Finish Confirmation.");
         SaveHouses();
         SendClientMessageEx(playerid, COLOR_YELLOW, "House saving process started.");
+        SaveBusinesses();
+        SendClientMessageEx(playerid, COLOR_YELLOW, "Business saving process started.");
     }
     else {
         SendErrorMessage(playerid, "You are not authorized to use that CMD");

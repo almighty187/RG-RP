@@ -460,11 +460,11 @@ stock RefreshBusinessPickup(i)
 	Streamer_SetIntData(STREAMER_TYPE_3D_TEXT_LABEL, Businesses[i][bSupplyText], E_STREAMER_EXTRA_ID, 4);
 	#endif
 
-
-  	//DestroyDynamicPickup(Businesses[i][bPickup]);
+    DestroyDynamic3DTextLabel(Businesses[i][bDoorText]);
+  	DestroyDynamicPickup(Businesses[i][bPickup]);
   	DestroyDynamicPickup(Businesses[i][bPickup_int]);
   	DestroyDynamicMapIcon(Businesses[i][bMIcon]);
-  	CreateDynamicMapIcon(Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2], Businesses[i][bMapIcon], COLOR_YELLOW);
+	if(Businesses[i][bMapIcon] > 0) Businesses[i][bMIcon]=CreateDynamicMapIcon(Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2], Businesses[i][bMapIcon], COLOR_YELLOW);
   	if(IsValidDynamicArea(Businesses[i][bAreaID][0])) DestroyDynamicArea(Businesses[i][bAreaID][0]);
   	if(IsValidDynamicArea(Businesses[i][bAreaID][1])) DestroyDynamicArea(Businesses[i][bAreaID][1]);
     
@@ -1551,6 +1551,8 @@ CMD:shopbusiness(playerid, params[])
 		Businesses[businessid][bExtPos][2] = 0;
 		Businesses[businessid][bName][0] = 0;
 		Businesses[businessid][bType] = 0;
+		DestroyDynamicPickup(Businesses[businessid][bPickup]);
+ 		DestroyDynamic3DTextLabel(Businesses[businessid][bDoorText]);
 		format(string, sizeof(string), "You have deleted the business.", amount);
 		SendClientMessageEx(playerid, COLOR_WHITE, string);
 		format(string, sizeof(string), "[SHOPBUSINESS] %s has deleted BusinessID %d.", GetPlayerNameEx(playerid), businessid);
@@ -2131,7 +2133,7 @@ CMD:bedit(playerid, params[])
 		Businesses[businessid][bMapIcon] = amount;
 		if(amount > 0)
 		{
-			Businesses[businessid][bMIcon]=CreateDynamicMapIcon(Businesses[businessid][bExtPos][0], Businesses[businessid][bExtPos][1], Businesses[businessid][bExtPos][2], Businesses[businessid][bMapIcon], COLOR_YELLOW);
+			Businesses[businessid][bMIcon] = CreateDynamicMapIcon(Businesses[businessid][bExtPos][0], Businesses[businessid][bExtPos][1], Businesses[businessid][bExtPos][2], Businesses[businessid][bMapIcon], COLOR_YELLOW);
 		}
 		format(string, sizeof(string), "You have changed the MapIcon to %d.", amount);
 		SendClientMessageEx(playerid, COLOR_WHITE, string);
@@ -3362,7 +3364,15 @@ public BusinessesLoadQueryFinish()
 	if(i > 0) printf("[LoadBusinesses] %d businesses rehashed/loaded.", i);
 	else printf("[LoadBusinesses] Failed to load any businesses.");
 }
-
+stock SaveBusinesses()
+{
+	for(new i = 0; i < MAX_BUSINESSES; i++)
+	{
+		SaveBusiness(i);
+	}
+	ABroadCast(COLOR_LIGHTRED, "Business saving finished.", 4);
+	return 1;
+}
 stock SaveBusiness(id)
 {
 	new query[4019];

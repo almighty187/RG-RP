@@ -47,13 +47,13 @@ stock UpdateVehicleHUDForPlayer(p, fuel, speed)
 	}
 
 	if (IsVIPcar(vehicleid) || IsAdminSpawnedVehicle(vehicleid) || IsFamedVeh(vehicleid) || GetVehicleModel(vehicleid) == 481 || GetVehicleModel(vehicleid) == 509 || GetVehicleModel(vehicleid) == 510)
-		format(str, sizeof(str), "~w~Fuel: ~w~U");
+		format(str, sizeof(str), "~g~Fuel: ~w~U");
 	else
-		format(str, sizeof(str), "~w~Fuel: ~w~%i",fuel);
+		format(str, sizeof(str), "~g~Fuel: ~w~%i",fuel);
 
 	PlayerTextDrawSetString(p, _vhudTextFuel[p], str);
 
-	format(str, sizeof(str), "~w~MPH: %s%i",szColor, speed);
+	format(str, sizeof(str), "~g~MPH: %s%i",szColor, speed);
 	PlayerTextDrawSetString(p, _vhudTextSpeed[p], str);
 	
 	if(Seatbelt[p] == 0)
@@ -66,7 +66,7 @@ stock UpdateVehicleHUDForPlayer(p, fuel, speed)
 		PlayerTextDrawSetString(p, _vhudSeatBelt[p], str);
 	}
 	else {
-		format(str, sizeof(str), "~w~SB: ~g~ON");
+		format(str, sizeof(str), "~g~SB: ~g~ON");
 		PlayerTextDrawSetString(p, _vhudSeatBelt[p], str);
 	}
 	if(lights != VEHICLE_PARAMS_ON) {

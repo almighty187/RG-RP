@@ -21,7 +21,6 @@
 #pragma warning disable 206
 #pragma warning disable 213
 #define SERVER_GM_TEXT "RG:RP v1.0.0"
-#define SSCANF_NO_NICE_FEATURES
 
 #undef  MAX_PLAYERS
 #define MAX_PLAYERS (500)
