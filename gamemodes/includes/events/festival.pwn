@@ -75,7 +75,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 	if(dialogid == DIALOG_BALLOON)
 	{
 		if(!response) return 1;
-		if(PlayerInfo[playerid][pCredits] < 5) return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+		if(PlayerInfo[playerid][pCredits] < 5) return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 		new string[128];
 		GivePlayerCredits(playerid, -5, 1);
 		PlayerInfo[playerid][bTicket]++;

@@ -3175,7 +3175,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
 					else
 					{
-						SendClientMessageEx(playerid, COLOR_GRAD2, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+						SendClientMessageEx(playerid, COLOR_GRAD2, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 					}
 					*/
 					new namechangecost;
@@ -9589,7 +9589,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		if(GetPVarInt(playerid, "MiscShop") == 1)
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[6][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			else if(PlayerInfo[playerid][pTable] == 1)
 				return SendClientMessageEx(playerid, COLOR_GREY, "You already own a poker table.");
@@ -9619,7 +9619,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		else if(GetPVarInt(playerid, "MiscShop") == 2)
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[7][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			else if(PlayerInfo[playerid][pBoombox] == 1)
 				return SendClientMessageEx(playerid, COLOR_GREY, "You already own a boombox.");
@@ -9649,7 +9649,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		else if(GetPVarInt(playerid, "MiscShop") == 3)
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[8][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			AmountSold[8]++;
 			AmountMade[8] += ShopItems[8][sItemPrice];
@@ -9673,7 +9673,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		else if(GetPVarInt(playerid, "MiscShop") == 4)
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[9][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			AmountSold[9]++;
 			AmountMade[9] += ShopItems[9][sItemPrice];
@@ -9697,7 +9697,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		else if(GetPVarInt(playerid, "MiscShop") == 5)
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[10][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			AmountSold[10]++;
 			AmountMade[10] += ShopItems[10][sItemPrice];
@@ -9721,7 +9721,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		else if(GetPVarInt(playerid, "MiscShop") == 6)
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[22][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			GivePlayerCredits(playerid, -ShopItems[22][sItemPrice], 1);
 			printf("Price22: %d", ShopItems[22][sItemPrice]);
@@ -9746,7 +9746,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		else if(GetPVarInt(playerid, "MiscShop") == 7) // Vehicle Slots
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[23][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			GivePlayerCredits(playerid, -ShopItems[23][sItemPrice], 1);
 			printf("Price23: %d", ShopItems[23][sItemPrice]);
@@ -9770,7 +9770,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		else if(GetPVarInt(playerid, "MiscShop") == 8) // Toy Slots
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[28][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			GivePlayerCredits(playerid, -ShopItems[28][sItemPrice], 1);
 			printf("Price28: %d", ShopItems[28][sItemPrice]);
@@ -9794,7 +9794,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		else if(GetPVarInt(playerid, "MiscShop") == 9) // Spawn at Gold VIP+ room
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[30][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			GivePlayerCredits(playerid, -ShopItems[30][sItemPrice], 1);
 			printf("Price30: %d", ShopItems[30][sItemPrice]);
@@ -9819,7 +9819,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		else if(GetPVarInt(playerid, "MiscShop") == 10) // Restricted Last Name (NEW)
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[31][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			GivePlayerCredits(playerid, -ShopItems[31][sItemPrice], 1);
 			printf("Price31: %d", ShopItems[31][sItemPrice]);
@@ -9842,7 +9842,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		else if(GetPVarInt(playerid, "MiscShop") == 11) // Restricted Last Name (CHANGE)
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[32][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			GivePlayerCredits(playerid, -ShopItems[32][sItemPrice], 1);
 			printf("Price32: %d", ShopItems[32][sItemPrice]);
@@ -9865,7 +9865,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		else if(GetPVarInt(playerid, "MiscShop") == 12) // Custom User Title (NEW)
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[33][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			GivePlayerCredits(playerid, -ShopItems[33][sItemPrice], 1);
 			printf("Price33: %d", ShopItems[33][sItemPrice]);
@@ -9888,7 +9888,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		else if(GetPVarInt(playerid, "MiscShop") == 13) // Custom User Title (CHANGE)
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[34][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			GivePlayerCredits(playerid, -ShopItems[34][sItemPrice], 1);
 			printf("Price34: %d", ShopItems[34][sItemPrice]);
@@ -9911,7 +9911,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		else if(GetPVarInt(playerid, "MiscShop") == 14) // Teamspeak User Channel
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[35][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			GivePlayerCredits(playerid, -ShopItems[35][sItemPrice], 1);
 			printf("Price35: %d", ShopItems[35][sItemPrice]);
@@ -9935,7 +9935,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		{
 			if(PlayerInfo[playerid][pBackpack] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can only purchase one backpack at a time, use /sellbackpack.");
 			if(PlayerInfo[playerid][pCredits] < ShopItems[36][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			GivePlayerCredits(playerid, -ShopItems[36][sItemPrice], 1);
 			printf("Price35: %d", ShopItems[36][sItemPrice]);
@@ -9966,7 +9966,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		{
 			if(PlayerInfo[playerid][pBackpack] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can only purchase one backpack at a time, use /sellbackpack.");
 			if(PlayerInfo[playerid][pCredits] < ShopItems[37][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			GivePlayerCredits(playerid, -ShopItems[37][sItemPrice], 1);
 			printf("Price35: %d", ShopItems[37][sItemPrice]);
@@ -9997,7 +9997,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		{
 			if(PlayerInfo[playerid][pBackpack] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "You can only purchase one backpack at a time, use /sellbackpack.");
 			if(PlayerInfo[playerid][pCredits] < ShopItems[38][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			GivePlayerCredits(playerid, -ShopItems[38][sItemPrice], 1);
 			printf("Price35: %d", ShopItems[38][sItemPrice]);
@@ -10027,7 +10027,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		else if(GetPVarInt(playerid, "MiscShop") == 18) // Deluxe Car Alarm
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[39][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			if(GetPlayerVehicleCount(playerid) != 0)
 			{
@@ -10047,7 +10047,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		else if(GetPVarInt(playerid, "MiscShop") == 19) // Furniture Bronze
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[41][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			if(PlayerInfo[playerid][pFurnitureSlots] >= MAX_FURNITURE_SLOTS) return SendClientMessageEx(playerid, COLOR_GRAD1, "You cannot buy anymore furniture slots.");
 			PlayerInfo[playerid][pFurnitureSlots] += 25;
@@ -10074,7 +10074,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		else if(GetPVarInt(playerid, "MiscShop") == 20) // Furniture Bronze
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[42][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			if(PlayerInfo[playerid][pFurnitureSlots] >= MAX_FURNITURE_SLOTS) return SendClientMessageEx(playerid, COLOR_GRAD1, "You cannot buy anymore furniture slots.");
 			PlayerInfo[playerid][pFurnitureSlots] += 40;
@@ -10101,7 +10101,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		else if(GetPVarInt(playerid, "MiscShop") == 21) // Furniture Gold
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[43][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			if(PlayerInfo[playerid][pFurnitureSlots] >= MAX_FURNITURE_SLOTS) return SendClientMessageEx(playerid, COLOR_GRAD1, "You cannot buy anymore furniture slots.");
 			PlayerInfo[playerid][pFurnitureSlots] += 50;
@@ -10265,7 +10265,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		if(response)
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[20][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			new
 				szQuery[215];
@@ -10316,7 +10316,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		if(response)
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[5][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			else if(!vehicleCountCheck(playerid))
 				return ShowPlayerDialogEx(playerid, 0, DIALOG_STYLE_MSGBOX, "Error", "You can't have any more vehicles, you own too many!", "OK", "");
@@ -10835,7 +10835,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			Prices = GetPVarInt(playerid, "BusinessPrice");
 
 			if(PlayerInfo[playerid][pCredits] < Prices)
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			if(!GetPVarType(playerid, "BusinessMonths"))
 				return SendClientMessageEx(playerid, COLOR_GREY, "An error has occurred please try again.");
@@ -10902,7 +10902,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		if(response)
 		{
 			if(PlayerInfo[playerid][pCredits] < BusinessSales[GetPVarInt(playerid, "BusinessSale")][bPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			if (PlayerInfo[playerid][pBusiness] != INVALID_BUSINESS_ID)
 				return SendClientMessageEx(playerid, COLOR_GREY, "You already own a business.");
@@ -10995,7 +10995,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		if(response)
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[14][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			GivePlayerCredits(playerid, -ShopItems[14][sItemPrice], 1);
 			printf("Price14: %d", ShopItems[14][sItemPrice]);
@@ -11022,7 +11022,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		if(response)
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[15][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			GivePlayerCredits(playerid, -ShopItems[15][sItemPrice], 1);
 			printf("Price15: %d", ShopItems[15][sItemPrice]);
@@ -11049,7 +11049,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		if(response)
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[16][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			GivePlayerCredits(playerid, -ShopItems[16][sItemPrice], 1);
 			printf("Price16: %d", ShopItems[16][sItemPrice]);
@@ -11076,7 +11076,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		if(response)
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[24][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			GivePlayerCredits(playerid, -ShopItems[24][sItemPrice], 1);
 			printf("Price24: %d", ShopItems[24][sItemPrice]);
@@ -11106,7 +11106,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		if(response)
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[25][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			GivePlayerCredits(playerid, -ShopItems[25][sItemPrice], 1);
 			printf("Price25: %d", ShopItems[25][sItemPrice]);
@@ -11136,7 +11136,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		if(response)
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[26][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			GivePlayerCredits(playerid, -ShopItems[26][sItemPrice], 1);
 			printf("Price26: %d", ShopItems[26][sItemPrice]);
@@ -11166,7 +11166,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		if(response)
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[27][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			GivePlayerCredits(playerid, -ShopItems[27][sItemPrice], 1);
 			printf("Price27: %d", ShopItems[27][sItemPrice]);
@@ -11368,7 +11368,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		if(response)
 		{
 			if(PlayerInfo[playerid][pCredits] < GetPVarInt(playerid, "VIPPrice"))
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			if(PlayerInfo[playerid][pDonateRank] != 0)
 				return SendClientMessageEx(playerid, COLOR_GREY, "You already have VIP, please wait for it to expire.");
@@ -11463,7 +11463,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		if(response)
 		{
 			if(PlayerInfo[playerid][pCredits] < ShopItems[17][sItemPrice])
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			PlayerInfo[playerid][pGiftTime] = 0;
 
@@ -11489,7 +11489,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		if(response)
 		{
 			if(PlayerInfo[playerid][pCredits] < 20)
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			PlayerInfo[playerid][pTrickortreat] = 0;
 
@@ -11525,7 +11525,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			if(PumpkinStock <= 0)
 				return SendClientMessageEx(playerid, COLOR_GREY, "This limited item has sold out!");
 			if(PlayerInfo[playerid][pCredits] < 150)
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			GivePlayerCredits(playerid, -150, 1);
 			PumpkinStock--;
@@ -11594,7 +11594,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		if(response)
 		{
 			if(PlayerInfo[playerid][pCredits] < 150)
-				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+				return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			GivePlayerCredits(playerid, -150, 1);
 			format(string, sizeof(string), "You have purchased the Cluckin Bell Hat toy for %s credits.", number_format(150));
@@ -13062,7 +13062,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		if(response)
 		{
 			new item = GetPVarInt(playerid, "m_Item");
-			if(PlayerInfo[playerid][pCredits] < MicroItems[item]) return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+			if(PlayerInfo[playerid][pCredits] < MicroItems[item]) return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 
 			AmountSoldMicro[item]++;
 			AmountMadeMicro[item] += MicroItems[item];

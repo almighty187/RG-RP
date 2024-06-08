@@ -168,7 +168,7 @@ CMD:buycure(playerid, params[])
 			if(GetPVarInt(playerid, "PinConfirmed"))
 			{
 				if(PlayerInfo[playerid][pCredits] < 20)
-					return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit shop.ng-gaming.net to purchase credits.");
+					return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough credits to purchase this item. Visit rg-rp.net to purchase credits.");
 				
 				
 
