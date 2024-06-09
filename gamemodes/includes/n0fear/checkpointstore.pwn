@@ -50,18 +50,18 @@ hook OnPlayerEnterCheckpoint(playerid)
 				{
 					if (Businesses[iBusiness][bInventory] < 1)
 					{
-						SendClientMessageEx(playerid, COLOR_WHITE, "This store does not have any items at the moment!");
+						SendErrorMessage(playerid, "This store does not have any items at the moment!");
 						SetPVarInt(playerid, "OCC", 0);
 						return 1;
 					}
 					if (!Businesses[iBusiness][bStatus])
 					{
-						SendClientMessageEx(playerid, COLOR_WHITE, "This store is closed!");
+						SendErrorMessage(playerid, "This store is closed!");
 						SetPVarInt(playerid, "OCC", 0);
 						return 1;
 					}
 				}
-				else return SendClientMessageEx(playerid, COLOR_WHITE, "You need to interact with the business employees to buy.");
+				else return SendErrorMessage(playerid, "You need to interact with the business employees to buy.");
 				DisplayItemPricesDialog(iBusiness, playerid);
 			    SetPVarInt(playerid, "OCC", 1);
     		}
@@ -82,17 +82,17 @@ hook OnPlayerEnterCheckpoint(playerid)
 				new iBusiness = InBusiness(playerid);
 				if (Businesses[iBusiness][bInventory] < 1)
 				{
-				    SendClientMessageEx(playerid, COLOR_GRAD2, "   Business does not have enough inventory!");
+				    SendErrorMessage(playerid, "Business does not have enough inventory!");
 				    return 1;
 				}
 
 				if (!Businesses[iBusiness][bStatus])
 				{
-					SendClientMessageEx(playerid, COLOR_WHITE, "This restaurant is closed!");
+					SendErrorMessage(playerid, "This restaurant is closed!");
 					return 1;
 				}
 				if(Businesses[iBusiness][bMaxLevel] > 0 && PlayerInfo[playerid][pConnectHours] > Businesses[iBusiness][bMaxLevel])
-					return SendClientMessageEx(playerid, COLOR_GRAD2, "The cashier has denied you service, this discount store is for new citizens only.");
+					return SendErrorMessage(playerid, "The cashier has denied you service, this discount store is for new citizens only.");
 				new szDialog[512], pvar[25], line;
 
 				for (new item; item < sizeof(RestaurantItems); ++item)
@@ -107,7 +107,7 @@ hook OnPlayerEnterCheckpoint(playerid)
 
 				if (strlen(szDialog) == 0)
 				{
-			        SendClientMessageEx(playerid, COLOR_GRAD2, "   Store is not selling any items!");
+			        SendErrorMessage(playerid, "Store is not selling any items!");
 			    }
 			    else
 				{

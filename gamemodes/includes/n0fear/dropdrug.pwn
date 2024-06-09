@@ -27,80 +27,162 @@ new DropDrug[MAX_DROP_DRUGS][ddData];
 
 hook OnGameModeInit()
 {
-    //LoadDrop();
-	for(new f =0; f < sizeof(DropDrug);f++)
-	{
-	    strmid(DropDrug[f][dOwner], "None", 0, strlen("None"), 255);
-	    strmid(DropDrug[f][dPrint], "None", 0, strlen("None"), 255);
-	}
+    LoadDrop();
+	//for(new n = 0; n < MAX_DROP_DRUGS; n++) DropDrug[n][dObject] = -1;
 	return 1;
 }
-/*CreateDrop(idx)
+CreateDrop(idx)
 {
-	switch(DropDrug[idx][dType])
-	{
- 		case 2: DropDrug[idx][dObject] = CreateDynamicObject(1578, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
- 		case 3: DropDrug[idx][dObject] = CreateDynamicObject(1576, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
- 		case 4: DropDrug[idx][dObject] = CreateDynamicObject(1576, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
- 		case 5: DropDrug[idx][dObject] = CreateDynamicObject(1577, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
+    switch(DropDrug[idx][dType])
+    {
+    	case 2:
+		{
+			DropDrug[idx][dObject] = CreateDynamicObject(1578, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
+            DropDrug[idx][dText] = CreateDynamic3DTextLabel("[WEED]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ] - 0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[idx][dWorld], -1, -1);
+		}
+        case 3:
+		{
+			DropDrug[idx][dObject] = CreateDynamicObject(1580, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
+            DropDrug[idx][dText] = CreateDynamic3DTextLabel("[CRACK]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ] - 0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[idx][dWorld], -1, -1);
+		}
+        case 4:
+		{
+			DropDrug[idx][dObject] = CreateDynamicObject(1575, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
+            DropDrug[idx][dText] = CreateDynamic3DTextLabel("[METH]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ] - 0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[idx][dWorld], -1, -1);
+		}
+        case 5:
+		{
+			DropDrug[idx][dObject] = CreateDynamicObject(1576, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
+            DropDrug[idx][dText] = CreateDynamic3DTextLabel("[ECSTASY]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ] - 0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[idx][dWorld], -1, -1);
+  		}
+        case 6:
+		{
+  			DropDrug[idx][dObject] = CreateDynamicObject(1579, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
+            DropDrug[idx][dText] = CreateDynamic3DTextLabel("[HEROIN]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ] - 0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[idx][dWorld], -1, -1);
+		}
 	}
 }
 LoadDrop()
 {
-	new arrCoords[25][64];
-	new strFromFile2[256];
-	new File: file = fopen("drop.cfg", io_read);
-	if (file)
-	{
-		new idx = 0; // Initialize idx to 0
-		while (fread(file, strFromFile2))
-		{
-			// Assuming DropDrug is properly defined and sized elsewhere
-			splits(strFromFile2, arrCoords, '|');
-	  		DropDrug[idx][dType] = strval(arrCoords[0]);
-	  		DropDrug[idx][dWeapon] = strval(arrCoords[1]);
-	  		DropDrug[idx][dAmmo] = strval(arrCoords[2]);
-	  		DropDrug[idx][ddX] = floatstr(arrCoords[3]);
-	  		DropDrug[idx][ddY] = floatstr(arrCoords[4]);
-	  		DropDrug[idx][ddZ] = floatstr(arrCoords[5]);
-	  		strmid(DropDrug[idx][dOwner], arrCoords[6], 0, strlen(arrCoords[6]), 80);
-	  		DropDrug[idx][dWorld] = strval(arrCoords[7]);
-	  		CreateDrop(idx);
-	  		idx++; // Increment idx to avoid infinite loop
-			if (idx >= sizeof(DropDrug)) // Check array bounds
+	new File:file = fopen("DroppedGuns.ini", io_read);
+    if(file)
+    {
+        new buffer[256], FileCoords[8][20];
+        for(new g = 0; g < MAX_DROP_DRUGS; g++)
+        {
+            fread(file, buffer);
+            split(buffer, FileCoords, ',');
+            DropDrug[g][dType] = strval(FileCoords[0]);
+			DropDrug[g][dWeapon] = strval(FileCoords[1]);
+			DropDrug[g][dAmmo] = strval(FileCoords[2]);
+			DropDrug[g][dWorld] = strval(FileCoords[3]);
+   			DropDrug[g][ddX] = floatstr(FileCoords[4]);
+			DropDrug[g][ddY] = floatstr(FileCoords[5]);
+			DropDrug[g][ddZ] = floatstr(FileCoords[6]);
+			CreateDrop(g);
+			printf("Loaded drop %d: Type %d, Weapon %d, Ammo %d, World %d, X %.2f, Y %.2f, Z %.2f\n", g, DropDrug[g][dType], DropDrug[g][dWeapon], DropDrug[g][dAmmo], DropDrug[g][dWorld], DropDrug[g][ddX], DropDrug[g][ddY], DropDrug[g][ddZ]);
+			if(DropDrug[g][dWeapon] > 0 && DropDrug[g][ddX] != 0)
 			{
-				break;
+				CreateDrop(g);
 			}
 		}
-		fclose(file);
 	}
-	return 1;
 }
 
-SaveDrop() {
-    new szFileStr[512];
-    new File: fHandle = fopen("drop.cfg", io_write);
 
-    if (fHandle == File:0) {
-        // Handle file opening error
-        return 0;
-    }
 
-    for (new iIndex = 1; iIndex < MAX_DROP_DRUGS; iIndex++) {
-        format(szFileStr, sizeof(szFileStr), "%d|%d|%d|%f|%f|%f|%s\r\n",
-            DropDrug[iIndex][dType],
-            DropDrug[iIndex][dWeapon],
-            DropDrug[iIndex][dAmmo],
-            float(DropDrug[iIndex][ddX]),
-            float(DropDrug[iIndex][ddY]),
-            float(DropDrug[iIndex][ddZ]),
-            DropDrug[iIndex][dWorld]
-        );
-        fwrite(fHandle, szFileStr);
-    }
 
-    return fclose(fHandle);
+
+
+/*LoadDrop()
+{
+	new File:file = fopen("DroppedGuns.ini", io_append);
+    if(file)
+    {
+        fclose(file);
+		for(new g = 0, buffer[50]; g < MAX_DROP_DRUGS; g++)
+		{
+			format(buffer, sizeof(buffer), "%d,%d,%d,%d,%d,%f,%f,%f,%d\n",
+			DropDrug[g][dType],
+			DropDrug[g][dWeapon],
+			DropDrug[g][dAmmo],
+			DropDrug[g][dWorld],
+			DropDrug[g][dObject],
+			DropDrug[g][ddX],
+			DropDrug[g][ddY],
+			DropDrug[g][ddZ],
+			DropDrug[g][dText]);
+			if(g == 0) file = fopen("DroppedGuns.ini", io_write);
+			else file = fopen("DroppedGuns.ini", io_append);
+			fwrite(file, buffer);
+			fclose(file);
+			if(DropDrug[g][dWeapon] > 0 && DropDrug[g][ddY] != 0)
+			{
+				CreateDrop(g);
+			}
+		}
+	}
+	return 1;
 }*/
+
+/*
+SaveDrop()
+{
+    new File:file = fopen("DroppedGuns.ini", io_append);
+    if(file)
+    {
+        fclose(file);
+		for(new g = 0, buffer[50]; g < MAX_DROP_DRUGS; g++)
+		{
+			format(buffer, sizeof(buffer), "%d,%d,%d,%d,%d,%f,%f,%f,%d\n",
+			DropDrug[g][dType],
+			DropDrug[g][dWeapon],
+			DropDrug[g][dAmmo],
+			DropDrug[g][dWorld],
+			DropDrug[g][dObject],
+			DropDrug[g][ddX],
+			DropDrug[g][ddY],
+			DropDrug[g][ddZ],
+			DropDrug[g][dText]);
+			if(g == 0) file = fopen("DroppedGuns.ini", io_write);
+			else file = fopen("DroppedGuns.ini", io_append);
+			fwrite(file, buffer);
+			fclose(file);
+		}
+	}
+	return 1;
+}*/
+SaveDrop()
+{
+    new File:file = fopen("DroppedGuns.ini", io_write); // Open the file for writing
+
+    if(file)
+    {
+        new buffer[256]; // Declare buffer variable
+
+        for(new g = 0; g < MAX_DROP_DRUGS; g++)
+        {
+            format(buffer, sizeof(buffer), "%d,%d,%d,%d,%f,%f,%f\n",
+                   DropDrug[g][dType],
+                   DropDrug[g][dWeapon],
+                   DropDrug[g][dAmmo],
+                   DropDrug[g][dWorld],
+                   DropDrug[g][ddX],
+                   DropDrug[g][ddY],
+                   DropDrug[g][ddZ]);
+      		//fwrite(file, buffer, strlen(buffer)); // Write data to the file
+      		fwrite(file, buffer);
+        }
+
+        fclose(file); // Close the file
+        return 1; // Return success
+    }
+    else
+    {
+        return 0; // Return failure
+    }
+}
+
 
 COMMAND:pickitem(playerid, params[])
 {
@@ -154,6 +236,7 @@ COMMAND:pickitem(playerid, params[])
 			      	{
 		    	      	ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0);
 		    	      	if(DropDrug[i][dObject] > 0) DestroyDynamicObject(DropDrug[i][dObject]);
+		    	      	DestroyDynamic3DTextLabel(DropDrug[i][dText]);
 	                  	DropDrug[i][dObject]=0;
                       	DropDrug[i][ddX] = 0.0;
     		          	DropDrug[i][ddY] = 0.0;
@@ -169,6 +252,7 @@ COMMAND:pickitem(playerid, params[])
 			      	{
 		    	      	ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0);
 		    	      	if(DropDrug[i][dObject] > 0) DestroyDynamicObject(DropDrug[i][dObject]);
+		    	      	DestroyDynamic3DTextLabel(DropDrug[i][dText]);
 	                  	DropDrug[i][dObject]=0;
                       	DropDrug[i][ddX] = 0.0;
     		          	DropDrug[i][ddY] = 0.0;
@@ -184,6 +268,7 @@ COMMAND:pickitem(playerid, params[])
 			      	{
 		    	      	ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0);
 		    	      	if(DropDrug[i][dObject] > 0) DestroyDynamicObject(DropDrug[i][dObject]);
+		    	      	DestroyDynamic3DTextLabel(DropDrug[i][dText]);
 	                  	DropDrug[i][dObject]=0;
                       	DropDrug[i][ddX] = 0.0;
     		          	DropDrug[i][ddY] = 0.0;
@@ -199,6 +284,7 @@ COMMAND:pickitem(playerid, params[])
 			      	{
 		    	      	ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0);
 		    	      	if(DropDrug[i][dObject] > 0) DestroyDynamicObject(DropDrug[i][dObject]);
+		    	      	DestroyDynamic3DTextLabel(DropDrug[i][dText]);
 	                  	DropDrug[i][dObject]=0;
                       	DropDrug[i][ddX] = 0.0;
     		          	DropDrug[i][ddY] = 0.0;
@@ -231,189 +317,166 @@ CMD:dropdrug(playerid, params[])
 	    // Ensure dropamount is positive
 	    if (dropamount <= 0) return SendErrorMessage(playerid, "The amount to drop must be a positive number.");
 
-	    if (strcmp(type, "weed", true) == 0)
-		{
-	        if (PlayerInfo[playerid][pDrugs][0] == 0) return SendErrorMessage(playerid, "You don't have any weed on you.");
-	        if (IsPlayerInAnyVehicle(playerid)) return SendErrorMessage(playerid, "You can't be in a vehicle while you use this !");
-	        SendServerMessage(playerid, "You dropped your weed onto the ground.");
-	        format(string, sizeof(string), "*** %s reaches for %s pocket, withdraws a bag of weed, and drops it.", sendername, CheckSex(playerid));
-	        ProxDetector(10.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
-	        GetPlayerPos(playerid, X, Y, Z);
-	        new amount2 = 0;
-	        PlayerInfo[playerid][pDrugs][0] -= dropamount;
-	        for (new i = 0; i < sizeof(DropDrug); i++)
-			{
-	            if (strcmp(GetPlayerNameEx(playerid), DropDrug[i][dOwner], true) == 0) {
-	                amount2++;
-	            }
-	        }
-	        if (amount2 <= 2)
-			{
-	            for (new i = 0; i < sizeof(DropDrug); i++)
-				{
-	                if (DropDrug[i][ddX] == 0.0 && DropDrug[i][ddY] == 0.0 && DropDrug[i][ddZ] == 0.0) {
-	                    strmid(DropDrug[i][dOwner], GetPlayerNameEx(playerid), 0, strlen(GetPlayerNameEx(playerid)), 255);
-	                    DropDrug[i][dAmmo] = dropamount;
-	                    DropDrug[i][ddX] = X;
-	                    DropDrug[i][ddY] = Y;
-	                    DropDrug[i][ddZ] = Z;
-	                    DropDrug[i][dWorld] = GetPlayerVirtualWorld(playerid);
-	                    DropDrug[i][dType] = 2;
-	                    DropDrug[i][dObject] = CreateDynamicObject(1578, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
-	                    DropDrug[i][dText] = CreateDynamic3DTextLabel("[WEED]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[i][ddX], DropDrug[i][ddY], DropDrug[i][ddZ] - 0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[i][dWorld], -1, -1);
-	                    return 1;
-	                }
-	            }
-	        }
+		if (strcmp(type, "weed", true) == 0)
+        {
+            if (PlayerInfo[playerid][pDrugs][0] < dropamount) return SendErrorMessage(playerid, "You don't have enough weed to drop that amount.");
+            if (IsPlayerInAnyVehicle(playerid)) return SendErrorMessage(playerid, "You can't be in a vehicle while you use this !");
+
+            SendServerMessage(playerid, "You dropped your weed onto the ground.");
+            format(string, sizeof(string), "*** %s reaches for %s pocket, withdraws a bag of weed, and drops it.", sendername, CheckSex(playerid));
+            ProxDetector(10.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+            GetPlayerPos(playerid, X, Y, Z);
+            PlayerInfo[playerid][pDrugs][0] -= dropamount;
+            new f = -1;
+            for(new a = 0; a < MAX_DROP_DRUGS; a++)
+            {
+                if (DropDrug[a][ddX] == 0.0 && DropDrug[a][ddY] == 0.0 && DropDrug[a][ddZ] == 0.0)
+                {
+                    f = a;
+                    break;
+                }
+            }
+            if(f == -1) return SendClientMessage(playerid, COLOR_LIGHTRED, "You cannot drop your weed at the moment. (max limit exceeded)");
+
+            //strmid(DropDrug[f][dOwner], GetPlayerNameEx(playerid), 0, strlen(GetPlayerNameEx(playerid)), sizeof(DropDrug[f][dOwner]) - 1);
+            DropDrug[f][dAmmo] = dropamount;
+            DropDrug[f][ddX] = X;
+            DropDrug[f][ddY] = Y;
+            DropDrug[f][ddZ] = Z;
+            DropDrug[f][dWorld] = GetPlayerVirtualWorld(playerid);
+            DropDrug[f][dType] = 2;
+            SaveDrop();
+            DropDrug[f][dObject] = CreateDynamicObject(1578, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
+            DropDrug[f][dText] = CreateDynamic3DTextLabel("[WEED]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[f][ddX], DropDrug[f][ddY], DropDrug[f][ddZ] - 0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[f][dWorld], -1, -1);
+            return 1;
 	    }
 	    else if(strcmp(type, "crack", true) == 0)
 	    {
-	        if (gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You must be logged in to use this.");
-	        if (PlayerInfo[playerid][pDrugs][1] == 0) return SendErrorMessage(playerid, "You don't have any crack on you.");
+	        if (PlayerInfo[playerid][pDrugs][1] < dropamount) return SendErrorMessage(playerid, "You don't have enough crack to drop that amount.");
             if (IsPlayerInAnyVehicle(playerid)) return SendErrorMessage(playerid, "You can't be in a vehicle while you use this !");
-            SendServerMessage(playerid, "You dropped your crack onto the ground.");
-           	format(string, sizeof(string), "*** %s reaches for %s pocket, withdraws a bag of crack, and drops it.", sendername, CheckSex(playerid));
-			ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-            GetPlayerPos(playerid,X,Y,Z);
-            new amount2 = 0;
+
+            SendServerMessage(playerid, "You dropped your weed onto the ground.");
+            format(string, sizeof(string), "*** %s reaches for %s pocket, withdraws a bag of weed, and drops it.", sendername, CheckSex(playerid));
+            ProxDetector(10.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+            GetPlayerPos(playerid, X, Y, Z);
             PlayerInfo[playerid][pDrugs][1] -= dropamount;
-            for(new i = 0; i < sizeof(DropDrug); i++)
-  	        {
-  	            if(strcmp(GetPlayerNameEx(playerid), DropDrug[i][dOwner], true) == 0)
-  	            {
-  	                amount2++;
-  	            }
-     		}
-           	if(amount2 <= 2)
-           	{
-           		for(new i = 0; i < sizeof(DropDrug); i++)
-  	           	{
-               		if(DropDrug[i][ddX] == 0.0 && DropDrug[i][ddY] == 0.0 && DropDrug[i][ddZ] == 0.0)
-                 	{
-                  		strmid(DropDrug[i][dOwner], GetPlayerNameEx(playerid), 0, strlen(GetPlayerNameEx(playerid)), 255);
-	                   	DropDrug[i][dAmmo] = dropamount;
- 	                   	DropDrug[i][ddX] = X;
-  	                   	DropDrug[i][ddY] = Y;
-  	                   	DropDrug[i][ddZ] = Z;
-  	                   	DropDrug[i][dWorld] = GetPlayerVirtualWorld(playerid);
-  	                   	DropDrug[i][dType] = 4;
-  	                   	DropDrug[i][dObject] = CreateDynamicObject(1576, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
-  	                   	DropDrug[i][dText] = CreateDynamic3DTextLabel("[CRACK]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[i][ddX],DropDrug[i][ddY], DropDrug[i][ddZ]-0.7,10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[i][dWorld], -1, -1);
-                   	}
-           		}
-      		}
+            new f = -1;
+            for(new a = 0; a < MAX_DROP_DRUGS; a++)
+            {
+                if (DropDrug[a][ddX] == 0.0 && DropDrug[a][ddY] == 0.0 && DropDrug[a][ddZ] == 0.0)
+                {
+                    f = a;
+                    break;
+                }
+            }
+            if(f == -1) return SendClientMessage(playerid, COLOR_LIGHTRED, "You cannot drop your weed at the moment. (max limit exceeded)");
+
+            //strmid(DropDrug[f][dOwner], GetPlayerNameEx(playerid), 0, strlen(GetPlayerNameEx(playerid)), sizeof(DropDrug[f][dOwner]) - 1);
+            DropDrug[f][dAmmo] = dropamount;
+            DropDrug[f][ddX] = X;
+            DropDrug[f][ddY] = Y;
+            DropDrug[f][ddZ] = Z;
+            DropDrug[f][dWorld] = GetPlayerVirtualWorld(playerid);
+            DropDrug[f][dType] = 3;
+            SaveDrop();
+            DropDrug[f][dObject] = CreateDynamicObject(1580, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
+            DropDrug[f][dText] = CreateDynamic3DTextLabel("[CRACK]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[f][ddX], DropDrug[f][ddY], DropDrug[f][ddZ] - 0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[f][dWorld], -1, -1);
       	}
 		else if(strcmp(type, "meth", true) == 0)
 	    {
-	        if (gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You must be logged in to use this.");
-	        if (PlayerInfo[playerid][pDrugs][2] == 0) return SendErrorMessage(playerid, "You don't have any meth on you.");
+	        if (PlayerInfo[playerid][pDrugs][2] < dropamount) return SendErrorMessage(playerid, "You don't have enough meth to drop that amount.");
             if (IsPlayerInAnyVehicle(playerid)) return SendErrorMessage(playerid, "You can't be in a vehicle while you use this !");
-            SendServerMessage(playerid, "You dropped your meth onto the ground.");
-           	format(string, sizeof(string), "*** %s reaches for %s pocket, withdraws a bag of meth, and drops it.", sendername, CheckSex(playerid));
-			ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-            GetPlayerPos(playerid,X,Y,Z);
-            new amount2 = 0;
+
+            SendServerMessage(playerid, "You dropped your weed onto the ground.");
+            format(string, sizeof(string), "*** %s reaches for %s pocket, withdraws a bag of weed, and drops it.", sendername, CheckSex(playerid));
+            ProxDetector(10.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+            GetPlayerPos(playerid, X, Y, Z);
             PlayerInfo[playerid][pDrugs][2] -= dropamount;
-            for(new i = 0; i < sizeof(DropDrug); i++)
-  	        {
-  	            if(strcmp(GetPlayerNameEx(playerid), DropDrug[i][dOwner], true) == 0)
-  	            {
-  	                amount2++;
-  	            }
-     		}
-           	if(amount2 <= 2)
-           	{
-           		for(new i = 0; i < sizeof(DropDrug); i++)
-  	           	{
-               		if(DropDrug[i][ddX] == 0.0 && DropDrug[i][ddY] == 0.0 && DropDrug[i][ddZ] == 0.0)
-                 	{
-                  		strmid(DropDrug[i][dOwner], GetPlayerNameEx(playerid), 0, strlen(GetPlayerNameEx(playerid)), 255);
-	                   	DropDrug[i][dAmmo] = dropamount;
- 	                   	DropDrug[i][ddX] = X;
-  	                   	DropDrug[i][ddY] = Y;
-  	                   	DropDrug[i][ddZ] = Z;
-  	                   	DropDrug[i][dWorld] = GetPlayerVirtualWorld(playerid);
-  	                   	DropDrug[i][dType] = 4;
-  	                   	DropDrug[i][dObject] = CreateDynamicObject(1576, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
-  	                   	DropDrug[i][dText] = CreateDynamic3DTextLabel("[METH]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[i][ddX],DropDrug[i][ddY], DropDrug[i][ddZ]-0.7,10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[i][dWorld], -1, -1);
-                	}
-           		}
-      		}
+            new f = -1;
+            for(new a = 0; a < MAX_DROP_DRUGS; a++)
+            {
+                if (DropDrug[a][ddX] == 0.0 && DropDrug[a][ddY] == 0.0 && DropDrug[a][ddZ] == 0.0)
+                {
+                    f = a;
+                    break;
+                }
+            }
+            if(f == -1) return SendClientMessage(playerid, COLOR_LIGHTRED, "You cannot drop your weed at the moment. (max limit exceeded)");
+
+            //strmid(DropDrug[f][dOwner], GetPlayerNameEx(playerid), 0, strlen(GetPlayerNameEx(playerid)), sizeof(DropDrug[f][dOwner]) - 1);
+            DropDrug[f][dAmmo] = dropamount;
+            DropDrug[f][ddX] = X;
+            DropDrug[f][ddY] = Y;
+            DropDrug[f][ddZ] = Z;
+            DropDrug[f][dWorld] = GetPlayerVirtualWorld(playerid);
+            DropDrug[f][dType] = 4;
+            SaveDrop();
+            DropDrug[f][dObject] = CreateDynamicObject(1575, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
+            DropDrug[f][dText] = CreateDynamic3DTextLabel("[METH]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[f][ddX], DropDrug[f][ddY], DropDrug[f][ddZ] - 0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[f][dWorld], -1, -1);
       	}
 		else if(strcmp(type, "ecstasy", true) == 0)
 	    {
-	        if (gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You must be logged in to use this.");
-	        if (PlayerInfo[playerid][pDrugs][3] == 0) return SendErrorMessage(playerid, "You don't have any ecstasy on you.");
+	        if (PlayerInfo[playerid][pDrugs][3] < dropamount) return SendErrorMessage(playerid, "You don't have enough ecstasy to drop that amount.");
             if (IsPlayerInAnyVehicle(playerid)) return SendErrorMessage(playerid, "You can't be in a vehicle while you use this !");
-            SendServerMessage(playerid, "You dropped your ecstasy onto the ground.");
-           	format(string, sizeof(string), "*** %s reaches for %s pocket, withdraws a bag of ecstasy, and drops it.", sendername, CheckSex(playerid));
-			ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-            GetPlayerPos(playerid,X,Y,Z);
-            new amount2 = 0;
+
+            SendServerMessage(playerid, "You dropped your weed onto the ground.");
+            format(string, sizeof(string), "*** %s reaches for %s pocket, withdraws a bag of weed, and drops it.", sendername, CheckSex(playerid));
+            ProxDetector(10.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+            GetPlayerPos(playerid, X, Y, Z);
             PlayerInfo[playerid][pDrugs][3] -= dropamount;
-            for(new i = 0; i < sizeof(DropDrug); i++)
-  	        {
-  	            if(strcmp(GetPlayerNameEx(playerid), DropDrug[i][dOwner], true) == 0)
-  	            {
-  	                amount2++;
-  	            }
-     		}
-           	if(amount2 <= 2)
-           	{
-           		for(new i = 0; i < sizeof(DropDrug); i++)
-  	           	{
-               		if(DropDrug[i][ddX] == 0.0 && DropDrug[i][ddY] == 0.0 && DropDrug[i][ddZ] == 0.0)
-                 	{
-                  		strmid(DropDrug[i][dOwner], GetPlayerNameEx(playerid), 0, strlen(GetPlayerNameEx(playerid)), 255);
-	                   	DropDrug[i][dAmmo] = dropamount;
- 	                   	DropDrug[i][ddX] = X;
-  	                   	DropDrug[i][ddY] = Y;
-  	                   	DropDrug[i][ddZ] = Z;
-  	                   	DropDrug[i][dWorld] = GetPlayerVirtualWorld(playerid);
-  	                   	DropDrug[i][dType] = 4;
-  	                   	DropDrug[i][dObject] = CreateDynamicObject(1575, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
-  	                   	DropDrug[i][dText] = CreateDynamic3DTextLabel("[ECSTASY]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[i][ddX],DropDrug[i][ddY], DropDrug[i][ddZ]-0.7,10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[i][dWorld], -1, -1);
-                	}
-           		}
-      		}
+            new f = -1;
+            for(new a = 0; a < MAX_DROP_DRUGS; a++)
+            {
+                if (DropDrug[a][ddX] == 0.0 && DropDrug[a][ddY] == 0.0 && DropDrug[a][ddZ] == 0.0)
+                {
+                    f = a;
+                    break;
+                }
+            }
+            if(f == -1) return SendClientMessage(playerid, COLOR_LIGHTRED, "You cannot drop your weed at the moment. (max limit exceeded)");
+
+            //strmid(DropDrug[f][dOwner], GetPlayerNameEx(playerid), 0, strlen(GetPlayerNameEx(playerid)), sizeof(DropDrug[f][dOwner]) - 1);
+            DropDrug[f][dAmmo] = dropamount;
+            DropDrug[f][ddX] = X;
+            DropDrug[f][ddY] = Y;
+            DropDrug[f][ddZ] = Z;
+            DropDrug[f][dWorld] = GetPlayerVirtualWorld(playerid);
+            DropDrug[f][dType] = 5;
+            SaveDrop();
+            DropDrug[f][dObject] = CreateDynamicObject(1576, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
+            DropDrug[f][dText] = CreateDynamic3DTextLabel("[ECSTASY]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[f][ddX], DropDrug[f][ddY], DropDrug[f][ddZ] - 0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[f][dWorld], -1, -1);
       	}
 		else if(strcmp(type, "heroin", true) == 0)
 	    {
-	        if (gPlayerLogged{playerid} == 0) return SendErrorMessage(playerid, "You must be logged in to use this.");
-	        if (PlayerInfo[playerid][pDrugs][4] == 0) return SendErrorMessage(playerid, "You don't have any heroin on you.");
+	        if (PlayerInfo[playerid][pDrugs][4] < dropamount) return SendErrorMessage(playerid, "You don't have enough heroin to drop that amount.");
             if (IsPlayerInAnyVehicle(playerid)) return SendErrorMessage(playerid, "You can't be in a vehicle while you use this !");
-            SendServerMessage(playerid, "You dropped your heroin onto the ground.");
-           	format(string, sizeof(string), "*** %s reaches for %s pocket, withdraws a bag of heroin, and drops it.", sendername, CheckSex(playerid));
-			ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-            GetPlayerPos(playerid,X,Y,Z);
-            new amount2 = 0;
+
+            SendServerMessage(playerid, "You dropped your weed onto the ground.");
+            format(string, sizeof(string), "*** %s reaches for %s pocket, withdraws a bag of weed, and drops it.", sendername, CheckSex(playerid));
+            ProxDetector(10.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+            GetPlayerPos(playerid, X, Y, Z);
             PlayerInfo[playerid][pDrugs][4] -= dropamount;
-            for(new i = 0; i < sizeof(DropDrug); i++)
-  	        {
-  	            if(strcmp(GetPlayerNameEx(playerid), DropDrug[i][dOwner], true) == 0)
-  	            {
-  	                amount2++;
-  	            }
-     		}
-           	if(amount2 <= 2)
-           	{
-           		for(new i = 0; i < sizeof(DropDrug); i++)
-  	           	{
-               		if(DropDrug[i][ddX] == 0.0 && DropDrug[i][ddY] == 0.0 && DropDrug[i][ddZ] == 0.0)
-                 	{
-                  		strmid(DropDrug[i][dOwner], GetPlayerNameEx(playerid), 0, strlen(GetPlayerNameEx(playerid)), 255);
-	                   	DropDrug[i][dAmmo] = dropamount;
- 	                   	DropDrug[i][ddX] = X;
-  	                   	DropDrug[i][ddY] = Y;
-  	                   	DropDrug[i][ddZ] = Z;
-  	                   	DropDrug[i][dWorld] = GetPlayerVirtualWorld(playerid);
-  	                   	DropDrug[i][dType] = 4;
-  	                   	DropDrug[i][dObject] = CreateDynamicObject(1577, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
-  	                   	DropDrug[i][dText] = CreateDynamic3DTextLabel("[HEROIN]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[i][ddX],DropDrug[i][ddY], DropDrug[i][ddZ]-0.7,10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[i][dWorld], -1, -1);
-    				}
-				}
-			}
-		    else SendSyntaxMessage(playerid, "/dropdrug [weed/crack/meth/ecstasy/heroin]");
+            new f = -1;
+            for(new a = 0; a < MAX_DROP_DRUGS; a++)
+            {
+                if (DropDrug[a][ddX] == 0.0 && DropDrug[a][ddY] == 0.0 && DropDrug[a][ddZ] == 0.0)
+                {
+                    f = a;
+                    break;
+                }
+            }
+            if(f == -1) return SendClientMessage(playerid, COLOR_LIGHTRED, "You cannot drop your weed at the moment. (max limit exceeded)");
+
+            //strmid(DropDrug[f][dOwner], GetPlayerNameEx(playerid), 0, strlen(GetPlayerNameEx(playerid)), sizeof(DropDrug[f][dOwner]) - 1);
+            DropDrug[f][dAmmo] = dropamount;
+            DropDrug[f][ddX] = X;
+            DropDrug[f][ddY] = Y;
+            DropDrug[f][ddZ] = Z;
+            DropDrug[f][dWorld] = GetPlayerVirtualWorld(playerid);
+            DropDrug[f][dType] = 6;
+            SaveDrop();
+            DropDrug[f][dObject] = CreateDynamicObject(1579, X, Y, Z-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
+            DropDrug[f][dText] = CreateDynamic3DTextLabel("[HEROIN]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[f][ddX], DropDrug[f][ddY], DropDrug[f][ddZ] - 0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[f][dWorld], -1, -1);
 		}
 	}
 	return 1;

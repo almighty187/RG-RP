@@ -4,7 +4,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
 
 	if(newkeys & KEY_NO && InBusiness(playerid) != INVALID_BUSINESS_ID) {
 		if(IsAt247(playerid)) return cmd_buy(playerid, "");
-		else if(IsAtRestaurant(playerid)) return cmd_buyfood(playerid, "");
+		//else if(IsAtRestaurant(playerid)) return cmd_buyfood(playerid, "");
 		else if(IsAtClothingStore(playerid)) return cmd_buyclothes(playerid, "");
 	}
 	return 1;
@@ -1932,7 +1932,7 @@ CMD:bedit(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1 && PlayerInfo[playerid][pBM] < 1)
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command!");
+		SendErrorMessage(playerid,"You are not authorized to use that CMD.");
 		return 1;
 	}
 
@@ -2189,10 +2189,10 @@ CMD:bname(playerid, params[])
 			return SendSyntaxMessage(playerid, "/bname [business id] [name]");
 		}
 		else if (!IsValidBusinessID(businessid)) {
-			return SendClientMessageEx(playerid, COLOR_GREY, "Invalid business specified.");
+			return SendErrorMessage(playerid, "Invalid business specified.");
 		}
 		else if(strfind(name, "\r") != -1 || strfind(name, "\n") != -1) {
-			return SendClientMessageEx(playerid, COLOR_GREY, "Newline characters are forbidden.");
+			return SendErrorMessage(playerid, "Newline characters are forbidden.");
 		}
 
 		strcpy(Businesses[businessid][bName], name, sizeof(name));
@@ -2206,7 +2206,7 @@ CMD:bname(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command.");
+		SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	}
 
 	return 1;
@@ -2230,7 +2230,7 @@ CMD:bnext(playerid, params[])
 	}
 	else
 	{
-	    SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command.");
+	    SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	}
 	return 1;
 }
@@ -2251,10 +2251,7 @@ CMD:bnear(playerid, params[])
 			}
 		}
 	}
-	else
-	{
-	    SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command.");
-	}
+	else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 
@@ -2297,17 +2294,14 @@ CMD:goinbiz(playerid, params[])
 		if(Businesses[id][bVW] == 0) SetPlayerVirtualWorld(playerid, BUSINESS_BASE_VW + id), PlayerInfo[playerid][pVW] = BUSINESS_BASE_VW + id;
 		else SetPlayerVirtualWorld(playerid, Businesses[id][bVW]), PlayerInfo[playerid][pVW] = Businesses[id][bVW];
 	}
-	else
-	{
-	    SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command.");
-	}
+	else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 
 CMD:asellbiz(playerid, params[])
 {
 	if (PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1 && PlayerInfo[playerid][pBM] < 2) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use that command.");
+		return SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	}
 
 	new string[128], biz;
@@ -2393,11 +2387,11 @@ CMD:buybiz(playerid, params[])
 	    {
 	        if (Businesses[i][bOwner] >= 1)
 	        {
-	        	return SendClientMessageEx(playerid, COLOR_GREY, "This business is already owned!");
+	        	return SendErrorMessage(playerid, "This business is already owned!");
 	        }
 	        if (GetPlayerCash(playerid) < Businesses[i][bValue])
 	        {
-	        	return SendClientMessageEx(playerid, COLOR_GREY, "You don't have enough cash!");
+	        	return SendErrorMessage(playerid, "You don't have enough cash!");
 	        }
 			GivePlayerCash(playerid, -Businesses[i][bValue]);
 			Businesses[i][bOwner] = GetPlayerSQLId(playerid);
@@ -2431,19 +2425,19 @@ CMD:creategaspump(playerid, params[])
 		else
 		{
 			if (GetFreeGasPumpID(iBusinessID) == INVALID_GAS_PUMP)
-			return SendClientMessageEx(playerid, COLOR_GRAD1, "The maximum number of gas pumps has been reached for this business.");
+			return SendErrorMessage(playerid, "The maximum number of gas pumps has been reached for this business.");
 
 			if (!(0 <= iBusinessID < MAX_BUSINESSES)) {
-				return SendClientMessageEx(playerid, COLOR_GREY, "Invalid business specified.");
+				return SendErrorMessage(playerid, "Invalid business specified.");
 			}
 		 	if (!Businesses[iBusinessID][bType]) {
-		 		return SendClientMessageEx(playerid, COLOR_GREY, "Type of this business must have been set before using this command.");
+		 		return SendErrorMessage(playerid, "Type of this business must have been set before using this command.");
 		 	}
 			if(!IsBusinessGasAble(Businesses[iBusinessID][bType])) {
-		        return SendClientMessageEx(playerid, COLOR_GREY, "You can't create gas pumps for this type of business.");
+		        return SendErrorMessage(playerid, "You can't create gas pumps for this type of business.");
 		    }
 		    if(!IsPlayerInRangeOfPoint(playerid, 150.0, Businesses[iBusinessID][bExtPos][0], Businesses[iBusinessID][bExtPos][1], Businesses[iBusinessID][bExtPos][2])) {
-		        return SendClientMessageEx(playerid, COLOR_GREY, "You are too far away from the business.");
+		        return SendErrorMessage(playerid, "You are too far away from the business.");
 		    }
 			new iPump = GetFreeGasPumpID(iBusinessID);
 			Businesses[iBusinessID][GasPumpCapacity][iPump] = Businesses[iBusinessID][bLevel] * 100;
@@ -2455,7 +2449,7 @@ CMD:creategaspump(playerid, params[])
 			return 1;
 
 		}
-    } else return SendClientMessageEx(playerid, COLOR_GREY, "You are not authorized to use this command.");
+    } else return SendErrorMessage(playerid, "You are not authorized to use this CMD.");
 }
 
 CMD:editgaspump(playerid, params[])
@@ -2472,15 +2466,15 @@ CMD:editgaspump(playerid, params[])
 
 	if (!(0 <= iBusinessID < MAX_BUSINESSES))
 	{
-		return SendClientMessageEx(playerid, COLOR_GREY, "Invalid business specified.");
+		return SendErrorMessage(playerid, "Invalid business specified.");
 	}
 	else if (!(0 <= iPumpID < MAX_BUSINESS_GAS_PUMPS))
 	{
-		return SendClientMessageEx(playerid, COLOR_GREY, "Invalid gas pump specified.");
+		return SendErrorMessage(playerid, "Invalid gas pump specified.");
 	}
 	else if(Businesses[iBusinessID][GasPumpVehicleID][iPumpID])
 	{
-		return SendClientMessageEx(playerid, COLOR_GREY, "You can't edit a gas pump while it is in use.");
+		return SendErrorMessage(playerid, "You can't edit a gas pump while it is in use.");
 	}
 
 	if(!strcmp(szName, "position", true))
@@ -2499,7 +2493,7 @@ CMD:editgaspump(playerid, params[])
 	{
 	    if (fValue > Businesses[iBusinessID][GasPumpCapacity][iPumpID])
 	    {
-		    SendClientMessageEx(playerid, COLOR_GREY, "The value cannot be higher than the capacity!");
+		    SendErrorMessage(playerid, "The value cannot be higher than the capacity!");
 		    return 1;
 	    }
 		Businesses[iBusinessID][GasPumpGallons][iPumpID] = fValue;
@@ -2521,17 +2515,17 @@ CMD:editgaspump(playerid, params[])
 CMD:deletegaspump(playerid, params[])
 {
     if(PlayerInfo[playerid][pAdmin] < 4 && PlayerInfo[playerid][pASM] < 1 && PlayerInfo[playerid][pBM] < 1) {
-        return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+        return SendErrorMessage(playerid, "You are not authorized to use this CMD.");
     }
     new businessid, id, string[128];
 	if(sscanf(params, "dd", businessid, id)) {
 		return SendSyntaxMessage(playerid, "/deletegaspump [business id] [pump id]");
 	}
 	if(!IsValidBusinessID(businessid) || id < 0 || id >= MAX_BUSINESS_GAS_PUMPS || Businesses[businessid][GasPumpPosX][id] == 0) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "No gas pump found with that ID.");
+		return SendErrorMessage(playerid, "No gas pump found with that ID.");
 	}
 	if(Businesses[businessid][GasPumpVehicleID][id]) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "You can't delete a gas pump while it is in use.");
+		return SendErrorMessage(playerid, "You can't delete a gas pump while it is in use.");
 	}
 
  	DestroyDynamicGasPump(businessid, id);
@@ -2562,22 +2556,22 @@ CMD:addmaterials(playerid, params[])
 {
     new	string[128], amount;
 	if (PlayerInfo[playerid][pBusiness] == INVALID_BUSINESS_ID) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "You are not in a business!");
+		return SendErrorMessage(playerid, "You are not in a business!");
 	}
 	if (Businesses[PlayerInfo[playerid][pBusiness]][bType] != BUSINESS_TYPE_GUNSHOP) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "Command not available for this type of business.");
+		return SendErrorMessage(playerid, "Command not available for this type of business.");
 	}
 	if(sscanf(params, "d", amount) || amount < 0) {
 		return SendSyntaxMessage(playerid, "/addmaterials [amount]");
 	}
 	if (amount > PlayerInfo[playerid][pMats]) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "You don't have that many materials.");
+		return SendErrorMessage(playerid, "You don't have that many materials.");
 	}
 	if (Businesses[PlayerInfo[playerid][pBusiness]][bInventory] + amount > Businesses[PlayerInfo[playerid][pBusiness]][bInventoryCapacity]) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "Inventory capacity exceeded.");
+		return SendErrorMessage(playerid, "Inventory capacity exceeded.");
 	}
 	if (InBusiness(playerid) != PlayerInfo[playerid][pBusiness]) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "You must be inside the business.");
+		return SendErrorMessage(playerid, "You must be inside the business.");
 	}
 	Businesses[PlayerInfo[playerid][pBusiness]][bInventory] += amount;
 	PlayerInfo[playerid][pMats] -= amount;
@@ -2673,23 +2667,23 @@ CMD:offermenu(playerid, params[])
 		}
 	}
 
-   	if(strlen(szDialog) == 0) SendClientMessageEx(playerid, COLOR_GRAD2, "   Store is not selling any items!");
+   	if(strlen(szDialog) == 0) SendErrorMessage(playerid, "Store is not selling any items!");
     else ShowPlayerDialogEx(playerid, RESTAURANTMENU, DIALOG_STYLE_LIST, "Menu", szDialog, "Buy", "Cancel");
     return 1;
 }
 
-CMD:buyfood(playerid, params[])
+/*CMD:buyfood(playerid, params[])
 {
 	if (!IsAtRestaurant(playerid))
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD2, "   You are not in a restaurant!");
+		SendErrorMessage(playerid, "You are not in a restaurant!");
 		return 1;
 	}
 
 	new iBusiness = InBusiness(playerid);
 
 	if (Businesses[iBusiness][bInventory] < 1) {
-	    SendClientMessageEx(playerid, COLOR_GRAD2, "   Business does not have enough inventory!");
+	    SendErrorMessage(playerid, "Business does not have enough inventory!");
 	    return 1;
 	}
 
@@ -2722,15 +2716,15 @@ CMD:buyfood(playerid, params[])
     }
 
 	return 1;
-}
+}*/
 
 CMD:bpanic(playerid, params[])
 {
 	if (PlayerInfo[playerid][pBusiness] == INVALID_BUSINESS_ID) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "You are not working for a business!");
+		return SendErrorMessage(playerid, "You are not working for a business!");
 	}
 	if (PlayerInfo[playerid][pBusiness] != InBusiness(playerid)) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "You are not in the business interior!");
+		return SendErrorMessage(playerid, "You are not in the business interior!");
 	}
 	new string[128];
 	if(GetPVarInt(playerid, "bizpanic") == 0)
@@ -2778,11 +2772,11 @@ CMD:bizfind(playerid, params[])
  				SetPlayerCheckpoint(playerid, Businesses[iBusinessID][bExtPos][0], Businesses[iBusinessID][bExtPos][1], Businesses[iBusinessID][bExtPos][2], 4.0);
  				return 1;
 			}
-			return SendClientMessageEx(playerid, COLOR_GRAD2, " That business doesn't have an owner. ");
+			return SendErrorMessage(playerid, "That business doesn't have an owner. ");
 		}
-		return SendClientMessageEx(playerid, COLOR_GRAD2, " Invalid Business ID.");
+		return SendErrorMessage(playerid, "Invalid Business ID.");
 	}
-	return SendClientMessageEx(playerid, COLOR_GRAD2, " You do not have access to the Business Directory. (Law Enforcement Only)");
+	return SendErrorMessage(playerid, "You do not have access to the Business Directory. (Law Enforcement Only)");
 }
 
 CMD:binventory(playerid, params[])
@@ -2803,7 +2797,7 @@ CMD:binventory(playerid, params[])
 			}
 		}
 	}
-	else SendClientMessage(playerid, COLOR_GRAD2, " You don't own or work for a business.");
+	else SendErrorMessage(playerid, "You don't own or work for a business.");
 	return 1;
 }
 
@@ -2811,7 +2805,7 @@ CMD:offeritem(playerid, params[])
 {
 	new buyerid, item;
 	if (PlayerInfo[playerid][pBusiness] == INVALID_BUSINESS_ID || Businesses[PlayerInfo[playerid][pBusiness]][bType] != BUSINESS_TYPE_STORE && Businesses[PlayerInfo[playerid][pBusiness]][bType] != BUSINESS_TYPE_GASSTATION) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "You are not working for a 24/7 store!");
+		return SendErrorMessage(playerid, "You are not working for a 24/7 store!");
 	}
 	if (sscanf(params, "uk<storeitem>", buyerid, item))	{
 	    SendSyntaxMessage(playerid, "/offeritem [playerid/PartOfName] [Item]");
@@ -2819,26 +2813,26 @@ CMD:offeritem(playerid, params[])
 	    return SendClientMessageEx(playerid, COLOR_GREY, "checkbook, paper, industriallock, elock, standardcaralarm, helmet");
 	}
 	if (PlayerInfo[playerid][pBusiness] != InBusiness(playerid)) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "You are not in the business interior!");
+		return SendErrorMessage(playerid, "You are not in the business interior!");
 	}
 	if (Businesses[PlayerInfo[playerid][pBusiness]][bInventory] < 1) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "Business inventory has no items.");
+		return SendErrorMessage(playerid, "Business inventory has no items.");
 	}
 	if (!IsPlayerConnected(buyerid)) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified!");
+		return SendErrorMessage(playerid, "Invalid player specified!");
 	}
 	if (item == INVALID_STORE_ITEM)	{
-		return SendClientMessageEx(playerid, COLOR_GREY, "Invalid item specified!");
+		return SendErrorMessage(playerid, "Invalid item specified!");
 	}
 	if (!Businesses[PlayerInfo[playerid][pBusiness]][bItemPrices][item-1]) {
-	    SendClientMessageEx(playerid, COLOR_GRAD4, "This item is not for sale.");
+	    SendErrorMessage(playerid, "This item is not for sale.");
 	    return 1;
 	}
 	if (playerid == buyerid) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "You can't offer an item to yourself!");
+		return SendErrorMessage(playerid, "You can't offer an item to yourself!");
 	}
     if(!ProxDetectorS(5.0, playerid, buyerid)) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "The customer is not near you!");
+		return SendErrorMessage(playerid, "The customer is not near you!");
     }
 
 	new string[128];
@@ -2866,29 +2860,29 @@ CMD:resupply(playerid, params[])
 		return SendSyntaxMessage(playerid, "/resupply [amount]");
 	}
 	if (PlayerInfo[playerid][pBusiness] == INVALID_BUSINESS_ID) {
-	    return SendClientMessageEx(playerid, COLOR_GREY, "You don't own a business.");
+	    return SendErrorMessage(playerid, "You don't own a business.");
 	}
 	if (PlayerInfo[playerid][pBusinessRank] < Businesses[iBusiness][bMinSupplyRank]) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "Your rank is not high enough for placing resupply orders!");
+		return SendErrorMessage(playerid, "Your rank is not high enough for placing resupply orders!");
 	}
 	if(amount < 1) { 
-		return SendClientMessageEx(playerid, COLOR_GREY, "Resupply amount cannot be below 1.");
+		return SendErrorMessage(playerid, "Resupply amount cannot be below 1.");
 	}	
 	if (Businesses[iBusiness][bOrderState] == 1) {
-		return SendClientMessageEx(playerid, COLOR_WHITE, "You already have a pending order. Either cancel it or wait for it to be delivered before placing orders.");
+		return SendErrorMessage(playerid, "You already have a pending order. Either cancel it or wait for it to be delivered before placing orders.");
 	}
 	if (Businesses[iBusiness][bOrderState] == 2) {
-		return SendClientMessageEx(playerid, COLOR_WHITE, "You already have an order which is being delivered.");
+		return SendErrorMessage(playerid, "You already have an order which is being delivered.");
 	}
 	if (Businesses[iBusiness][bSupplyPos][0] == 0.0) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "This business does not have a delivery point for Shipment Contractors.");
+		return SendErrorMessage(playerid, "This business does not have a delivery point for Shipment Contractors.");
 	}
 	if (Businesses[iBusiness][bInventory] >= Businesses[iBusiness][bInventoryCapacity]) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "Inventory is already at full capacity.");
+		return SendErrorMessage(playerid, "Inventory is already at full capacity.");
 	}
 	if(Businesses[iBusiness][bInventory] + amount > Businesses[iBusiness][bInventoryCapacity])
 	{
-	    return SendClientMessageEx(playerid, COLOR_GREY, "Your inventory does not have the capacity.");
+	    return SendErrorMessage(playerid, "Your inventory does not have the capacity.");
 	}
 	new rSupCost = floatround(amount * BUSINESS_ITEMS_COST);
 	if (!Businesses[iBusiness][bSafeBalance] || Businesses[iBusiness][bSafeBalance] < rSupCost || rSupCost < 0) {
@@ -2919,7 +2913,7 @@ CMD:checkresupply(playerid, params[])
 		new iOrderState = Businesses[iBusinessID][bOrderState];
 		if (!iOrderState)
 		{
-			SendClientMessageEx(playerid, COLOR_WHITE, "Your business has never placed a resupply order.");
+			SendErrorMessage(playerid, "Your business has never placed a resupply order.");
 			return 1;
 		}
 		else
@@ -2941,22 +2935,22 @@ CMD:checkresupply(playerid, params[])
 CMD:cancelresupply(playerid, params[])
 {
 	if (PlayerInfo[playerid][pBusiness] == INVALID_BUSINESS_ID)	{
-		return SendClientMessageEx(playerid, COLOR_GREY, "You are not in a business!");
+		return SendErrorMessage(playerid, "You are not in a business!");
 	}
 	else if (PlayerInfo[playerid][pBusinessRank] < Businesses[PlayerInfo[playerid][pBusiness]][bMinSupplyRank]) {
-		return SendClientMessageEx(playerid, COLOR_GREY, "Your rank is not high enough for cancelling resupply orders!");
+		return SendErrorMessage(playerid, "Your rank is not high enough for cancelling resupply orders!");
 	}
 	else {
 		new orderstate = Businesses[PlayerInfo[playerid][pBusiness]][bOrderState];
 		if (orderstate == 0) {
-			return SendClientMessageEx(playerid, COLOR_WHITE, "Your business has never placed a resupply order.");
+			return SendErrorMessage(playerid, "Your business has never placed a resupply order.");
 		}
 		else if (orderstate == 2) {
 		    foreach(new i : Player)
 			{			
 				if(TruckDeliveringTo[GetPlayerVehicleID(i)] == PlayerInfo[playerid][pBusiness])
 				{
-					SendClientMessageEx(playerid, COLOR_WHITE, "You can't cancel an order while it is being shipped!");
+					SendErrorMessage(playerid, "You can't cancel an order while it is being shipped!");
 					return 1;
 				}
 			}	
@@ -2989,7 +2983,7 @@ CMD:minrank(playerid, params[])
 	new rank, command[32];
 	if (PlayerInfo[playerid][pBusiness] == INVALID_BUSINESS_ID || PlayerInfo[playerid][pBusinessRank] < 5)
 	{
-		return SendClientMessageEx(playerid, COLOR_GREY, "Only business owners can use this command.");
+		return SendErrorMessage(playerid, "Only business owners can use this command.");
 	}
 	if (sscanf(params, "ds[32]", rank, command))
 	{
@@ -2997,7 +2991,7 @@ CMD:minrank(playerid, params[])
 	}
 	if(rank < 0 || rank > 5)
 	{
-		SendClientMessageEx(playerid, COLOR_GREY, "Don't go below number 0 or above number 5!");
+		SendErrorMessage(playerid, "Don't go below number 0 or above number 5!");
 	}
 	if (strcmp(command, "invite", true) == 0) Businesses[PlayerInfo[playerid][pBusiness]][bMinInviteRank] = rank, SaveBusiness(PlayerInfo[playerid][pBusiness]);
 	else if (strcmp(command, "giverank", true) == 0) Businesses[PlayerInfo[playerid][pBusiness]][bMinGiveRankRank] = rank, SaveBusiness(PlayerInfo[playerid][pBusiness]);
@@ -3024,9 +3018,9 @@ CMD:bizradio(playerid, params[])
 		iBusinessID = PlayerInfo[playerid][pBusiness],
 		iRank = PlayerInfo[playerid][pBusinessRank];
 
-	if (!IsValidBusinessID(iBusinessID)) return SendClientMessageEx(playerid, COLOR_GRAD2, "You're not an employee of a business!");
-	else if(iBusinessID == INVALID_BUSINESS_ID) return SendClientMessageEx(playerid, COLOR_GRAD2, "You're not an employee of a business!");
-	if(PlayerTied[playerid] != 0 || PlayerCuffed[playerid] != 0 || PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "You cannot do this at this time.");
+	if (!IsValidBusinessID(iBusinessID)) return SendErrorMessage(playerid, "You're not an employee of a business!");
+	else if(iBusinessID == INVALID_BUSINESS_ID) return SendErrorMessage(playerid, "You're not an employee of a business!");
+	if(PlayerTied[playerid] != 0 || PlayerCuffed[playerid] != 0 || PlayerInfo[playerid][pJailTime] > 0) return SendErrorMessage(playerid, "You cannot do this at this time.");
 	if(isnull(params)) return SendSyntaxMessage(playerid, "/b(iz)r(radio) [biz chat]");
 
 	format(string, sizeof(string), "(radio) %s", params);
@@ -3047,7 +3041,7 @@ CMD:employeepayset(playerid, params[])
 {
 	if (PlayerInfo[playerid][pBusiness] == INVALID_BUSINESS_ID || PlayerInfo[playerid][pBusinessRank] != 5)
 	{
-		return SendClientMessageEx(playerid, COLOR_GREY, "Not authorized to use this command!");
+		return SendErrorMessage(playerid, "Not authorized to use this command!");
 	}
 	new rank, amount;
 	if (sscanf(params, "dd", rank, amount))
@@ -3061,11 +3055,11 @@ CMD:employeepayset(playerid, params[])
 	}
 	if (rank < 0 || rank > 4)
 	{
-		return SendClientMessageEx(playerid, COLOR_WHITE, "Invalid rank entered!");
+		return SendErrorMessage(playerid, "Invalid rank entered!");
    	}
 	if (amount < 1 || amount > 100000)
 	{
-		return SendClientMessageEx(playerid, COLOR_WHITE, "Amount can't be lower than $1 or higher than $100,000!");
+		return SendErrorMessage(playerid, "Amount can't be lower than $1 or higher than $100,000!");
     }
 
 	Businesses[PlayerInfo[playerid][pBusiness]][bRankPay][rank] = amount;
@@ -3084,7 +3078,7 @@ CMD:employeeautopay(playerid, params[])
 {
 	if (PlayerInfo[playerid][pBusiness] == INVALID_BUSINESS_ID || PlayerInfo[playerid][pBusinessRank] != 5)
 	{
-		return SendClientMessageEx(playerid, COLOR_GREY, "Not authorized to use this command!");
+		return SendErrorMessage(playerid, "Not authorized to use this CMD.");
 	}
 	if (Businesses[PlayerInfo[playerid][pBusiness]][bAutoPay])
 	{
@@ -3109,7 +3103,7 @@ CMD:editgasprice(playerid, params[])
 		ShowPlayerDialogEx(playerid, DIALOG_GASPRICE, DIALOG_STYLE_INPUT, "Edit Gas Price", "Enter the new price per 1 gallon (e.g. 4.52)", "OK", "Cancel");
 		SetPVarInt(playerid, "EditingBusiness", PlayerInfo[playerid][pBusiness]);
 	}
-	else SendClientMessageEx(playerid, COLOR_GREY, "Your are not the owner of a gas station!");
+	else SendErrorMessage(playerid, "Your are not the owner of a gas station!");
 	return 1;
 }
 
@@ -3165,16 +3159,9 @@ CMD:editprices(playerid, params[])
 				SetPVarInt(playerid, "EditingBusiness", iBusiness);
 			}
 		}
-		else
-		{
-		    SendClientMessageEx(playerid, COLOR_GREY, "You aren't a store owner.");
-		    return 1;
-		}
+		else SendErrorMessage(playerid, "You aren't a store owner.");
 	}
-	else
-	{
-	    SendClientMessageEx(playerid, COLOR_WHITE, "You are not a store owner.");
-	}
+	else SendErrorMessage(playerid, "You are not a store owner.");
 	return 1;
 }
 
@@ -3200,11 +3187,7 @@ CMD:bizlock(playerid, params[])
 		RefreshBusinessPickup(PlayerInfo[playerid][pBusiness]);
 		Streamer_UpdateEx(playerid, Businesses[PlayerInfo[playerid][pBusiness]][bExtPos][0], Businesses[PlayerInfo[playerid][pBusiness]][bExtPos][1], Businesses[PlayerInfo[playerid][pBusiness]][bExtPos][2]);
 	}
-	else
-	{
-		SendClientMessageEx(playerid, COLOR_WHITE, "You are not near your business or not authorized.");
-		return 1;
-	}
+	else SendErrorMessage(playerid, "You are not near your business or not authorized.");
 	return 1;
 }
 
