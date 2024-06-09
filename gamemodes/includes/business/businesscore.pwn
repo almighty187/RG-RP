@@ -2318,6 +2318,7 @@ CMD:asellbiz(playerid, params[])
 	PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
 	format(string, sizeof(string), "~w~You have sold business %d.", biz);
 	GameTextForPlayer(playerid, string, 10000, 3);
+	RefreshBusinessPickup(biz);
 	foreach(new j: Player)
 	{	
 		if(PlayerInfo[j][pBusiness] == biz) 

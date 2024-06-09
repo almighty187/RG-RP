@@ -23,7 +23,7 @@ hook OnGameModeInit() {
 	
 	// Business & Job related
     CreateDynamic3DTextLabel("Type /getpizza from a Pizzaboy \nto get pizzas for delivery!",COLOR_TWGREEN,2103.6714,-1785.5222,12.9849, 4.0); //getpizza Idlewood
-	CreateDynamic3DTextLabel("/train\n To change your fightstyle.",COLOR_TWGREEN,757.1866,5.6019,1000.7007,8.0); // Gym /train
+	//CreateDynamic3DTextLabel("/train\n To change your fightstyle.",COLOR_TWGREEN,757.1866,5.6019,1000.7007,8.0); // Gym /train
     CreateDynamic3DTextLabel("/buyclothes or Press N\n To change your skin.",COLOR_TWGREEN,208.8970,-100.3289,1005.2578,8.0);
     CreateDynamic3DTextLabel("/buyclothes or Press N\n To change your skin.",COLOR_TWGREEN,206.5429,-41.2313,1001.8047,8.0);
     CreateDynamic3DTextLabel("/buyclothes or Press N\n To change your skin.",COLOR_TWGREEN,209.3064,-8.3033,1005.2109,8.0);
@@ -37,9 +37,9 @@ hook OnGameModeInit() {
 	CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_TWGREEN,1774.7533, 1422.6665, 2013.4979,8.0);
 	CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_TWGREEN,775.0900, 1742.4900, 1938.3800,8.0);
 	CreateDynamic3DTextLabel("/buy\n To buy items.",COLOR_TWGREEN,-29.0583,-185.1300,1003.5469,10.0); // 24/7 Store
-	CreateDynamic3DTextLabel("/buyfood\n To buy food.",COLOR_TWGREEN,377.5905,-67.5464,1001.5151,15.0); // Burger shot
-	CreateDynamic3DTextLabel("/buyfood\n To buy food.",COLOR_TWGREEN,375.3864,-119.3041,1001.4995,15.0); // Pizza
-	CreateDynamic3DTextLabel("/buyfood\n To buy food.",COLOR_TWGREEN,369.6987,-6.3779,1001.8589,15.0); // Cluckin Bell
+	//CreateDynamic3DTextLabel("/buyfood\n To buy food.",COLOR_TWGREEN,377.5905,-67.5464,1001.5151,15.0); // Burger shot
+	//CreateDynamic3DTextLabel("/buyfood\n To buy food.",COLOR_TWGREEN,375.3864,-119.3041,1001.4995,15.0); // Pizza
+	//CreateDynamic3DTextLabel("/buyfood\n To buy food.",COLOR_TWGREEN,369.6987,-6.3779,1001.8589,15.0); // Cluckin Bell
 	CreateDynamic3DTextLabel("/buyfood\n To buy food.",COLOR_TWGREEN,451.9016,-107.2225,999.5477,15.0); // Gant Bridge Diner
 	CreateDynamic3DTextLabel("/buyfood\n To buy food.",COLOR_TWGREEN,451.9016,-107.2225,999.5477,15.0); // Unkown for now
 

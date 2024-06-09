@@ -2,7 +2,7 @@
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 	if(dialogid != iLastDialogID[playerid]) {
 		if(dialogid != DIALOG_FS_ELEVATOR1 && dialogid != DIALOG_FS_ELEVATOR2) { // For dialogs called from filterscripts.
-			if(PlayerInfo[playerid][pAdmin] == 1338 || dialogid == 32700) return 1;
+			if(PlayerInfo[playerid][pAdmin] == 1338 || dialogid == 32700 || dialogid == 0) return 1;
 	    	SendClientMessageEx(playerid, COLOR_LIGHTRED, "[SYSTEM] Please delete your dialog CLEO.");
 	    	//SetTimerEx("KickEx", 1000, 0, "i", playerid);
 	    }
@@ -3899,10 +3899,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 	if(dialogid == RESTAURANTMENU)
 	{
 		new pvar[25];
+		if (!response) return SetPVarInt(playerid, "OCC", 0);
 		if (response)
 		{
 			new iBusiness = InBusiness(playerid);
-
+			SetPVarInt(playerid, "OCC", 0);
 			format(pvar, sizeof(pvar), "Business_MenuItemPrice%d", listitem);
 			new iPrice = GetPVarInt(playerid, pvar);
 			format(pvar, sizeof(pvar), "Business_MenuItem%d", listitem);
@@ -4447,6 +4448,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
 	if(dialogid == FIGHTMENU)
 	{
+	    if(!response) return SetPVarInt(playerid, "OCC", 0);
 		if(response)
 		{
 			if(GetPlayerCash(playerid) >= 4000)
@@ -4456,6 +4458,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					PlayerInfo[playerid][pFightStyle] = FIGHT_STYLE_BOXING;
 					SetPlayerFightingStyle (playerid, FIGHT_STYLE_BOXING);
 					SendClientMessageEx(playerid, COLOR_WHITE, " You are now using the boxing fighting style!");
+					SetPVarInt(playerid, "OCC", 0);
 
 					if(PlayerInfo[playerid][pDonateRank] >= 1)
 					{
@@ -4475,6 +4478,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					PlayerInfo[playerid][pFightStyle] = FIGHT_STYLE_ELBOW;
 					SetPlayerFightingStyle (playerid, FIGHT_STYLE_ELBOW);
 					SendClientMessageEx(playerid, COLOR_WHITE, " You are now using the elbow fighting style!");
+					SetPVarInt(playerid, "OCC", 0);
 
 					if(PlayerInfo[playerid][pDonateRank] >= 1)
 					{
@@ -4494,6 +4498,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					PlayerInfo[playerid][pFightStyle] = FIGHT_STYLE_KNEEHEAD;
 					SetPlayerFightingStyle (playerid, FIGHT_STYLE_KNEEHEAD);
 					SendClientMessageEx(playerid, COLOR_WHITE, " You are now using the kneehead fighting style!");
+					SetPVarInt(playerid, "OCC", 0);
 
 					if(PlayerInfo[playerid][pDonateRank] >= 1)
 					{
@@ -4513,6 +4518,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					PlayerInfo[playerid][pFightStyle] = FIGHT_STYLE_KUNGFU;
 					SetPlayerFightingStyle (playerid, FIGHT_STYLE_KUNGFU);
 					SendClientMessageEx(playerid, COLOR_WHITE, " You are now using the kungfu fighting style!");
+					SetPVarInt(playerid, "OCC", 0);
 
 					if(PlayerInfo[playerid][pDonateRank] >= 1)
 					{
@@ -4532,6 +4538,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					PlayerInfo[playerid][pFightStyle] = FIGHT_STYLE_GRABKICK;
 					SetPlayerFightingStyle (playerid, FIGHT_STYLE_GRABKICK);
 					SendClientMessageEx(playerid, COLOR_WHITE, " You are now using the grabkick fighting style!");
+					SetPVarInt(playerid, "OCC", 0);
 
 					if(PlayerInfo[playerid][pDonateRank] >= 1)
 					{
@@ -4547,6 +4554,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			else
 			{
 				SendClientMessageEx(playerid, COLOR_GREY, " You do not have the cash for that!");
+				SetPVarInt(playerid, "OCC", 0);
 				return 1;
 			}
 
@@ -4555,6 +4563,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				PlayerInfo[playerid][pFightStyle] = FIGHT_STYLE_NORMAL;
 				SetPlayerFightingStyle (playerid, FIGHT_STYLE_NORMAL);
 				SendClientMessageEx(playerid, COLOR_WHITE, " You are now using the normal fighting style!");
+				SetPVarInt(playerid, "OCC", 0);
 				return 1;
 			}
 		}

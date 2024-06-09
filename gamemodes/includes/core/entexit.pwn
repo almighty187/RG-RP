@@ -699,6 +699,12 @@ Business_Exit(playerid, i)
 	SetCameraBehindPlayer(playerid);
 	PlayerInfo[playerid][pInt] = 0;
 	PlayerInfo[playerid][pVW] = 0;
+	if(GetPVarInt(playerid, "Checkpoint") != CHECKPOINT_NONE)
+ 	{
+ 		SetPVarInt(playerid, "Checkpoint", CHECKPOINT_NONE);
+  		gPlayerCheckpointStatus[playerid] = CHECKPOINT_NOTHING;
+	  	ClearCheckpoint(playerid);
+    }
 	DeletePVar(playerid, "BusinessesID");
 	if(Businesses[i][bCustomExterior]) Player_StreamPrep(playerid, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2], FREEZE_TIME);
 	DoorTimer[playerid] = gettime()+2;

@@ -26,34 +26,37 @@ hook OnPlayerDisconnect(playerid, reason)
 
 hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
-	if(!pCBugging[playerid] && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
+	if(!GetPVarType(playerid, "IsInArena"))  // Check if player is not in arena
 	{
-		if(PRESSED(KEY_FIRE))
+		if(!pCBugging[playerid] && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
 		{
-			switch(GetPlayerWeapon(playerid))
+			if(PRESSED(KEY_FIRE))
 			{
-				case WEAPON_DEAGLE, WEAPON_SHOTGUN, WEAPON_SNIPER, WEAPON_SILENCED, WEAPON_SAWEDOFF, WEAPON_SHOTGSPA, WEAPON_UZI, WEAPON_MP5:
+				switch(GetPlayerWeapon(playerid))
 				{
-					ptsLastFiredWeapon[playerid] = gettime();
+					case WEAPON_DEAGLE, WEAPON_SHOTGUN, WEAPON_SNIPER, WEAPON_SILENCED, WEAPON_SAWEDOFF, WEAPON_SHOTGSPA, WEAPON_UZI, WEAPON_MP5:
+					{
+						ptsLastFiredWeapon[playerid] = gettime();
+					}
 				}
 			}
-		}
-		else if(PRESSED(KEY_CROUCH))
-		{
-			if((gettime() - ptsLastFiredWeapon[playerid]) < 1)
+			else if(PRESSED(KEY_CROUCH))
 			{
-                new string[128];
-				TogglePlayerControllable(playerid, false);
+				if((gettime() - ptsLastFiredWeapon[playerid]) < 1)
+				{
+	                new string[128];
+					TogglePlayerControllable(playerid, false);
 
-				pCBugging[playerid] = true;
+					pCBugging[playerid] = true;
 
-				GameTextForPlayer(playerid, "~r~~h~DON'T C-BUG!", 3000, 4);
-                format(string,sizeof(string),"{AA3333}AdmWarning{FFFF00}: %s (ID: %d) may be using C bug", GetPlayerNameEx(playerid), playerid);
-				ABroadCast(COLOR_YELLOW, string, 2);
-				format(string,sizeof(string),"AdmWarning: %s(%d) (ID: %d) may be using C bug", GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), playerid);
-				Log("logs/cbug.log", string);
-				KillTimer(ptmCBugFreezeOver[playerid]);
-				ptmCBugFreezeOver[playerid] = SetTimerEx("CBugFreezeOver", 1500, false, "i", playerid);
+					GameTextForPlayer(playerid, "~r~~h~DON'T C-BUG!", 3000, 4);
+	                format(string,sizeof(string),"{AA3333}AdmWarning{FFFF00}: %s (ID: %d) may possibly doing the C bug", GetPlayerNameEx(playerid), playerid);
+					ABroadCast(COLOR_YELLOW, string, 2);
+					format(string,sizeof(string),"AdmWarning: %s(%d) (ID: %d) may possibly doing the C bug", GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), playerid);
+					Log("logs/cbug.log", string);
+					KillTimer(ptmCBugFreezeOver[playerid]);
+					ptmCBugFreezeOver[playerid] = SetTimerEx("CBugFreezeOver", 2500, false, "i", playerid);
+				}
 			}
 		}
 	}
