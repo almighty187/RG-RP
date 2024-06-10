@@ -765,7 +765,7 @@ Group_DisplayDialog(iPlayerID, iGroupID) {
 		{BBBBBB}Edit the Garage Position (current distance: %.0f)\n\
 		{BBBBBB}Edit Tackle Access:{FFFFFF} %s (rank %i)\n\
 		{BBBBBB}Edit Wheel Clamps Access:{FFFFFF} %s (rank %i)\n\
-		{BBBBBB}Edit DoC Access:{FFFFFF} %s (rank %i)\n",
+		{BBBBBB}Edit DoC Access:{FFFFFF} %s (Div %i)\n",
 		szDialog,
 		String_Count(arrGroupDivisions[iGroupID], MAX_GROUP_DIVS),
 		String_Count(arrGroupRanks[iGroupID], MAX_GROUP_RANKS),
@@ -774,7 +774,8 @@ Group_DisplayDialog(iPlayerID, iGroupID) {
 		GetPlayerDistanceFromPoint(iPlayerID, arrGroupData[iGroupID][g_fGaragePos][0], arrGroupData[iGroupID][g_fGaragePos][1], arrGroupData[iGroupID][g_fGaragePos][2]),
 		(arrGroupData[iGroupID][g_iTackleAccess] != INVALID_RANK) ? ("Yes") : ("No"), arrGroupData[iGroupID][g_iTackleAccess],
 		(arrGroupData[iGroupID][g_iWheelClamps] != INVALID_RANK) ? ("Yes") : ("No"), arrGroupData[iGroupID][g_iWheelClamps],
-		(arrGroupData[iGroupID][g_iDoCAccess] != INVALID_RANK) ? ("Yes") : ("No"), arrGroupData[iGroupID][g_iDoCAccess]
+		//(arrGroupData[iGroupID][g_iDoCAccess] != INVALID_RANK) ? ("Yes") : ("No"), arrGroupData[iGroupID][g_iDoCAccess]
+		(arrGroupData[iGroupID][g_iDoCAccess] != INVALID_DIVISION) ? ("Yes") : ("No"), arrGroupData[iGroupID][g_iDoCAccess]
 	);
 
 	format(szDialog, sizeof(szDialog),
@@ -1482,10 +1483,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				}
 				case 34: {
 					new
-						szDialog[((32 + 5) * MAX_GROUP_RANKS) + 24];
+						szDialog[((32 + 5) * MAX_GROUP_DIVS) + 24];
 
-					for(new i = 0; i != MAX_GROUP_RANKS; ++i)
-						format(szDialog, sizeof szDialog, "%s\n(%i) %s", szDialog, i, ((arrGroupRanks[iGroupID][i][0]) ? (arrGroupRanks[iGroupID][i]) : ("{BBBBBB}(undefined){FFFFFF}")));
+					for(new i = 0; i != MAX_GROUP_DIVS; ++i)
+						format(szDialog, sizeof szDialog, "%s\n(%i) %s", szDialog, i, ((arrGroupDivisions[iGroupID][i][0]) ? (arrGroupDivisions[iGroupID][i]) : ("{BBBBBB}(undefined){FFFFFF}")));
 
 					strcat(szDialog, "\nRevoke from Group");
 
@@ -2582,14 +2583,15 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				iGroupID = GetPVarInt(playerid, "Group_EditID");
 
 			if(response) switch(listitem) {
-				case MAX_GROUP_RANKS: {
-					arrGroupData[iGroupID][g_iDoCAccess] = INVALID_RANK;
-					format(string, sizeof(string), "%s has set the minimum rank for DoC Access to %d (Disabled) in group %d (%s)", GetPlayerNameEx(playerid), arrGroupData[iGroupID][g_iDoCAccess], iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
+				case MAX_GROUP_DIVS: {
+					if(arrGroupData[iGroupID][g_iDoCAccess] == INVALID_DIVISION) return 1;
+					format(string, sizeof(string), "%s has revoked DoC Access from division %d (%s) in group %d (%s)", GetPlayerNameEx(playerid), arrGroupData[iGroupID][g_iDoCAccess], arrGroupDivisions[iGroupID][arrGroupData[iGroupID][g_iDoCAccess]], iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
 					Log("logs/editgroup.log", string);
+					arrGroupData[iGroupID][g_iDoCAccess] = INVALID_DIVISION;
 				}
 				default: {
 					arrGroupData[iGroupID][g_iDoCAccess] = listitem;
-					format(string, sizeof(string), "%s has set the minimum rank for DoC Access to %d (%s) in group %d (%s)", GetPlayerNameEx(playerid), arrGroupData[iGroupID][g_iDoCAccess], arrGroupRanks[iGroupID][arrGroupData[iGroupID][g_iDoCAccess]], iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
+					format(string, sizeof(string), "%s has set the division for DoC Access to %d (%s) in group %d (%s)", GetPlayerNameEx(playerid), arrGroupData[iGroupID][g_iDoCAccess], arrGroupDivisions[iGroupID][arrGroupData[iGroupID][g_iDoCAccess]], iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
 					Log("logs/editgroup.log", string);
 				}
 			}
