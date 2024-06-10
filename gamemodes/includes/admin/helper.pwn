@@ -513,7 +513,7 @@ CMD:nmute(playerid, params[])
 
 CMD:makehelper(playerid, params[])
 {
-	if (PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pPR] > 1 || PlayerInfo[playerid][pHelper] >= 3)
+	if (PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pPR] > 0 || PlayerInfo[playerid][pHelper] >= 3)
 	{
 		new string[128], giveplayerid, level;
 		if(sscanf(params, "ud", giveplayerid, level)) return SendSyntaxMessage(playerid, "/makehelper [playerid/PartOfName] [level(1-4)]");
@@ -580,7 +580,7 @@ CMD:makehelper(playerid, params[])
 
 CMD:takehelper(playerid, params[])
 {
-	if (PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pHelper] >= 3 || PlayerInfo[playerid][pPR] >= 1)
+	if (PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pHelper] >= 3 || PlayerInfo[playerid][pPR] > 0)
 	{
 		new string[128], giveplayerid;
 		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/takehelper [playerid/PartOfName]");

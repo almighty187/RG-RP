@@ -1599,7 +1599,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
 CMD:administration(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] >= 1338 || PlayerInfo[playerid][pAP] >= 1)
+	if(PlayerInfo[playerid][pAdmin] >= 1338 || PlayerInfo[playerid][pHR] >= 2)
 	{
 		ShowPlayerDialogEx(playerid, DISPLAY_ADMINISTRATION, DIALOG_STYLE_LIST,"{FF0606}Administration", "Staff Section\nPlayers Section\n", "Select", "Exit");
 	}

@@ -1271,7 +1271,7 @@ CMD:vipm(playerid, params[])
 
 CMD:makevipmod(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pAP] >= 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "You're not authorized to use this command!");
+	if(PlayerInfo[playerid][pShopTech] < 3 && PlayerInfo[playerid][pAdmin] < 1337) return SendClientMessageEx(playerid, COLOR_GRAD1, "You're not authorized to use this command!");
 	new target, level;
 	szMiscArray[0] = 0;
 	if(sscanf(params, "ud", target, level)) return SendSyntaxMessage(playerid, "/makevipmod [player] [level(0-2)])");
