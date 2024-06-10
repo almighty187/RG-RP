@@ -440,6 +440,7 @@ public OnQueryFinish(resultid, extraid, handleid)
 					cache_get_value_name_int(row,  "Rccam", PlayerInfo[extraid][pRccam]);
 					cache_get_value_name_int(row,  "Receiver", PlayerInfo[extraid][pReceiver]);
 					cache_get_value_name_int(row,  "GPS", PlayerInfo[extraid][pGPS]);
+					cache_get_value_name_int(row,  "GPS-State", PlayerInfo[extraid][pGPSState]);
 					cache_get_value_name_int(row,  "Sweep", PlayerInfo[extraid][pSweep]);
 					cache_get_value_name_int(row,  "SweepLeft", PlayerInfo[extraid][pSweepLeft]);
 					cache_get_value_name_int(row,  "Bugged", PlayerInfo[extraid][pBugged]);
@@ -2335,6 +2336,7 @@ stock g_mysql_SaveAccount(playerid, string[] = "")
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Rccam", PlayerInfo[playerid][pRccam]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Receiver", PlayerInfo[playerid][pReceiver]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "GPS", PlayerInfo[playerid][pGPS]);
+    SavePlayerInteger(query, GetPlayerSQLId(playerid), "GPS-State", PlayerInfo[playerid][pGPSState]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Sweep", PlayerInfo[playerid][pSweep]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "SweepLeft", PlayerInfo[playerid][pSweepLeft]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Bugged", PlayerInfo[playerid][pBugged]);

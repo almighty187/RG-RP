@@ -742,6 +742,10 @@ public OnPlayerLoad(playerid)
 		//CreateBan(INVALID_PLAYER_ID, PlayerInfo[playerid][pId], playerid, PlayerInfo[playerid][pIP], "3 Warnings", 14);
 		//return 1;
 	}
+	if(PlayerInfo[playerid][pGPSState] >= 1) {
+			PlayerTextDrawSetString(playerid, GPS[playerid], "Loading...");
+			PlayerTextDrawShow(playerid, GPS[playerid]);
+	}
 	if(PlayerInfo[playerid][pTurfShow] >= 1)
 		SyncTurfWarsRadar(playerid);
 		

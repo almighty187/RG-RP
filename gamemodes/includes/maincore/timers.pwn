@@ -1134,7 +1134,7 @@ foreach(new i: Player)
 				ResetPlayerMoney(i);
 				GivePlayerMoney(i, PlayerInfo[i][pCash]);
 			}
-			if(PlayerInfo[i][pGPS] > 0 && GetPVarType(i, "gpsonoff"))
+			if(PlayerInfo[i][pGPS] > 0 && PlayerInfo[i][pGPSState])
 			{
 				new zone[28];
 				GetPlayer3DZone(i, zone, MAX_ZONE_NAME);
@@ -2686,7 +2686,7 @@ ptask PlayerUpdate[1000](i) {
 			ResetPlayerMoney(i);
 			GivePlayerMoney(i, PlayerInfo[i][pCash]);
 		}
-		if(PlayerInfo[i][pGPS] > 0 && GetPVarType(i, "gpsonoff"))
+		if(PlayerInfo[i][pGPS] > 0 && PlayerInfo[i][pGPSState])
 		{
 			new zone[28];
 			GetPlayer3DZone(i, zone, MAX_ZONE_NAME);

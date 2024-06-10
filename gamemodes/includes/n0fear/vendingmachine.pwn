@@ -70,7 +70,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                 GivePlayerMoney(playerid,-3);
                 GameTextForPlayer(playerid, "~r~-$3.", 5000, 1);
                 ApplyAnimation(playerid, "VENDING", "VEND_Use", 3.0, 0, 0, 0, 0, 0);
-                PlayAudioStreamForPlayerEx(playerid, "https://media.rg-rp.net/Soundeffects/Vending.wav");
+                PlayAudioStreamForPlayerEx(playerid, "http://media.rg-rp.org/Soundeffects/Vending.wav");
                 health+=40.0;
                 if(health >= 100.0) health=99.0;
                 SetHealth(playerid, health);

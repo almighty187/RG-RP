@@ -1317,6 +1317,12 @@ public UpdateCarRadars()
 }
 			
 /*  ---------------- STOCK FUNCTIONS ----------------- */
+stock PlayerToPlayer(playerid,targetid,Float:distance) { // Added by N0FeaR
+    new Float:x, Float:y, Float:z;
+    GetPlayerPos(playerid,x,y,z);
+    if(IsPlayerConnected(targetid)&&IsPlayerInRangeOfPoint(targetid,distance,x,y,z)&&IsPlayerStreamedIn(targetid, playerid)) return true;
+    return false;
+}
 stock CheckSex(playerid) // Added by N0FeaR
 {
     new stext[5];

@@ -246,11 +246,11 @@ CMD:gps(playerid, params[])
 	if(PlayerInfo[playerid][pGPS] > 0)
 	{
 		new string[128];
-		if(GetPVarInt(playerid, "gpsonoff") == 0)
+		if(PlayerInfo[playerid][pGPSState] == 0)
 		{
 			format(string, sizeof(string), "* %s turns on their GPS.", GetPlayerNameEx(playerid));
 			ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-			SetPVarInt(playerid, "gpsonoff", 1);
+			PlayerInfo[playerid][pGPSState] = 1;
 			PlayerTextDrawSetString(playerid, GPS[playerid], "Loading...");
 			PlayerTextDrawShow(playerid, GPS[playerid]);
 		}
@@ -258,7 +258,7 @@ CMD:gps(playerid, params[])
 		{
 			format(string, sizeof(string), "* %s turns off their GPS.", GetPlayerNameEx(playerid));
 			ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-			DeletePVar(playerid, "gpsonoff");
+			PlayerInfo[playerid][pGPSState] = 0;
 			PlayerTextDrawHide(playerid, GPS[playerid]);
 		}
 	}

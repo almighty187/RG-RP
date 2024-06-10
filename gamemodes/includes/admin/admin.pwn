@@ -2617,7 +2617,7 @@ CMD:destroypvehicle(playerid, params[])
 
 CMD:setsec(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pAP] >= 1)
+	if(PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pHR] >= 2 || PlayerInfo[playerid][pAP] >= 2 || PlayerInfo[playerid][pSecurity] >= 2)
 	{
 	    new giveplayerid, task[8], string[128];
 	    if(sscanf(params, "us[8]", giveplayerid, task))
@@ -2906,7 +2906,7 @@ CMD:removepvehicle(playerid, params[])
 }
 CMD:makeadmin(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdminLevel] >= 1338 || PlayerInfo[playerid][pAP] >= 2)
+	if(PlayerInfo[playerid][pAdminLevel] >= 1338 || PlayerInfo[playerid][pHR] >= 2)
 	{
 	    new giveplayerid;
 	    if(sscanf(params, "u", giveplayerid))
@@ -3799,23 +3799,33 @@ CMD:revive(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] >= 2)
 	{
-		new string[128], giveplayerid;
+		new string[128], giveplayerid, Float:Xx, Float:Yy, Float:Zz;
 		if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/revive [playerid/PartOfName]");
 
 		if(IsPlayerConnected(giveplayerid))
 		{
 			if(GetPVarInt(giveplayerid, "Injured") == 1)
 			{
-				format(string, sizeof(string), " You have revived %s.", GetPlayerNameEx(giveplayerid));
-				SendClientMessageEx(playerid, COLOR_WHITE, string);
-				SendClientMessageEx(giveplayerid, COLOR_WHITE, "You have been revived by an Admin.");
-				format(string, sizeof(string), "AdmCmd: %s(%d) has been revived by %s", GetPlayerNameEx(giveplayerid), GetPlayerSQLId(giveplayerid), GetPlayerNameEx(playerid));
-				Log("logs/admin.log", string);
-				DBLog(playerid, giveplayerid, "Admin", "revived");
+			    if(PlayerToPlayer(playerid,giveplayerid,5.0) || giveplayerid == playerid)
+    			{
+		            foreach(new i : Player)
+		            {
+		                if(IsPlayerInRangeOfPoint(i, 15.0, Xx, Yy, Zz))
+		                {
+		            	    PlayAudioStreamForPlayerEx(i, "http://media.rg-rp.org/Soundeffects/Defibrillator.mp3", Xx, Yy, Zz, 15.0, 1);
+		            	}
+					}
+					format(string, sizeof(string), " You have revived %s.", GetPlayerNameEx(giveplayerid));
+					SendClientMessageEx(playerid, COLOR_WHITE, string);
+					SendClientMessageEx(giveplayerid, COLOR_WHITE, "You have been revived by an Admin.");
+					format(string, sizeof(string), "AdmCmd: %s(%d) has been revived by %s", GetPlayerNameEx(giveplayerid), GetPlayerSQLId(giveplayerid), GetPlayerNameEx(playerid));
+					Log("logs/admin.log", string);
+					DBLog(playerid, giveplayerid, "Admin", "revived");
 
-				KillEMSQueue(giveplayerid);
-   				ClearAnimationsEx(giveplayerid);
-   				SetHealth(giveplayerid, 100);
+					KillEMSQueue(giveplayerid);
+	   				ClearAnimationsEx(giveplayerid);
+	   				SetHealth(giveplayerid, 100);
+ 				}
 			}
 			else
 			{
@@ -6423,7 +6433,7 @@ CMD:unfreeze(playerid, params[])
 
 CMD:makemoderator(playerid, params[])
 {
-	if (PlayerInfo[playerid][pAdmin] >= 1338 || PlayerInfo[playerid][pAP] >= 1)
+	if (PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pAP] >= 2 || PlayerInfo[playerid][pHR] >= 3)
 	{
 		new string[128], giveplayerid, level;
 		if(sscanf(params, "ui", giveplayerid, level)) return SendSyntaxMessage(playerid, "/makemoderator [playerid/PartOfName] [level 1-2]");
