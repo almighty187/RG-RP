@@ -2617,7 +2617,7 @@ CMD:destroypvehicle(playerid, params[])
 
 CMD:setsec(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pHR] >= 2 || PlayerInfo[playerid][pAP] >= 2 || PlayerInfo[playerid][pSecurity] >= 2)
+	if(PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pAP] >= 1)
 	{
 	    new giveplayerid, task[8], string[128];
 	    if(sscanf(params, "us[8]", giveplayerid, task))
@@ -2906,7 +2906,7 @@ CMD:removepvehicle(playerid, params[])
 }
 CMD:makeadmin(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdminLevel] >= 1338 || PlayerInfo[playerid][pHR] >= 2)
+	if(PlayerInfo[playerid][pAdminLevel] >= 1338 || PlayerInfo[playerid][pAP] >= 2)
 	{
 	    new giveplayerid;
 	    if(sscanf(params, "u", giveplayerid))
@@ -6423,7 +6423,7 @@ CMD:unfreeze(playerid, params[])
 
 CMD:makemoderator(playerid, params[])
 {
-	if (PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pAP] >= 2 || PlayerInfo[playerid][pHR] >= 3)
+	if (PlayerInfo[playerid][pAdmin] >= 1338 || PlayerInfo[playerid][pAP] >= 1)
 	{
 		new string[128], giveplayerid, level;
 		if(sscanf(params, "ui", giveplayerid, level)) return SendSyntaxMessage(playerid, "/makemoderator [playerid/PartOfName] [level 1-2]");
