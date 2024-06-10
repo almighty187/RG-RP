@@ -556,14 +556,15 @@ CMD:v(playerid, params[]) {
 			if(novip && PlayerInfo[playerid][pAdmin] < 2) return SendErrorMessage(playerid, "The VIP chat has been disabled by an administrator.");
 			new szMessage[128];
 
-			if(PlayerInfo[playerid][pAdmin] >= 2 && !GetPVarType(playerid, "Undercover"))
+			/*if(PlayerInfo[playerid][pAdmin] >= 2 && !GetPVarType(playerid, "Undercover"))
 			{
 				format(szMessage, sizeof(szMessage), "** %s %s: %s", GetAdminRankName(PlayerInfo[playerid][pAdmin]), GetPlayerNameEx(playerid), params);
-			}
-			else if(GetPVarType(playerid, "Undercover") || PlayerInfo[playerid][pDonateRank] > 0 || PlayerInfo[playerid][pVIPMod])
+			}*/
+			if(GetPVarType(playerid, "Undercover") || PlayerInfo[playerid][pDonateRank] > 0 || PlayerInfo[playerid][pVIPMod])
 			{
-				if(PlayerInfo[playerid][pVIPMod] == 1) format(szMessage, sizeof(szMessage), "-- VIP Moderator %s: %s", GetPlayerNameEx(playerid), params);
-				else if(PlayerInfo[playerid][pVIPMod] == 2) format(szMessage, sizeof(szMessage), "-- Senior VIP Moderator %s: %s", GetPlayerNameEx(playerid), params);
+				if(PlayerInfo[playerid][pVIPMod] == 1) format(szMessage, sizeof(szMessage), "VIP Moderator %s: %s", GetPlayerNameEx(playerid), params);
+				else if(PlayerInfo[playerid][pVIPMod] == 2) format(szMessage, sizeof(szMessage), "Senior VIP Moderator %s: %s", GetPlayerNameEx(playerid), params);
+				else if(PlayerInfo[playerid][pAdmin] == 2) format(szMessage, sizeof(szMessage), "Admin %s: %s", GetPlayerNameEx(playerid), params);
 				else format(szMessage, sizeof(szMessage), "-- %s %s: %s", GetVIPRankName(PlayerInfo[playerid][pDonateRank]), GetPlayerNameEx(playerid), params);
 				SetPVarInt(playerid, "timeVIP", gettime()+5);
 			}
