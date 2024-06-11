@@ -7,7 +7,7 @@
 
 #include <YSI\y_hooks>
 
-#define MAX_DROP_DRUGS (1000)//Change it to set the max weapons that can be dropped.
+#define MAX_DROP_DRUGS (1000)//Change it to set the max drugs that can be dropped.
 
 enum ddData
 {
@@ -64,7 +64,7 @@ CreateDrop(idx)
 }
 LoadDrop()
 {
-	new File:file = fopen("DroppedGuns.ini", io_read);
+	new File:file = fopen("DroppedDrugs.ini", io_read);
     if(file)
     {
         new buffer[256], FileCoords[8][20];
@@ -96,7 +96,7 @@ LoadDrop()
 
 /*LoadDrop()
 {
-	new File:file = fopen("DroppedGuns.ini", io_append);
+	new File:file = fopen("DroppedDrugs.ini", io_append);
     if(file)
     {
         fclose(file);
@@ -112,8 +112,8 @@ LoadDrop()
 			DropDrug[g][ddY],
 			DropDrug[g][ddZ],
 			DropDrug[g][dText]);
-			if(g == 0) file = fopen("DroppedGuns.ini", io_write);
-			else file = fopen("DroppedGuns.ini", io_append);
+			if(g == 0) file = fopen("DroppedDrugs.ini", io_write);
+			else file = fopen("DroppedDrugs.ini", io_append);
 			fwrite(file, buffer);
 			fclose(file);
 			if(DropDrug[g][dWeapon] > 0 && DropDrug[g][ddY] != 0)
@@ -128,7 +128,7 @@ LoadDrop()
 /*
 SaveDrop()
 {
-    new File:file = fopen("DroppedGuns.ini", io_append);
+    new File:file = fopen("DroppedDrugs.ini", io_append);
     if(file)
     {
         fclose(file);
@@ -144,8 +144,8 @@ SaveDrop()
 			DropDrug[g][ddY],
 			DropDrug[g][ddZ],
 			DropDrug[g][dText]);
-			if(g == 0) file = fopen("DroppedGuns.ini", io_write);
-			else file = fopen("DroppedGuns.ini", io_append);
+			if(g == 0) file = fopen("DroppedDrugs.ini", io_write);
+			else file = fopen("DroppedDrugs.ini", io_append);
 			fwrite(file, buffer);
 			fclose(file);
 		}
@@ -154,7 +154,7 @@ SaveDrop()
 }*/
 SaveDrop()
 {
-    new File:file = fopen("DroppedGuns.ini", io_write); // Open the file for writing
+    new File:file = fopen("DroppedDrugs.ini", io_write); // Open the file for writing
 
     if(file)
     {

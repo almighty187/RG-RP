@@ -279,9 +279,9 @@ CMD:wristwatch(playerid, params[])
 	if(PlayerInfo[playerid][pWristwatch] > 0)
 	{
 		new string[128];
-		if(GetPVarInt(playerid, "wristwatchonoff") == 0)
+		if(PlayerInfo[playerid][pWristwatchState] == 0)
 		{
-			SetPVarInt(playerid, "wristwatchonoff", 1);
+			PlayerInfo[playerid][pWristwatchState] = 1;
 			TextDrawShowForPlayer(playerid, WristWatch);
 			format(string, sizeof(string), "* %s turns on their wristwatch.", GetPlayerNameEx(playerid));
 			ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
@@ -290,7 +290,7 @@ CMD:wristwatch(playerid, params[])
 		{
 			KillTimer(GetPVarInt(playerid, "wristwatchtimer"));
 			TextDrawHideForPlayer(playerid, WristWatch);
-			DeletePVar(playerid, "wristwatchonoff");
+			PlayerInfo[playerid][pWristwatchState] = 0;
 			format(string, sizeof(string), "* %s turns off their wristwatch.", GetPlayerNameEx(playerid));
 			ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 		}

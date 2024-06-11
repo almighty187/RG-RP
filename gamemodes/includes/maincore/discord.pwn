@@ -231,6 +231,8 @@ public DCC_OnMessageCreate(DCC_Message:message)
 		        SendDiscordMessage(4, "House saving process started.");
 		        SaveBusinesses();
         		SendDiscordMessage(4, "Business saving process started.");
+        		SaveGarages();
+        		SendDiscordMessage(4, "Garages saving process started.");
 	        	SendDiscordMessage(4, "All data has been saved");
             }
             if(strfind(realMsg, "player", true, 1) != -1)

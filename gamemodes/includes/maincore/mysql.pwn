@@ -337,8 +337,6 @@ public OnQueryFinish(resultid, extraid, handleid)
 					cache_get_value_name_int(row,  "Materials", PlayerInfo[extraid][pMats]);
 					cache_get_value_name_int(row,  "Crates", PlayerInfo[extraid][pCrates]);
 					cache_get_value_name_int(row,  "StaffBanned", PlayerInfo[extraid][pStaffBanned]);
-					// PlayerInfo[extraid][pPot]					= cache_get_value_name_int(row,  "Pot");
-					// PlayerInfo[extraid][pCrack]					= cache_get_value_name_int(row,  "Crack");
 					cache_get_value_name_int(row,  "Nation", PlayerInfo[extraid][pNation]);
 					cache_get_value_name_int(row,  "SlotHolder", PlayerInfo[extraid][pSlotHolder]);
 					cache_get_value_name_int(row,  "Leader", PlayerInfo[extraid][pLeader]);
@@ -434,6 +432,7 @@ public OnQueryFinish(resultid, extraid, handleid)
 					cache_get_value_name_int(row,  "Screwdriver", PlayerInfo[extraid][pScrewdriver]);
 					cache_get_value_name_int(row,  "Smslog", PlayerInfo[extraid][pSmslog]);
 					cache_get_value_name_int(row,  "Wristwatch", PlayerInfo[extraid][pWristwatch]);
+					cache_get_value_name_int(row,  "Wristwatch-State", PlayerInfo[extraid][pWristwatchState]);
 					cache_get_value_name_int(row,  "Surveillance", PlayerInfo[extraid][pSurveillance]);
 					cache_get_value_name_int(row,  "Tire", PlayerInfo[extraid][pTire]);
 					cache_get_value_name_int(row,  "Firstaid", PlayerInfo[extraid][pFirstaid]);
@@ -2330,6 +2329,7 @@ stock g_mysql_SaveAccount(playerid, string[] = "")
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Speedo", PlayerInfo[playerid][pSpeedo]);
 
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Wristwatch", PlayerInfo[playerid][pWristwatch]);
+    SavePlayerInteger(query, GetPlayerSQLId(playerid), "Wristwatch-State", PlayerInfo[playerid][pWristwatchState]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Surveillance", PlayerInfo[playerid][pSurveillance]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Tire", PlayerInfo[playerid][pTire]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Firstaid", PlayerInfo[playerid][pFirstaid]);

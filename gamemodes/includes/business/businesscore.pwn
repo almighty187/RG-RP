@@ -283,7 +283,7 @@ stock DisplayItemPricesDialog(businessid, playerid)
 	}
 
    	if(strlen(szDialog) == 0) {
-        SendClientMessageEx(playerid, COLOR_GRAD2, "   Store is not selling any items!");
+        SendErrorMessage(playerid, "Store is not selling any items!");
     }
     else {
         if (Businesses[businessid][bType] == BUSINESS_TYPE_SEXSHOP)
@@ -450,12 +450,12 @@ stock CreateDynamicGasPump(iPlayerID = INVALID_PLAYER_ID, iBusiness, iPump)
 
 stock RefreshBusinessPickup(i)
 {
-	//DestroyDynamic3DTextLabel(Businesses[i][bDoorText]);
+	DestroyDynamic3DTextLabel(Businesses[i][bDoorText]);
   	//DestroyDynamic3DTextLabel(Businesses[i][bStateText]);
   	DestroyDynamic3DTextLabel(Businesses[i][bSupplyText]);
 
   	#if defined TEXTLABEL_DEBUG
-	//Streamer_SetIntData(STREAMER_TYPE_3D_TEXT_LABEL, Businesses[i][bDoorText], E_STREAMER_EXTRA_ID, 2);
+	Streamer_SetIntData(STREAMER_TYPE_3D_TEXT_LABEL, Businesses[i][bDoorText], E_STREAMER_EXTRA_ID, 2);
 	//Streamer_SetIntData(STREAMER_TYPE_3D_TEXT_LABEL, Businesses[i][bStateText], E_STREAMER_EXTRA_ID, 3);
 	Streamer_SetIntData(STREAMER_TYPE_3D_TEXT_LABEL, Businesses[i][bSupplyText], E_STREAMER_EXTRA_ID, 4);
 	#endif

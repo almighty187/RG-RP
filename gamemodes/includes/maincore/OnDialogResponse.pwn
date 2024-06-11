@@ -4068,6 +4068,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			Businesses[biz][bTotalSales]++;
 			Businesses[biz][bSafeBalance] += TaxSale(Businesses[biz][bItemPrices][listitem]);
 			GivePlayerCash(playerid, -Businesses[biz][bItemPrices][listitem]);
+			SetPVarInt(playerid, "OCC", 0);
 
 			switch (listitem)
 			{

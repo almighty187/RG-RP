@@ -1053,6 +1053,8 @@ CMD:savechars(playerid, params[])
         SendClientMessageEx(playerid, COLOR_YELLOW, "House saving process started.");
         SaveBusinesses();
         SendClientMessageEx(playerid, COLOR_YELLOW, "Business saving process started.");
+        SaveGarages();
+        SendClientMessageEx(playerid, COLOR_YELLOW, "Garages saving process started.");
     }
     else {
         SendErrorMessage(playerid, "You are not authorized to use that CMD");
@@ -1122,7 +1124,7 @@ CMD:goto(playerid, params[])
 		if (sscanf(params, "u", id))
 	 	{
 		 	SendSyntaxMessage(playerid, "/goto [place]");
-			SendClientMessage(playerid, COLOR_YELLOW, "[PLACE]:{FFFFFF} house, bizz, door, loc, pos, interior, mark, id(playerid)");
+			SendClientMessage(playerid, COLOR_YELLOW, "[PLACE]:{FFFFFF} house, bizz, door, garage, loc, pos, interior, mark, id(playerid)");
 			return 1;
 		}
 	    else if (id == INVALID_PLAYER_ID)
@@ -1172,6 +1174,24 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid,DDoorsInfo[id][ddExteriorX],DDoorsInfo[id][ddExteriorY],DDoorsInfo[id][ddExteriorZ]);
 	    		format(string, sizeof(string), "You have teleported to bizz ID: %d.", id);
 				SendClientMessage(playerid, COLOR_WHITE, string);
+			    return 1;
+			}
+			else if (!strcmp(type, "garage", true))
+			{
+			    if (sscanf(string, "d", id)) return SendSyntaxMessage(playerid, "/goto [garage] [garage ID]");
+			    if(GarageInfo[id][gar_ExteriorX],GarageInfo[id][gar_ExteriorY],GarageInfo[id][gar_ExteriorZ] == 0.0) return SendClientMessage(playerid, COLOR_LIGHTRED, "No exterior set for this garage.");
+				if(id < 0 || id >= MAX_GARAGES)
+				{
+					format(string, sizeof(string), "GarageID must be between 0 and %d.", MAX_GARAGES - 1);
+					return SendClientMessageEx(playerid, COLOR_GREY, string);
+				}
+				SetPlayerInterior(playerid,GarageInfo[id][gar_ExteriorInt]);
+				SetPlayerPos(playerid,GarageInfo[id][gar_ExteriorX],GarageInfo[id][gar_ExteriorY],GarageInfo[id][gar_ExteriorZ]);
+				SetPlayerFacingAngle(playerid, GarageInfo[id][gar_ExteriorA]);
+				PlayerInfo[playerid][pInt] = GarageInfo[id][gar_ExteriorInt];
+				SetPlayerVirtualWorld(playerid, GarageInfo[id][gar_ExteriorVW]);
+				PlayerInfo[playerid][pVW] = GarageInfo[id][gar_ExteriorVW];
+				if(GarageInfo[id][gar_CustomExterior]) Player_StreamPrep(playerid, GarageInfo[id][gar_ExteriorX], GarageInfo[id][gar_ExteriorY], GarageInfo[id][gar_ExteriorZ], FREEZE_TIME);
 			    return 1;
 			}
 			else if (!strcmp(type, "pos", true))

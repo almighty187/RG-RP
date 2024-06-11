@@ -1164,6 +1164,7 @@ enum pInfo
 	pTicketTime,
 	pScrewdriver,
 	pWristwatch,
+	pWristwatchState,
 	pSurveillance,
 	pSmslog,
 	pTire,
@@ -2221,19 +2222,32 @@ enum e_LocationData
 
 new const g_arrLocationData[][e_LocationData] = {
 
-	{"Los Santos", 1529.8101,-1678.0442,13.3828},
-    {"San Fierro", -2014.9294,158.6378,27.6875},
-    {"Las Venturas", 2034.3625,1007.9491,10.8203},
-    {"Red County, Dillimore", 648.6864,-573.1471,16.2432},
-    {"Los Santos Modshop", 1040.0186,-1032.6984,31.9714},
-    {"San Fierro Modshop", -2709.8462,218.4532,4.1797},
-    {"Los Santos Bank", 1448.1796,-1010.7741,26.8438},
-    {"Los Santos VIP", 1810.39,-1601.15,13.54},
-    {"Los Santos Gym", 2227.60,-1674.89,14.62},
-    {"RG-Shop", 2930.920410, -1429.603637, 10.675988},
-    {"San Fierro Docks", -1576.40, 79.49, 3.95},
-    {"Los Santos Bank", 1448.1796,-1010.7741,26.8438},
-    {"Los Santos Bank", 1448.1796,-1010.7741,26.8438}
+	{"Los Santos", 1529.6, -1691.2, 13.3},
+    {"San Fierro", -1605.0, 720.0, 12.0},
+	{"Las Venturas", 1699.2, 1435.1, 10.7},
+	{"Los Santos VIP Lounge", 1810.39, -1601.15, 13.54},
+	{"All Saints General Hospital", 1192.78, -1292.68, 13.38},
+	{"County General Hospital", 2000.05, -1409.36, 16.99},
+	{"Ganton GYM", 2227.60, -1674.89, 14.62},
+	{"Mulholland Bank", 1487.91, -1030.60, 23.66},
+	{"Glen Park", 1986.69, -1300.49, 25.03},
+	{"Las Colinas", 2155.5400, -1011.4443, 62.9631},
+	{"Department of Corrections", 1435.95, -2695.33, 13.59},
+	{"IC Prison", 558.1121, 1458.6663, 6000.4712},
+	{"Demorgan", 112.67, 1917.55, 18.72},
+	{"FBI Headquarters", 1076.1061, -1702.9403, 13.5469},
+	{"OOC Prison", -1158.285644, 2894.152343, 9993.131835},
+	/*{"Stadium1", -1424.93, -664.59, 1059.86, 4},
+	{"Stadium2", -1395.96, -208.20, 1051.28, 7},
+	{"Stadium3", -1410.72, 1591.16, 1052.53, 14},
+	{"Stadium4", -1394.20, 987.62, 1023.96, 15},
+	{"Int1", 1416.107000, 0.268620, 1000.926000},*/
+    {"Dillimore", 648.6864, -573.1471, 16.2432},
+	{"Palomino", 2231.578613, -48.729660, 26.484375},
+	{"Montgomery", 1253.70, 343.73, 19.41},
+    {"Los Santos Modshop", 1040.0186, -1032.6984, 31.9714},
+    {"San Fierro Modshop", -2709.8462, 218.4532, 4.1797},
+    {"San Fierro Airport", -1412.5375, -301.8998, 14.1411}
 };
 
 enum e_InteriorData

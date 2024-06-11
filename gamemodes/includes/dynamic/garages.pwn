@@ -356,7 +356,7 @@ CMD:goingarage(playerid, params[])
 	return 1;
 }
 
-CMD:gotogarage(playerid, params[])
+/*CMD:gotogarage(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pShopTech] >= 1)
 	{
@@ -377,7 +377,7 @@ CMD:gotogarage(playerid, params[])
 		if(GarageInfo[garage][gar_CustomExterior]) Player_StreamPrep(playerid, GarageInfo[garage][gar_ExteriorX], GarageInfo[garage][gar_ExteriorY], GarageInfo[garage][gar_ExteriorZ], FREEZE_TIME);
 	}
 	return 1;
-}
+}*/
 
 CMD:garagestatus(playerid, params[])
 {
