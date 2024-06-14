@@ -17,6 +17,7 @@
 //#define _LINUX
 /*  ---------------- DISABLE NPCs ----------------- */
 #define	FOREACH_NO_BOTS
+#define VEHICLERESPAWNTIME 900
 /*  ---------------- PRAGMAS ----------------- */
 #pragma dynamic 4500000
 /*  ---------------- NATIVES ----------------- */

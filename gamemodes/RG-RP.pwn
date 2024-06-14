@@ -18,8 +18,7 @@
 
 #include <a_samp>
 #pragma disablerecursion
-#pragma warning disable 206
-#pragma warning disable 213
+
 #define SERVER_GM_TEXT "RG:RP v1.0.0"
 
 #undef  MAX_PLAYERS
@@ -103,6 +102,7 @@
 #include "./includes/n0fear/dropdrug.pwn"
 #include "./includes/n0fear/anticbug.pwn"
 #include "./includes/n0fear/checkpointstore.pwn"
+#include "./includes/n0fear/bot.pwn"
 
 // 187
 #include "./includes/187/mydrugs.pwn"

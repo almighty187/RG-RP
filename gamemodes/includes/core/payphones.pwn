@@ -398,10 +398,10 @@ CMD:editphone(playerid, params[])
 	  
 	new Float:fPos[4];
 	    
-	/*GetDynamicObjectPos(arrPayPhoneData[i][pp_iObjectID], fPos[0], fPos[1], fPos[2]);
+	GetDynamicObjectPos(arrPayPhoneData[i][pp_iObjectID], fPos[0], fPos[1], fPos[2]);
 
     if(!IsPlayerInRangeOfPoint(playerid, 50.0, fPos[0], fPos[1], fPos[2]))
-        return SendClientMessageEx(playerid, COLOR_GRAD1, "You need to be near the specified pay phone to edit the position.");*/
+        return SendClientMessageEx(playerid, COLOR_GRAD1, "You need to be near the specified pay phone to edit the position.");
 	    
     GetPlayerPos(playerid, fPos[0], fPos[1], fPos[2]);
     GetPlayerFacingAngle(playerid, fPos[3]);
