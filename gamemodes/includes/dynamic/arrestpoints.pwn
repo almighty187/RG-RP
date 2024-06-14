@@ -1,3 +1,4 @@
+#define MAX_ARREST_POINTS 50
 stock LoadArrestPoint(id)
 {
 	new string[128];
@@ -10,8 +11,68 @@ stock LoadArrestPoints()
 	printf("[LoadArrestPoints] Loading data from database...");
 	mysql_tquery(MainPipeline, "SELECT * FROM `arrestpoints`", "OnLoadArrestPoints", "");
 }
-
 forward OnLoadArrestPoint(index);
+public OnLoadArrestPoint(index)
+{
+    // Ensure the index is within the valid range
+    if (index < 0 || index >= MAX_ARREST_POINTS)
+    {
+        printf("Error: Index out of bounds. Index: %d, Maximum allowed: %d", index, MAX_ARREST_POINTS - 1);
+        return 0;
+    }
+
+    new rows;
+    szMiscArray[0] = 0;
+    cache_get_row_count(rows);
+
+    for (new row; row < rows; row++)
+    {
+        cache_get_value_name_int(row, "id", ArrestPoints[index][arrestSQLId]);
+        cache_get_value_name_float(row, "PosX", ArrestPoints[index][arrestPosX]);
+        cache_get_value_name_float(row, "PosY", ArrestPoints[index][arrestPosY]);
+        cache_get_value_name_float(row, "PosZ", ArrestPoints[index][arrestPosZ]);
+        cache_get_value_name_int(row, "VW", ArrestPoints[index][arrestVW]);
+        cache_get_value_name_int(row, "Int", ArrestPoints[index][arrestInt]);
+        cache_get_value_name_int(row, "Type", ArrestPoints[index][arrestType]);
+
+        if (ArrestPoints[index][arrestPosX] != 0)
+        {
+            switch (ArrestPoints[index][arrestType])
+            {
+                case 0:
+                {
+                    format(szMiscArray, sizeof(szMiscArray), "/arrest\nArrest Point #%d", index);
+                    ArrestPoints[index][arrestTextID] = CreateDynamic3DTextLabel(szMiscArray, COLOR_DBLUE, ArrestPoints[index][arrestPosX], ArrestPoints[index][arrestPosY], ArrestPoints[index][arrestPosZ] + 0.6, 4.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, ArrestPoints[index][arrestVW], ArrestPoints[index][arrestInt], -1);
+                    ArrestPoints[index][arrestPickupID] = CreateDynamicPickup(1247, 23, ArrestPoints[index][arrestPosX], ArrestPoints[index][arrestPosY], ArrestPoints[index][arrestPosZ], ArrestPoints[index][arrestVW]);
+                    break;
+                }
+                case 2:
+                {
+                    format(szMiscArray, sizeof(szMiscArray), "/docarrest\nArrest Point #%d", index);
+                    ArrestPoints[index][arrestTextID] = CreateDynamic3DTextLabel(szMiscArray, COLOR_DBLUE, ArrestPoints[index][arrestPosX], ArrestPoints[index][arrestPosY], ArrestPoints[index][arrestPosZ] + 0.6, 4.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, ArrestPoints[index][arrestVW], ArrestPoints[index][arrestInt], -1);
+                    ArrestPoints[index][arrestPickupID] = CreateDynamicPickup(1247, 23, ArrestPoints[index][arrestPosX], ArrestPoints[index][arrestPosY], ArrestPoints[index][arrestPosZ], ArrestPoints[index][arrestVW]);
+                    break;
+                }
+                case 3:
+                {
+                    format(szMiscArray, sizeof(szMiscArray), "/warrantarrest\nArrest Point #%d", index);
+                    ArrestPoints[index][arrestTextID] = CreateDynamic3DTextLabel(szMiscArray, COLOR_DBLUE, ArrestPoints[index][arrestPosX], ArrestPoints[index][arrestPosY], ArrestPoints[index][arrestPosZ] + 0.6, 4.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, ArrestPoints[index][arrestVW], ArrestPoints[index][arrestInt], -1);
+                    ArrestPoints[index][arrestPickupID] = CreateDynamicPickup(1247, 23, ArrestPoints[index][arrestPosX], ArrestPoints[index][arrestPosY], ArrestPoints[index][arrestPosZ], ArrestPoints[index][arrestVW]);
+                    break;
+                }
+                case 4:
+                {
+                    format(szMiscArray, sizeof(szMiscArray), "/jarrest\nArrest Point #%d", index);
+                    ArrestPoints[index][arrestTextID] = CreateDynamic3DTextLabel(szMiscArray, COLOR_DBLUE, ArrestPoints[index][arrestPosX], ArrestPoints[index][arrestPosY], ArrestPoints[index][arrestPosZ] + 0.6, 4.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, ArrestPoints[index][arrestVW], ArrestPoints[index][arrestInt], -1);
+                    ArrestPoints[index][arrestPickupID] = CreateDynamicPickup(1247, 23, ArrestPoints[index][arrestPosX], ArrestPoints[index][arrestPosY], ArrestPoints[index][arrestPosZ], ArrestPoints[index][arrestVW]);
+                    break;
+                }
+            }
+        }
+    }
+    return 1;
+}
+/*forward OnLoadArrestPoint(index);
 public OnLoadArrestPoint(index)
 {
 	new rows;
@@ -59,7 +120,7 @@ public OnLoadArrestPoint(index)
 		}
 	}
 	return 1;
-}
+}*/
 
 forward OnLoadArrestPoints();
 public OnLoadArrestPoints()
