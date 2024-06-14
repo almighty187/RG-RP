@@ -425,7 +425,7 @@ stock InitPaintballArenas()
   		PaintBallArena[i][pbFlagNoWeapons] = 0;
   		PaintBallArena[i][pbTimeLeft] = 900;
   		PaintBallArena[i][pbHealth] = 100;
-   		PaintBallArena[i][pbArmor] = 99;
+   		PaintBallArena[i][pbArmor] = 100;
    		PaintBallArena[i][pbLocked] = 0;
 		PaintBallArena[i][pbLimit] = 16;
 		PaintBallArena[i][pbPlayers] = 0;

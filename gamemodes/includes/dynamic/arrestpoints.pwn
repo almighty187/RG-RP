@@ -1,4 +1,4 @@
-#define MAX_ARREST_POINTS 50
+
 stock LoadArrestPoint(id)
 {
 	new string[128];
@@ -15,9 +15,9 @@ forward OnLoadArrestPoint(index);
 public OnLoadArrestPoint(index)
 {
     // Ensure the index is within the valid range
-    if (index < 0 || index >= MAX_ARREST_POINTS)
+    if (index < 0 || index >= MAX_ARRESTPOINTS)
     {
-        printf("Error: Index out of bounds. Index: %d, Maximum allowed: %d", index, MAX_ARREST_POINTS - 1);
+        printf("Error: Index out of bounds. Index: %d, Maximum allowed: %d", index, MAX_ARRESTPOINTS - 1);
         return 0;
     }
 
