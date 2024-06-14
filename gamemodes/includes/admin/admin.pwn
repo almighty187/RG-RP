@@ -385,7 +385,7 @@ CMD:setarmor(playerid, params[])
         SendSyntaxMessage(playerid, "/setarmor [playerid/PartOfName] [armor]");
         return 1;
     }
-    if (IsPlayerNPC(targetid)) return SendErrorMessage(playerid, "Can't do this to a NPC.");
+    if (IsPlayerNPC(playa)) return SendErrorMessage(playerid, "Can't do this to a NPC.");
     if (PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1)
 	{
         if(IsPlayerConnected(playa))
@@ -6201,11 +6201,10 @@ CMD:mute(playerid, params[])
 CMD:kick(playerid, params[])
 {
 	if (PlayerInfo[playerid][pAdmin] >= 1 || PlayerInfo[playerid][pHelper] >= 2 || PlayerInfo[playerid][pWatchdog] >= 2)
-	if (IsPlayerNPC(targetid)) return SendErrorMessage(playerid, "Can't do this to a NPC.");
 	{
 		new string[128], TargetID, reason[64];
 		if(sscanf(params, "us[64]", TargetID, reason)) return SendSyntaxMessage(playerid, "/kick [playerid/PartOfName] [reason]");
-
+        if (IsPlayerNPC(TargetID)) return SendErrorMessage(playerid, "Can't do this to a NPC.");
 		if(TargetID != INVALID_PLAYER_ID)
 		{
 			if(playerid == TargetID) return SendClientMessageEx(playerid, COLOR_WHITE, "You can't kick yourself from the server, use /q instead!");
