@@ -138,7 +138,7 @@ CMD:div(playerid, params[])
 	{
 	    if(PlayerInfo[i][pMember] == iGroupID && PlayerInfo[i][pDivision] == iDiv)
 	    {
-            SendClientMessageEx(i, COLOR_LIGHTBLUE, string);
+            SendClientMessageEx(i, COLOR_ORANGE, string);
 		}
 	}
 
@@ -793,7 +793,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				    new diagTitle[64 + MAX_PLAYER_NAME];
 					SetPVarInt(playerid, "MakingAdmin", id);
 					format(diagTitle, sizeof(diagTitle), "{FF0606}Administration {FFFFFF}- Adjust Admin Level for %s", GetPlayerNameEx(id));
-					ShowPlayerDialogEx(playerid, DIALOG_MAKEADMIN, DIALOG_STYLE_LIST, diagTitle, "{FFFFFF}Remove Admin Level\n{FFFF00}Moderator\n{87CEEB}Trial Administrator\n{00FF00}General Administrator\n{FFA500}Senior Administrator\n{e80c0c}Lead Administrator\n{e80c0c}Executive Director", "Select", "Cancel");
+					ShowPlayerDialogEx(playerid, DIALOG_MAKEADMIN, DIALOG_STYLE_LIST, diagTitle, "{FFFFFF}Remove Admin Level\n{FFFF00}Moderator\n{87CEEB}Trial Administrator\n{00FF00}General Administrator\n{FFA500}Senior Administrator\n{e80c0c}Lead Administrator\n{298EFF}Executive Director", "Select", "Cancel");
 				}
 				else
 			    {
