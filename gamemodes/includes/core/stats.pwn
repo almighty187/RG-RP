@@ -1,3 +1,7 @@
+CMD:stats(playerid, params[]) {
+	if(gPlayerLogged{playerid} != 0) ShowStats(playerid, playerid);
+	return 1;
+}
 stock ShowStats(playerid,targetid)
 {
 	if(IsPlayerConnected(targetid))

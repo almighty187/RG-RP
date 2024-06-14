@@ -4338,7 +4338,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 {
     if(newstate == PLAYER_STATE_DRIVER || newstate == PLAYER_STATE_PASSENGER)
 	{
- 		if(!IsPlayerEntering{playerid} && PlayerInfo[playerid][pAdmin] < 2)
+ 		if (!IsPlayerNPC(playerid) && (!IsPlayerEntering{playerid} && PlayerInfo[playerid][pAdmin] < 2)
 		{
 			if(GetPVarInt(playerid, "TeleportWarnings") == 3) {
 				new string[128];

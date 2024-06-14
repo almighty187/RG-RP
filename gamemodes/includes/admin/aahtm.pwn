@@ -922,8 +922,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		{
 			if (PlayerInfo[playerid][pAdminLevel] >= 1337 || PlayerInfo[playerid][pHR] >= 2)
 			{
-			    new
-						iTargetID = GetPVarInt(playerid, "MakingAdmin"), string[128];
+			    new iTargetID = GetPVarInt(playerid, "MakingAdmin"), string[128];
 
 				if(response) switch(listitem)
 				{
@@ -1062,527 +1061,527 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		{
 			if(response) 
 			{
-				new giveplayerid = GetPVarInt(playerid, "SettingSec"), string[128];		
+				new TargetID = GetPVarInt(playerid, "SettingSec"), string[128];
 	
 				switch(listitem)
 				{
 					case 0:
 					{
-							PlayerInfo[giveplayerid][pAP] = 0;
-							PlayerInfo[giveplayerid][pFactionModerator] = 0;
-							PlayerInfo[giveplayerid][pGangModerator] = 0;
-							PlayerInfo[giveplayerid][pBM] = 0;
-							PlayerInfo[giveplayerid][pShopTech] = 0;
-							PlayerInfo[giveplayerid][pBanAppealer] = 0;
-							PlayerInfo[giveplayerid][pUndercover] = 0;
-							PlayerInfo[giveplayerid][pPR] = 0;
-							PlayerInfo[giveplayerid][pHR] = 0;
-							PlayerInfo[giveplayerid][pSecurity] = 0;
-							PlayerInfo[giveplayerid][pASM] = 0;
+							PlayerInfo[TargetID][pAP] = 0;
+							PlayerInfo[TargetID][pFactionModerator] = 0;
+							PlayerInfo[TargetID][pGangModerator] = 0;
+							PlayerInfo[TargetID][pBM] = 0;
+							PlayerInfo[TargetID][pShopTech] = 0;
+							PlayerInfo[TargetID][pBanAppealer] = 0;
+							PlayerInfo[TargetID][pUndercover] = 0;
+							PlayerInfo[TargetID][pPR] = 0;
+							PlayerInfo[TargetID][pHR] = 0;
+							PlayerInfo[TargetID][pSecurity] = 0;
+							PlayerInfo[TargetID][pASM] = 0;
 							SendServerMessage(playerid, "You have taken their Secondary Task");
-							SendServerMessage(giveplayerid, "You have had your Secondary Task tasken");
-							format(string, sizeof(string), "%s has taken Secondary Task from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have had your Secondary Task tasken");
+							format(string, sizeof(string), "%s has taken Secondary Task from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "removed his Secondary Task");
-							ShowSetSec(playerid, giveplayerid);
+							DBLog(playerid, TargetID, "Admin", "removed his Secondary Task");
+							ShowSetSec(playerid, TargetID);
 					}
 					case 1:
 					{
-						if(PlayerInfo[giveplayerid][pAP] == 0)
+						if(PlayerInfo[TargetID][pAP] == 0)
 						{
-							PlayerInfo[giveplayerid][pAP] = 1;
+							PlayerInfo[TargetID][pAP] = 1;
 							SendServerMessage(playerid, "You have made them an Admin Personel");
-							SendServerMessage(giveplayerid, "You have been made an Admin Personel");
-							format(string, sizeof(string), "%s has given Admin Personel to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have been made an Admin Personel");
+							format(string, sizeof(string), "%s has given Admin Personel to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "issued Admin Personel");
+							DBLog(playerid, TargetID, "Admin", "issued Admin Personel");
 						}
 						else
 						{
-							PlayerInfo[giveplayerid][pAP] = 0;
+							PlayerInfo[TargetID][pAP] = 0;
 							SendServerMessage(playerid, "You have taken their Admin Personel");
-							SendServerMessage(giveplayerid, "You have had your Admin Personel taken");
-							format(string, sizeof(string), "%s has taken Admin Personel from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have had your Admin Personel taken");
+							format(string, sizeof(string), "%s has taken Admin Personel from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "removed from Admin Personel");
+							DBLog(playerid, TargetID, "Admin", "removed from Admin Personel");
 						}
-						ShowSetSec(playerid, giveplayerid);
+						ShowSetSec(playerid, TargetID);
 					}
 					case 2:
 					{
-						if(PlayerInfo[giveplayerid][pAP] == 0)
+						if(PlayerInfo[TargetID][pAP] == 0)
 						{
-							PlayerInfo[giveplayerid][pAP] = 2;
+							PlayerInfo[TargetID][pAP] = 2;
 							SendServerMessage(playerid, "You have made them a DoAP");
-							SendServerMessage(giveplayerid, "You have been made a DoAP");
-							format(string, sizeof(string), "%s has given DoAP to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have been made a DoAP");
+							format(string, sizeof(string), "%s has given DoAP to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "issued DoAP");
+							DBLog(playerid, TargetID, "Admin", "issued DoAP");
 						}
 						else
 						{
-							PlayerInfo[giveplayerid][pAP] = 0;
+							PlayerInfo[TargetID][pAP] = 0;
 							SendServerMessage(playerid, "You have taken their DoAP");
-							SendServerMessage(giveplayerid, "You have had your DoAP taken");
-							format(string, sizeof(string), "%s has taken DoAP from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have had your DoAP taken");
+							format(string, sizeof(string), "%s has taken DoAP from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "removed from DoAP");
+							DBLog(playerid, TargetID, "Admin", "removed from DoAP");
 						}
-						ShowSetSec(playerid, giveplayerid);
+						ShowSetSec(playerid, TargetID);
 					}
 					case 3:
 					{
-						if(PlayerInfo[giveplayerid][pFactionModerator] == 0)
+						if(PlayerInfo[TargetID][pFactionModerator] == 0)
 						{
-							PlayerInfo[giveplayerid][pFactionModerator] = 1;
+							PlayerInfo[TargetID][pFactionModerator] = 1;
 							SendServerMessage(playerid, "You have made them a Faction Moderator");
-							SendServerMessage(giveplayerid, "You have been made a Faction Moderator");
-							format(string, sizeof(string), "%s has given Faction Moderator to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have been made a Faction Moderator");
+							format(string, sizeof(string), "%s has given Faction Moderator to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "issued faction moderator");
+							DBLog(playerid, TargetID, "Admin", "issued faction moderator");
 						}
 						else
 						{
-							PlayerInfo[giveplayerid][pFactionModerator] = 0;
+							PlayerInfo[TargetID][pFactionModerator] = 0;
 							SendServerMessage(playerid, "You have taken their Faction Moderator");
-							SendServerMessage(giveplayerid, "You have had your Faction Moderator taken");
-							format(string, sizeof(string), "%s has taken Faction Moderator from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have had your Faction Moderator taken");
+							format(string, sizeof(string), "%s has taken Faction Moderator from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "removed from faction moderator");
+							DBLog(playerid, TargetID, "Admin", "removed from faction moderator");
 						}
-						ShowSetSec(playerid, giveplayerid);
+						ShowSetSec(playerid, TargetID);
 					}
 					case 4:
 					{
-						if(PlayerInfo[giveplayerid][pFactionModerator] == 0)
+						if(PlayerInfo[TargetID][pFactionModerator] == 0)
 						{
-							PlayerInfo[giveplayerid][pFactionModerator] = 2;
+							PlayerInfo[TargetID][pFactionModerator] = 2;
 							SendServerMessage(playerid, "You have made them a Director of Faction Executive Director");
-							SendServerMessage(giveplayerid, "You have been made a Director of Faction Executive Director");
-							format(string, sizeof(string), "%s has given Director of Faction Executive Director to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have been made a Director of Faction Executive Director");
+							format(string, sizeof(string), "%s has given Director of Faction Executive Director to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "issued Director of Faction Executive Director");
+							DBLog(playerid, TargetID, "Admin", "issued Director of Faction Executive Director");
 						}
 						else
 						{
-							PlayerInfo[giveplayerid][pFactionModerator] = 0;
+							PlayerInfo[TargetID][pFactionModerator] = 0;
 							SendServerMessage(playerid, "You have taken their Director of Faction Executive Director");
-							SendServerMessage(giveplayerid, "You have had your Director of Faction Executive Director taken");
-							format(string, sizeof(string), "%s has taken Director of Faction Executive Director from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have had your Director of Faction Executive Director taken");
+							format(string, sizeof(string), "%s has taken Director of Faction Executive Director from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "removed from Director of Faction Executive Director");
+							DBLog(playerid, TargetID, "Admin", "removed from Director of Faction Executive Director");
 						}
-						ShowSetSec(playerid, giveplayerid);
+						ShowSetSec(playerid, TargetID);
 					}
 					case 5:
 					{
-						if(PlayerInfo[giveplayerid][pGangModerator] == 0)
+						if(PlayerInfo[TargetID][pGangModerator] == 0)
 						{
-							PlayerInfo[giveplayerid][pGangModerator] = 1;
+							PlayerInfo[TargetID][pGangModerator] = 1;
 							SendServerMessage(playerid, "You have made them a Gang Moderator");
-							SendServerMessage(giveplayerid, "You have been made a Gang Moderator");
-							format(string, sizeof(string), "%s has given Gang Moderator to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have been made a Gang Moderator");
+							format(string, sizeof(string), "%s has given Gang Moderator to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "issued gang moderator");
+							DBLog(playerid, TargetID, "Admin", "issued gang moderator");
 						}
 						else
 						{
-							PlayerInfo[giveplayerid][pGangModerator] = 0;
+							PlayerInfo[TargetID][pGangModerator] = 0;
 							SendServerMessage(playerid, "You have taken their Gang Moderator");
-							SendServerMessage(giveplayerid, "You have had your Gang Moderator taken");
-							format(string, sizeof(string), "%s has taken Gang Moderator from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have had your Gang Moderator taken");
+							format(string, sizeof(string), "%s has taken Gang Moderator from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "removed from gang moderator");
+							DBLog(playerid, TargetID, "Admin", "removed from gang moderator");
 						}
-						ShowSetSec(playerid, giveplayerid);			
+						ShowSetSec(playerid, TargetID);
 					}
 					case 6:
 					{
-						if(PlayerInfo[giveplayerid][pGangModerator] == 0)
+						if(PlayerInfo[TargetID][pGangModerator] == 0)
 						{
-							PlayerInfo[giveplayerid][pGangModerator] = 2;
+							PlayerInfo[TargetID][pGangModerator] = 2;
 							SendServerMessage(playerid, "You have made them a Director of Gang Executive Director");
-							SendServerMessage(giveplayerid, "You have been made a Director of Gang Executive Director");
-							format(string, sizeof(string), "%s has given Director of Gang Executive Director to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have been made a Director of Gang Executive Director");
+							format(string, sizeof(string), "%s has given Director of Gang Executive Director to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "issued Director of Gang Executive Director");
+							DBLog(playerid, TargetID, "Admin", "issued Director of Gang Executive Director");
 						}
 						else
 						{
-							PlayerInfo[giveplayerid][pGangModerator] = 0;
+							PlayerInfo[TargetID][pGangModerator] = 0;
 							SendServerMessage(playerid, "You have taken their Director of Gang Executive Director");
-							SendServerMessage(giveplayerid, "You have had your Director of Gang Executive Director taken");
-							format(string, sizeof(string), "%s has taken Director of Gang Executive Director from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have had your Director of Gang Executive Director taken");
+							format(string, sizeof(string), "%s has taken Director of Gang Executive Director from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "removed from Director of Gang Executive Director");
+							DBLog(playerid, TargetID, "Admin", "removed from Director of Gang Executive Director");
 						}
-						ShowSetSec(playerid, giveplayerid);
+						ShowSetSec(playerid, TargetID);
 					}
 					case 7:
 					{
-							if(PlayerInfo[giveplayerid][pBM] == 0  || PlayerInfo[giveplayerid][pBM] == 2)
+							if(PlayerInfo[TargetID][pBM] == 0  || PlayerInfo[TargetID][pBM] == 2)
 							{
-								PlayerInfo[giveplayerid][pBM] = 1;
+								PlayerInfo[TargetID][pBM] = 1;
 								SendServerMessage(playerid, "You have made them a Business Moderator");
-								SendServerMessage(giveplayerid, "You have been made a Business Moderator");
-								format(string, sizeof(string), "%s has given Business Moderator permissions to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+								SendServerMessage(TargetID, "You have been made a Business Moderator");
+								format(string, sizeof(string), "%s has given Business Moderator permissions to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 								Log("logs/admin.log", string);
-								DBLog(playerid, giveplayerid, "Admin", "issued business moderator");
-								ShowSetSec(playerid, giveplayerid);
+								DBLog(playerid, TargetID, "Admin", "issued business moderator");
+								ShowSetSec(playerid, TargetID);
 							}
 							else
 							{
-								PlayerInfo[giveplayerid][pBM] = 0;
+								PlayerInfo[TargetID][pBM] = 0;
 								SendServerMessage(playerid, "You have taken their Business Moderator");
-								SendServerMessage(giveplayerid, "You have had your Business Moderator taken");
-								format(string, sizeof(string), "%s has taken Business Moderator permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+								SendServerMessage(TargetID, "You have had your Business Moderator taken");
+								format(string, sizeof(string), "%s has taken Business Moderator permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 								Log("logs/admin.log", string);
-								DBLog(playerid, giveplayerid, "Admin", "removed from business moderator");
-								ShowSetSec(playerid, giveplayerid);
+								DBLog(playerid, TargetID, "Admin", "removed from business moderator");
+								ShowSetSec(playerid, TargetID);
 							}
 					}
 					case 8:
 					{
-							if(PlayerInfo[giveplayerid][pBM] == 0 || PlayerInfo[giveplayerid][pBM] == 1)
+							if(PlayerInfo[TargetID][pBM] == 0 || PlayerInfo[TargetID][pBM] == 1)
 							{
-								PlayerInfo[giveplayerid][pBM] = 2;
+								PlayerInfo[TargetID][pBM] = 2;
 								SendServerMessage(playerid, "You have made them a Director of Business Executive Director");
-								SendServerMessage(giveplayerid, "You have been made a Director of Business Executive Director");
-								format(string, sizeof(string), "%s has given Director of Business Executive Director permissions to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+								SendServerMessage(TargetID, "You have been made a Director of Business Executive Director");
+								format(string, sizeof(string), "%s has given Director of Business Executive Director permissions to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 								Log("logs/admin.log", string);
-								DBLog(playerid, giveplayerid, "Admin", "issued Director of Business Executive Director");
-								ShowSetSec(playerid, giveplayerid);
+								DBLog(playerid, TargetID, "Admin", "issued Director of Business Executive Director");
+								ShowSetSec(playerid, TargetID);
 							}
 							else
 							{
-								PlayerInfo[giveplayerid][pBM] = 0;
+								PlayerInfo[TargetID][pBM] = 0;
 								SendServerMessage(playerid, "You have taken their Director of Business Executive Director");
-								SendServerMessage(giveplayerid, "You have had your Director of Business Executive Director taken");
-								format(string, sizeof(string), "%s has taken Director of Business Executive Director permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+								SendServerMessage(TargetID, "You have had your Director of Business Executive Director taken");
+								format(string, sizeof(string), "%s has taken Director of Business Executive Director permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 								Log("logs/admin.log", string);
-								DBLog(playerid, giveplayerid, "Admin", "removed from Director of Business Executive Director");
-								ShowSetSec(playerid, giveplayerid);
+								DBLog(playerid, TargetID, "Admin", "removed from Director of Business Executive Director");
+								ShowSetSec(playerid, TargetID);
 							}
 					}
 					case 9:
 					{
 						
-						if(PlayerInfo[giveplayerid][pShopTech] == 0)
+						if(PlayerInfo[TargetID][pShopTech] == 0)
 						{
-							PlayerInfo[giveplayerid][pShopTech] = 1;
+							PlayerInfo[TargetID][pShopTech] = 1;
 							SendServerMessage(playerid, "You have made them a Shop Technician");
-							SendServerMessage(giveplayerid, "You have been made a Shop Technician");
-							format(string, sizeof(string), "%s has given Shop Technician to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have been made a Shop Technician");
+							format(string, sizeof(string), "%s has given Shop Technician to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "issued shop tech");
+							DBLog(playerid, TargetID, "Admin", "issued shop tech");
 						}
 						else
 						{
-							PlayerInfo[giveplayerid][pShopTech] = 0;
+							PlayerInfo[TargetID][pShopTech] = 0;
 							SendServerMessage(playerid, "You have taken their Shop Technician");
-							SendServerMessage(giveplayerid, "You have had your Shop Technician taken");
-							format(string, sizeof(string), "%s has taken Shop Technician from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have had your Shop Technician taken");
+							format(string, sizeof(string), "%s has taken Shop Technician from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "removed from shop tech");
+							DBLog(playerid, TargetID, "Admin", "removed from shop tech");
 						}
-						ShowSetSec(playerid, giveplayerid);
+						ShowSetSec(playerid, TargetID);
 					}
 					case 10:
 					{
-						if(PlayerInfo[giveplayerid][pShopTech] == 0)
+						if(PlayerInfo[TargetID][pShopTech] == 0)
 						{
-							PlayerInfo[giveplayerid][pShopTech] = 2;
+							PlayerInfo[TargetID][pShopTech] = 2;
 							SendServerMessage(playerid, "You have made them a Senior Shop Technician");
-							SendServerMessage(giveplayerid, "You have been made a Senior Shop Technician");
-							format(string, sizeof(string), "%s has given Senior Shop Technician to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have been made a Senior Shop Technician");
+							format(string, sizeof(string), "%s has given Senior Shop Technician to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "issued Senior shop tech");
+							DBLog(playerid, TargetID, "Admin", "issued Senior shop tech");
 						}
 						else
 						{
-							PlayerInfo[giveplayerid][pShopTech] = 0;
+							PlayerInfo[TargetID][pShopTech] = 0;
 							SendServerMessage(playerid, "You have taken their Senior Shop Technician");
-							SendServerMessage(giveplayerid, "You have had your Senior Shop Technician taken");
-							format(string, sizeof(string), "%s has taken Senior Shop Technician from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have had your Senior Shop Technician taken");
+							format(string, sizeof(string), "%s has taken Senior Shop Technician from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "removed from Senior shop tech");
+							DBLog(playerid, TargetID, "Admin", "removed from Senior shop tech");
 						}
-						ShowSetSec(playerid, giveplayerid);
+						ShowSetSec(playerid, TargetID);
 
 					}
 					case 11:
 					{
-						if(PlayerInfo[giveplayerid][pShopTech] == 0 || PlayerInfo[giveplayerid][pShopTech] == 1 || PlayerInfo[giveplayerid][pShopTech] == 2)
+						if(PlayerInfo[TargetID][pShopTech] == 0 || PlayerInfo[TargetID][pShopTech] == 1 || PlayerInfo[TargetID][pShopTech] == 2)
 						{
-							PlayerInfo[giveplayerid][pShopTech] = 3;
+							PlayerInfo[TargetID][pShopTech] = 3;
 							SendServerMessage(playerid, "You have made them a DoCR");
 							SendServerMessage(playerid, "You have been made a DoCR");
-							format(string, sizeof(string), "%s has given DoCR to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							format(string, sizeof(string), "%s has given DoCR to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "issued DoCR");
-							ShowSetSec(playerid, giveplayerid);
+							DBLog(playerid, TargetID, "Admin", "issued DoCR");
+							ShowSetSec(playerid, TargetID);
 						}
 						else
 						{
-							PlayerInfo[giveplayerid][pShopTech] = 0;
+							PlayerInfo[TargetID][pShopTech] = 0;
 							SendServerMessage(playerid, "You have taken their DoCR");
-							SendServerMessage(giveplayerid, "You have had your DoCR taken");
-							format(string, sizeof(string), "%s has taken DoCR from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have had your DoCR taken");
+							format(string, sizeof(string), "%s has taken DoCR from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "removed from DoCR");
-							ShowSetSec(playerid, giveplayerid);
+							DBLog(playerid, TargetID, "Admin", "removed from DoCR");
+							ShowSetSec(playerid, TargetID);
 						}							
 					}
 					case 12:
 					{
-						if(PlayerInfo[giveplayerid][pBanAppealer] == 0)
+						if(PlayerInfo[TargetID][pBanAppealer] == 0)
 						{
-							PlayerInfo[giveplayerid][pBanAppealer] = 1;
+							PlayerInfo[TargetID][pBanAppealer] = 1;
 							SendServerMessage(playerid, "You have made them a Ban Appealer");
-							SendServerMessage(giveplayerid, "You have been made a Ban Appealer");
-							format(string, sizeof(string), "%s has given Ban Appealer to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have been made a Ban Appealer");
+							format(string, sizeof(string), "%s has given Ban Appealer to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "issued ban appealer");
+							DBLog(playerid, TargetID, "Admin", "issued ban appealer");
 						}
 						else
 						{
-							PlayerInfo[giveplayerid][pBanAppealer] = 0;
+							PlayerInfo[TargetID][pBanAppealer] = 0;
 							SendServerMessage(playerid, "You have taken their Ban Appealer");
-							SendServerMessage(giveplayerid, "You have had your Ban Appealer taken");
-							format(string, sizeof(string), "%s has taken Ban Appealer from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have had your Ban Appealer taken");
+							format(string, sizeof(string), "%s has taken Ban Appealer from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "removed from ban appealer");
+							DBLog(playerid, TargetID, "Admin", "removed from ban appealer");
 						}
-						ShowSetSec(playerid, giveplayerid);
+						ShowSetSec(playerid, TargetID);
 					}
 					case 13:
 					{
-						if(PlayerInfo[giveplayerid][pBanAppealer] == 0)
+						if(PlayerInfo[TargetID][pBanAppealer] == 0)
 						{
-							PlayerInfo[giveplayerid][pBanAppealer] = 2;
+							PlayerInfo[TargetID][pBanAppealer] = 2;
 							SendServerMessage(playerid, "You have made them a DoCI");
-							SendServerMessage(giveplayerid, "You have been made a DoCI");
-							format(string, sizeof(string), "%s has given Director of DoCI to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have been made a DoCI");
+							format(string, sizeof(string), "%s has given Director of DoCI to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "issued DoCI");
+							DBLog(playerid, TargetID, "Admin", "issued DoCI");
 						}
 						else
 						{
-							PlayerInfo[giveplayerid][pBanAppealer] = 0;
+							PlayerInfo[TargetID][pBanAppealer] = 0;
 							SendServerMessage(playerid, "You have taken their DoCI");
-							SendServerMessage(giveplayerid, "You have had your DoCI taken");
-							format(string, sizeof(string), "%s has taken DoCI from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have had your DoCI taken");
+							format(string, sizeof(string), "%s has taken DoCI from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "removed from DoCI");
+							DBLog(playerid, TargetID, "Admin", "removed from DoCI");
 						}
-						ShowSetSec(playerid, giveplayerid);
+						ShowSetSec(playerid, TargetID);
 
 					}
 					case 14:
 					{
-						if(PlayerInfo[giveplayerid][pUndercover] == 0)
+						if(PlayerInfo[TargetID][pUndercover] == 0)
 						{
-							PlayerInfo[giveplayerid][pUndercover] = 1;
+							PlayerInfo[TargetID][pUndercover] = 1;
 							SendServerMessage(playerid, "You have made them a Special Operative");
-							SendServerMessage(giveplayerid, "You have been made a Special Operative");
-							format(string, sizeof(string), "%s has given Special Operative to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have been made a Special Operative");
+							format(string, sizeof(string), "%s has given Special Operative to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "issued special ops");
+							DBLog(playerid, TargetID, "Admin", "issued special ops");
 						}
 						else
 						{
-							PlayerInfo[giveplayerid][pUndercover] = 0;
+							PlayerInfo[TargetID][pUndercover] = 0;
 							SendServerMessage(playerid, "You have taken their Special Operative");
-							SendServerMessage(giveplayerid, "You have had your Special Operative permissions taken");
-							format(string, sizeof(string), "%s has taken Special Operative permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have had your Special Operative permissions taken");
+							format(string, sizeof(string), "%s has taken Special Operative permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "removed from special ops");
+							DBLog(playerid, TargetID, "Admin", "removed from special ops");
 						}
-						ShowSetSec(playerid, giveplayerid);
+						ShowSetSec(playerid, TargetID);
 					}
 					case 15:
 					{
-						if(PlayerInfo[giveplayerid][pUndercover] == 0)
+						if(PlayerInfo[TargetID][pUndercover] == 0)
 						{
-							PlayerInfo[giveplayerid][pUndercover] = 2;
+							PlayerInfo[TargetID][pUndercover] = 2;
 							SendServerMessage(playerid, "You have made them a DoSO");
-							SendServerMessage(giveplayerid, "You have been made a DoSO");
-							format(string, sizeof(string), "%s has given DoSO to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have been made a DoSO");
+							format(string, sizeof(string), "%s has given DoSO to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "issued DoSO");
+							DBLog(playerid, TargetID, "Admin", "issued DoSO");
 						}
 						else
 						{
-							PlayerInfo[giveplayerid][pUndercover] = 0;
+							PlayerInfo[TargetID][pUndercover] = 0;
 							SendServerMessage(playerid, "You have taken their DoSO");
-							SendServerMessage(giveplayerid, "You have had your DoSO permissions taken");
-							format(string, sizeof(string), "%s has taken DoSO permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have had your DoSO permissions taken");
+							format(string, sizeof(string), "%s has taken DoSO permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "removed from DoSO");
+							DBLog(playerid, TargetID, "Admin", "removed from DoSO");
 						}
-						ShowSetSec(playerid, giveplayerid);
+						ShowSetSec(playerid, TargetID);
 					}
 					case 16:
 					{
-						if(PlayerInfo[giveplayerid][pPR] == 0 || PlayerInfo[giveplayerid][pPR] == 2)
+						if(PlayerInfo[TargetID][pPR] == 0 || PlayerInfo[TargetID][pPR] == 2)
 						{
-							PlayerInfo[giveplayerid][pPR] = 1;
+							PlayerInfo[TargetID][pPR] = 1;
 							SendServerMessage(playerid, "You have made them a member of Public Relations");
-							SendServerMessage(giveplayerid, "You have been made a member of Public Relations");
-							format(string, sizeof(string), "%s has given Public Relations permissions to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have been made a member of Public Relations");
+							format(string, sizeof(string), "%s has given Public Relations permissions to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "issued public relations");
-							ShowSetSec(playerid, giveplayerid);
+							DBLog(playerid, TargetID, "Admin", "issued public relations");
+							ShowSetSec(playerid, TargetID);
 						}
 						else
 						{
-							PlayerInfo[giveplayerid][pPR] = 0;
+							PlayerInfo[TargetID][pPR] = 0;
 							SendServerMessage(playerid, "You have taken their Public Relations permissions");
-							SendServerMessage(giveplayerid, "You have had your Public Relations permissions taken");
-							format(string, sizeof(string), "%s has taken Public Relations permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have had your Public Relations permissions taken");
+							format(string, sizeof(string), "%s has taken Public Relations permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "removed from public relations");
-							ShowSetSec(playerid, giveplayerid);
+							DBLog(playerid, TargetID, "Admin", "removed from public relations");
+							ShowSetSec(playerid, TargetID);
 						}
 							
 					}
 					case 17:
 					{
-						if(PlayerInfo[giveplayerid][pPR] == 0 || PlayerInfo[giveplayerid][pPR] == 1)
+						if(PlayerInfo[TargetID][pPR] == 0 || PlayerInfo[TargetID][pPR] == 1)
 						{
-							PlayerInfo[giveplayerid][pPR] = 2;
+							PlayerInfo[TargetID][pPR] = 2;
 							SendServerMessage(playerid, "You have made them a Director of Public Relations");
-							SendServerMessage(giveplayerid, "You have been made a Director of Public Relations");
-							format(string, sizeof(string), "%s has given Director of Public Relations permissions to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have been made a Director of Public Relations");
+							format(string, sizeof(string), "%s has given Director of Public Relations permissions to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "issued Director of public relations");
-							ShowSetSec(playerid, giveplayerid);
+							DBLog(playerid, TargetID, "Admin", "issued Director of public relations");
+							ShowSetSec(playerid, TargetID);
 						}
 						else
 						{
-							PlayerInfo[giveplayerid][pPR] = 0;
+							PlayerInfo[TargetID][pPR] = 0;
 							SendServerMessage(playerid, "You have taken their Director of Public Relations permissions");
-							SendServerMessage(giveplayerid, "You have had your Director of Public Relations permissions taken");
-							format(string, sizeof(string), "%s has taken Director of Public Relations permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have had your Director of Public Relations permissions taken");
+							format(string, sizeof(string), "%s has taken Director of Public Relations permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "removed from Director of public relations");
-							ShowSetSec(playerid, giveplayerid);
+							DBLog(playerid, TargetID, "Admin", "removed from Director of public relations");
+							ShowSetSec(playerid, TargetID);
 						}
 							
 					}
 					case 18:
 					{
-							if(PlayerInfo[giveplayerid][pHR] == 0  || PlayerInfo[giveplayerid][pHR] == 2 || PlayerInfo[giveplayerid][pHR] == 3)
+							if(PlayerInfo[TargetID][pHR] == 0  || PlayerInfo[TargetID][pHR] == 2 || PlayerInfo[TargetID][pHR] == 3)
 							{
-								PlayerInfo[giveplayerid][pHR] = 1;
+								PlayerInfo[TargetID][pHR] = 1;
 								SendServerMessage(playerid, "You have made them a member of Human Resources");
-								SendServerMessage(giveplayerid, "You have been made a member of Human Resources");
-								format(string, sizeof(string), "%s has given Human Resources permissions to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+								SendServerMessage(TargetID, "You have been made a member of Human Resources");
+								format(string, sizeof(string), "%s has given Human Resources permissions to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 								Log("logs/admin.log", string);
-								DBLog(playerid, giveplayerid, "Admin", "issued human resources");
-								ShowSetSec(playerid, giveplayerid);
+								DBLog(playerid, TargetID, "Admin", "issued human resources");
+								ShowSetSec(playerid, TargetID);
 							}
 							else
 							{
-								PlayerInfo[giveplayerid][pHR] = 0;
+								PlayerInfo[TargetID][pHR] = 0;
 								SendServerMessage(playerid, "You have taken their Human Resources permissions");
-								SendClientMessage(giveplayerid, COLOR_GREY, "You have had your Human Resources permissions taken");
-								format(string, sizeof(string), "%s has taken Human Resources permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+								SendClientMessage(TargetID, COLOR_GREY, "You have had your Human Resources permissions taken");
+								format(string, sizeof(string), "%s has taken Human Resources permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 								Log("logs/admin.log", string);
-								DBLog(playerid, giveplayerid, "Admin", "removed from human resources");
-								ShowSetSec(playerid, giveplayerid);
+								DBLog(playerid, TargetID, "Admin", "removed from human resources");
+								ShowSetSec(playerid, TargetID);
 							}
 					}
 					case 19:
 					{
-							if(PlayerInfo[giveplayerid][pHR] == 0 || PlayerInfo[giveplayerid][pHR] == 1 || PlayerInfo[giveplayerid][pHR] == 3)
+							if(PlayerInfo[TargetID][pHR] == 0 || PlayerInfo[TargetID][pHR] == 1 || PlayerInfo[TargetID][pHR] == 3)
 							{
-								PlayerInfo[giveplayerid][pHR] = 2;
+								PlayerInfo[TargetID][pHR] = 2;
 								SendServerMessage(playerid, "You have made them a level 2 member of Human Resources");
-								SendServerMessage(giveplayerid, "You have been made a level 2 member of Human Resources");
-								format(string, sizeof(string), "%s has given level 2 Human Resources permissions to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+								SendServerMessage(TargetID, "You have been made a level 2 member of Human Resources");
+								format(string, sizeof(string), "%s has given level 2 Human Resources permissions to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 								Log("logs/admin.log", string);
-								DBLog(playerid, giveplayerid, "Admin", "issued human resources");
-								ShowSetSec(playerid, giveplayerid);
+								DBLog(playerid, TargetID, "Admin", "issued human resources");
+								ShowSetSec(playerid, TargetID);
 							}
 							else
 							{
-								PlayerInfo[giveplayerid][pHR] = 0;
+								PlayerInfo[TargetID][pHR] = 0;
 								SendServerMessage(playerid, "You have taken their Human Resources permissions");
-								SendServerMessage(giveplayerid, "You have had your Human Resources permissions taken");
-								format(string, sizeof(string), "%s has taken Human Resources permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+								SendServerMessage(TargetID, "You have had your Human Resources permissions taken");
+								format(string, sizeof(string), "%s has taken Human Resources permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 								Log("logs/admin.log", string);
-								DBLog(playerid, giveplayerid, "Admin", "removed from human resources");
-								ShowSetSec(playerid, giveplayerid);
+								DBLog(playerid, TargetID, "Admin", "removed from human resources");
+								ShowSetSec(playerid, TargetID);
 							}
 					}
 					case 20:
 					{
-						if(PlayerInfo[giveplayerid][pHR] == 0 || PlayerInfo[giveplayerid][pHR] == 1 || PlayerInfo[giveplayerid][pHR] == 2)
+						if(PlayerInfo[TargetID][pHR] == 0 || PlayerInfo[TargetID][pHR] == 1 || PlayerInfo[TargetID][pHR] == 2)
 						{
-							PlayerInfo[giveplayerid][pHR] = 3;
+							PlayerInfo[TargetID][pHR] = 3;
 							SendServerMessage(playerid, "You have made them a level 3 member of Human Resources");
-							SendServerMessage(giveplayerid, "You have been made a level 3 member of Human Resources");
-							format(string, sizeof(string), "%s has given level 3 Human Resources permissions to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have been made a level 3 member of Human Resources");
+							format(string, sizeof(string), "%s has given level 3 Human Resources permissions to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "issued human resources");
-							ShowSetSec(playerid, giveplayerid);
+							DBLog(playerid, TargetID, "Admin", "issued human resources");
+							ShowSetSec(playerid, TargetID);
 						}
 						else
 						{
-							PlayerInfo[giveplayerid][pHR] = 0;
+							PlayerInfo[TargetID][pHR] = 0;
 							SendServerMessage(playerid, "You have taken their Human Resources permissions");
-							SendServerMessage(giveplayerid, "You have had your Human Resources permissions taken");
-							format(string, sizeof(string), "%s has taken Human Resources permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+							SendServerMessage(TargetID, "You have had your Human Resources permissions taken");
+							format(string, sizeof(string), "%s has taken Human Resources permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, giveplayerid, "Admin", "removed from human resources");
-							ShowSetSec(playerid, giveplayerid);
+							DBLog(playerid, TargetID, "Admin", "removed from human resources");
+							ShowSetSec(playerid, TargetID);
 						}
 					}
 					case 21:
 					{
-							if(PlayerInfo[giveplayerid][pSecurity] == 0)
+							if(PlayerInfo[TargetID][pSecurity] == 0)
 							{
-								PlayerInfo[giveplayerid][pSecurity] = 1;
+								PlayerInfo[TargetID][pSecurity] = 1;
 								SendServerMessage(playerid, "You have made them a member of Security");
-								SendServerMessage(giveplayerid, "You have been made a member of Security");
-								format(string, sizeof(string), "%s has given Security permissions to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+								SendServerMessage(TargetID, "You have been made a member of Security");
+								format(string, sizeof(string), "%s has given Security permissions to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 								Log("logs/admin.log", string);
-								DBLog(playerid, giveplayerid, "Admin", "issued security");
-								ShowSetSec(playerid, giveplayerid);
+								DBLog(playerid, TargetID, "Admin", "issued security");
+								ShowSetSec(playerid, TargetID);
 							}
 							else
 							{
-								PlayerInfo[giveplayerid][pSecurity] = 0;
+								PlayerInfo[TargetID][pSecurity] = 0;
 								SendServerMessage(playerid, "You have taken their Security permissions");
-								SendServerMessage(giveplayerid, "You have had your Security permissions taken");
-								format(string, sizeof(string), "%s has taken Security permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+								SendServerMessage(TargetID, "You have had your Security permissions taken");
+								format(string, sizeof(string), "%s has taken Security permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 								Log("logs/admin.log", string);
-								DBLog(playerid, giveplayerid, "Admin", "removed from security");
-								ShowSetSec(playerid, giveplayerid);
+								DBLog(playerid, TargetID, "Admin", "removed from security");
+								ShowSetSec(playerid, TargetID);
 							}
 					}
 					case 22:
 					{
-							if(PlayerInfo[giveplayerid][pASM] == 0)
+							if(PlayerInfo[TargetID][pASM] == 0)
 							{
-								PlayerInfo[giveplayerid][pASM] = 1;
+								PlayerInfo[TargetID][pASM] = 1;
 								SendServerMessage(playerid, "You have made them an Assistant Shift Manager");
-								SendServerMessage(giveplayerid, "You have been made an Assistant Shift Manager");
-								format(string, sizeof(string), "%s has given Assistant Shift Manager permissions to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+								SendServerMessage(TargetID, "You have been made an Assistant Shift Manager");
+								format(string, sizeof(string), "%s has given Assistant Shift Manager permissions to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 								Log("logs/admin.log", string);
-								DBLog(playerid, giveplayerid, "Admin", "issued Assistant Shift Manager");
-								ShowSetSec(playerid, giveplayerid);
+								DBLog(playerid, TargetID, "Admin", "issued Assistant Shift Manager");
+								ShowSetSec(playerid, TargetID);
 							}
 							else
 							{
-								PlayerInfo[giveplayerid][pASM] = 0;
+								PlayerInfo[TargetID][pASM] = 0;
 								SendServerMessage(playerid, "You have taken their Assistant Shift Manager");
-								SendServerMessage(giveplayerid, "You have had your Assistant Shift Manager taken");
-								format(string, sizeof(string), "%s has taken Assistant Shift Manager permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+								SendServerMessage(TargetID, "You have had your Assistant Shift Manager taken");
+								format(string, sizeof(string), "%s has taken Assistant Shift Manager permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 								Log("logs/admin.log", string);
-								DBLog(playerid, giveplayerid, "Admin", "removed from Assistant Shift Manager");
-								ShowSetSec(playerid, giveplayerid);
+								DBLog(playerid, TargetID, "Admin", "removed from Assistant Shift Manager");
+								ShowSetSec(playerid, TargetID);
 							}
 					}
 				}
@@ -1731,17 +1730,17 @@ CMD:deleteaccount(playerid, params[])
 	new string[128], playername[MAX_PLAYER_NAME];
 	if(sscanf(params, "s[24]", playername)) return SendClientMessageEx(playerid, COLOR_WHITE, "USAGE: /deleteaccount [player name]");
 
-    new giveplayerid = ReturnUser(playername);
-	if(IsPlayerConnected(giveplayerid))
+    new TargetID = ReturnUser(playername);
+	if(IsPlayerConnected(TargetID))
 	{
-		if(PlayerInfo[giveplayerid][pAdmin] > PlayerInfo[playerid][pAdmin])
+		if(PlayerInfo[TargetID][pAdmin] > PlayerInfo[playerid][pAdmin])
 		{
 			format(string, sizeof(string), "AdmCmd: %s has been auto-banned, reason: Trying to /deleteaccount a higher admin.", GetPlayerNameEx(playerid));
 			ABroadCast(COLOR_YELLOW,string,2);
 			PlayerInfo[playerid][pBanned] = 1;
             new ip[32];
-			GetPlayerIp(giveplayerid,ip,sizeof(ip));
-			Kick(giveplayerid);
+			GetPlayerIp(TargetID,ip,sizeof(ip));
+			Kick(TargetID);
 		}
 	}
 	else
@@ -1762,24 +1761,24 @@ CMD:deleteaccount(playerid, params[])
 
 CMD:fws(playerid, params[])
 {
-  	new giveplayerid, string[124];
+  	new TargetID, string[124];
 
 	if(PlayerInfo[playerid][pAdmin] >= 4)
 	{
-		if(sscanf(params, "ud", giveplayerid))
+		if(sscanf(params, "ud", TargetID))
 		{
-			SendClientMessageEx(playerid, COLOR_WHITE, "USAGE: /fws [player]");
+			SendClientMessageEx(playerid, COLOR_WHITE, "USAGE: /fws [playerid/PartOfName]");
 			return 1;
 		}
-		GivePlayerValidWeapon(giveplayerid, 27);
-		GivePlayerValidWeapon(giveplayerid, 24);
-		GivePlayerValidWeapon(giveplayerid, 31);
-		GivePlayerValidWeapon(giveplayerid, 34);
-		GivePlayerValidWeapon(giveplayerid, 29);
-		SendClientMessageEx(giveplayerid, COLOR_GRAD1, "You received a full weapon set!");
-		format(string, sizeof(string), "You have given %s a full weapon set!", GetPlayerNameEx(giveplayerid));
+		GivePlayerValidWeapon(TargetID, 27);
+		GivePlayerValidWeapon(TargetID, 24);
+		GivePlayerValidWeapon(TargetID, 31);
+		GivePlayerValidWeapon(TargetID, 34);
+		GivePlayerValidWeapon(TargetID, 29);
+		SendClientMessageEx(TargetID, COLOR_GRAD1, "You received a full weapon set!");
+		format(string, sizeof(string), "You have given %s a full weapon set!", GetPlayerNameEx(TargetID));
 		SendClientMessageEx(playerid, COLOR_GRAD1, string);
-		format(string, sizeof(string), "{AA3333}AdmWarning{FFFF00}: %s has gave a full weapon set to %s.", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+		format(string, sizeof(string), "{AA3333}AdmWarning{FFFF00}: %s has gave a full weapon set to %s.", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 		ABroadCast(COLOR_YELLOW, string, 2);
 		Log("logs/admingive.log", string);
 	}
