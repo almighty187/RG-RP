@@ -238,18 +238,31 @@ stock ShowSetStation(playerid, title[] = "Radio Menu")
 	format(string, sizeof(string), "Favorite Station\nGenres\nTop 50 Stations\nSearch\nK-LSR\nRadio New Robada\nNick's Radio\nCustom Audio URL\n%sTurn radio off", ((!isnull(PlayerInfo[playerid][pFavStation])) ? ("Favorite Station Settings\n") : ("")));
 	return ShowPlayerDialogEx(playerid, SETSTATION, DIALOG_STYLE_LIST, title, string, "Select", "Close");
 }*/
-new RadioStations[11][2][] = {
-	{{"http://yp.shoutcast.com/sbin/tunein-station.pls?id=37586"}, {"181.FM - THE BUZZ"}},
-	{{"http://yp.shoutcast.com/sbin/tunein-station.pls?id=297243"}, {"181.FM - HIGHWAY 181"}},
-	{{"http://yp.shoutcast.com/sbin/tunein-station.pls?id=557801"}, {"181.FM - REAL COUNTRY"}},
-	{{"http://yp.shoutcast.com/sbin/tunein-station.pls?id=97102"}, {"DEFJAY.COM - 100% R&B"}},
-	{{"http://www.dubstep.fm/listen.pls"}, {"DUBSTEP.FM"}},
-	{{"http://yp.shoutcast.com/sbin/tunein-station.pls?id=8318"}, {"HOT 108 JAMZ - #1 FOR HIPHOP"}},
-	{{"http://yp.shoutcast.com/sbin/tunein-station.pls?id=221956"}, {"181.FM Kickin' Country"}},
-	{{"http://www.specific.dk/normal.pls"}, {"Specific Radio"}},
-	{{"http://yp.shoutcast.com/sbin/tunein-station.pls?id=57352"}, {"HouseTime.FM - 24/7 House"}},
-	{{"http://yp.shoutcast.com/sbin/tunein-station.pls?id=108251"}, {":: Electro Radio ::"}},
+/*new RadioStations[11][2][] = {
+	{{"https://stream.zeno.fm/9i0vys8lx9cuv"}, {"181.FM - Hellman's Radio"}},
+	{{"https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://uk7.internet-radio.com:8151/listen.pls&t=.m3u"}, {"Birmingham's No.1 Reggae Station}},
+	{{"http://66.85.88.174/hitlist"}, {"Powerhitz"}},
+	{{"https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://204.12.193.98:8244/listen.pls?sid=1&t=.m3u"}, {"REC AUDIO RADIO"}},
+	{{"https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://108.163.223.242:8074/listen.pls?sid=1&t=.m3u"}, {"Love Songs"}},
+	{{"https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://uk5.internet-radio.com:8163/listen.pls&t=.m3u"}, {"Rainbow Sound UK"}},
+	{{"https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://198.178.123.17:10374/listen.pls?sid=1&t=.m3u"}, {"Blast Radio"}},
+	{{"https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://75.144.206.66:8038/listen.pls&t=.m3u"}, {"Party Mix"}},
+	{{"https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://uk2.internet-radio.com:8358/listen.pls&t=.m3u"}, {"1FM - 60s/70s/80s/90s/00s"}},
+	{{"https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://uk7.internet-radio.com:8226/listen.pls&t=.m3u"}, {"Box UK Radio Danceradiouk"}},
 	{{"http://yp.shoutcast.com/sbin/tunein-station.pls?id=217084"}, {"1.FM - Amsterdam Trance"}}
+};*/
+new RadioStations[11][2][128] = {
+    {"https://stream.zeno.fm/9i0vys8lx9cuv", "181.FM - Hellman's Radio"},
+    {"https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://uk7.internet-radio.com:8151/listen.pls&t=.m3u", "Birmingham's No.1 Reggae Station"},
+    {"http://66.85.88.174/hitlist", "Powerhitz"},
+    {"https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://204.12.193.98:8244/listen.pls?sid=1&t=.m3u", "REC AUDIO RADIO"},
+    {"https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://108.163.223.242:8074/listen.pls?sid=1&t=.m3u", "Love Songs"},
+    {"https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://uk5.internet-radio.com:8163/listen.pls&t=.m3u", "Rainbow Sound UK"},
+    {"https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://198.178.123.17:10374/listen.pls?sid=1&t=.m3u", "Blast Radio"},
+    {"https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://75.144.206.66:8038/listen.pls&t=.m3u", "Party Mix"},
+    {"https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://uk2.internet-radio.com:8358/listen.pls&t=.m3u", "1FM - 60s/70s/80s/90s/00s"},
+    {"https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://uk7.internet-radio.com:8226/listen.pls&t=.m3u", "Box UK Radio Danceradiouk"},
+    {"http://yp.shoutcast.com/sbin/tunein-station.pls?id=217084", "1.FM - Amsterdam Trance"}
 };
 stock ShowSetStation(playerid, title[] = "{FFFFFF}Radio Menu")
 {

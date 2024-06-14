@@ -149,7 +149,7 @@
 #include "./includes/core/emailcheck.pwn"
 #include "./includes/core/AccountSettings.pwn"
 #include "./includes/core/deluxegps.pwn"
-//#include "./includes/core/vending.pwn" // Old system don't need this anymore
+#include "./includes/core/vending.pwn"
 
 //dynamic core includes
 #include "./includes/dynamic/doors.pwn"

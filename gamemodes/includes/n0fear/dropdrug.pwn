@@ -201,7 +201,7 @@ COMMAND:pickitem(playerid, params[])
 	  			{
 					case 1:
     				{
-			  			ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0);
+			  			ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 1);
 	                  	if(DropDrug[i][dObject] > 0) DestroyDynamicObject(DropDrug[i][dObject]);
 	                  	DropDrug[i][dObject]=0;
                       	DropDrug[i][ddX] = 0.0;
@@ -218,7 +218,7 @@ COMMAND:pickitem(playerid, params[])
 			      	}
 			      	case 2:
 			      	{
-		    	      	ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0);
+		    	      	ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 1);
 		    	      	if(DropDrug[i][dObject] > 0) DestroyDynamicObject(DropDrug[i][dObject]);
 		    	      	DestroyDynamic3DTextLabel(DropDrug[i][dText]);
 	                  	DropDrug[i][dObject]=0;
@@ -234,7 +234,7 @@ COMMAND:pickitem(playerid, params[])
 			      	}
 			      	case 3:
 			      	{
-		    	      	ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0);
+		    	      	ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 1);
 		    	      	if(DropDrug[i][dObject] > 0) DestroyDynamicObject(DropDrug[i][dObject]);
 		    	      	DestroyDynamic3DTextLabel(DropDrug[i][dText]);
 	                  	DropDrug[i][dObject]=0;
@@ -250,7 +250,7 @@ COMMAND:pickitem(playerid, params[])
 					}
      				case 4:
 			      	{
-		    	      	ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0);
+		    	      	ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 1);
 		    	      	if(DropDrug[i][dObject] > 0) DestroyDynamicObject(DropDrug[i][dObject]);
 		    	      	DestroyDynamic3DTextLabel(DropDrug[i][dText]);
 	                  	DropDrug[i][dObject]=0;
@@ -266,7 +266,7 @@ COMMAND:pickitem(playerid, params[])
 					}
      				case 5:
 			      	{
-		    	      	ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0);
+		    	      	ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 1);
 		    	      	if(DropDrug[i][dObject] > 0) DestroyDynamicObject(DropDrug[i][dObject]);
 		    	      	DestroyDynamic3DTextLabel(DropDrug[i][dText]);
 	                  	DropDrug[i][dObject]=0;
@@ -282,7 +282,7 @@ COMMAND:pickitem(playerid, params[])
 					}
      				case 6:
 			      	{
-		    	      	ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0);
+		    	      	ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 1);
 		    	      	if(DropDrug[i][dObject] > 0) DestroyDynamicObject(DropDrug[i][dObject]);
 		    	      	DestroyDynamic3DTextLabel(DropDrug[i][dText]);
 	                  	DropDrug[i][dObject]=0;
@@ -316,7 +316,7 @@ CMD:dropdrug(playerid, params[])
 
 	    // Ensure dropamount is positive
 	    if (dropamount <= 0) return SendErrorMessage(playerid, "The amount to drop must be a positive number.");
-
+        ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0, 1);
 		if (strcmp(type, "weed", true) == 0)
         {
             if (PlayerInfo[playerid][pDrugs][0] < dropamount) return SendErrorMessage(playerid, "You don't have enough weed to drop that amount.");

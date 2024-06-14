@@ -43,15 +43,29 @@ new Float:Vending[30][4] = {
 };
 
 
+stock GetVendingName(type)
+{
+	new string[20];
+	switch (type) {
+		case VENDING_TYPE_SPRUNK: string = "Sprunk";
+		case VENDING_TYPE_CANDY: string = "Candy";
+		default: string = "Undefined";
+	}
+	return string;
+}
+
+
 hook OnGameModeInit()
 {
 	for(new h = 0; h < sizeof(Vending); h++)
 	{
-		CreateDynamic3DTextLabel("   [Vending]\nPress F to use", COLOR_GREEN, Vending[h][0], Vending[h][1], Vending[h][2] + 1.3, 25.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1, 30.0);
+	    new string[128];
+		CreateDynamic3DTextLabel(string, COLOR_GREEN, Vending[h][0], Vending[h][1], Vending[h][2] + 1.3, 25.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1, 30.0);
+		format(string, sizeof(string), " [%s]\nPress F to use",GetVendingName(h));
 	}
 }
 
-hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
+/*hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
     if(PRESSED(KEY_SECONDARY_ATTACK))
     {
@@ -82,7 +96,34 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
     }
     return 1;
 }
-
+public OnPlayerUseVending(playerid, type)
+{
+	for(new h = 0; h < sizeof(Vending); h++)
+ 	{
+  		if(IsPlayerInRangeOfPoint(playerid,1.0,Vending[h][0], Vending[h][1], Vending[h][2]))
+    	{
+     		new Float:health;
+       		GetHealth(playerid,health);
+         	if(GetPVarInt(playerid, "VendingUse") != 0) return 1;
+          	if(health >= 99) return SendClientMessage(playerid,COLOR_GREY, "Health is full!");
+           	if(GetPlayerCash(playerid) < 3) return SendClientMessage(playerid,COLOR_GREY,"You need 3$ to use this.");
+            if(GetPVarInt(playerid, "Injured") == 1) return SendClientMessage(playerid,COLOR_GREY,"You are dead, you cant use this.");
+           	SetPlayerPos(playerid,Vending[h][0], Vending[h][1], Vending[h][2]);
+            SetPlayerFacingAngle(playerid,Vending[h][3]);
+           	GivePlayerMoney(playerid,-3);
+ 			GameTextForPlayer(playerid, "~r~-$3.", 5000, 1);
+            ApplyAnimation(playerid, "VENDING", "VEND_Use", 3.0, 0, 0, 0, 0, 0);
+            PlayAudioStreamForPlayerEx(playerid, "http://media.rg-rp.org/Soundeffects/Vending.wav");
+            health+=40.0;
+            if(health >= 100.0) health=99.0;
+            SetHealth(playerid, health);
+            PlayerInfo[playerid][pMuted] = 1;
+            SetPVarInt(playerid, "VendingUse", 1);
+            SetTimerEx("VendingFinish", 2300, false, "i", playerid);
+        }
+    }
+    return 1;
+}
 forward VendingFinish(playerid);
 public VendingFinish(playerid)
 {
@@ -95,4 +136,4 @@ public VendingFinish(playerid)
     ApplyAnimation(playerid, "VENDING", "VEND_Drink2_P", 3.0, 0, 0, 0, 0, 0);
     SetPlayerSpecialAction(playerid, 0); // Clear sprunk can.
     return DeletePVar(playerid,"VendingUse");
-}
+}*/

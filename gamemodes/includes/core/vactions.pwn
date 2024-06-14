@@ -29,6 +29,8 @@ forward ClearAnims(playerid);
 public ClearAnims(playerid)
 {
 	ClearAnimationsEx(playerid);
+	SetPlayerSkin(playerid, GetPlayerSkin(playerid));
+	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 }
 
 PlayAnim(playerid, animlib[], animname[], Float:fDelta, loop, lockx, locky, freeze, time, forcesync)
@@ -189,8 +191,8 @@ CMD:stopani(playerid, params[])
 	else
 	{
 	    GetPlayerPos(playerid, StopaniFloats[playerid][0], StopaniFloats[playerid][1], StopaniFloats[playerid][2]);
-		SetTimerEx("StopaniTimer", 10000, 0, "d", playerid);
-		SendClientMessageEx (playerid, COLOR_YELLOW, "Do not move for 10 seconds to have your animations cleared!");
+		SetTimerEx("StopaniTimer", 5000, 0, "d", playerid);
+		SendClientMessageEx (playerid, COLOR_YELLOW, "Do not move for 5 seconds to have your animations cleared!");
 	}
 	return 1;
 }

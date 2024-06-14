@@ -76,14 +76,14 @@ stock DropGun(playerid, GunID, GunAmmo, Float:X, Float:Y, Float:Z, world, interi
     return 1;
 }
 
-hook OnPlayerDeath(playerid, killerid, reason)
+/*hook OnPlayerDeath(playerid, killerid, reason)
 {
     new Float:X, Float:Y, Float:Z;
     GetPlayerPos(playerid, X, Y, Z);
     DropGun(playerid, GetPlayerWeapon(playerid), GetPlayerAmmo(playerid), X, Y, Z, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
     ResetPlayerWeaponsEx(playerid);
     return 1;
-}
+}*/
 hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
 
 	if(newkeys & KEY_YES)
@@ -102,9 +102,9 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
 	                format(string, sizeof(string), "* %s picks up a weapon from the pavement.", sendername);
                  	SetPlayerChatBubble(playerid, string, COLOR_PURPLE, 30.0, 4000);
 					ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-	                PlayAnimEx(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0, 1);
-   					SetTimerEx("ClearAnims", 2000, false, "d", playerid);
+	                ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0, 1);
    					DestroyDynamic3DTextLabel(DropInfo[i][GunText]);
+   					SetTimer("ClearAnims", 2000, 0);
 	                return 1;
 	            }
 	        }
@@ -128,8 +128,8 @@ CMD:dropgun(playerid, params[])
     format(string, sizeof(string), "* %s drops %s Weapon to the pavement.", sendername, CheckSex(playerid));
     SetPlayerChatBubble(playerid, string, COLOR_PURPLE, 30.0, 4000);
 	ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-    PlayAnimEx(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0, 1);
-    SetTimerEx("ClearAnims", 2000, false, "d", playerid);
+    ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0, 1);
+    SetTimer("ClearAnims", 2000, 0);
     return 1;
 }
 
@@ -151,8 +151,8 @@ CMD:pickupgun(playerid, params[])
                 format(string, sizeof(string), "* %s picks up a weapon from the pavement.", sendername);
                 SetPlayerChatBubble(playerid, string, COLOR_PURPLE, 30.0, 4000);
 				ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-                PlayAnimEx(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0, 1);
-               	SetTimerEx("ClearAnims", 2000, false, "d", playerid);
+                ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0, 1);
+				SetTimer("ClearAnims", 2000, 0);
                 return 1;
             }    									
         }
