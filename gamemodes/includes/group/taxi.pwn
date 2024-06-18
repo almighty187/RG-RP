@@ -81,13 +81,7 @@ CMD:fare(playerid, params[])
 		if(GetPlayerState(playerid) != 2) return SendClientMessageEx(playerid, COLOR_GREY, "   You are not the driver!");
 		if(fare < 1 || fare > 2000) return SendClientMessageEx(playerid, COLOR_GREY, "   Fare price must be between $1 and $2000!");
 		new newcar = GetPlayerVehicleID(playerid);
-		if(IsAnBus(newcar))
-		{
-			fare = 1500;
-			BusDrivers += 1; TransportDuty[playerid] = 2; TransportValue[playerid] = fare;
-			format(string, sizeof(string), "You are now on-duty as Bus Driver, fare: $%d.", TransportValue[playerid]);
-		}
-		else
+		if(IsAnTaxi(newcar))
 		{
 			TaxiDrivers += 1; TransportDuty[playerid] = 1; TransportValue[playerid] = fare;
 			format(string, sizeof(string), "You are now on-duty as Taxi Driver, fare: $%d.", TransportValue[playerid]);

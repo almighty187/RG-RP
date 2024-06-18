@@ -1082,7 +1082,7 @@ CMD:ddedit(playerid, params[])
 			DDoorsInfo[doorid][ddDPC] = 0;
 			DDoorsInfo[doorid][ddAllegiance] = 0;
 			DDoorsInfo[doorid][ddGroupType] = 0;
-			DDoorsInfo[doorid][ddFaction] = 0;
+			DDoorsInfo[doorid][ddFaction] = -1;
 			DDoorsInfo[doorid][ddAdmin] = 0;
 			DDoorsInfo[doorid][ddWanted] = 0;
 			DDoorsInfo[doorid][ddVehicleAble] = 0;

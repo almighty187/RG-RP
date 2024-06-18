@@ -4338,7 +4338,8 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 {
     if(newstate == PLAYER_STATE_DRIVER || newstate == PLAYER_STATE_PASSENGER)
 	{
- 		if (!IsPlayerNPC(playerid) && !IsPlayerEntering{playerid} && PlayerInfo[playerid][pAdmin] < 2)
+ 		//if (!IsPlayerNPC(playerid) && !IsPlayerEntering{playerid} && PlayerInfo[playerid][pAdmin] < 2)
+ 		if (!IsPlayerEntering{playerid} && !IsPlayerNPC(playerid) && PlayerInfo[playerid][pAdmin] < 2)
 		{
 			if(GetPVarInt(playerid, "TeleportWarnings") == 3) {
 				new string[128];
@@ -4867,7 +4868,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 		    PlayerInfo[playerid][pAGuns][GetWeaponSlot(46)] = 46;
 			GivePlayerValidWeapon(playerid, 46);
 		}
-		else if(IsAnTaxi(vehicleid) || IsAnBus(vehicleid))
+		else if(IsAnTaxi(vehicleid))
 		{
 		    if(PlayerInfo[playerid][pJob] == 17 || PlayerInfo[playerid][pJob2] == 17 || PlayerInfo[playerid][pJob3] == 17 || IsATaxiDriver(playerid) || PlayerInfo[playerid][pTaxiLicense] == 1)
 			{
@@ -4879,7 +4880,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 					if(IsAnTaxi(PlayerVehicleInfo[playerid][i][pvModelId]))
 					return 1;
 				}
-				SendClientMessageEx(playerid,COLOR_GREY,"   You are not a Taxi/Bus Driver!");
+				SendClientMessageEx(playerid,COLOR_GREY,"You are not a Taxi Driver!");
 				RemovePlayerFromVehicle(playerid);
 				new Float:slx, Float:sly, Float:slz;
 				GetPlayerPos(playerid, slx, sly, slz);

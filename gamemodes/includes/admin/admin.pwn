@@ -2639,7 +2639,7 @@ CMD:destroypvehicle(playerid, params[])
 	return 1;
 }
 
-CMD:setsec(playerid, params[])
+/*CMD:setsec(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pHR] >= 2 || PlayerInfo[playerid][pAP] >= 2 || PlayerInfo[playerid][pSecurity] >= 2)
 	{
@@ -2890,6 +2890,30 @@ CMD:setsec(playerid, params[])
 			else SendClientMessage(playerid, COLOR_GRAD2, "They are not an admin!");
 		}
 		else SendClientMessageEx(playerid, COLOR_GRAD2, "That person is not connected.");
+	}
+	else SendErrorMessage(playerid, "You are not authorized to use that CMD");
+	return 1;
+}*/
+CMD:setsec(playerid, params[])
+{
+	if(PlayerInfo[playerid][pAdmin] >= 1338 || PlayerInfo[playerid][pHR] >= 2 || PlayerInfo[playerid][pAP] >= 2 || PlayerInfo[playerid][pSecurity] >= 2)
+	{
+	    new giveplayerid;
+	    if(sscanf(params, "u", giveplayerid))
+		{
+			SendClientMessage(playerid, COLOR_GREY, "USAGE: /setsec [playerid]");
+			return 1;
+		}
+		if(giveplayerid != INVALID_PLAYER_ID)
+		{
+			if(PlayerInfo[giveplayerid][pAdmin] > 2)
+			{
+				SetPVarInt(playerid, "SettingSec", giveplayerid);
+				ShowSetSec(playerid, giveplayerid);
+			}
+			else SendErrorMessage(playerid, "They are not an admin!");
+		}
+		else SendErrorMessage(playerid, "That person is not connected.");
 	}
 	else SendErrorMessage(playerid, "You are not authorized to use that CMD");
 	return 1;

@@ -58,13 +58,14 @@ new stafflist1[3072];
 new stafflist2[3072];
 new leaderslist1[3072];
 new leaderslist2[3072];
+
 ShowSetSec(playerid, id) {
-	
+
 	if(!gPlayerLogged{playerid}) return SendClientMessageEx(playerid, COLOR_WHITE, "You must be logged in to use this.");
 
 	szMiscArray[0] = 0;
 	new szTitle[64];
-	format(szTitle, sizeof(szTitle), "{FF0606}Administration {FFFFFF}- Set Secondary Task for %s", GetPlayerNameEx(id));			
+	format(szTitle, sizeof(szTitle), "{FF0606}Administration {FFFFFF}- Set Secondary Task for %s", GetPlayerNameEx(id));
 	format(szMiscArray, sizeof(szMiscArray), "{FFFFFF}Remove Secondary Task\n\
 		{FFFFFF}%s\n\
 		{FFFFFF}%s\n\
@@ -91,11 +92,11 @@ ShowSetSec(playerid, id) {
 		(PlayerInfo[id][pAP] == 1) ? ("{00FF00}Admin Personnel") : ("{FF0000}Admin Personnel"),
 		(PlayerInfo[id][pAP] == 2) ? ("{00FF00}Director of Admin Personnel") : ("{FF0000}Director of Admin Personnel"),
 		(PlayerInfo[id][pFactionModerator] == 1) ? ("{00FF00}Faction Moderator") : ("{FF0000}Faction Moderator"),
-		(PlayerInfo[id][pFactionModerator] == 2) ? ("{00FF00}Director of Faction Executive Director") : ("{FF0000}Director of Faction Executive Director"),
+		(PlayerInfo[id][pFactionModerator] == 2) ? ("{00FF00}Director of Faction Management") : ("{FF0000}Director of Faction Management"),
 		(PlayerInfo[id][pGangModerator] == 1) ? ("{00FF00}Gang Moderator") : ("{FF0000}Gang Moderator"),
-		(PlayerInfo[id][pGangModerator] == 2) ? ("{00FF00}Director of Gang Executive Director") : ("{FF0000}Director of Gang Executive Director"),
+		(PlayerInfo[id][pGangModerator] == 2) ? ("{00FF00}Director of Gang Management") : ("{FF0000}Director of Gang Management"),
 		(PlayerInfo[id][pBM] == 1) ? ("{00FF00}Business Moderator") : ("{FF0000}Business Moderator"),
-		(PlayerInfo[id][pBM] == 2) ? ("{00FF00}Director of Business Executive Director") : ("{FF0000}Director of Business Executive Director"),
+		(PlayerInfo[id][pBM] == 2) ? ("{00FF00}Director of Business Management") : ("{FF0000}Director of Business Management"),
 		(PlayerInfo[id][pShopTech] == 1) ? ("{00FF00}Shop Technician") : ("{FF0000}Shop Technician"),
 		(PlayerInfo[id][pShopTech] == 2) ? ("{00FF00}Senior Shop Technician") : ("{FF0000}Senior Shop Technician"),
 		(PlayerInfo[id][pShopTech] == 3) ? ("{00FF00}Director of Community R") : ("{FF0000}Director of Community R"),
@@ -111,15 +112,14 @@ ShowSetSec(playerid, id) {
 		(PlayerInfo[id][pSecurity] == 1) ? ("{00FF00}Security") : ("{FF0000}Security"),
 		(PlayerInfo[id][pASM] == 1) ? ("{00FF00}Assistant Shift Manager") : ("{FF0000}Assistant Shift Manager")
 	);
-	
-	
+
+
 	ShowPlayerDialogEx(playerid, DIALOG_SETSEC, DIALOG_STYLE_LIST, szTitle, szMiscArray, "Select", "Cancel");
-	
-		
+
+
 
 	return 1;
 }
-
 
 CMD:div(playerid, params[])
 {
