@@ -183,6 +183,7 @@ CMD:approvedoorsale(playerid, params[])
 		format(string, sizeof(string), "AdmCmd: %s approved %s's dynamic door sale request (sale failed).", GetPlayerNameEx(playerid), GetPlayerNameEx(target));
 		ABroadCast(COLOR_LIGHTRED, string, 4);
 		Log("logs/admin.log", string);
+		SendDiscordMessage(8, string);
 		return 1;
 	}
 	else if(GetPlayerCash(target) < fine)
@@ -205,6 +206,7 @@ CMD:approvedoorsale(playerid, params[])
 		format(string, sizeof(string), "AdmCmd: %s approved %s's dynamic door sale request (sale failed).", GetPlayerNameEx(playerid), GetPlayerNameEx(target));
 		ABroadCast(COLOR_LIGHTRED, string, 4);
 		Log("logs/admin.log", string);
+		SendDiscordMessage(8, string);
 		ClearDoorSaleVariables(target);
 		return 1;
 	}
@@ -261,6 +263,7 @@ CMD:approvedoorsale(playerid, params[])
 		format(string, sizeof(string), "AdmCmd: DDSale: Auth: %s DD sale (Seller:%s) (DD:%d) (F:$%s) (P:$%s) (TO: (%s)).", GetPlayerNameEx(playerid), GetPlayerNameEx(target), DDSaleTracking[target], number_format(fine), number_format(DDSalePrice[target]), GetPlayerNameEx(DDSaleTarget[target]));
 		ABroadCast(COLOR_LIGHTRED, string, 4);
 		Log("logs/admin.log", string);
+		SendDiscordMessage(8, string);
 		ClearDoorSaleVariables(target);
 		return 1;
 	}
@@ -285,6 +288,7 @@ CMD:denydoorsale(playerid, params[])
 	format(string, sizeof(string), "AdmCmd: %s denied %s's dynamic door sale request, reason: %s.", GetPlayerNameEx(playerid), GetPlayerNameEx(target), reason);
 	ABroadCast(COLOR_LIGHTRED, string, 4);
 	Log("logs/admin.log", string);
+	SendDiscordMessage(8, string);
 	return 1;
 }
 

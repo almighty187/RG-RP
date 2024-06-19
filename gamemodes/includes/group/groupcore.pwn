@@ -5994,6 +5994,7 @@ CMD:editgroup(playerid, params[]) {
 	{
 		Group_ListGroups(playerid);
 	}
+	else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 

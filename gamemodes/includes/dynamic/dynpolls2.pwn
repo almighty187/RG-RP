@@ -257,6 +257,7 @@ public PollSaved(pollid)
 	format(szMiscArray, sizeof szMiscArray, "Poll ID %d (%s) has been saved.", pollid, PollInfo[pollid][poll_szTitle]);
 	print(szMiscArray);
 	Log("logs/polls.log", szMiscArray);
+	SendDiscordMessage(8, szMiscArray);
 	return 1;
 }
 
@@ -266,6 +267,7 @@ public NewPollCreated(pollid)
 	format(szMiscArray, sizeof szMiscArray, "Poll ID %d has been created by %s, title: %s.", pollid, PollInfo[pollid][poll_szPlacedBy], PollInfo[pollid][poll_szTitle]);
 	print(szMiscArray);
 	Log("logs/polls.log", szMiscArray);
+	SendDiscordMessage(8, szMiscArray);
 	return 1;
 }
 
@@ -275,6 +277,7 @@ public PollDeleted(pollid)
 	format(szMiscArray, sizeof szMiscArray, "Poll ID %d (%s) has been deleted by %s.", pollid, PollInfo[pollid][poll_szTitle], PollInfo[pollid][poll_szPlacedBy]);
 	print(szMiscArray);
 	Log("logs/polls.log", szMiscArray);
+	SendDiscordMessage(8, szMiscArray);
 	format(PollInfo[pollid][poll_szPlacedBy], MAX_PLAYER_NAME, "");
 	format(PollInfo[pollid][poll_szTitle], 25, "");
 	PollInfo[pollid][poll_iID] = -1;
@@ -352,6 +355,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 						fPos[0], fPos[1], fPos[2], iInterior, iVW);
 					print(szMiscArray);
 					Log("logs/polls.log", szMiscArray);
+					SendDiscordMessage(8, szMiscArray);
 					for(new i = 0; i < 3; i++) PollInfo[iPollID][poll_fLocation][i] = fPos[i];
 
 					PollInfo[iPollID][poll_iInterior] = iInterior;
@@ -514,6 +518,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				iPollID, listitem + 1);
 
 			Log("logs/pollvotes.log", szMiscArray);
+			SendDiscordMessage(8, szMiscArray);
 			szMiscArray[0] = 0;
 
 			poll_MySQL_Save(iPollID);

@@ -229,15 +229,16 @@ CMD:lockgate(playerid, params[])
 						ProxDetector(GateInfo[i][gRange], playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
 						format(string, sizeof(string), "%s(%d) has locked gate ID %d.", GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), i);
 						Log("logs/gedit.log", string);
+						SendDiscordMessage(8, string);
 					}
 					else
 					{
 						GateInfo[i][gLocked] = 0;
 						format(string, sizeof(string), "* %s has unlocked the gate.", GetPlayerNameEx(playerid));
 						ProxDetector(GateInfo[i][gRange], playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
-
 						format(string, sizeof(string), "%s(%d) has locked gate ID %d.", GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), i);
 						Log("logs/gedit.log", string);
+						SendDiscordMessage(8, string);
 					}
 				}
 			}
@@ -258,7 +259,6 @@ CMD:gotogate(playerid, params[])
 			format(string, sizeof(string), "Gate ID must be between 1 and %d.", MAX_GATES - 1);
 			return SendClientMessageEx(playerid, COLOR_GREY, string);
 		}
-
 		SetPlayerPos(playerid,GateInfo[gatenum][gPosX],GateInfo[gatenum][gPosY],GateInfo[gatenum][gPosZ] + 1);
 		GameTextForPlayer(playerid, "~w~Teleporting", 5000, 1);
 		SetPlayerInterior(playerid, GateInfo[gatenum][gInt]);
@@ -429,6 +429,7 @@ CMD:gedit(playerid, params[])
 
 		    format(string, sizeof(string), "%s has edited GateID %d's House ID to %d.", GetPlayerNameEx(playerid), gateid, value);
 		    Log("logs/gedit.log", string);
+		    SendDiscordMessage(8, string);
 		}
 		else if(strcmp(x_job, "model", true) == 0)
 		{
@@ -464,6 +465,7 @@ CMD:gedit(playerid, params[])
 
 		    format(string, sizeof(string), "%s has edited GateID %d's Model to %d.", GetPlayerNameEx(playerid), gateid, value);
 		    Log("logs/gedit.log", string);
+		    SendDiscordMessage(8, string);
 		}
 		else if(strcmp(x_job, "vw", true) == 0)
 		{
@@ -473,9 +475,9 @@ CMD:gedit(playerid, params[])
             CreateGate(gateid);
 		    SendClientMessageEx(playerid, COLOR_WHITE, string);
 		    SaveGate(gateid);
-
 		    format(string, sizeof(string), "%s has edited GateID %d's VW to %d.", GetPlayerNameEx(playerid), gateid, value);
 		    Log("logs/gedit.log", string);
+		    SendDiscordMessage(8, string);
 		}
 		else if(strcmp(x_job, "int", true) == 0)
 		{
@@ -485,9 +487,9 @@ CMD:gedit(playerid, params[])
 			CreateGate(gateid);
 		    SendClientMessageEx(playerid, COLOR_WHITE, string);
 		    SaveGate(gateid);
-
 		    format(string, sizeof(string), "%s has edited GateID %d's InteriorID to %d.", GetPlayerNameEx(playerid), gateid, value);
 		    Log("logs/gedit.log", string);
+		    SendDiscordMessage(8, string);
 		}
 		else if(strcmp(x_job, "open", true) == 0)
 		{
@@ -531,9 +533,9 @@ CMD:gedit(playerid, params[])
 		    format(string, sizeof(string), "Range of %.3f assigned to Gate %d", GateInfo[gateid][gRange], gateid);
 		    SendClientMessageEx(playerid, COLOR_WHITE, string);
 		    SaveGate(gateid);
-
 		    format(string, sizeof(string), "%s has edited GateID %d's Range to %.3f.", GetPlayerNameEx(playerid), gateid, ofloat);
 		    Log("logs/gedit.log", string);
+		    SendDiscordMessage(8, string);
 		}
 		else if(strcmp(x_job, "speed", true) == 0)
 		{
@@ -541,9 +543,9 @@ CMD:gedit(playerid, params[])
 		    format(string, sizeof(string), "Speed of %.3f assigned to Gate %d", GateInfo[gateid][gSpeed], gateid);
 		    SendClientMessageEx(playerid, COLOR_WHITE, string);
 		    SaveGate(gateid);
-
 		    format(string, sizeof(string), "%s has edited GateID %d's Speed to %.3f.", GetPlayerNameEx(playerid), gateid, ofloat);
 		    Log("logs/gedit.log", string);
+		    SendDiscordMessage(8, string);
 		}
 		else if(strcmp(x_job, "posx", true) == 0)
 		{
@@ -653,6 +655,7 @@ CMD:gedit(playerid, params[])
 
 			format(string, sizeof(string), "%s has edited GateID %d's Position.", GetPlayerNameEx(playerid), gateid);
 		    Log("logs/gedit.log", string);
+		    SendDiscordMessage(8, string);
 		}
 		else if(strcmp(x_job, "tomem", true) == 0)
 		{
@@ -660,9 +663,9 @@ CMD:gedit(playerid, params[])
 			format(string, sizeof(string), "Gate %d PosM moved to %f %f %f", gateid, GateInfo[gateid][gPosXM], GateInfo[gateid][gPosYM], GateInfo[gateid][gPosZM]);
 		    SendClientMessageEx(playerid, COLOR_WHITE, string);
 			SaveGate(gateid);
-
 			format(string, sizeof(string), "%s has edited GateID %d's Moved Position.", GetPlayerNameEx(playerid), gateid);
 		    Log("logs/gedit.log", string);
+		    SendDiscordMessage(8, string);
 		}
 		else if(strcmp(x_job, "allegiance", true) == 0)
 		{
@@ -671,9 +674,9 @@ CMD:gedit(playerid, params[])
 		    format(string, sizeof(string), "Allegiance %d assigned to Gate %d", GateInfo[gateid][gAllegiance], gateid);
 		    SendClientMessageEx(playerid, COLOR_WHITE, string);
 		    SaveGate(gateid);
-
 		    format(string, sizeof(string), "%s has edited GateID %d's Allegiance to %d.", GetPlayerNameEx(playerid), gateid, value);
 		    Log("logs/gedit.log", string);
+		    SendDiscordMessage(8, string);
 		}
 		else if(strcmp(x_job, "grouptype", true) == 0)
 		{
@@ -682,9 +685,9 @@ CMD:gedit(playerid, params[])
 		    format(string, sizeof(string), "Group Type %d assigned to Gate %d", GateInfo[gateid][gGroupType], gateid);
 		    SendClientMessageEx(playerid, COLOR_WHITE, string);
 		    SaveGate(gateid);
-
 		    format(string, sizeof(string), "%s has edited GateID %d's Group Type to %d.", GetPlayerNameEx(playerid), gateid, value);
 		    Log("logs/gedit.log", string);
+		    SendDiscordMessage(8, string);
 		}
 		else if(strcmp(x_job, "groupid", true) == 0)
 		{
@@ -693,9 +696,9 @@ CMD:gedit(playerid, params[])
 		    format(string, sizeof(string), "Group ID %d assigned to Gate %d", GateInfo[gateid][gGroupID], gateid);
 		    SendClientMessageEx(playerid, COLOR_WHITE, string);
 		    SaveGate(gateid);
-
 		    format(string, sizeof(string), "%s has edited GateID %d's Group ID to %d.", GetPlayerNameEx(playerid), gateid, value);
 		    Log("logs/gedit.log", string);
+		    SendDiscordMessage(8, string);
 		}
 		else if(strcmp(x_job, "stream", true) == 0)
 		{
@@ -705,9 +708,9 @@ CMD:gedit(playerid, params[])
             CreateGate(gateid);
 		    SendClientMessageEx(playerid, COLOR_WHITE, string);
 		    SaveGate(gateid);
-
 		    format(string, sizeof(string), "%s has edited GateID %d's stream distance to %d.", GetPlayerNameEx(playerid), gateid, value);
 		    Log("logs/gedit.log", string);
+		    SendDiscordMessage(8, string);
 		}
 		else if(strcmp(x_job, "timer", true) == 0)
 		{
@@ -716,9 +719,9 @@ CMD:gedit(playerid, params[])
 		    format(string, sizeof(string), "Timer %d assigned to Gate %d", GateInfo[gateid][gTimer], gateid);
 		    SendClientMessageEx(playerid, COLOR_WHITE, string);
 		    SaveGate(gateid);
-
 		    format(string, sizeof(string), "%s has edited GateID %d's timer to %d.", GetPlayerNameEx(playerid), gateid, value);
 		    Log("logs/gedit.log", string);
+		    SendDiscordMessage(8, string);
 		}
 		else if(strcmp(x_job, "facility", true) == 0)
 		{
@@ -730,6 +733,7 @@ CMD:gedit(playerid, params[])
 		    SaveGate(gateid);
 		    format(string, sizeof(string), "%s has edited GateID %d's assigned facility to %d.", GetPlayerNameEx(playerid), gateid, value);
 		    Log("logs/gedit.log", string);
+		    SendDiscordMessage(8, string);
 		}
 	}
 	else
@@ -760,9 +764,9 @@ CMD:gedittexture(playerid, params[])
 		    format(string, sizeof(string), "Texture index %d assigned to Gate %d", GateInfo[gateid][gTIndex], gateid);
 		    SendClientMessageEx(playerid, COLOR_WHITE, string);
 		    SaveGate(gateid);
-
 		    format(string, sizeof(string), "%s has edited GateID %d's texture index to %d.", GetPlayerNameEx(playerid), gateid, value);
 		    Log("logs/gedit.log", string);
+		    SendDiscordMessage(8, string);
 		}
 		else if(strcmp(option, "model", true) == 0)
 		{
@@ -772,9 +776,9 @@ CMD:gedittexture(playerid, params[])
 		    SendClientMessageEx(playerid, COLOR_WHITE, string);
 		    SaveGate(gateid);
 			CreateGate(gateid);
-
 		    format(string, sizeof(string), "%s has edited GateID %d's texture model to %d.", GetPlayerNameEx(playerid), gateid, value);
 		    Log("logs/gedit.log", string);
+		    SendDiscordMessage(8, string);
 		}
 		else if(strcmp(option, "txd", true) == 0)
 		{
@@ -782,9 +786,9 @@ CMD:gedittexture(playerid, params[])
 		    format(string, sizeof(string), "TXD file %s assigned to Gate %d", GateInfo[gateid][gTTXD], gateid);
 		    SendClientMessageEx(playerid, COLOR_WHITE, string);
 		    SaveGate(gateid);
-
 		    format(string, sizeof(string), "%s has edited GateID %d's TXD file to %s.", GetPlayerNameEx(playerid), gateid, var);
 		    Log("logs/gedit.log", string);
+		    SendDiscordMessage(8, string);
 		}
 		else if(strcmp(option, "texture", true) == 0)
 		{
@@ -792,9 +796,9 @@ CMD:gedittexture(playerid, params[])
 		    format(string, sizeof(string), "Texture %s assigned to Gate %d", GateInfo[gateid][gTTexture], gateid);
 		    SendClientMessageEx(playerid, COLOR_WHITE, string);
 		    SaveGate(gateid);
-
 		    format(string, sizeof(string), "%s has edited GateID %d's texture to %s.", GetPlayerNameEx(playerid), gateid, var);
 		    Log("logs/gedit.log", string);
+		    SendDiscordMessage(8, string);
 		}
 		else if(strcmp(option, "color", true) == 0)
 		{
@@ -805,9 +809,9 @@ CMD:gedittexture(playerid, params[])
 		    format(string, sizeof(string), "Material color %d assigned to Gate %d", GateInfo[gateid][gTColor], gateid);
 		    SendClientMessageEx(playerid, COLOR_WHITE, string);
 		    SaveGate(gateid);
-
 		    format(string, sizeof(string), "%s has edited GateID %d's material color to %d.", GetPlayerNameEx(playerid), gateid, value);
 		    Log("logs/gedit.log", string);
+		    SendDiscordMessage(8, string);
 		}
 		if(strcmp(option, "delete", true) == 0)
 		{
@@ -820,9 +824,9 @@ CMD:gedittexture(playerid, params[])
 		    SendClientMessageEx(playerid, COLOR_WHITE, string);
 		    SaveGate(gateid);
 			CreateGate(gateid);
-
 		    format(string, sizeof(string), "%s has removed GateID %d's texture.", GetPlayerNameEx(playerid), gateid);
 		    Log("logs/gedit.log", string);
+		    SendDiscordMessage(8, string);
 		}
 	}
 	else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command.");
@@ -899,6 +903,7 @@ CMD:gmove(playerid, params[])
 		GivePlayerCashEx(giveplayerid, TYPE_ONHAND, -minfee);
 		format(string, sizeof(string), "AdmCmd: %s(%d) was fined $%s by %s, reason: Dynamic Door Move", GetPlayerNameEx(giveplayerid), GetPlayerSQLId(giveplayerid), number_format(minfee), GetPlayerNameEx(playerid));
 		Log("logs/admin.log", string);
+		SendDiscordMessage(8, string);
 		format(string, sizeof(string), "AdmCmd: %s was fined $%s by %s, reason: Dynamic Door Move", GetPlayerNameEx(giveplayerid), number_format(minfee), GetPlayerNameEx(playerid));
 		SendClientMessageToAllEx(COLOR_LIGHTRED, string);
 	}
@@ -907,6 +912,7 @@ CMD:gmove(playerid, params[])
 		GivePlayerCashEx(giveplayerid, TYPE_ONHAND, -fee);
 		format(string, sizeof(string), "AdmCmd: %s(%d) was fined $%s by %s, reason: Dynamic Door Move", GetPlayerNameEx(giveplayerid), GetPlayerSQLId(giveplayerid), number_format(fee), GetPlayerNameEx(playerid));
 		Log("logs/admin.log", string);
+		SendDiscordMessage(8, string);
 		format(string, sizeof(string), "AdmCmd: %s was fined $%s by %s, reason: Dynamic Door Move", GetPlayerNameEx(giveplayerid), number_format(fee), GetPlayerNameEx(playerid));
 		SendClientMessageToAllEx(COLOR_LIGHTRED, string);
 	}
@@ -1241,5 +1247,6 @@ public DeleteGate(gateid, adminid)
 	szMiscArray[0] = 0;
 	format(szMiscArray, sizeof(szMiscArray), "%s has deleted gate id %d", adminid != INVALID_PLAYER_ID ? GetPlayerNameEx(adminid) : ("(Inactive Player Resource System)"), gateid);
 	Log("logs/gedit.log", szMiscArray);
+	SendDiscordMessage(8, szMiscArray);
 	return 1;
 }

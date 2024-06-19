@@ -27,6 +27,7 @@ CMD:tledit(playerid, params[])
 			SaveTxtLabel(labelid);
 			format(string, sizeof(string), "%s has edited Text Label ID %d's position.", GetPlayerNameEx(playerid), labelid);
 			Log("logs/tledit.log", string);
+			SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "color", true) == 0)
@@ -38,6 +39,7 @@ CMD:tledit(playerid, params[])
 			SaveTxtLabel(labelid);
 			format(string, sizeof(string), "%s has edited Text Label ID %d's color.", GetPlayerNameEx(playerid), labelid);
 			Log("logs/tledit.log", string);
+			SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "pickupmodel", true) == 0)
@@ -49,6 +51,7 @@ CMD:tledit(playerid, params[])
 			SaveTxtLabel(labelid);
 			format(string, sizeof(string), "%s has edited Text Label ID %d's PickupModel.", GetPlayerNameEx(playerid), labelid);
 			Log("logs/tledit.log", string);
+			SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "delete", true) == 0)
@@ -73,6 +76,7 @@ CMD:tledit(playerid, params[])
 			SendClientMessageEx(playerid, COLOR_WHITE, string);
 			format(string, sizeof(string), "%s has deleted Text Label %d.", GetPlayerNameEx(playerid), labelid);
 			Log("logs/tledit.log", string);
+			SendDiscordMessage(8, string);
 			return 1;
 		}
 	}
@@ -100,6 +104,7 @@ CMD:tltext(playerid, params[]) {
 		SaveTxtLabel(labelid);
 		format(szName, sizeof(szName), "%s has edited Text Label ID %d's text to %s.", GetPlayerNameEx(playerid), labelid, TxtLabels[labelid][tlText]);
 		Log("logs/tledit.log", szName);
+		SendDiscordMessage(8, szName);
 	}
 	else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command.");
 	return 1;

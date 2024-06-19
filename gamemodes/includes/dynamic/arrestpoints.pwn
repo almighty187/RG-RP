@@ -362,6 +362,7 @@ CMD:arrestedit(playerid, params[])
 			SaveArrestPoint(id);
 			format(string, sizeof(string), "%s has edited Arrest Point ID %d's position.", GetPlayerNameEx(playerid), id);
 			Log("logs/arrestedit.log", string);
+			SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "type", true) == 0)
@@ -407,6 +408,7 @@ CMD:arrestedit(playerid, params[])
 			SaveArrestPoint(id);
 			format(string, sizeof(string), "%s has changed the type on Arrest Point ID %d to %d.", GetPlayerNameEx(playerid), id, amount);
 			Log("logs/arrestedit.log", string);
+			SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "jailpos1", true) == 0) 
@@ -425,6 +427,7 @@ CMD:arrestedit(playerid, params[])
 			SaveArrestPoint(id);
 			format(string, sizeof(string), "%s has changed the jail cell position 1 on Arrest Point ID %d.", GetPlayerNameEx(playerid), id);
 			Log("logs/arrestedit.log", string);
+			SendDiscordMessage(8, string);
 		}
 		else if(strcmp(choice, "jailpos2", true) == 0) 
 		{
@@ -442,6 +445,7 @@ CMD:arrestedit(playerid, params[])
 			SaveArrestPoint(id);
 			format(string, sizeof(string), "%s has changed the jail cell position 2 on Arrest Point ID %d.", GetPlayerNameEx(playerid), id);
 			Log("logs/arrestedit.log", string);
+			SendDiscordMessage(8, string);
 		}
 		else if(strcmp(choice, "delete", true) == 0)
 		{
@@ -464,6 +468,7 @@ CMD:arrestedit(playerid, params[])
 			SendServerMessage(playerid, string);
 			format(string, sizeof(string), "%s has deleted Arrest Point ID %d.", GetPlayerNameEx(playerid), id);
 			Log("logs/arrestedit.log", string);
+			SendDiscordMessage(8, string);
 			return 1;
 		}
 	}

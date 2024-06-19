@@ -29,6 +29,7 @@ CMD:impoundedit(playerid, params[])
 			SaveImpoundPoint(id);
 			format(string, sizeof(string), "%s has edited Impound Point ID %d's position.", GetPlayerNameEx(playerid), id);
 			Log("logs/impoundedit.log", string);
+			SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "delete", true) == 0)
@@ -50,6 +51,7 @@ CMD:impoundedit(playerid, params[])
 			SendClientMessageEx(playerid, COLOR_WHITE, string);
 			format(string, sizeof(string), "%s has deleted Impound Point ID %d.", GetPlayerNameEx(playerid), id);
 			Log("logs/impoundedit.log", string);
+			SendDiscordMessage(8, string);
 			return 1;
 		}
 	}

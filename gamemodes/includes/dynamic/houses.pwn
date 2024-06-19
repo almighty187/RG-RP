@@ -328,6 +328,7 @@ public OnLoadHouse(index)
 		{
 			format(szMiscArray, sizeof(szMiscArray), "[EXPIRE - OnLoad] House Sale Sign Expired - Housed ID: %d", index);
 			Log("logs/house.log", szMiscArray);
+			SendDiscordMessage(8, szMiscArray);
 			DeleteHouseSaleSign(index);
 		}
 		if(HouseInfo[index][hSign][0] != 0.0) CreateHouseSaleSign(index);
@@ -720,6 +721,7 @@ CMD:buyhouse(playerid, params[])
 					ReloadHousePickup2(h);
 					format(string,sizeof(string),"%s(%d) (IP: %s) has bought house ID %d for $%d.",GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), GetPlayerIpEx(playerid),h,HouseInfo[h][hValue]);
 					Log("logs/house.log", string);
+					SendDiscordMessage(8, string);
 					if(HouseInfo[h][hCustomInterior] == 1) Player_StreamPrep(playerid, HouseInfo[h][hInteriorX],HouseInfo[h][hInteriorY],HouseInfo[h][hInteriorZ], FREEZE_TIME);
 					return 1;
 				}
@@ -733,7 +735,7 @@ CMD:buyhouse(playerid, params[])
 
 CMD:rentroom(playerid, params[])
 {
-    //new string[128];
+    new string[128];
     new Float:oldposx, Float:oldposy, Float:oldposz;
     new playername[MAX_PLAYER_NAME];
     GetPlayerName(playerid, playername, sizeof(playername));
@@ -774,10 +776,11 @@ CMD:rentroom(playerid, params[])
                         SendClientMessageEx(playerid, COLOR_WHITE, "Congratulations. You can enter and exit here any time you want.");
                         SendClientMessageEx(playerid, COLOR_WHITE, "Type /help to review the property help section.");
                         OnPlayerStatsUpdate(playerid);
-                        //new ip[32];
-                        //GetPlayerIp(playerid,ip,sizeof(ip));
-                        //format(string,sizeof(string),"%s (IP: %s) has rented house ID %d (owned by %s) for $%d.",GetPlayerNameEx(playerid),ip,h,HouseInfo[h][hOwnerID],HouseInfo[h][hRentFee]);
-                        //Log("logs/house.log", string);
+                        new ip[32];
+                        GetPlayerIp(playerid,ip,sizeof(ip));
+                        format(string,sizeof(string),"%s (IP: %s) has rented house ID %d (owned by %s) for $%d.",GetPlayerNameEx(playerid),ip,h,HouseInfo[h][hOwnerID],HouseInfo[h][hRentFee]);
+                        Log("logs/house.log", string);
+                        SendDiscordMessage(8, string);
 						if(HouseInfo[h][hCustomInterior] == 1) Player_StreamPrep(playerid, HouseInfo[h][hInteriorX],HouseInfo[h][hInteriorY],HouseInfo[h][hInteriorZ], FREEZE_TIME);
                         return 1;
                     }
@@ -938,6 +941,7 @@ CMD:asellhouse(playerid, params[])
 		GetPlayerIp(playerid,ip,sizeof(ip));
 		format(string,sizeof(string),"Administrator %s (IP: %s) has admin-sold house ID %d (was owned by %s(%d)).", GetPlayerNameEx(playerid), ip, house, HouseInfo[house][hOwnerName], HouseInfo[house][hOwnerID]);
 		Log("logs/house.log", string);
+		SendDiscordMessage(8, string);
 		ClearHouse(house);
 		format( HouseInfo[house][hOwnerName], 128, "Nobody" );
 		HouseInfo[house][hOwnerID] = -1;
@@ -1050,7 +1054,7 @@ CMD:hname(playerid, params[])
 
 	format(string, sizeof(string), "%s has edited HouseID %d's Owner to %s.", GetPlayerNameEx(playerid), houseid, ownername);
 	Log("logs/hedit.log", string);
-
+	SendDiscordMessage(8, string);
 	return 1;
 }
 
@@ -1081,6 +1085,7 @@ CMD:hedit(playerid, params[])
 		SaveHouse(houseid);
 		format(string, sizeof(string), "%s has edited HouseID %d's Ignore state to %d.", GetPlayerNameEx(playerid), houseid, HouseInfo[houseid][hIgnore]);
 		Log("logs/hedit.log", string);
+		SendDiscordMessage(8, string);
 	}
 	else if(strcmp(choice, "delete", true) == 0)
 	{
@@ -1141,6 +1146,7 @@ CMD:hedit(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_WHITE, string);
 		format(string, sizeof(string), "%s has deleted house id %d", GetPlayerNameEx(playerid), houseid);
 		Log("logs/hedit.log", string);
+		SendDiscordMessage(8, string);
 		return true;
 	}
 	else if(strcmp(choice, "interior", true) == 0)
@@ -1149,6 +1155,7 @@ CMD:hedit(playerid, params[])
 		GetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
 		format(szMiscArray, sizeof(szMiscArray), "%s has edited HouseID %d's Interior. (B:  %f, %f, %f | A: %f, %f, %f)", GetPlayerNameEx(playerid), houseid, HouseInfo[houseid][hInteriorX], HouseInfo[houseid][hInteriorY], HouseInfo[houseid][hInteriorZ], Pos[0], Pos[1], Pos[2]);
 		Log("logs/hedit.log", szMiscArray);
+		SendDiscordMessage(8, szMiscArray);
 		GetPlayerPos(playerid, HouseInfo[houseid][hInteriorX], HouseInfo[houseid][hInteriorY], HouseInfo[houseid][hInteriorZ]);
 		GetPlayerFacingAngle(playerid, HouseInfo[houseid][hInteriorA]);
 		HouseInfo[houseid][hIntIW] = GetPlayerInterior( playerid );
@@ -1175,6 +1182,7 @@ CMD:hedit(playerid, params[])
 
 		format(string, sizeof(string), "%s has edited HouseID %d's Custom Interior.", GetPlayerNameEx(playerid), houseid);
 		Log("logs/hedit.log", string);
+		SendDiscordMessage(8, string);
 		return 1;
 	}
 	else if(strcmp(choice, "customexterior", true) == 0)
@@ -1194,6 +1202,7 @@ CMD:hedit(playerid, params[])
 
 		format(string, sizeof(string), "%s has edited HouseID %d's Custom Exterior.", GetPlayerNameEx(playerid), houseid);
 		Log("logs/hedit.log", string);
+		SendDiscordMessage(8, string);
 		return 1;
 	}
 	else if(strcmp(choice, "exterior", true) == 0)
@@ -1202,6 +1211,7 @@ CMD:hedit(playerid, params[])
 		GetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
 		format(szMiscArray, sizeof(szMiscArray), "%s has edited HouseID %d's Exterior. (B:  %f, %f, %f | A: %f, %f, %f)", GetPlayerNameEx(playerid), houseid,  HouseInfo[houseid][hExteriorX], HouseInfo[houseid][hExteriorY], HouseInfo[houseid][hExteriorZ], Pos[0], Pos[1], Pos[2]);
 		Log("logs/hedit.log", szMiscArray);
+		SendDiscordMessage(8, szMiscArray);
 		GetPlayerPos(playerid, HouseInfo[houseid][hExteriorX], HouseInfo[houseid][hExteriorY], HouseInfo[houseid][hExteriorZ]);
 		GetPlayerFacingAngle(playerid, HouseInfo[houseid][hExteriorA]);
 		HouseInfo[houseid][hExtIW] = GetPlayerInterior(playerid);
@@ -1220,6 +1230,7 @@ CMD:hedit(playerid, params[])
 		SaveHouse(houseid);
 		format(string, sizeof(string), "%s has edited House ID %d's interior VW to %d.", GetPlayerNameEx(playerid), houseid, amount);
 		Log("logs/hedit.log", string);
+		SendDiscordMessage(8, string);
 		return 1;
 	}
 	else if(strcmp(choice, "level", true) == 0)
@@ -1230,6 +1241,7 @@ CMD:hedit(playerid, params[])
 		ReloadHouseText(houseid);
 		format(string, sizeof(string), "%s has edited HouseID %d's Level to %d.", GetPlayerNameEx(playerid), houseid, amount);
 		Log("logs/hedit.log", string);
+		SendDiscordMessage(8, string);
 	}
 	else if(strcmp(choice, "price", true) == 0)
 	{
@@ -1239,6 +1251,7 @@ CMD:hedit(playerid, params[])
 		ReloadHouseText(houseid);
 		format(string, sizeof(string), "%s has edited HouseID %d's Price to $%d.", GetPlayerNameEx(playerid), amount);
 		Log("logs/hedit.log", string);
+		SendDiscordMessage(8, string);
 	}
 	else if(strcmp(choice, "class", true) == 0)
 	{
@@ -1268,6 +1281,7 @@ CMD:hedit(playerid, params[])
 
 		format(string, sizeof(string), "%s has edited HouseID %d's Class to %d.", GetPlayerNameEx(playerid), houseid, amount);
 		Log("logs/hedit.log", string);
+		SendDiscordMessage(8, string);
 	}
 	SaveHouse(houseid);
 	return 1;
@@ -1376,6 +1390,7 @@ CMD:shophouse(playerid, params[])
 	SaveHouse(houseid);
 	format(string, sizeof(string), "[SHOPHOUSE] %s modified %s on house %d to %d - Invoice %s", GetPlayerNameEx(playerid), choice, houseid, amount, invoice);
 	Log("logs/shoplog.log", string);
+	SendDiscordMessage(8, string);
 	return 1;
 }
 
@@ -1400,6 +1415,7 @@ CMD:shophousename(playerid, params[])
 	SaveHouse(houseid);
 	format(string, sizeof(string), "[SHOPHOUSE] %s modified Owner on house %d to %s - Invoice %s", GetPlayerNameEx(playerid), houseid, ownername, invoice);
 	Log("logs/shoplog.log", string);
+	SendDiscordMessage(8, string);
 	return 1;
 }
 
@@ -1720,6 +1736,7 @@ CMD:hmove(playerid, params[])
 		GetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
 		format(string, sizeof(string), "%s has edited HouseID %d's Interior. (Before:  %f, %f, %f | After: %f, %f, %f)", GetPlayerNameEx(playerid), houseid, HouseInfo[houseid][hInteriorX], HouseInfo[houseid][hInteriorY], HouseInfo[houseid][hInteriorZ], Pos[0], Pos[1], Pos[2]);
 		Log("logs/hedit.log", string);
+		SendDiscordMessage(8, string);
 		GetPlayerPos(playerid, HouseInfo[houseid][hInteriorX], HouseInfo[houseid][hInteriorY], HouseInfo[houseid][hInteriorZ]);
 		GetPlayerFacingAngle(playerid, HouseInfo[houseid][hInteriorA]);
 		HouseInfo[houseid][hIntIW] = GetPlayerInterior( playerid );
@@ -1731,6 +1748,7 @@ CMD:hmove(playerid, params[])
 			GivePlayerCashEx(giveplayerid, TYPE_ONHAND, -minfee);
 			format(string, sizeof(string), "AdmCmd: %s(%d) was fined $%s by %s, reason: House Move", GetPlayerNameEx(giveplayerid), GetPlayerSQLId(giveplayerid), number_format(minfee), GetPlayerNameEx(playerid));
 			Log("logs/admin.log", string);
+			SendDiscordMessage(8, string);
 			format(string, sizeof(string), "AdmCmd: %s was fined $%s by %s, reason: House Move", GetPlayerNameEx(giveplayerid), number_format(minfee), GetPlayerNameEx(playerid));
 			SendClientMessageToAllEx(COLOR_LIGHTRED, string);
 		}
@@ -1739,6 +1757,7 @@ CMD:hmove(playerid, params[])
 			GivePlayerCashEx(giveplayerid, TYPE_ONHAND, -fee);
 			format(string, sizeof(string), "AdmCmd: %s(%d) was fined $%s by %s, reason: House Move", GetPlayerNameEx(giveplayerid), GetPlayerSQLId(giveplayerid), number_format(fee), GetPlayerNameEx(playerid));
 			Log("logs/admin.log", string);
+			SendDiscordMessage(8, string);
 			format(string, sizeof(string), "AdmCmd: %s was fined $%s by %s, reason: House Move", GetPlayerNameEx(giveplayerid), number_format(fee), GetPlayerNameEx(playerid));
 			SendClientMessageToAllEx(COLOR_LIGHTRED, string);
 		}
@@ -1748,6 +1767,7 @@ CMD:hmove(playerid, params[])
 		GetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
 		format(string, sizeof(string), "%s has edited HouseID %d's Exterior. (Before:  %f, %f, %f | After: %f, %f, %f)", GetPlayerNameEx(playerid), houseid,  HouseInfo[houseid][hExteriorX], HouseInfo[houseid][hExteriorY], HouseInfo[houseid][hExteriorZ], Pos[0], Pos[1], Pos[2]);
 		Log("logs/hedit.log", string);
+		SendDiscordMessage(8, string);
 		GetPlayerPos(playerid, HouseInfo[houseid][hExteriorX], HouseInfo[houseid][hExteriorY], HouseInfo[houseid][hExteriorZ]);
 		GetPlayerFacingAngle(playerid, HouseInfo[houseid][hExteriorA]);
 		HouseInfo[houseid][hExtIW] = GetPlayerInterior(playerid);
@@ -1760,6 +1780,7 @@ CMD:hmove(playerid, params[])
 			GivePlayerCashEx(giveplayerid, TYPE_ONHAND, -minfee);
 			format(string, sizeof(string), "AdmCmd: %s(%d) was fined $%s by %s, reason: House Move", GetPlayerNameEx(giveplayerid), GetPlayerSQLId(giveplayerid), number_format(minfee), GetPlayerNameEx(playerid));
 			Log("logs/admin.log", string);
+			SendDiscordMessage(8, string);
 			format(string, sizeof(string), "AdmCmd: %s was fined $%s by %s, reason: House Move", GetPlayerNameEx(giveplayerid), number_format(minfee), GetPlayerNameEx(playerid));
 			SendClientMessageToAllEx(COLOR_LIGHTRED, string);
 		}
@@ -1768,6 +1789,7 @@ CMD:hmove(playerid, params[])
 			GivePlayerCashEx(giveplayerid, TYPE_ONHAND, -fee);
 			format(string, sizeof(string), "AdmCmd: %s(%d) was fined $%s by %s, reason: House Move", GetPlayerNameEx(giveplayerid), GetPlayerSQLId(giveplayerid), number_format(fee), GetPlayerNameEx(playerid));
 			Log("logs/admin.log", string);
+			SendDiscordMessage(8, string);
 			format(string, sizeof(string), "AdmCmd: %s was fined $%s by %s, reason: House Move", GetPlayerNameEx(giveplayerid), number_format(fee), GetPlayerNameEx(playerid));
 			SendClientMessageToAllEx(COLOR_LIGHTRED, string);
 		}
@@ -1906,6 +1928,7 @@ public DeleteHouse(houseid, adminid)
 	szMiscArray[0] = 0;
 	format(szMiscArray, sizeof(szMiscArray), "%s has deleted house id %d", adminid != INVALID_PLAYER_ID ? GetPlayerNameEx(adminid) : ("(Inactive Player Resource System)"), houseid);
 	Log("logs/hedit.log", szMiscArray);
+	SendDiscordMessage(8, szMiscArray);
 	return 1;
 }
 

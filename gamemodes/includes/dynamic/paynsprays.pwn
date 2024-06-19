@@ -89,6 +89,7 @@ CMD:pnsedit(playerid, params[])
 		SavePayNSpray(id);
 		format(string, sizeof(string), "%s has edited Pay N' Spray ID %d's position.", GetPlayerNameEx(playerid), id);
 		Log("logs/pnsedit.log", string);
+		SendDiscordMessage(8, string);
 		return 1;
 	}
 	else if(strcmp(choice, "groupcost", true) == 0)
@@ -108,6 +109,7 @@ CMD:pnsedit(playerid, params[])
 		SavePayNSpray(id);
 		format(string, sizeof(string), "%s has changed the group cost on Pay N' Spray ID %d to $%s.", GetPlayerNameEx(playerid), id, number_format(amount));
 		Log("logs/pnsedit.log", string);
+		SendDiscordMessage(8, string);
 		return 1;
 	}
 	else if(strcmp(choice, "regcost", true) == 0)
@@ -127,6 +129,7 @@ CMD:pnsedit(playerid, params[])
 		SavePayNSpray(id);
 		format(string, sizeof(string), "%s has changed the regular cost on Pay N' Spray ID %d to $%s.", GetPlayerNameEx(playerid), id, number_format(amount));
 		Log("logs/pnsedit.log", string);
+		SendDiscordMessage(8, string);
 		return 1;
 	}
 	else if(strcmp(choice, "delete", true) == 0)
@@ -153,6 +156,7 @@ CMD:pnsedit(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_WHITE, string);
 		format(string, sizeof(string), "%s has deleted Pay N' Spray ID %d.", GetPlayerNameEx(playerid), id);
 		Log("logs/pnsedit.log", string);
+		SendDiscordMessage(8, string);
 		return 1;
 	}
 	return 1;

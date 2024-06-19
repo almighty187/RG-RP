@@ -1044,7 +1044,18 @@ CMD:clearall(playerid, params[])
     }
     return 1;
 }
-
+CMD:saveaccount(playerid, params[])
+{
+    if (PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1) {
+        SaveEventPoints();
+        //mysql_SaveCrates();
+        //SendClientMessageEx(playerid, COLOR_YELLOW, "All Crates Saved successfully.");
+        SaveAllAccountsUpdate();
+        SendClientMessageEx(playerid, COLOR_YELLOW, "Update Process Started - Wait for Account Saving Finish Confirmation.");
+    }
+    else SendErrorMessage(playerid, "You are not authorized to use that CMD");
+    return 1;
+}
 CMD:savechars(playerid, params[])
 {
     if (PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1) {
@@ -1060,9 +1071,7 @@ CMD:savechars(playerid, params[])
         SaveGarages();
         SendClientMessageEx(playerid, COLOR_YELLOW, "Garages saving process started.");
     }
-    else {
-        SendErrorMessage(playerid, "You are not authorized to use that CMD");
-    }
+    else SendErrorMessage(playerid, "You are not authorized to use that CMD");
     return 1;
 }
 

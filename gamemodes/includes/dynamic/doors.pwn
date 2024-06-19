@@ -786,6 +786,8 @@ CMD:ddedit(playerid, params[])
 			SaveDynamicDoor(doorid);
 			format(string, sizeof(string), "%s has edited DoorID %d's CustomInterior.", GetPlayerNameEx(playerid), doorid);
 			Log("logs/ddedit.log", string);
+   			format(string, sizeof(string), "%s has edited DoorID %d's CustomInterior.", GetPlayerNameEx(playerid), doorid);
+      		SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "customexterior", true) == 0)
@@ -804,6 +806,8 @@ CMD:ddedit(playerid, params[])
 			CreateDynamicDoor(doorid);
 			format(string, sizeof(string), "%s has edited DoorID %d's CustomExterior.", GetPlayerNameEx(playerid), doorid);
 			Log("logs/ddedit.log", string);
+			format(string, sizeof(string), "%s has edited DoorID %d's CustomExterior.", GetPlayerNameEx(playerid), doorid);
+      		SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "exterior", true) == 0)
@@ -821,6 +825,8 @@ CMD:ddedit(playerid, params[])
 			if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
 			SaveDynamicDoor(doorid);
 			CreateDynamicDoor(doorid);
+			format(szMiscArray, sizeof(szMiscArray), "%s has edited DoorID %d's Exterior (B: %f, %f, %f | A: %f, %f, %f)", GetPlayerNameEx(playerid), doorid, DDoorsInfo[doorid][ddExteriorX], DDoorsInfo[doorid][ddExteriorY], DDoorsInfo[doorid][ddExteriorZ], pos[0], pos[1], pos[2]);
+      		SendDiscordMessage(8, szMiscArray);
 		}
 		else if(strcmp(choice, "type", true) == 0)
 		{
@@ -862,6 +868,8 @@ CMD:ddedit(playerid, params[])
 
 			format(string, sizeof(string), "%s has edited DoorID %d's type.", GetPlayerNameEx(playerid), doorid);
 			Log("logs/ddedit.log", string);
+			format(string, sizeof(string), "%s has edited DoorID %d's type.", GetPlayerNameEx(playerid), doorid);
+      		SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "rank", true) == 0)
@@ -874,6 +882,8 @@ CMD:ddedit(playerid, params[])
 			SaveDynamicDoor(doorid);
 			format(string, sizeof(string), "%s has edited DoorID %d's rank.", GetPlayerNameEx(playerid), doorid);
 			Log("logs/ddedit.log", string);
+			format(string, sizeof(string), "%s has edited DoorID %d's rank.", GetPlayerNameEx(playerid), doorid);
+      		SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "vip", true) == 0)
@@ -886,6 +896,8 @@ CMD:ddedit(playerid, params[])
 			SaveDynamicDoor(doorid);
 			format(string, sizeof(string), "%s has edited DoorID %d's VIP Level.", GetPlayerNameEx(playerid), doorid);
 			Log("logs/ddedit.log", string);
+			format(string, sizeof(string), "%s has edited DoorID %d's VIP Level.", GetPlayerNameEx(playerid), doorid);
+      		SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "famed", true) == 0)
@@ -898,6 +910,8 @@ CMD:ddedit(playerid, params[])
 			SaveDynamicDoor(doorid);
 			format(string, sizeof(string), "%s has edited DoorID %d's Famed Level.", GetPlayerNameEx(playerid), doorid);
 			Log("logs/ddedit.log", string);
+			format(string, sizeof(string), "%s has edited DoorID %d's Famed Level.", GetPlayerNameEx(playerid), doorid);
+      		SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "dpc", true) == 0)
@@ -915,6 +929,8 @@ CMD:ddedit(playerid, params[])
 			SaveDynamicDoor(doorid);
 			format(string, sizeof(string), "%s has set DoorID %d's DPC value.", GetPlayerNameEx(playerid), doorid);
 			Log("logs/ddedit.log", string);
+			format(string, sizeof(string), "%s has set DoorID %d's DPC value.", GetPlayerNameEx(playerid), doorid);
+      		SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "allegiance", true) == 0)
@@ -927,6 +943,8 @@ CMD:ddedit(playerid, params[])
 			SaveDynamicDoor(doorid);
 			format(string, sizeof(string), "%s has edited DoorID %d's Allegiance to %d.", GetPlayerNameEx(playerid), doorid, amount);
 			Log("logs/ddedit.log", string);
+			format(string, sizeof(string), "%s has edited DoorID %d's Allegiance to %d.", GetPlayerNameEx(playerid), doorid, amount);
+      		SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "grouptype", true) == 0)
@@ -939,6 +957,8 @@ CMD:ddedit(playerid, params[])
 			SaveDynamicDoor(doorid);
 			format(string, sizeof(string), "%s has edited DoorID %d's Group Type to %d.", GetPlayerNameEx(playerid), doorid, amount);
 			Log("logs/ddedit.log", string);
+			format(string, sizeof(string), "%s has edited DoorID %d's Group Type to %d.", GetPlayerNameEx(playerid), doorid, amount);
+      		SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "faction", true) == 0)
@@ -964,6 +984,8 @@ CMD:ddedit(playerid, params[])
 			SaveDynamicDoor(doorid);
 			format(string, sizeof(string), "%s has edited DoorID %d's Faction.", GetPlayerNameEx(playerid), doorid);
 			Log("logs/ddedit.log", string);
+			format(string, sizeof(string), "%s has edited DoorID %d's Faction.", GetPlayerNameEx(playerid), doorid);
+      		SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "admin", true) == 0)
@@ -976,6 +998,8 @@ CMD:ddedit(playerid, params[])
 			SaveDynamicDoor(doorid);
 			format(string, sizeof(string), "%s has edited DoorID %d's Admin Level.", GetPlayerNameEx(playerid), doorid);
 			Log("logs/ddedit.log", string);
+			format(string, sizeof(string), "%s has edited DoorID %d's Admin Level.", GetPlayerNameEx(playerid), doorid);
+      		SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "wanted", true) == 0)
@@ -988,6 +1012,8 @@ CMD:ddedit(playerid, params[])
 			SaveDynamicDoor(doorid);
 			format(string, sizeof(string), "%s has edited DoorID %d's Wanted.", GetPlayerNameEx(playerid), doorid);
 			Log("logs/ddedit.log", string);
+			format(string, sizeof(string), "%s has edited DoorID %d's Wanted.", GetPlayerNameEx(playerid), doorid);
+      		SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "vehicleable", true) == 0)
@@ -1000,6 +1026,8 @@ CMD:ddedit(playerid, params[])
 			SaveDynamicDoor(doorid);
 			format(string, sizeof(string), "%s has edited DoorID %d's VehicleAble.", GetPlayerNameEx(playerid), doorid);
 			Log("logs/ddedit.log", string);
+			format(string, sizeof(string), "%s has edited DoorID %d's VehicleAble.", GetPlayerNameEx(playerid), doorid);
+      		SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "color", true) == 0)
@@ -1016,6 +1044,8 @@ CMD:ddedit(playerid, params[])
 			CreateDynamicDoor(doorid);
 			format(string, sizeof(string), "%s has edited DoorID %d's Color.", GetPlayerNameEx(playerid), doorid);
 			Log("logs/ddedit.log", string);
+			format(string, sizeof(string), "%s has edited DoorID %d's Color.", GetPlayerNameEx(playerid), doorid);
+      		SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "pickupmodel", true) == 0)
@@ -1032,6 +1062,8 @@ CMD:ddedit(playerid, params[])
 			CreateDynamicDoor(doorid);
 			format(string, sizeof(string), "%s has edited DoorID %d's PickupModel.", GetPlayerNameEx(playerid), doorid);
 			Log("logs/ddedit.log", string);
+			format(string, sizeof(string), "%s has edited DoorID %d's PickupModel.", GetPlayerNameEx(playerid), doorid);
+			SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "icon", true) == 0)
@@ -1049,6 +1081,8 @@ CMD:ddedit(playerid, params[])
 			CreateDynamicDoor(doorid);
 			format(string, sizeof(string), "%s has edited DoorID %d's MapIcon.", GetPlayerNameEx(playerid), doorid);
 			Log("logs/ddedit.log", string);
+			format(string, sizeof(string), "%s has edited DoorID %d's MapIcon.", GetPlayerNameEx(playerid), doorid);
+			SendDiscordMessage(8, string);
 			return 1;
 		}
 		else if(strcmp(choice, "delete", true) == 0)
@@ -1094,6 +1128,8 @@ CMD:ddedit(playerid, params[])
 			SendClientMessageEx(playerid, COLOR_WHITE, string);
 			format(string, sizeof(string), "%s has deleted DoorID %d.", GetPlayerNameEx(playerid), doorid);
 			Log("logs/ddedit.log", string);
+			format(string, sizeof(string), "%s has deleted DoorID %d.", GetPlayerNameEx(playerid), doorid);
+			SendDiscordMessage(8, string);
 			return 1;
 		}
 	}
@@ -1145,6 +1181,7 @@ CMD:ddmove(playerid, params[])
 			GivePlayerCashEx(giveplayerid, TYPE_ONHAND, -minfee);
 			format(string, sizeof(string), "AdmCmd: %s(%d) was fined $%s by %s, reason: Dynamic Door Move", GetPlayerNameEx(giveplayerid), GetPlayerSQLId(giveplayerid), number_format(minfee), GetPlayerNameEx(playerid));
 			Log("logs/admin.log", string);
+			SendDiscordMessage(8, string);
 			format(string, sizeof(string), "AdmCmd: %s was fined $%s by %s, reason: Dynamic Door Move", GetPlayerNameEx(giveplayerid), number_format(minfee), GetPlayerNameEx(playerid));
 			SendClientMessageToAllEx(COLOR_LIGHTRED, string);
 			
@@ -1154,6 +1191,7 @@ CMD:ddmove(playerid, params[])
 			GivePlayerCashEx(giveplayerid, TYPE_ONHAND, -fee);
 			format(string, sizeof(string), "AdmCmd: %s(%d) was fined $%s by %s, reason: Dynamic Door Move", GetPlayerNameEx(giveplayerid), GetPlayerSQLId(giveplayerid), number_format(fee), GetPlayerNameEx(playerid));
 			Log("logs/admin.log", string);
+			SendDiscordMessage(8, string);
 			format(string, sizeof(string), "AdmCmd: %s was fined $%s by %s, reason: Dynamic Door Move", GetPlayerNameEx(giveplayerid), number_format(fee), GetPlayerNameEx(playerid));
 			SendClientMessageToAllEx(COLOR_LIGHTRED, string);
 		}
@@ -1175,6 +1213,7 @@ CMD:ddmove(playerid, params[])
 			GivePlayerCashEx(giveplayerid, TYPE_ONHAND, -minfee);
 			format(string, sizeof(string), "AdmCmd: %s(%d) was fined $%s by %s, reason: Dynamic Door Move", GetPlayerNameEx(giveplayerid), GetPlayerSQLId(giveplayerid), number_format(minfee), GetPlayerNameEx(playerid));
 			Log("logs/admin.log", string);
+			SendDiscordMessage(8, string);
 			format(string, sizeof(string), "AdmCmd: %s was fined $%s by %s, reason: Dynamic Door Move", GetPlayerNameEx(giveplayerid), number_format(minfee), GetPlayerNameEx(playerid));
 			SendClientMessageToAllEx(COLOR_LIGHTRED, string);
 		}
@@ -1183,6 +1222,7 @@ CMD:ddmove(playerid, params[])
 			GivePlayerCashEx(giveplayerid, TYPE_ONHAND, -fee);
 			format(string, sizeof(string), "AdmCmd: %s(%d) was fined $%s by %s, reason: Dynamic Door Move", GetPlayerNameEx(giveplayerid), GetPlayerSQLId(giveplayerid), number_format(fee), GetPlayerNameEx(playerid));
 			Log("logs/admin.log", string);
+			SendDiscordMessage(8, string);
 			format(string, sizeof(string), "AdmCmd: %s was fined $%s by %s, reason: Dynamic Door Move", GetPlayerNameEx(giveplayerid), number_format(fee), GetPlayerNameEx(playerid));
 			SendClientMessageToAllEx(COLOR_LIGHTRED, string);
 		}
@@ -1238,5 +1278,6 @@ public DeleteDynamicDoor(doorid, adminid)
 	szMiscArray[0] = 0;
 	format(szMiscArray, sizeof(szMiscArray), "%s has deleted door id %d", adminid != INVALID_PLAYER_ID ? GetPlayerNameEx(adminid) : ("(Inactive Player Resource System)"), doorid);
 	Log("logs/ddedit.log", szMiscArray);
+	SendDiscordMessage(8, szMiscArray);
 	return 1;
 }

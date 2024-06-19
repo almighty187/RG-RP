@@ -84,14 +84,20 @@ stock SendDiscordMessage(channel, message[])
 		//login
 		case 6:
 		{
-			g_PrivateChannelId = DCC_FindChannelById("1232017069428576336");
+			g_LoginChannelId = DCC_FindChannelById("1252385629644263504");
 			DCC_SendChannelMessage(g_LoginChannelId, message);
 		}
 		//gang news
 		case 7:
 		{
-			g_PrivateChannelId = DCC_FindChannelById("1252385629644263504");
+			g_GangNewsChannelId = DCC_FindChannelById("1252385926118772776");
 			DCC_SendChannelMessage(g_GangNewsChannelId, message);
+		}
+		//logs
+		case 8:
+		{
+			g_LogChannelId = DCC_FindChannelById("1252385704726761536");
+			DCC_SendChannelMessage(g_LogChannelId, message);
 		}
 	}
 	return 1;

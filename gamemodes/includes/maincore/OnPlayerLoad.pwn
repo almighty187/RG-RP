@@ -698,7 +698,7 @@ public OnPlayerLoad(playerid)
 	gpci(playerid, serial, sizeof(serial));
 	format(discordMsg, sizeof(discordMsg), "%s (ID: %d | SQL ID: %d | Level: %d | IP: %s | GPCI: %s) has logged in.", GetPlayerNameExt(playerid), playerid, GetPlayerSQLId(playerid), PlayerInfo[playerid][pLevel], ip, serial);
 	Log("logs/login.log", discordMsg);
-	SendDiscordMessage(4, discordMsg);
+	SendDiscordMessage(6, discordMsg);
 	format(string, sizeof(string), "%s has logged in.", GetPlayerNameEx(playerid));
 	ABroadCast(COLOR_GREY, string, 1337);
 

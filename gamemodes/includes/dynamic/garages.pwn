@@ -127,6 +127,7 @@ CMD:garageedit(playerid, params[])
 		CreateGarage(garageid);
 		format(string, sizeof(string), "%s has edited Garage ID: %d's Exterior.", GetPlayerNameEx(playerid), garageid);
 		Log("logs/garage.log", string);
+		SendDiscordMessage(8, string);
 	}
 	else if(strcmp(option, "customexterior", true) == 0)
 	{
@@ -143,6 +144,7 @@ CMD:garageedit(playerid, params[])
 		CreateGarage(garageid);
 		format(string, sizeof(string), "%s has edited Garage ID: %d's CustomExterior.", GetPlayerNameEx(playerid), garageid);
 		Log("logs/garage.log", string);
+		SendDiscordMessage(8, string);
 	}
 	else if(strcmp(option, "size", true) == 0)
 	{
@@ -185,6 +187,7 @@ CMD:garageedit(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_WHITE, string);
 		format(string, sizeof(string), "%s has edited Garage ID: %d's size to %s", GetPlayerNameEx(playerid), garageid, size);
 		Log("logs/garage.log", string);
+		SendDiscordMessage(8, string);
 	}
 	else if(strcmp(option, "vw", true) == 0)
 	{
@@ -193,6 +196,7 @@ CMD:garageedit(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_WHITE, string);
 		format(string, sizeof(string), "%s has edited Garage ID: %d's VW to %d", GetPlayerNameEx(playerid), garageid, value);
 		Log("logs/garage.log", string);
+		SendDiscordMessage(8, string);
 		CreateGarage(garageid);
 	}
 	else if(strcmp(option, "delete", true) == 0)
@@ -263,6 +267,7 @@ CMD:changeddtogarage(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_GRAD2, string);
 	Log("logs/ddedit.log", string);
 	Log("logs/garage.log", string);
+	SendDiscordMessage(8, string);
 	CreateGarage(next);
 	SaveGarage(next);
 	SendServerMessage(playerid, "If garage has been successfully transferred delete the door. /ddedit delete");
@@ -286,6 +291,7 @@ CMD:garageowner(playerid, params[])
 			SaveGarage(garageid);
 			format(string, sizeof(string), "%s has edited Garage ID: %d's owner to %s (SQL ID: %d).", GetPlayerNameEx(playerid), garageid, GetPlayerNameEx(giveplayerid), GetPlayerSQLId(giveplayerid));
 			Log("logs/garage.log", string);
+			SendDiscordMessage(8, string);
 		}
 		else
 		{
@@ -311,6 +317,7 @@ CMD:agaragepass(playerid, params[])
 	SaveGarage(garageid);
 	format(string, sizeof(string), "%s has edited Garage ID: %d's password to %s.", GetPlayerNameEx(playerid), garageid, garagepass);
 	Log("logs/garage.log", string);
+	SendDiscordMessage(8, string);
 	return 1;
 }
 
@@ -577,6 +584,7 @@ stock CreateGarage(garageid)
 
 	format(szMiscArray, sizeof(szMiscArray), "[Garage] Created Garage: %d | Exterior Area ID: %d | Interior Area ID: %d", garageid, GarageInfo[garageid][gar_AreaID], GarageInfo[garageid][gar_AreaID_int]);
 	Log("debug/door_garage.log", szMiscArray);
+	SendDiscordMessage(8, szMiscArray);
 	return 1;
 }
 
@@ -599,6 +607,7 @@ public OnSetGarageOwner(playerid, garageid)
 			SaveGarage(garageid);
 			format(string, sizeof(string), "%s has edited Garage ID: %d's owner to %s (SQL ID: %d).", GetPlayerNameEx(playerid), garageid, GarageInfo[garageid][gar_OwnerName], GarageInfo[garageid][gar_Owner]);
 			Log("logs/garage.log", string);
+			SendDiscordMessage(8, string);
 		}
 		else SendErrorMessage(playerid, "That account name does not appear to exist.");
 	}

@@ -759,7 +759,48 @@ public OnQueryFinish(resultid, extraid, handleid)
 		}
 		case SENDDATA_THREAD:
 		{
-			if(GetPVarType(extraid, "RestartKick")) {
+		    if (GetPVarType(extraid, "RestartKick")) {
+			    gPlayerLogged[extraid] = 0;
+			    GameTextForPlayer(extraid, "Scheduled Maintenance...", 5000, 5);
+			    SendClientMessage(extraid, COLOR_LIGHTBLUE, "* The server will be going down for Scheduled Maintenance. A brief period of downtime will follow.");
+			    SendClientMessage(extraid, COLOR_GRAD2, "We will be going down to do some maintenance on the server/script, we will be back online shortly.");
+			    SetTimerEx("KickEx", 1000, 0, "i", extraid);
+
+			    foreach (new id: Player) {
+			        if (gPlayerLogged[id]) {
+			            SetPVarInt(id, "RestartKick", 1);
+			            OnPlayerStatsUpdate(id);
+			        }
+			    }
+			    ABroadCast(COLOR_YELLOW, "{AA3333}Maintenance{FFFF00}: Account saving finished!", 1);
+			    // g_mysql_DumpAccounts();
+
+			    SetTimer("FinishMaintenance", 1500, false);
+			}
+
+			if (GetPVarType(extraid, "AccountSaving") && (GetPVarInt(extraid, "AccountSaved") == 0)) {
+			    SetPVarInt(extraid, "AccountSaved", 1);
+
+			    foreach (new id: Player) {
+			        if (gPlayerLogged[id] && (GetPVarInt(id, "AccountSaved") == 0)) {
+			            SetPVarInt(id, "AccountSaving", 1);
+			            OnPlayerStatsUpdate(id);
+			        }
+			    }
+
+			    ABroadCast(COLOR_YELLOW, "{AA3333}Maintenance{FFFF00}: Account saving finished!", 2);
+			    print("Account Saving Complete");
+
+			    foreach (new id: Player) {
+			        DeletePVar(id, "AccountSaved");
+			        DeletePVar(id, "AccountSaving");
+			    }
+			    // g_mysql_DumpAccounts();
+			}
+
+			return 1;
+
+			/*if(GetPVarType(extraid, "RestartKick")) {
 				gPlayerLogged{extraid} = 0;
 				GameTextForPlayer(extraid, "Scheduled Maintenance...", 5000, 5);
 				SendClientMessage(extraid, COLOR_LIGHTBLUE, "* The server will be going down for Scheduled Maintenance. A brief period of downtime will follow.");
@@ -794,7 +835,7 @@ public OnQueryFinish(resultid, extraid, handleid)
 				}
 				//g_mysql_DumpAccounts();
 			}
-			return 1;
+			return 1;*/
 		}
 		case AUTH_THREAD:
 		{
@@ -1329,7 +1370,6 @@ public OnQueryFinish(resultid, extraid, handleid)
 	}
 	return 1;
 }
-
 public OnQueryError(errorid, const error[], const callback[], const query[], MySQL:handle) {
 
 	printf("[MySQL] Query Error - (ErrorID: %d)",  errorid);
@@ -1339,6 +1379,25 @@ public OnQueryError(errorid, const error[], const callback[], const query[], MyS
 	if(errorid == 2013 || errorid == 2014 || errorid == 2006 || errorid == 2027 || errorid == 2055)	{
 		print("[MySQL] Connection Error Detected in Threaded Query");
 		//mysql_query(query, resultid, extraid);
+
+		format(szMiscArray, sizeof(szMiscArray), "MYSQL [%d]: %d, %s, in callback: %s.", iErrorID, errorid, error, callback);
+	}
+	else format(szMiscArray, sizeof(szMiscArray), "MYSQL (THREADED) [%d]: %d, %s, in callback: %s.", iErrorID, errorid, error, callback);
+	SendDiscordMessage(3, szMiscArray);
+	format(szMiscArray, sizeof(szMiscArray), "     Query: %s", query);
+	SendDiscordMessage(3, szMiscArray);
+	iErrorID++;
+}
+/*
+public OnQueryError(errorid, const error[], const callback[], const query[], MySQL:handle) {
+
+	printf("[MySQL] Query Error - (ErrorID: %d)",  errorid);
+	print("[MySQL] Check mysql_log.txt to review the query that threw the error.");
+	SQL_Log(query, error);
+
+	if(errorid == 2013 || errorid == 2014 || errorid == 2006 || errorid == 2027 || errorid == 2055)	{
+		print("[MySQL] Connection Error Detected in Threaded Query");
+		mysql_query(query, resultid, extraid);
 	 
 
 		format(szMiscArray, sizeof(szMiscArray), "MYSQL [%d]: %d, %s, in callback: %s.", iErrorID, errorid, error, callback);
@@ -1348,7 +1407,7 @@ public OnQueryError(errorid, const error[], const callback[], const query[], MyS
 	format(szMiscArray, sizeof(szMiscArray), "Query: %s", query);
 	SendDiscordMessage(3, szMiscArray);
 	iErrorID++;
-}
+}*/
 
 //--------------------------------[ CUSTOM STOCK FUNCTIONS ]---------------------------
 
@@ -2165,7 +2224,7 @@ stock SavePlayerFloat(query[], sqlid, Value[], Float:Number)
 
 stock g_mysql_SaveAccount(playerid, string[] = "")
 {
-    new query[2048];
+    new query[3048];
 
 	mysql_format(MainPipeline, query, 2048, "UPDATE `accounts` SET `SPos_x` = '%0.2f', `SPos_y` = '%0.2f', `SPos_z` = '%0.2f', `SPos_r` = '%0.2f' WHERE id = '%d'",PlayerInfo[playerid][pPos_x], PlayerInfo[playerid][pPos_y], PlayerInfo[playerid][pPos_z], PlayerInfo[playerid][pPos_r], GetPlayerSQLId(playerid));
 	mysql_tquery(MainPipeline, query, "OnQueryFinish", "i", SENDDATA_THREAD);
@@ -2232,8 +2291,6 @@ stock g_mysql_SaveAccount(playerid, string[] = "")
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "WRestricted", PlayerInfo[playerid][pWRestricted]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Materials", PlayerInfo[playerid][pMats]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Crates", PlayerInfo[playerid][pCrates]);
-    // SavePlayerInteger(query, GetPlayerSQLId(playerid), "Pot", PlayerInfo[playerid][pPot]);
-    // SavePlayerInteger(query, GetPlayerSQLId(playerid), "Crack", PlayerInfo[playerid][pCrack]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "Nation", PlayerInfo[playerid][pNation]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "SlotHolder", PlayerInfo[playerid][pSlotHolder]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Leader", PlayerInfo[playerid][pLeader]);
@@ -2398,7 +2455,6 @@ stock g_mysql_SaveAccount(playerid, string[] = "")
 
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "OpiumSeeds", PlayerInfo[playerid][pOpiumSeeds]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "RawOpium", PlayerInfo[playerid][pRawOpium]);
-	//SavePlayerInteger(query, GetPlayerSQLId(playerid), "Heroin", PlayerInfo[playerid][pHeroin]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "Syringe", PlayerInfo[playerid][pSyringes]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "Skins", PlayerInfo[playerid][pSkins]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "Fitness", PlayerInfo[playerid][pFitness]);
@@ -2577,30 +2633,6 @@ stock g_mysql_SaveAccount(playerid, string[] = "")
 	}
 	SavePlayerString(query, GetPlayerSQLId(playerid), "PrisonDrugs", mistring);*/
 
-	/*format(szMiscArray, sizeof(szMiscArray), "%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d",
-		PlayerInfo[playerid][pToggledChats][0],
-		PlayerInfo[playerid][pToggledChats][1],
-		PlayerInfo[playerid][pToggledChats][2],
-		PlayerInfo[playerid][pToggledChats][3],
-		PlayerInfo[playerid][pToggledChats][4],
-		PlayerInfo[playerid][pToggledChats][5],
-		PlayerInfo[playerid][pToggledChats][6],
-		PlayerInfo[playerid][pToggledChats][7],
-		PlayerInfo[playerid][pToggledChats][8],
-		PlayerInfo[playerid][pToggledChats][9],
-		PlayerInfo[playerid][pToggledChats][10],
-		PlayerInfo[playerid][pToggledChats][11],
-		PlayerInfo[playerid][pToggledChats][12],
-		PlayerInfo[playerid][pToggledChats][13],
-		PlayerInfo[playerid][pToggledChats][14],
-		PlayerInfo[playerid][pToggledChats][15],
-		PlayerInfo[playerid][pToggledChats][16],
-		PlayerInfo[playerid][pToggledChats][17],
-		PlayerInfo[playerid][pToggledChats][18],
-		PlayerInfo[playerid][pToggledChats][19],
-		PlayerInfo[playerid][pToggledChats][20]);
-	SavePlayerString(query, GetPlayerSQLId(playerid), "ToggledChats", szMiscArray);*/
-
 	for(new c = 0; c < MAX_CHATSETS; c++) {
 		mysql_format(MainPipeline, szMiscArray, sizeof(szMiscArray), "ChatTog%d", c);
 		SavePlayerInteger(query, GetPlayerSQLId(playerid), szMiscArray, PlayerInfo[playerid][pToggledChats][c]);
@@ -2639,14 +2671,10 @@ stock g_mysql_SaveAccount(playerid, string[] = "")
     SavePlayerString(query, GetPlayerSQLId(playerid), "PollKeyB", PlayerInfo[playerid][pPollKey2]);
     SavePlayerString(query, GetPlayerSQLId(playerid), "PollKeyC", PlayerInfo[playerid][pPollKey3]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "FurnitureSlots", PlayerInfo[playerid][pFurnitureSlots]);
-
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "StaffBanned", PlayerInfo[playerid][pStaffBanned]);
-
 	SavePlayerString(query, GetPlayerSQLId(playerid), "DedicatedDaymarker", PlayerInfo[playerid][pDedicatedDaymarker]);
 	SavePlayerString(query, GetPlayerSQLId(playerid), "DedicatedTimestamp", PlayerInfo[playerid][pDedicatedTimestamp]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "DedicatedHours", PlayerInfo[playerid][pDedicatedHours]);
-	
-	//SavePlayerInteger(query, GetPlayerSQLId(playerid), "WalkStyle", PlayerInfo[playerid][pWalkStyle]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "WalkStyle", GetPVarInt(playerid, "WalkStyle"));
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "TurfShow", PlayerInfo[playerid][pTurfShow]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "FlagCredits", PlayerInfo[playerid][pFlagCredits]);

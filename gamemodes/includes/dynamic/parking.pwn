@@ -324,6 +324,7 @@ CMD:editmeterposition(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_YELLOW, string);
 		format(string, sizeof(string), "%s updated the parked position of parking meter ID %d to %0.3f, %0.3f, %0.3f, %0.3f.", GetPlayerNameEx(playerid), meterid, position[0], position[1], position[2], position[3]);
 		Log("logs/admin.log", string);
+		SendDiscordMessage(8, string);
 		return 1;
 	}
 	if(strmatch(name, "ToMe", true))
@@ -338,6 +339,7 @@ CMD:editmeterposition(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_YELLOW, string);
 		format(string, sizeof(string), "%s updated the position of parking meter ID %d to %0.3f, %0.3f, %0.3f, %0.3f, %0.3f, %0.3f.", GetPlayerNameEx(playerid), meterid, position[0], position[1], position[2], 0.0, 0.0, position[3]);
 		Log("logs/admin.log", string);
+		SendDiscordMessage(8, string);
 		return 1;
 	}
 	return 1;
@@ -386,6 +388,7 @@ CMD:createmeter(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_CYAN, string);
 	format(string, sizeof(string), "%s created parking meter ID %d with a rate of $%s and a range of %0.3f meters.", GetPlayerNameEx(playerid), meterid, number_format(rate), range);
 	Log("logs/admin.log", string);
+	SendDiscordMessage(8, string);
 	return 1;
 }
 
@@ -414,6 +417,7 @@ CMD:setmeterrange(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_YELLOW, string);
 	format(string, sizeof(string), "%s set parking meter ID %d's range to %0.3f meters.", meterid, range);
 	Log("logs/admin.log", string);
+	SendDiscordMessage(8, string);
 	return 1;
 }
 
@@ -442,6 +446,7 @@ CMD:setmeterrate(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_YELLOW, string);
 	format(string, sizeof(string), "%s set parking meter ID %d's rate to $%s.", meterid, number_format(rate));
 	Log("logs/admin.log", string);
+	SendDiscordMessage(8, string);
 	RebuildParkingMeter(meterid);
 	return 1;
 }
@@ -473,6 +478,7 @@ CMD:deletemeter(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_GREY, string);
 	format(string, sizeof(string), "%s deleted parking meter ID %d.", GetPlayerNameEx(playerid), meterid);
 	Log("logs/admin.log", string);
+	SendDiscordMessage(8, string);
 	return 1;
 }
 
@@ -498,6 +504,7 @@ CMD:gotometer(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_YELLOW, string);
 	format(string, sizeof(string), "%s teleported to parking meter ID %d.", GetPlayerNameEx(playerid), meterid);
 	Log("logs/admin.log", string);
+	SendDiscordMessage(8, string);
 	return 1;
 }
 
@@ -514,5 +521,6 @@ CMD:reloadmeters(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_YELLOW, string);
 	format(string, sizeof(string), "%s reloaded all parking meters (%s rebuilt).", GetPlayerNameEx(playerid), number_format(count));
 	Log("logs/admin.log", string);
+	SendDiscordMessage(8, string);
 	return 1;
 }

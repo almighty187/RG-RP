@@ -136,6 +136,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		format(logText, sizeof(logText), "%s(%d) has placed speed camera %d at [%f, %f, %f] with limit %f and range %f.",
 			GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), SpeedCameras[cam][_scDatabase], SpeedCameras[cam][_scPosX], SpeedCameras[cam][_scPosY], SpeedCameras[cam][_scPosZ], SpeedCameras[cam][_scLimit], SpeedCameras[cam][_scRange]);
 		Log("logs/speedcam.log", logText);
+		SendDiscordMessage(8, logText);
 	}
 	if (dialogid == SPEEDCAM_DIALOG_EDIT)
 	{
@@ -194,6 +195,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				format(logText, sizeof(logText), "%s(%d) has moved speed camera %d to [%f, %f, %f]",
 					GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), SpeedCameras[id][_scDatabase], SpeedCameras[id][_scPosX], SpeedCameras[id][_scPosY], SpeedCameras[id][_scPosZ]);
 				Log("logs/speedcam.log", logText);
+				SendDiscordMessage(8, logText);
 
 				ShowPlayerDialogEx(playerid, SPEEDCAM_DIALOG_EDIT_IDX, DIALOG_STYLE_LIST, "{FFFF00}Edit a speed camera", "Move position to player\nSet angle\nSet range\nSet limit", "Select", "Back");
 			}
@@ -235,6 +237,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		format(logText, sizeof(logText), "%s(%d) has changed speed camera %d's z-angle to %f",
 			GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), SpeedCameras[id][_scDatabase], SpeedCameras[id][_scRotation]);
 		Log("logs/speedcam.log", logText);
+		SendDiscordMessage(8, logText);
 		ShowPlayerDialogEx(playerid, SPEEDCAM_DIALOG_EDIT_IDX, DIALOG_STYLE_LIST, "{FFFF00}Edit a speed camera", "Move position to player\nSet angle\nSet range\nSet limit", "Select", "Back");
 	}
 	if (dialogid == SPEEDCAM_DIALOG_EDIT_RANGE)
@@ -258,6 +261,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		format(logText, sizeof(logText), "%s(%d) has changed speed camera %d's range to %f",
 			GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), SpeedCameras[id][_scDatabase], SpeedCameras[id][_scRange]);
 		Log("logs/speedcam.log", logText);
+		SendDiscordMessage(8, logText);
 		ShowPlayerDialogEx(playerid, SPEEDCAM_DIALOG_EDIT_IDX, DIALOG_STYLE_LIST, "{FFFF00}Edit a speed camera", "Move position to player\nSet angle\nSet range\nSet limit", "Select", "Back");
 	}
 	if (dialogid == SPEEDCAM_DIALOG_EDIT_LIMIT)
@@ -285,6 +289,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		format(logText, sizeof(logText), "%s(%d) has changed speed camera %d's limit to %f",
 			GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), SpeedCameras[id][_scDatabase], SpeedCameras[id][_scLimit]);
 		Log("logs/speedcam.log", logText);
+		SendDiscordMessage(8, logText);
 		ShowPlayerDialogEx(playerid, SPEEDCAM_DIALOG_EDIT_IDX, DIALOG_STYLE_LIST, "{FFFF00}Edit a speed camera", "Move position to player\nSet angle\nSet range\nSet limit", "Select", "Back");
 	}
 	if (dialogid == SPEEDCAM_DIALOG_DELETE)
@@ -342,6 +347,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		format(logText, sizeof(logText), "%s(%d) has deleted speed camera %d",
 			GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), db);
 		Log("logs/speedcam.log", logText);
+		SendDiscordMessage(8, logText);
 	}
 	if (dialogid == SPEEDCAM_DIALOG_GETNEAREST)
 	{

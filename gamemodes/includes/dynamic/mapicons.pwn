@@ -226,6 +226,7 @@ CMD:dmpedit(playerid, params[])
 		SaveDynamicMapIcon(mapiconid);
 		format(string, sizeof(string), "%s has edited MapIconID %d's Position.", GetPlayerNameEx(playerid), mapiconid);
 		Log("logs/dmpedit.log", string);
+        SendDiscordMessage(8, string);
 		return 1;
 	}
 	else if(strcmp(choice, "delete", true) == 0)
@@ -242,6 +243,7 @@ CMD:dmpedit(playerid, params[])
 		if(IsValidDynamicMapIcon(DMPInfo[mapiconid][dmpMapIconID])) DestroyDynamicMapIcon(DMPInfo[mapiconid][dmpMapIconID]);
 		format(string, sizeof(string), "%s has deleted MapIconID %d.", GetPlayerNameEx(playerid), mapiconid);
 		Log("logs/dmpedit.log", string);
+		SendDiscordMessage(8, string);
 		return 1;
 
 	}
@@ -254,6 +256,7 @@ CMD:dmpedit(playerid, params[])
 		DMPInfo[mapiconid][dmpMapIconID] = CreateDynamicMapIcon(DMPInfo[mapiconid][dmpPosX], DMPInfo[mapiconid][dmpPosY], DMPInfo[mapiconid][dmpPosZ], DMPInfo[mapiconid][dmpMarkerType], DMPInfo[mapiconid][dmpColor], DMPInfo[mapiconid][dmpVW], DMPInfo[mapiconid][dmpInt], -1, 500.0);
 		format(string, sizeof(string), "%s has edited MapIconID %d's Marker Type to %d.", GetPlayerNameEx(playerid), mapiconid, amount);
 		Log("logs/dmpedit.log", string);
+		SendDiscordMessage(8, string);
 	}
 	else if(strcmp(choice, "color", true) == 0)
 	{
@@ -264,6 +267,7 @@ CMD:dmpedit(playerid, params[])
 		DMPInfo[mapiconid][dmpMapIconID] = CreateDynamicMapIcon(DMPInfo[mapiconid][dmpPosX], DMPInfo[mapiconid][dmpPosY], DMPInfo[mapiconid][dmpPosZ], DMPInfo[mapiconid][dmpMarkerType], DMPInfo[mapiconid][dmpColor], DMPInfo[mapiconid][dmpVW], DMPInfo[mapiconid][dmpInt], -1, 500.0);
 		format(string, sizeof(string), "%s has edited MapIconID %d's Color to %d.", GetPlayerNameEx(playerid), mapiconid, amount);
 		Log("logs/dmpedit.log", string);
+		SendDiscordMessage(8, string);
 	}
 	SaveDynamicMapIcon(mapiconid);
 	return 1;

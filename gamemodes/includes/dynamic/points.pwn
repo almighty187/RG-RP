@@ -470,6 +470,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					SendClientMessageEx(playerid, COLOR_YELLOW, "You have delete point: %s.", DynPoints[GetPVarInt(playerid, "pEditingPoint")][poName]);
 					format(szMiscArray, sizeof(szMiscArray), "%s has deleted point ID: %d", GetPlayerNameEx(playerid), GetPVarInt(playerid, "pEditingPoint"));
 					Log("logs/editpoint.log", szMiscArray);
+					SendDiscordMessage(8, szMiscArray);
 					format(DynPoints[GetPVarInt(playerid, "pEditingPoint")][poName], MAX_PLAYER_NAME, "NULL");
 					UpdatePoint(GetPVarInt(playerid, "pEditingPoint"));
 					SavePoint(GetPVarInt(playerid, "pEditingPoint"));
@@ -486,6 +487,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			strcpy(DynPoints[GetPVarInt(playerid, "pEditingPoint")][poName], (isnull(inputtext) ? "NULL" : inputtext), 24);
 			format(szMiscArray, sizeof(szMiscArray), "%s has edited point %d's name to %s", GetPlayerNameEx(playerid), GetPVarInt(playerid, "pEditingPoint"), inputtext);
 			Log("logs/editpoint.log", szMiscArray);
+			SendDiscordMessage(8, szMiscArray);
 			ResetDialog(playerid);
 			UpdatePoint(GetPVarInt(playerid, "pEditingPoint"));
 			SavePoint(GetPVarInt(playerid, "pEditingPoint"));
@@ -501,6 +503,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					DynPoints[GetPVarInt(playerid, "pEditingPoint")][poType] = listitem;
 					format(szMiscArray, sizeof(szMiscArray), "%s has edited point %d's type to %s.", GetPlayerNameEx(playerid), GetPVarInt(playerid, "pEditingPoint"), PointTypeToName(listitem));
 					Log("logs/editpoint.log", szMiscArray);
+					SendDiscordMessage(8, szMiscArray);
 					SendClientMessageEx(playerid, COLOR_YELLOW, "You have edited point %d's type to %s", GetPVarInt(playerid, "pEditingPoint"), PointTypeToName(listitem));
 					ResetDialog(playerid);
 					UpdatePoint(GetPVarInt(playerid, "pEditingPoint"));
@@ -539,6 +542,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			UpdatePoint(GetPVarInt(playerid, "pEditingPoint"));
 			format(szMiscArray, sizeof(szMiscArray), "%s has edited point %d's position %d amount to X: %f, Y: %f, Z: %f, VW: %d", GetPlayerNameEx(playerid), GetPVarInt(playerid, "pEditingPoint"), listitem, pvPos[0], pvPos[0], pvPos[0], GetPlayerVirtualWorld(playerid));
 			Log("logs/editpoint.log", szMiscArray);
+			SendDiscordMessage(8, szMiscArray);
 		}
 		case DIALOG_EDITPOINT_MATERIALS:
 		{
@@ -550,6 +554,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
 			format(szMiscArray, sizeof(szMiscArray), "%s has edited point %d's per hour amount to %d", GetPlayerNameEx(playerid), GetPVarInt(playerid, "pEditingPoint"), inputtext);
 			Log("logs/editpoint.log", szMiscArray);
+			SendDiscordMessage(8, szMiscArray);
 			ResetDialog(playerid);
 			SavePoint(GetPVarInt(playerid, "pEditingPoint"));
 		}
@@ -571,6 +576,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			DynPoints[GetPVarInt(playerid, "pEditingPoint")][poTimer] = strval(inputtext);
 			format(szMiscArray, sizeof(szMiscArray), "%s has edited point %d's capturable timer to %d", GetPlayerNameEx(playerid), GetPVarInt(playerid, "pEditingPoint"), inputtext);
 			Log("logs/editpoint.log", szMiscArray);
+			SendDiscordMessage(8, szMiscArray);
 			ResetDialog(playerid);
 			UpdatePoint(GetPVarInt(playerid, "pEditingPoint"));
 			SavePoint(GetPVarInt(playerid, "pEditingPoint"));
@@ -595,6 +601,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				SendClientMessageEx(playerid, COLOR_YELLOW, "You set %s to get %s per package delivery!", drank, number_format(strval(inputtext)));
 				format(szMiscArray, sizeof(szMiscArray), "%s has edited point %d's delivery package to %s for %s.", GetPlayerNameEx(playerid), GetPVarInt(playerid, "pEditingPoint"), number_format(strval(inputtext)), drank);
 				Log("logs/editpoint.log", szMiscArray);
+				SendDiscordMessage(8, szMiscArray);
 				format(szDialogStr, sizeof szDialogStr, "Package Non-VIP (%s)\n\
 					Package Bronze VIP (%s)\n\
 					Package Silver VIP (%s)\n\

@@ -206,6 +206,7 @@ CMD:denylisting(playerid, params[])
 	format(string, sizeof(string), "AdmCmd: %s denied house ID %d's house listing request (owner: %s), reason: %s.", GetPlayerNameEx(playerid), houseid, StripUnderscore(HouseInfo[houseid][hOwnerName]), reason);
 	ABroadCast(COLOR_LIGHTRED, string, 4);
 	Log("logs/admin.log", string);
+	SendDiscordMessage(8, string);
 	return 1;
 }
 
@@ -257,6 +258,7 @@ CMD:approvelisting(playerid, params[])
 				format(string, sizeof(string), "AdmCmd: %s approved house ID %d's house listing request (insufficient funds - owner: %s).", GetPlayerNameEx(playerid), houseid, StripUnderscore(HouseInfo[houseid][hOwnerName]));
 				ABroadCast(COLOR_LIGHTRED, string, 4);
 				Log("logs/admin.log", string);
+				SendDiscordMessage(8, string);
 				return 1;
 			}
 			else if(GetPlayerCash(seller) >= 15000)
@@ -274,6 +276,7 @@ CMD:approvelisting(playerid, params[])
 				format(string, sizeof(string), "AdmCmd: %s approved house ID %d's house listing request (owner: %s).", GetPlayerNameEx(playerid), houseid, StripUnderscore(HouseInfo[houseid][hOwnerName]));
 				ABroadCast(COLOR_LIGHTRED, string, 4);
 				Log("logs/admin.log", string);
+				SendDiscordMessage(8, string);
 				return 1;
 			}
 			return 1;
@@ -301,6 +304,7 @@ CMD:adeletelisting(playerid, params[])
 	format(string, sizeof(string), "AdmCmd: %s deleted house ID %d's house listing (owner: %s).", GetPlayerNameEx(playerid), houseid, StripUnderscore(HouseInfo[houseid][hOwnerName]));
 	ABroadCast(COLOR_LIGHTRED, string, 4);
 	Log("logs/admin.log", string);
+	SendDiscordMessage(8, string);
 	return 1;
 }
 
