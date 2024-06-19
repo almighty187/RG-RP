@@ -2782,7 +2782,8 @@ new ROB_MAX_PERCENTAGE = 30,
 
 //new Text3D:PlayerLabel[MAX_PLAYERS];
 
-new DCC_Channel:g_AdminChannelId, DCC_Channel:g_AdminWarningsChannelId, DCC_Channel:g_HeadAdminChannelId, DCC_Channel:g_ServerErrorsChannelId, DCC_Channel:g_ServerBotChannelId, DCC_Channel:g_PrivateChannelId;
+new DCC_Channel:g_AdminChannelId, DCC_Channel:g_AdminWarningsChannelId, DCC_Channel:g_HeadAdminChannelId, DCC_Channel:g_ServerErrorsChannelId, DCC_Channel:g_ServerBotChannelId, DCC_Channel:g_PrivateChannelId,
+g_LoginChannelId, g_GangNewsChannelId;
 
 // Crate System.
 new 

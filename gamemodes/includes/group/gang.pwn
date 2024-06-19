@@ -70,7 +70,7 @@ Gang_DisbandGang(iGroupID) {
 		string[256];
 	format(string, sizeof(string), "(( Gang News: %s has been disbanded. ))", arrGroupData[iGroupID][g_szGroupName]);
 	SendClientMessageToAll(COLOR_WHITE, string);
-	SendDiscordMessage(4, string);
+	SendDiscordMessage(7, string);
 	arrGroupData[iGroupID][g_iAllegiance] = 0;
 	arrGroupData[iGroupID][g_iBugAccess] = INVALID_RANK;
 	arrGroupData[iGroupID][g_iRadioAccess] = INVALID_RANK;
@@ -900,7 +900,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				{
 					format(string, sizeof(string), "(( Gang News: %s is now the slot holder of %s. ))", GetPlayerNameEx(id), arrGroupData[iGroupID][g_szGroupName]);
 					SendClientMessageToAll(COLOR_WHITE, string);
-					SendDiscordMessage(4, string);
+					SendDiscordMessage(7, string);
 				}
 				return 1;
 			}
@@ -1630,7 +1630,7 @@ CMD:getgangslot(playerid, params[]) {
 				SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
 				format(string, sizeof(string), "(( Gang News: %s is now an official gang. ))", arrGroupData[i][g_szGroupName]);
 				SendClientMessageToAll(COLOR_WHITE, string);
-				SendDiscordMessage(4, string);
+				SendDiscordMessage(7, string);
 				format(string, sizeof(string), "%s (%d) has paid 5m for a gang slot (ID:%d).", GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), i);
 				GroupLog(i, string);
 				return 1;
@@ -1804,7 +1804,7 @@ CMD:creategang(playerid, params[]) {
 						
 						format(string, sizeof(string), "(( Gang News: %s is now an official gang. ))", arrGroupData[i][g_szGroupName]);
 						SendClientMessageToAll(COLOR_WHITE, string);
-						SendDiscordMessage(4, string);
+						SendDiscordMessage(7, string);
 						format(string, sizeof(string), "%s (%d) has created a gang slot (ID:%d) for %s (%d).", GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), i, GetPlayerNameEx(giveplayerid), GetPlayerSQLId(giveplayerid));
 						GroupLog(i, string);
 						return 1;

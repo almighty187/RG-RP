@@ -1,40 +1,3 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Mechanic System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 timer Fix_PlayerInVehicleCheck[3000](playerid) {
 
 	if(IsPlayerInAnyVehicle(playerid) && PlayerInfo[playerid][pMechSkill] < 400) {
@@ -54,7 +17,7 @@ CMD:fix(playerid, params[])
     	new string[32 + MAX_PLAYER_NAME];
         if(IsPlayerInAnyVehicle(playerid))
 		{
-		    SendClientMessageEx(playerid, COLOR_GRAD1, "You can not repair while inside the vehicle.");
+		    SendErrorMessage(playerid, "You can not repair while inside the vehicle.");
 		    return 1;
 		}
 
@@ -66,21 +29,21 @@ CMD:fix(playerid, params[])
      	}
      	else if(GetPVarType(playerid, "IsInArena"))
 		{
-			SendClientMessageEx(playerid, COLOR_WHITE, "You can't do this right now, you are in an arena!");
+			SendErrorMessage(playerid, "You can't do this right now, you are in an arena!");
 			return 1;
 		}
 		else if(GetPVarInt(playerid, "EventToken"))
 		{
-			SendClientMessageEx(playerid, COLOR_GRAD1, "You can't use this while in an event.");
+			SendErrorMessage(playerid, "You can't use this while in an event.");
 			return 1;
 		}
 		else if(GetPVarType(playerid, "PlayerCuffed") || GetPVarInt(playerid, "pBagged") >= 1 || GetPVarType(playerid, "Injured") || GetPVarType(playerid, "IsFrozen"))
 		{
-			return SendClientMessage(playerid, COLOR_GRAD2, "You can't do that at this time!");
+			return SendErrorMessage(playerid, "You can't not do this while cuffed!");
 		}
 		else if(GetPVarType(playerid, "FixVehicleTimer"))
 		{
-			return SendClientMessageEx(playerid, COLOR_GRAD2, "You are already fixing a vehicle!");
+			return SendErrorMessage(playerid, "You are already fixing a vehicle!");
 		}
   		else
 		{
@@ -113,10 +76,10 @@ CMD:fix(playerid, params[])
     			}
 				defer Fix_PlayerInVehicleCheck(playerid);
 			}
-			else return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not close enough to any vehicle.");
+			else return SendErrorMessage(playerid, "You are not close enough to any vehicle.");
   		}
     }
-    else return SendClientMessageEx(playerid, COLOR_WHITE, "You are not a Mechanic!" );
+    else return SendErrorMessage(playerid, "You are not a Mechanic!" );
     return 1;
 }
 
@@ -150,22 +113,19 @@ CMD:mechduty(playerid, params[])
 	{
         if(GetPVarInt(playerid, "MechanicDuty") == 1)
 		{
-            SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* You are now off duty from your Car Mechanic job and will not receive calls anymore.");
+            SendServerMessage(playerid, "* You are now off duty from your Car Mechanic job and will not receive calls anymore.");
 			SetPVarInt(playerid, "MechanicDuty", 0);
             Mechanics -= 1;
         }
         else if(GetPVarInt(playerid, "MechanicDuty") == 0)
 		{
             if (TransportDuty[playerid] != 0) return SendClientMessageEx(playerid,COLOR_GREY,"You need to get off duty as a transport driver first.");
-            SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* You are now on duty with your Car Mechanic job and will receive calls from people in need.");
+            SendServerMessage(playerid, "* You are now on duty with your Car Mechanic job and will receive calls from people in need.");
 			SetPVarInt(playerid, "MechanicDuty", 1);
             ++Mechanics;
         }
     }
-    else
-	{
-        SendClientMessageEx(playerid, COLOR_GRAD1, "   You are not a mechanic!");
-    }
+    else SendErrorMessage(playerid, "You are not a mechanic!");
     return 1;
 }
 
@@ -193,28 +153,22 @@ CMD:nos(playerid, params[])
                 	format(string, sizeof(string), "* %s added nitrous injection to the vehicle.", GetPlayerNameEx(playerid));
                 	ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
             	}
-            	else {
-            	    SendClientMessageEx(playerid, COLOR_GREY, "Nitrous injection cannot be installed on this vehicle.");
-            	}
+            	else SendErrorMessage(playerid, "Nitrous injection cannot be installed on this vehicle.");
 			 }
-			 else {
-			    SendClientMessageEx(playerid, COLOR_GREY, "This vehicle already has nitrous.");
-		 	}
+			 else SendErrorMessage(playerid, "This vehicle already has nitrous.");
         }
-        else {
-            SendClientMessageEx(playerid, COLOR_GREY, "You're not in a vehicle.");
-        }
+        else SendErrorMessage(playerid, "You're not in a vehicle.");
     }
-    else {
-        SendClientMessageEx(playerid, COLOR_GREY, "You are not a Mechanic!" );
-    }
+    else SendErrorMessage(playerid, "You are not a Mechanic!" );
     return 1;
 }
 
 CMD:hyd(playerid, params[])
 {
-    if(PlayerInfo[playerid][pJob] == 7 || PlayerInfo[playerid][pJob2] == 7 || PlayerInfo[playerid][pJob3] == 7) {
-        if(IsPlayerInAnyVehicle(playerid)) {
+    if(PlayerInfo[playerid][pJob] == 7 || PlayerInfo[playerid][pJob2] == 7 || PlayerInfo[playerid][pJob3] == 7)
+	{
+        if(IsPlayerInAnyVehicle(playerid))
+		{
 			if(IsPlayerInInvalidNosVehicle(playerid) || (DynVeh[GetPlayerVehicleID(playerid)] != -1 && DynVehicleInfo[DynVeh[GetPlayerVehicleID(playerid)]][gv_igID] != INVALID_GROUP_ID && arrGroupData[DynVehicleInfo[DynVeh[GetPlayerVehicleID(playerid)]][gv_igID]][g_iGroupType] != GROUP_TYPE_CRIMINAL)) return SendClientMessageEx(playerid, COLOR_WHITE, "Hydraulics cannot be installed in this vehicle.");
 			if(gettime() < PlayerInfo[playerid][pServiceTime]) return SendClientMessage(playerid, COLOR_GREY, "You must wait 20 seconds before using this command again.");
 			new string[128];
@@ -224,8 +178,8 @@ CMD:hyd(playerid, params[])
 			ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 			PlayerInfo[playerid][pServiceTime] = gettime()+20;
         }
-        else return SendClientMessageEx(playerid, COLOR_WHITE, "You're not in a vehicle.");
+        else return SendErrorMessage(playerid, "You're not in a vehicle.");
     }
-    else return SendClientMessageEx(playerid, COLOR_WHITE, "You are not a Mechanic!");
+    else return SendErrorMessage(playerid, "You are not a Mechanic!");
     return 1;
 }

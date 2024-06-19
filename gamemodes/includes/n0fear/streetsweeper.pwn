@@ -19,7 +19,7 @@ hook OnPlayerEnterCheckpoint(playerid)
 			}
 			else if(GetPVarInt(playerid, "pSweeperStage") >= 5)
 			{
-			    new value = 350+random(350);
+			    new value = 500+random(500);
 
 		    	SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 
@@ -34,7 +34,7 @@ hook OnPlayerEnterCheckpoint(playerid)
 				SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
 			}
 		}
-		else SendErrorMessage(playerid, "You must be on Mountain bike!");
+		else SendErrorMessage(playerid, "You must be in street sweeper car!");
 	}
  	return 1;
 }

@@ -856,7 +856,7 @@ CMD:quitjob(playerid, params[])
 				}
 				else
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "   You don't have a third job!");
+					SendErrorMessage(playerid, "You don't have a third job!");
 				}
 			}
 		default:
@@ -870,7 +870,7 @@ CMD:quitjob(playerid, params[])
 	{
 		if(PlayerInfo[playerid][pJob] > 0 )
 		{
-			SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* You have quit your Job.");
+			SendServerMessage(playerid, "* You have quit your Job.");
 			if(PlayerInfo[playerid][pJob] == 2)
 			{
 				if(GetPVarInt(playerid, "LawyerDuty") == 1) Lawyers--;
@@ -885,7 +885,7 @@ CMD:quitjob(playerid, params[])
 		}
 		else
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "   You don't even have a Job!");
+			SendServerMessage(playerid, "You don't even have a Job!");
 		}
 	}
 	return 1;

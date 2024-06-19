@@ -1,40 +1,4 @@
 /*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Pizzaboy System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-/*
 CMD:getpizza(playerid, params[]) {
 	if(PlayerInfo[playerid][pJob] != 21 && PlayerInfo[playerid][pJob2] != 21 && PlayerInfo[playerid][pJob3] != 21) {
 		SendClientMessageEx(playerid,COLOR_GREY,"   You are not a Pizza Boy!");
@@ -90,19 +54,19 @@ CMD:getpizza(playerid, params[]) {
 
 CMD:getpizza(playerid, params[]) {
 	if(PlayerInfo[playerid][pJob] != 21 && PlayerInfo[playerid][pJob2] != 21 && PlayerInfo[playerid][pJob3] != 21) {
-		SendClientMessageEx(playerid,COLOR_GREY,"You are not a Pizza Boy!");
+		SendErrorMessage(playerid, "You are not a Pizza Boy!");
 	}
     else if(!IsAPizzaCar(GetPlayerVehicleID(playerid))) {
-	    SendClientMessageEx(playerid,COLOR_GREY,"You need to be driving a pizzaboy found at the side of the Pizza Stack!");
+	    SendErrorMessage(playerid, "You need to be driving a pizzaboy found at the side of the Pizza Stack!");
 	}
 	else if(GetPlayerSkin(playerid) != 155) {
-	    SendClientMessageEx(playerid,COLOR_GREY,"You need to be in the Pizza Stack uniform!");
+	    SendErrorMessage(playerid, "You need to be in the Pizza Stack uniform!");
 	}
 	else if(GetPVarType(playerid, "Pizza")) {
-		SendClientMessageEx(playerid, COLOR_GREY, "You are already delivering pizzas!");
+		SendErrorMessage(playerid, "You are already delivering pizzas!");
 	}
 	else if (!IsPlayerInRangeOfPoint(playerid, 5.0, -1713.961425, 1348.545166, 7.180452) && !IsPlayerInRangeOfPoint(playerid, 5.0, 2103.6714,-1785.5222,12.9849)) { // Sort this out
-		SendClientMessageEx(playerid,COLOR_GREY,"You are not at a Pizza Stack pickup!");
+		SendErrorMessage(playerid, "You are not at a Pizza Stack pickup!");
 	}
 	else if(gettime() < GetPVarInt(playerid, "PizzaCoolDown")) {
 		new str[53];

@@ -8228,7 +8228,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				{
 					format(string, sizeof(string), "(( Gang News: %s is now the slot holder of %s. ))", GetPlayerNameEx(iTargetID), arrGroupData[iGroupID][g_szGroupName]);
 					SendClientMessageToAll(COLOR_WHITE, string);
-					SendDiscordMessage(4, string);
+					SendDiscordMessage(7, string);
 				}
 			}
 		}

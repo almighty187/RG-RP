@@ -13,7 +13,7 @@ CMD:sellgun(playerid, params[])
 		if(zombieevent == 1 && GetPVarType(playerid, "pIsZombie")) return SendErrorMessage(playerid, "Zombies can't use this.");
 		#endif
 		if(GetPVarType(playerid, "PlayerCuffed") || GetPVarInt(playerid, "pBagged") >= 1 || GetPVarType(playerid, "IsFrozen") || PlayerInfo[playerid][pHospital] || (PlayerInfo[playerid][pJailTime] > 0 && strfind(PlayerInfo[playerid][pPrisonReason], "[OOC]", true) != -1))
-   		return SendClientMessage(playerid, COLOR_GRAD2, "You can't do that at this time!");
+   		return SendErrorMessage(playerid, "You can't do that at this time!");
 		if(GetPVarType(playerid, "AttemptingLockPick")) return SendErrorMessage(playerid, "You are attempting to lockpick, please wait.");
 		if(GetPVarType(playerid, "IsInArena")) return SendErrorMessage(playerid, "You can't do this while being in an arena!");
 		if(PlayerInfo[playerid][pHospital]) return SendErrorMessage(playerid, "You cannot do this at this time.");

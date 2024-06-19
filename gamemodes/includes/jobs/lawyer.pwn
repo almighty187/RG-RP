@@ -1,51 +1,15 @@
-/*
-
-	 /$$   /$$  /$$$$$$          /$$$$$$$  /$$$$$$$
-	| $$$ | $$ /$$__  $$        | $$__  $$| $$__  $$
-	| $$$$| $$| $$  \__/        | $$  \ $$| $$  \ $$
-	| $$ $$ $$| $$ /$$$$ /$$$$$$| $$$$$$$/| $$$$$$$/
-	| $$  $$$$| $$|_  $$|______/| $$__  $$| $$____/
-	| $$\  $$$| $$  \ $$        | $$  \ $$| $$
-	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
-	|__/  \__/ \______/         |__/  |__/|__/
-
-						Lawyer System
-
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
-					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
-	*
-	* All rights reserved.
-	*
-	* Redistribution and use in source and binary forms, with or without modification,
-	* are not permitted in any case.
-	*
-	*
-	* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-	* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-	* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-	* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-	* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-	* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-	* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-	* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
 CMD:lawyerduty(playerid, params[])
 {
 	if(!IsALawyer(playerid)) return SendClientMessageEx(playerid, COLOR_GREY, "   You are not a Lawyer!");
 	if(GetPVarInt(playerid, "LawyerDuty") == 1)
 	{
-        SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* You are now off duty on your lawyer job and will not receive calls anymore.");
+        SendServerMessage(playerid, "* You are now off duty on your lawyer job and will not receive calls anymore.");
 		SetPVarInt(playerid, "LawyerDuty", 0);
         Lawyers -= 1;
     }
     else if(GetPVarInt(playerid, "LawyerDuty") == 0)
 	{
-        SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* You are now on duty on your lawyer job and will receive calls from people in need.");
+        SendServerMessage(playerid, "* You are now on duty on your lawyer job and will receive calls from people in need.");
 		SetPVarInt(playerid, "LawyerDuty", 1);
         Lawyers += 1;
     }
@@ -56,7 +20,7 @@ CMD:defendtime(playerid, params[])
 	new string[128];
 	if(PlayerInfo[playerid][pDefendTime] < 1)
 	{
-		SendClientMessageEx(playerid, COLOR_YELLOW, "You're able to receive defense now.");
+		SendServerMessage(playerid, "You're able to receive defense now.");
 	}
 	else {	
 		format(string, sizeof(string), "You will be able to receive a defense in %d minutes.", PlayerInfo[playerid][pDefendTime]);
@@ -67,14 +31,14 @@ CMD:defendtime(playerid, params[])
 
 CMD:offerappeal(playerid, params[])
 {
-  	if(!IsALawyer(playerid)) return SendClientMessageEx(playerid, COLOR_GREY, "   You are not a Lawyer!");
+  	if(!IsALawyer(playerid)) return SendErrorMessage(playerid, "You are not a Lawyer!");
     new string[128], giveplayerid;
 	if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/offerappeal [player]");
-	if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_GRAD1, "You can't use this command on yourself!");
+	if(giveplayerid == playerid) return SendErrorMessage(playerid, "You can't use this command on yourself!");
 	if(IsPlayerConnected(giveplayerid))
 	{
-	    if(PlayerInfo[giveplayerid][pBeingSentenced] == 0) return SendClientMessageEx(playerid, COLOR_GRAD1, "That person isn't pending a sentence!");
-	    if(AppealOfferAccepted[giveplayerid] == 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "That person has already accepted a lawyer to appeal for him!");
+	    if(PlayerInfo[giveplayerid][pBeingSentenced] == 0) return SendErrorMessage(playerid, "That person isn't pending a sentence!");
+	    if(AppealOfferAccepted[giveplayerid] == 1) return SendErrorMessage(playerid, "That person has already accepted a lawyer to appeal for him!");
 		AppealOffer[giveplayerid] = playerid;
 	    format(string, sizeof(string), "You have offered your lawyer services to %s.",GetPlayerNameEx(giveplayerid));
 	    SendClientMessageEx(playerid, COLOR_WHITE, string);
@@ -87,7 +51,7 @@ CMD:offerappeal(playerid, params[])
 CMD:free(playerid, params[])
 {
 
-	if(!IsALawyer(playerid)) return SendClientMessageEx(playerid, COLOR_GREY, "   You are not a Lawyer!");
+	if(!IsALawyer(playerid)) return SendErrorMessage(playerid, "You are not a Lawyer!");
 
 	if(PlayerInfo[playerid][pLawSkill] >= 401)
 	{
@@ -101,10 +65,10 @@ CMD:free(playerid, params[])
 		SendSyntaxMessage(playerid, "/free [player]");
 	}
 	else if(!IsPlayerConnected(giveplayerid)) {
-		SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
+		SendErrorMessage(playerid, "Invalid player specified.");
 	}
 	else if(giveplayerid == playerid) {
-		SendClientMessageEx(playerid, COLOR_GREY, "You cannot free yourself.");
+		SendErrorMessage(playerid, "You cannot free yourself.");
 	}
 	else if(PlayerInfo[giveplayerid][pJailTime] > 0 && ApprovedLawyer[playerid] == 1 && WantLawyer[giveplayerid] >= 1) {
 
@@ -141,13 +105,13 @@ CMD:free(playerid, params[])
 }
 CMD:finishappeal(playerid, params[])
 {
-	if(!IsALawyer(playerid)) return SendClientMessageEx(playerid, COLOR_GREY, "   You are not a Lawyer!");
+	if(!IsALawyer(playerid)) return SendErrorMessage(playerid, "You are not a Lawyer!");
     new string[128], giveplayerid;
 	if(sscanf(params, "u", giveplayerid)) return SendSyntaxMessage(playerid, "/finishappeal [player]");
-	if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_GRAD1, "You can't use this command on yourself!");
+	if(giveplayerid == playerid) return SendErrorMessage(playerid, "You can't use this command on yourself!");
 	if(IsPlayerConnected(giveplayerid))
 	{
-	    if(AppealOffer[giveplayerid] != playerid) return SendClientMessageEx(playerid, COLOR_GRAD1, "You are not offering your services to this player!");
+	    if(AppealOffer[giveplayerid] != playerid) return SendErrorMessage(playerid, "You are not offering your services to this player!");
 	    format(string, sizeof(string), "You have finished your Lawyer services to %s.",GetPlayerNameEx(giveplayerid));
 	    SendClientMessageEx(playerid, COLOR_WHITE, string);
 	    format(string, sizeof(string), "%s has finished offering their Lawyer services.", GetPlayerNameEx(playerid));
@@ -160,7 +124,7 @@ CMD:finishappeal(playerid, params[])
 
 CMD:defend(playerid, params[])
 {
-	if(!IsALawyer(playerid)) return SendClientMessageEx(playerid, COLOR_GREY, "   You are not a Lawyer!");
+	if(!IsALawyer(playerid)) return SendErrorMessage(playerid, "You are not a Lawyer!");
 
 	new string[128];
 	if(gettime() < PlayerInfo[playerid][pLawyerTime])
@@ -172,18 +136,18 @@ CMD:defend(playerid, params[])
 
 	new giveplayerid, money;
 	if(sscanf(params, "ud", giveplayerid, money)) return SendSyntaxMessage(playerid, "/defend [player] [price]");
-	if(money < 20000 || money > 1000000) { SendClientMessageEx(playerid, COLOR_GREY, "   Price not lower then $20,000 or above $1,000,000!"); return 1; }
+	if(money < 15000 || money > 1000000) { SendErrorMessage(playerid, "Price not lower then $15,000 or above $1,000,000!"); return 1; }
 	if(IsPlayerConnected(giveplayerid))
 	{
 		if(ProxDetectorS(8.0, playerid, giveplayerid))
 		{
 			if(giveplayerid == playerid)
 			{
-				SendClientMessageEx(playerid, COLOR_GREY, "   Cant offer protection to yourself!");
+				SendErrorMessage(playerid, "Cant offer protection to yourself!");
 				return 1;
 			}
 			if(PlayerInfo[giveplayerid][pDefendTime] > 0) {
-			    return SendClientMessageEx(playerid, COLOR_GRAD2, "You need wait 1 hour before defending this player.");
+			    return SendErrorMessage(playerid, "You need wait 1 hour before defending this player.");
 			}
 			if(PlayerInfo[giveplayerid][pWantedLevel] > 0)
 			{
@@ -195,20 +159,11 @@ CMD:defend(playerid, params[])
 				DefendOffer[giveplayerid] = playerid;
 				DefendPrice[giveplayerid] = money;
 			}
-			else
-			{
-				SendClientMessageEx(playerid, COLOR_GREY, "   That person is not wanted!");
-			}
+			else SendErrorMessage(playerid, "That person is not wanted!");
 		}
-		else
-		{
-			SendClientMessageEx(playerid, COLOR_GREY, "That person isn't near you.");
-		}
+		else SendErrorMessage(playerid, "That person isn't near you.");
 	}
-	else
-	{
-		SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
-	}
+	else SendErrorMessage(playerid, "Invalid player specified.");
 	return 1;
 }
 
