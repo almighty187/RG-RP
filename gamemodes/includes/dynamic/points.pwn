@@ -732,11 +732,11 @@ stock UpdatePoint(id)
 	DynPoints[id][poPickupID] = CreateDynamicPickup(((DynPoints[id][poType] == 1) ? 1279 : (DynPoints[id][poType] == 2 || DynPoints[id][poType] == 3 || DynPoints[id][poType] == 4) ? 1241 : 1239), 23, DynPoints[id][poPos][0], DynPoints[id][poPos][1], DynPoints[id][poPos][2], .worldid = DynPoints[id][poVW], .interiorid = DynPoints[id][poInt]);
 	switch(DynPoints[id][poType])
 	{
-		case 0: format(string, sizeof(string), "Materials Pickup (ID: %d)\nType /getmats to get materials.", DynPoints[id][poID]);
-		case 1: format(string, sizeof(string), "Pot Pickup (ID: %d)\nType /getdrugs to get pot.", DynPoints[id][poID]);
-		case 2: format(string, sizeof(string), "Crack Pickup (ID: %d)\nType /getdrugs to get crack.", DynPoints[id][poID]);
-		case 3: format(string, sizeof(string), "Meth Pickup (ID: %d)\nType /getdrugs to get meth.", DynPoints[id][poID]);
-		case 4: format(string, sizeof(string), "Ecstasy Pickup (ID: %d)\nType /getdrugs to get ecstasy.", DynPoints[id][poID]);
+		case 0: format(string, sizeof(string), "%s (ID: %d)\nType /getmats to get materials.", DynPoints[id][poName], DynPoints[id][poID]);
+		case 1: format(string, sizeof(string), "%s (ID: %d)\nType /getdrugs to get pot.", DynPoints[id][poName], DynPoints[id][poID]);
+		case 2: format(string, sizeof(string), "%s (ID: %d)\nType /getdrugs to get crack.", DynPoints[id][poName], DynPoints[id][poID]);
+		case 3: format(string, sizeof(string), "%s (ID: %d)\nType /getdrugs to get meth.", DynPoints[id][poName], DynPoints[id][poID]);
+		case 4: format(string, sizeof(string), "%s (ID: %d)\nType /getdrugs to get ecstasy.", DynPoints[id][poName], DynPoints[id][poID]);
 	}
 	if(DynPoints[id][poCapturable] && !DynPoints[id][poLocked]) {
 		format(string, sizeof(string), "%s\n%s has become available for capture! Stand here and /capture it.", string, DynPoints[id][poName]);
