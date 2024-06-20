@@ -39,7 +39,14 @@ Group_DisbandGroup(iGroupID) {
 
 	new
 		i = 0,
-		szQuery[128];
+		szQuery[128],
+		string[256];
+	if(arrGroupData[iGroupID][g_iGroupType] == GROUP_TYPE_CRIMINAL)
+	{
+		format(string, sizeof(string), "(( Gang News: %s has been disbanded. ))", arrGroupData[iGroupID][g_szGroupName]);
+		SendClientMessageToAll(COLOR_WHITE, string);
+		SendDiscordMessage(7, string);
+	}
 
 	arrGroupData[iGroupID][g_iAllegiance] = 0;
 	arrGroupData[iGroupID][g_iBugAccess] = INVALID_RANK;

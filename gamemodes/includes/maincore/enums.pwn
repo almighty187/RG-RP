@@ -1386,7 +1386,10 @@ enum pInfo
 	HLPromDate[180],
 	AdmBanCount,
 	KickCount,
-	pAnimUse
+	pAnimUse,
+	pFurnID,
+    Float:pFurn[4],
+    Float:pFurnR[4]
 };
 
 enum pvInfo
@@ -1753,7 +1756,8 @@ enum impoundInfo
 	Float: impoundPosZ,
 	impoundVW,
 	impoundInt,
-	Text3D: impoundTextID
+	Text3D: impoundTextID,
+	impoundicon
 }
 
 enum HoldingEnumAll
