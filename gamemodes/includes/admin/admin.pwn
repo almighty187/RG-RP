@@ -80,7 +80,7 @@ stock GetAdminRankName(i)
 		case 3: format(szMiscArray, sizeof(szMiscArray), "{00FF00}Game Administrator{FFFFFF}");
 		case 4: format(szMiscArray, sizeof(szMiscArray), "{FFA500}Senior Administrator{FFFFFF}");
 		case 1337: format(szMiscArray, sizeof(szMiscArray), "{E80C0C}Lead Administrator{FFFFFF}");
-		case 1338: format(szMiscArray, sizeof(szMiscArray), "{E80C0C}Executive Director{FFFFFF}");
+		case 1338: format(szMiscArray, sizeof(szMiscArray), "{298EFF}Executive Director{FFFFFF}");
 		default: format(szMiscArray, sizeof(szMiscArray), "Undefined Administrator (%i)", i);
 	}
 	return szMiscArray;
@@ -143,7 +143,7 @@ stock GetStaffRank(playerid)
 			case 3: szMiscArray = "{00FF00}General Administrator{FFFFFF}";
 			case 4: szMiscArray = "{FFA500}Senior Administrator{FFFFFF}";
 			case 1337: szMiscArray = "{e80c0c}Lead Administrator{FFFFFF}";
-			case 1338: szMiscArray = "{e80c0c}Executive Director{FFFFFF}";
+			case 1338: szMiscArray = "{298EFF}Executive Director{FFFFFF}";
 			default: format(szMiscArray, sizeof(szMiscArray), "Undefined Administrator (%d)", PlayerInfo[playerid][pAdmin]);
 		}
 	}
@@ -159,7 +159,7 @@ stock GetAdminRank(playerid)
 			case 3: szMiscArray = "{00FF00}General Administrator{FFFFFF}";
 			case 4: szMiscArray = "{FFA500}Senior Administrator{FFFFFF}";
 			case 1337: szMiscArray = "{e80c0c}Lead Administrator{FFFFFF}";
-			case 1338: szMiscArray = "{e80c0c}Executive Director{FFFFFF}";
+			case 1338: szMiscArray = "{298EFF}Executive Director{FFFFFF}";
 			default: format(szMiscArray, sizeof(szMiscArray), "Undefined Administrator (%d)", PlayerInfo[playerid][pAdminLevel]);
 		}
 	}
@@ -2977,7 +2977,7 @@ CMD:makeadmin(playerid, params[])
 			new diagTitle[64 + MAX_PLAYER_NAME];
 			SetPVarInt(playerid, "MakingAdmin", TargetID);
 			format(diagTitle, sizeof(diagTitle), "{FF0606}Administration {FFFFFF}- Adjust Admin Level for %s", GetPlayerNameEx(TargetID));
-			ShowPlayerDialogEx(playerid, DIALOG_MAKEADMIN, DIALOG_STYLE_LIST, diagTitle, "{FFFFFF}Remove Admin Level\n{FFFF00}Moderator\n{87CEEB}Trial Administrator\n{00FF00}General Administrator\n{FFA500}Senior Administrator\n{e80c0c}Lead Administrator\n{e80c0c}Executive Director", "Select", "Cancel");
+			ShowPlayerDialogEx(playerid, DIALOG_MAKEADMIN, DIALOG_STYLE_LIST, diagTitle, "{FFFFFF}Remove Admin Level\n{FFFF00}Moderator\n{87CEEB}Trial Administrator\n{00FF00}General Administrator\n{FFA500}Senior Administrator\n{e80c0c}Lead Administrator\n{298EFF}Executive Director", "Select", "Cancel");
 
 		}
 		else SendClientMessageEx(playerid, COLOR_GRAD2, "That person is not connected.");
@@ -3131,7 +3131,7 @@ CMD:aduty(playerid, params[])
 				case 3: SetPlayerColor(playerid, 0x00FF00FF); // General Administrator
 				case 4: SetPlayerColor(playerid, 0xFFA500FF); // Senior Administrator
 				case 1337: SetPlayerColor(playerid, 0xE80C0CFF); // Lead Administrator
-				case 1338: SetPlayerColor(playerid, 0xE80C0CFF); // Executive Director
+				case 1338: SetPlayerColor(playerid, 0x298EFFFF); // Executive Director
 			}
 			DutyLabel[playerid] = Create3DTextLabel("Admin On Duty \n Do NOT Attack",0xFF000099,0,0,0,50,-1,1);
 			Attach3DTextLabelToPlayer(DutyLabel[playerid], playerid, 0,0,0);
@@ -4413,7 +4413,7 @@ CMD:spec(playerid, params[])
 				case 3: SetPlayerColor(playerid, 0x00FF00FF); // General Administrator
 				case 4: SetPlayerColor(playerid, 0xFFA500FF); // Senior Administrator
 				case 1337: SetPlayerColor(playerid, 0xE80C0CFF); // Lead Administrator
-				case 1338: SetPlayerColor(playerid, 0xE80C0CFF); // Executive Director
+				case 1338: SetPlayerColor(playerid, 0x298EFFFF); // Executive Director
 			}
 			DutyLabel[playerid] = Create3DTextLabel("Admin On Duty \n Do NOT Attack",0xFF000099,0,0,0,50,-1,1);
 			Attach3DTextLabelToPlayer(DutyLabel[playerid], playerid, 0,0,0);

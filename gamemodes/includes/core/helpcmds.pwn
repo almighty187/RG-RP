@@ -102,7 +102,7 @@
 		8) Towing
 		9) Criminal/Gang
 		10) Racing
-	11) Group Leader
+	11) Group Leadership
 		1) LEA/Cops
 		2) Hitman
 		3) Medic

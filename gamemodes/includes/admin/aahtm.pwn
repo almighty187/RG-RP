@@ -267,7 +267,7 @@ public OnOffMakeAdmin(playerid, username[])
 		format(name, MAX_PLAYER_NAME, username);
 		SetPVarString(playerid, "OfflineMakingAdmin", name);
 		format(diagTitle, sizeof(diagTitle), "{FF0606}Administration {FFFFFF}- Adjust Admin Level for %s", name);
-		ShowPlayerDialogEx(playerid, DIALOG_OFFMAKEADMIN, DIALOG_STYLE_LIST, diagTitle, "{FFFFFF}Remove Admin Level\n{FFFF00}Moderator\n{87CEEB}Trial Administrator\n{00FF00}General Administrator\n{FFA500}Senior Administrator\n{e80c0c}Lead Administrator\n{e80c0c}Executive Director", "Select", "Cancel");
+		ShowPlayerDialogEx(playerid, DIALOG_OFFMAKEADMIN, DIALOG_STYLE_LIST, diagTitle, "{FFFFFF}Remove Admin Level\n{FFFF00}Moderator\n{87CEEB}Trial Administrator\n{00FF00}General Administrator\n{FFA500}Senior Administrator\n{e80c0c}Lead Administrator\n{298EFF}Executive Director", "Select", "Cancel");
 	}
 }
 forward OnAdminRoster(playerid);
@@ -441,7 +441,7 @@ public ShowUserGroup(playerid)
 	format(mysqlmessage, sizeof(mysqlmessage),"%s{00FF00}General Administrator {FFFFFF}({40FFFF}%d {FFFFFF}Admins)\n", mysqlmessage, general);
 	format(mysqlmessage, sizeof(mysqlmessage),"%s{FFA500}Senior Administrator {FFFFFF}({40FFFF}%d {FFFFFF}Admins)\n", mysqlmessage, senior);
 	format(mysqlmessage, sizeof(mysqlmessage),"%s{FF0000}Lead Administrator {FFFFFF}({40FFFF}%d {FFFFFF}Admins)\n", mysqlmessage, head);
-	format(mysqlmessage, sizeof(mysqlmessage),"%s{FF0000}Executive Director {FFFFFF}({40FFFF}%d {FFFFFF}Admins)\n", mysqlmessage, mana);
+	format(mysqlmessage, sizeof(mysqlmessage),"%s{298EFF}Executive Director {FFFFFF}({40FFFF}%d {FFFFFF}Admins)\n", mysqlmessage, mana);
 	ShowPlayerDialogEx(playerid, DISPLAY_ADMINISTRATION_ADMIN, DIALOG_STYLE_LIST, "{FF0606}Administration {FFFFFF}- Admins Section", mysqlmessage, "Select", "Cancel");
 	return 1;
 }
@@ -762,7 +762,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				    format(name, MAX_PLAYER_NAME, inputtext);
 					SetPVarString(playerid, "OfflineSettingSec", name);
 					format(diagTitle, sizeof(diagTitle), "{FF0606}Administration {FFFFFF}-  Set Secondary Task for %s", name);
-					ShowPlayerDialogEx(playerid, DIALOG_OFFSETSEC, DIALOG_STYLE_LIST, diagTitle, "Remove Secondary Task\nAdmin Personnel\nDirector of Admin Personnel\nFaction Moderator\nDirector of Faction Executive Director\nGang Moderator\nDirector of Gang Executive Director\nBusiness Moderator\nDirector of Business Executive Director\nShop Technician\nSenior Shop Technician\nDirector of Community R\nBan Aappealer\nDirector of Community Inquiries\nSpecial Operative (Undercover)\nDirector of Special Operations\nPublic Relations\nDirector of Public Relations\nHuman Resources\nlevel 2 Human Resources\nlevel 3 Human Resources\nSecurity\nAssistant Shift Manager", "Select", "Cancel");
+					ShowPlayerDialogEx(playerid, DIALOG_OFFSETSEC, DIALOG_STYLE_LIST, diagTitle, "Remove Secondary Task\nAdmin Personnel\nDirector of Admin Personnel\nFaction Moderator\nDirector of Faction Management\nGang Moderator\nDirector of Gang Management\nBusiness Moderator\nDirector of Business Management\nShop Technician\nSenior Shop Technician\nDirector of Community R\nBan Aappealer\nDirector of Community Inquiries\nSpecial Operative (Undercover)\nDirector of Special Operations\nPublic Relations\nDirector of Public Relations\nHuman Resources\nlevel 2 Human Resources\nlevel 3 Human Resources\nSecurity\nAssistant Shift Manager", "Select", "Cancel");
 				}
 				else
 			    {
@@ -793,7 +793,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				    new diagTitle[64 + MAX_PLAYER_NAME];
 					SetPVarInt(playerid, "MakingAdmin", id);
 					format(diagTitle, sizeof(diagTitle), "{FF0606}Administration {FFFFFF}- Adjust Admin Level for %s", GetPlayerNameEx(id));
-					ShowPlayerDialogEx(playerid, DIALOG_MAKEADMIN, DIALOG_STYLE_LIST, diagTitle, "{FFFFFF}Remove Admin Level\n{FFFF00}Moderator\n{87CEEB}Trial Administrator\n{00FF00}General Administrator\n{FFA500}Senior Administrator\n{e80c0c}Lead Administrator\n{e80c0c}Executive Director", "Select", "Cancel");
+					ShowPlayerDialogEx(playerid, DIALOG_MAKEADMIN, DIALOG_STYLE_LIST, diagTitle, "{FFFFFF}Remove Admin Level\n{FFFF00}Moderator\n{87CEEB}Trial Administrator\n{00FF00}General Administrator\n{FFA500}Senior Administrator\n{e80c0c}Lead Administrator\n{298EFF}Executive Director", "Select", "Cancel");
 				}
 				else
 			    {
@@ -1156,20 +1156,20 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 						if(PlayerInfo[TargetID][pFactionModerator] == 0)
 						{
 							PlayerInfo[TargetID][pFactionModerator] = 2;
-							SendServerMessage(playerid, "You have made them a Director of Faction Executive Director");
-							SendServerMessage(TargetID, "You have been made a Director of Faction Executive Director");
-							format(string, sizeof(string), "%s has given Director of Faction Executive Director to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
+							SendServerMessage(playerid, "You have made them a Director of Faction Management");
+							SendServerMessage(TargetID, "You have been made a Director of Faction Management");
+							format(string, sizeof(string), "%s has given Director of Faction Management to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, TargetID, "Admin", "issued Director of Faction Executive Director");
+							DBLog(playerid, TargetID, "Admin", "issued Director of Faction Management");
 						}
 						else
 						{
 							PlayerInfo[TargetID][pFactionModerator] = 0;
-							SendServerMessage(playerid, "You have taken their Director of Faction Executive Director");
-							SendServerMessage(TargetID, "You have had your Director of Faction Executive Director taken");
-							format(string, sizeof(string), "%s has taken Director of Faction Executive Director from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
+							SendServerMessage(playerid, "You have taken their Director of Faction Management");
+							SendServerMessage(TargetID, "You have had your Director of Faction Management taken");
+							format(string, sizeof(string), "%s has taken Director of Faction Management from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, TargetID, "Admin", "removed from Director of Faction Executive Director");
+							DBLog(playerid, TargetID, "Admin", "removed from Director of Faction Management");
 						}
 						ShowSetSec(playerid, TargetID);
 					}
@@ -1200,20 +1200,20 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 						if(PlayerInfo[TargetID][pGangModerator] == 0)
 						{
 							PlayerInfo[TargetID][pGangModerator] = 2;
-							SendServerMessage(playerid, "You have made them a Director of Gang Executive Director");
-							SendServerMessage(TargetID, "You have been made a Director of Gang Executive Director");
-							format(string, sizeof(string), "%s has given Director of Gang Executive Director to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
+							SendServerMessage(playerid, "You have made them a Director of Gang Management");
+							SendServerMessage(TargetID, "You have been made a Director of Gang Management");
+							format(string, sizeof(string), "%s has given Director of Gang Management to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, TargetID, "Admin", "issued Director of Gang Executive Director");
+							DBLog(playerid, TargetID, "Admin", "issued Director of Gang Management");
 						}
 						else
 						{
 							PlayerInfo[TargetID][pGangModerator] = 0;
-							SendServerMessage(playerid, "You have taken their Director of Gang Executive Director");
-							SendServerMessage(TargetID, "You have had your Director of Gang Executive Director taken");
-							format(string, sizeof(string), "%s has taken Director of Gang Executive Director from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
+							SendServerMessage(playerid, "You have taken their Director of Gang Management");
+							SendServerMessage(TargetID, "You have had your Director of Gang Management taken");
+							format(string, sizeof(string), "%s has taken Director of Gang Management from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 							Log("logs/admin.log", string);
-							DBLog(playerid, TargetID, "Admin", "removed from Director of Gang Executive Director");
+							DBLog(playerid, TargetID, "Admin", "removed from Director of Gang Management");
 						}
 						ShowSetSec(playerid, TargetID);
 					}
@@ -1245,21 +1245,21 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 							if(PlayerInfo[TargetID][pBM] == 0 || PlayerInfo[TargetID][pBM] == 1)
 							{
 								PlayerInfo[TargetID][pBM] = 2;
-								SendServerMessage(playerid, "You have made them a Director of Business Executive Director");
-								SendServerMessage(TargetID, "You have been made a Director of Business Executive Director");
-								format(string, sizeof(string), "%s has given Director of Business Executive Director permissions to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
+								SendServerMessage(playerid, "You have made them a Director of Business Management");
+								SendServerMessage(TargetID, "You have been made a Director of Business Management");
+								format(string, sizeof(string), "%s has given Director of Business Management permissions to %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 								Log("logs/admin.log", string);
-								DBLog(playerid, TargetID, "Admin", "issued Director of Business Executive Director");
+								DBLog(playerid, TargetID, "Admin", "issued Director of Business Management");
 								ShowSetSec(playerid, TargetID);
 							}
 							else
 							{
 								PlayerInfo[TargetID][pBM] = 0;
-								SendServerMessage(playerid, "You have taken their Director of Business Executive Director");
-								SendServerMessage(TargetID, "You have had your Director of Business Executive Director taken");
-								format(string, sizeof(string), "%s has taken Director of Business Executive Director permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
+								SendServerMessage(playerid, "You have taken their Director of Business Management");
+								SendServerMessage(TargetID, "You have had your Director of Business Management taken");
+								format(string, sizeof(string), "%s has taken Director of Business Management permissions from %s", GetPlayerNameEx(playerid), GetPlayerNameEx(TargetID));
 								Log("logs/admin.log", string);
-								DBLog(playerid, TargetID, "Admin", "removed from Director of Business Executive Director");
+								DBLog(playerid, TargetID, "Admin", "removed from Director of Business Management");
 								ShowSetSec(playerid, TargetID);
 							}
 					}
