@@ -10264,7 +10264,7 @@ public OnFilterScriptInit()
 	SetDynamicObjectMaterial(tmpobjid, 0, 10101, "2notherbuildsfe", "ferry_build14", 0x00000000);
 	tmpobjid = CreateDynamicObject(19128, 1562.190551, -1614.441650, 12.329360, 0.000000, -0.000007, 179.999954, .streamdistance = 600.00, .drawdistance = 600.00);
 	SetDynamicObjectMaterialText(tmpobjid, 0, "�       �", 140, "Arial", 190, 1, 0xFFFF3E33, 0x00000000, 1);
-	tmpobjid = CreateDynamicObject(968, 1544.701171, -1630.830322, 12.972799, 0.000000, 0.000000, 90.000000, .streamdistance = 600.00, .drawdistance = 600.00);
+	//tmpobjid = CreateDynamicObject(968, 1544.701171, -1630.830322, 12.972799, 0.000000, 0.000000, 90.000000, .streamdistance = 600.00, .drawdistance = 600.00); // Blocking off actual gate
 	SetDynamicObjectMaterial(tmpobjid, 0, 4552, "ammu_lan2", "sunsetammu2", 0x00000000);
 	SetDynamicObjectMaterial(tmpobjid, 1, 4552, "ammu_lan2", "sunsetammu2", 0x00000000);
 	tmpobjid = CreateDynamicObject(10558, 1549.364501, -1614.156860, 16.609384, 0.000000, -0.000014, 179.999908, .streamdistance = 600.00, .drawdistance = 600.00);
