@@ -300,7 +300,7 @@ stock FetchPoint(playerid, &point, Float:range)
 
 CMD:editpoint(playerid, params[])
 {
-	if(PlayerInfo[playerid][pFactionModerator] >= 2 || PlayerInfo[playerid][pAdmin] >= 1337)
+	if(PlayerInfo[playerid][pGangModerator] >= 2 || PlayerInfo[playerid][pAdmin] >= 1337)
 	{
 		ListPoints(playerid);
 	}
