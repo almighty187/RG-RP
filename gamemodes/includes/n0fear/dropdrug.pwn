@@ -88,70 +88,6 @@ LoadDrop()
 		}
 	}
 }
-
-
-
-
-
-
-/*LoadDrop()
-{
-	new File:file = fopen("DroppedDrugs.ini", io_append);
-    if(file)
-    {
-        fclose(file);
-		for(new g = 0, buffer[50]; g < MAX_DROP_DRUGS; g++)
-		{
-			format(buffer, sizeof(buffer), "%d,%d,%d,%d,%d,%f,%f,%f,%d\n",
-			DropDrug[g][dType],
-			DropDrug[g][dWeapon],
-			DropDrug[g][dAmmo],
-			DropDrug[g][dWorld],
-			DropDrug[g][dObject],
-			DropDrug[g][ddX],
-			DropDrug[g][ddY],
-			DropDrug[g][ddZ],
-			DropDrug[g][dText]);
-			if(g == 0) file = fopen("DroppedDrugs.ini", io_write);
-			else file = fopen("DroppedDrugs.ini", io_append);
-			fwrite(file, buffer);
-			fclose(file);
-			if(DropDrug[g][dWeapon] > 0 && DropDrug[g][ddY] != 0)
-			{
-				CreateDrop(g);
-			}
-		}
-	}
-	return 1;
-}*/
-
-/*
-SaveDrop()
-{
-    new File:file = fopen("DroppedDrugs.ini", io_append);
-    if(file)
-    {
-        fclose(file);
-		for(new g = 0, buffer[50]; g < MAX_DROP_DRUGS; g++)
-		{
-			format(buffer, sizeof(buffer), "%d,%d,%d,%d,%d,%f,%f,%f,%d\n",
-			DropDrug[g][dType],
-			DropDrug[g][dWeapon],
-			DropDrug[g][dAmmo],
-			DropDrug[g][dWorld],
-			DropDrug[g][dObject],
-			DropDrug[g][ddX],
-			DropDrug[g][ddY],
-			DropDrug[g][ddZ],
-			DropDrug[g][dText]);
-			if(g == 0) file = fopen("DroppedDrugs.ini", io_write);
-			else file = fopen("DroppedDrugs.ini", io_append);
-			fwrite(file, buffer);
-			fclose(file);
-		}
-	}
-	return 1;
-}*/
 SaveDrop()
 {
     new File:file = fopen("DroppedDrugs.ini", io_write); // Open the file for writing
@@ -182,9 +118,7 @@ SaveDrop()
         return 0; // Return failure
     }
 }
-
-
-COMMAND:pickitem(playerid, params[])
+CMD:pickitem(playerid, params[])
 {
     new string[128],sendername[MAX_PLAYER_NAME],gunname[128];
     if (gPlayerLogged{playerid} == 0) return SendClientMessage(playerid, COLOR_WHITE, "You must be logged in to use this.");

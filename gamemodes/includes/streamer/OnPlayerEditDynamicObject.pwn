@@ -52,7 +52,7 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
 	    }
 	}
 	*/
-
+    
 	if(GetPVarType(playerid, "DeployingTapeID"))
 	{
 	    new tid = GetPVarInt(playerid, "DeployingTapeID"), valid = 0;

@@ -26,7 +26,7 @@ CMD:mydrugs(playerid, params[])
     }
     return 1;
 }
-hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
+/*hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
     if(arrAntiCheat[playerid][ac_iFlags][AC_DIALOGSPOOFING] > 0) return 1;
     
    	switch (dialogid)
@@ -40,4 +40,4 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
         }
     }
     return 1;
-}
+}*/

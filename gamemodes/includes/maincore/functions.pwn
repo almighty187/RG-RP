@@ -1363,9 +1363,11 @@ stock PlaySoundInArea(soundid,Float:x,Float:y,Float:z,Float:radi) // Added by N0
 }
 stock CreateLableText(playerid,lable[],text[]) // Added by N0FeaR
 {
+	
 	if(PlayerInfo[playerid][pReg] < 1) return 1;
     if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 1;
-    if (PlayerInfo[playerid][pTut] != -1) return 1; // Check if pTut is not equal to -1
+    if(PlayerInfo[playerid][pTut] != -1) return 1; // Check if pTut is not equal to -1
+    if(PlayerInfo[playerid][pPos_x] == 0) return 1;
     //if(GetPVarInt(playerid, "PlayTime") < 5) return 1;
     new string[250];
     if(GetPVarInt(playerid, "LableDraw") > 0)

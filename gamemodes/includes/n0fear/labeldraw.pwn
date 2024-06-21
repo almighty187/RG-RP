@@ -180,6 +180,14 @@ hook OnPlayerPickUpDynamicPickup(playerid, pickupid)
 		       
    			}
       		CreateLableText(playerid,"Door",string);
+		}
+	}
+	for(new a = 0; a < sizeof(ArrestPoints); a++)
+    {
+	    if(IsPlayerInRangeOfPoint(playerid,3.0,ArrestPoints[a][arrestPosX],ArrestPoints[a][arrestPosY],ArrestPoints[a][arrestPosZ]))
+	    {
+	    	format(string, sizeof(string), " ~w~ID: %d ~n~ ~w~Type ~b~/arrest", a);
+	    	CreateLableText(playerid,"Arrest",string);
         }
     }
     return 1;

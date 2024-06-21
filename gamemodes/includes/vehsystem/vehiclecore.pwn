@@ -2165,7 +2165,7 @@ CMD:vstorage(playerid, params[])
 			if((iModelID = PlayerVehicleInfo[playerid][i][pvModelId] - 400) >= 0) {
 				Get3DZone(PlayerVehicleInfo[playerid][i][pvPosX], PlayerVehicleInfo[playerid][i][pvPosY], PlayerVehicleInfo[playerid][i][pvPosZ], szCarLocation, sizeof(szCarLocation));
 				if(PlayerVehicleInfo[playerid][i][pvImpounded]) {
-					format(vstring, sizeof(vstring), "%s%s\tImpounded\tDillimore DMV\t$%s\n", vstring, VehicleName[iModelID], number_format(PlayerVehicleInfo[playerid][i][pvTicket]));
+					format(vstring, sizeof(vstring), "%s%s\tImpounded\tIdlewood DMV\t$%s\n", vstring, VehicleName[iModelID], number_format(PlayerVehicleInfo[playerid][i][pvTicket]));
 				}
 				else if(PlayerVehicleInfo[playerid][i][pvDisabled]) {
 					format(vstring, sizeof(vstring), "%s%s\tDisabled\t--\t$%s\n", vstring, VehicleName[iModelID], number_format(PlayerVehicleInfo[playerid][i][pvTicket]));
