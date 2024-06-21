@@ -103,7 +103,7 @@
 #include "./includes/n0fear/anticbug.pwn"
 #include "./includes/n0fear/checkpointstore.pwn"
 #include "./includes/n0fear/bot.pwn"
-#include "./includes/n0fear/mapper.pwn"
+//#include "./includes/n0fear/mapper.pwn"
 
 // 187
 #include "./includes/187/mydrugs.pwn"
