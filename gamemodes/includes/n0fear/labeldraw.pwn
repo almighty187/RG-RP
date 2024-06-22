@@ -190,6 +190,8 @@ hook OnPlayerPickUpDynamicPickup(playerid, pickupid)
 	    	CreateLableText(playerid,"Arrest",string);
         }
     }
+    if(IsPlayerInRangeOfPoint(playerid,2.0,2414.5132,1160.8452,2848.2695)) return CreateLableText(playerid,"Bank"," ~w~Press ~b~Y ~w~to view the menu.");
+    if(IsPlayerInRangeOfPoint(playerid,2.0,2414.6257,1167.5598,2848.4333)) return CreateLableText(playerid,"Bank"," ~w~Press ~b~Y ~w~to view the menu.");
     return 1;
 }
 

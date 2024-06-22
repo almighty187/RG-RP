@@ -13,9 +13,18 @@
 #define BANK_LV				4
 #define BANK_DILLIMORE		5
 #define BANK_LASBARANCAS	6
+#define BANK_CUSTOMITNERIOR 7
 
-new Bankers[12];
-new BankPoint[12];
+new Bankers[15];
+//new BankPoint[12];
+
+new Float:BankPoint[4][3] = {
+{2316.2263,-7.3651, 26.7422},
+{2316.4480,-15.4179,26.7422}, 
+{2414.5132,1160.8452,2848.2695},
+{2414.6257,1167.5598,2848.4333}
+
+};
 
 LoadBanks() {
 
@@ -62,8 +71,20 @@ LoadBanks() {
 	SetActorVirtualWorld(Bankers[11], BANK_LASBARANCAS);
 
 	// pickups for interaction.
-	BankPoint[0] = CreateDynamicSphere(2316.2263,-7.3651, 26.7422, 3.0);
-	BankPoint[1] = CreateDynamicSphere(2316.4480,-15.4179,26.7422, 3.0);
+	//BankPoint[0] = CreateDynamicSphere(2316.2263,-7.3651, 26.7422, 3.0);
+	//BankPoint[1] = CreateDynamicSphere(2316.4480,-15.4179,26.7422, 3.0);
+	
+	// Custom Interior Bank
+	Bankers[12] = CreateActor(150, 2416.8142,1164.3263,2847.9624,90.9883);
+	Bankers[13] = CreateActor(150, 2416.8062,1169.7268,2847.9624,88.1683);
+	Bankers[14] = CreateActor(150, 2416.8215,1157.6256,2847.9624,89.7350);
+	
+	SetActorVirtualWorld(Bankers[12], BANK_CUSTOMITNERIOR);
+	SetActorVirtualWorld(Bankers[13], BANK_CUSTOMITNERIOR);
+	SetActorVirtualWorld(Bankers[14], BANK_CUSTOMITNERIOR);
+	
+	//BankPoint[2] = CreateDynamicSphere(2414.5132,1160.8452,2848.2695, 5.0);
+	//BankPoint[3] = CreateDynamicSphere(2414.6257,1167.5598,2848.4333, 5.0);
 
 	print("[Streamer] Bank System Loaded");
 
@@ -72,13 +93,26 @@ LoadBanks() {
 
 }
 
+hook OnGameModeInit() {
+
+    for(new i = 0; i < sizeof(BankPoint); ++i)
+	{
+		CreateDynamicPickup(1239, 23, BankPoint[i][0], BankPoint[i][1], BankPoint[i][2], 1);// Bank
+	}
+}
 hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
 
-	if((newkeys & KEY_YES) && (IsPlayerInDynamicArea(playerid, BankPoint[0]) || IsPlayerInDynamicArea(playerid, BankPoint[1]))) {
-		format(szMiscArray, sizeof(szMiscArray), "{FF8000}** {C2A2DA}%s approaches the banker and begins speaking with them.", GetPlayerNameEx(playerid));
-		//ProxDetector(30.0, playerid, szMiscArray, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-		SetPlayerChatBubble(playerid, szMiscArray, COLOR_PURPLE, 15.0, 5000);
-		ShowBankMenu(playerid);
+	if((newkeys & KEY_YES))
+	{
+		for(new i = 0; i < sizeof(BankPoint); ++i)
+		{
+	        if (IsPlayerInRangeOfPoint(playerid, 1.0, BankPoint[i][0], BankPoint[i][1], BankPoint[i][2])) {
+				format(szMiscArray, sizeof(szMiscArray), "{FF8000}** {C2A2DA}%s approaches the banker and begins speaking with them.", GetPlayerNameEx(playerid));
+				//ProxDetector(30.0, playerid, szMiscArray, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+				SetPlayerChatBubble(playerid, szMiscArray, COLOR_PURPLE, 15.0, 5000);
+				ShowBankMenu(playerid);
+			}
+		}
 	}
 	return 1;
 }
