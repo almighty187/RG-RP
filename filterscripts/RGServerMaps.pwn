@@ -4,6 +4,15 @@
 public OnFilterScriptInit()
 {
     print("[Streamer] Loading Filterscripts Dynamic Objects...");
+	// Marina Canal
+	CreateDynamicObject(3861, 723.2895, -1483.4165, 2.1136, 0.0000, 0.0000, 0.0000); //marketstall01_SFXRF
+	CreateDynamicObject(19630, 722.1638, -1484.3546, 1.7993, 272.3000, 238.8999, 179.9997); //Fish1
+	CreateDynamicObject(19630, 722.1765, -1483.7755, 1.7760, 272.3000, 238.8998, 179.9998); //Fish1
+	CreateDynamicObject(19630, 722.4966, -1484.3052, 1.7973, 272.3000, 238.8997, 179.9997); //Fish1
+	CreateDynamicObject(19630, 722.5798, -1483.7644, 1.7756, 272.2999, 238.8996, 179.9997); //Fish1
+	CreateDynamicObject(1599, 724.4631, -1484.1248, 1.7891, 0.1999, 106.5998, 1.2000); //fish1single
+	CreateDynamicObject(1599, 723.9183, -1484.1365, 1.8159, 0.1999, 106.5998, 1.2000); //fish1single
+	
 	// New Bank Interior
 	CreateDynamicObject(6871, 2425.37720, 1110.99072, 2875.10181,   0.00000, 0.00000, -90.00000);
 	CreateDynamicObject(6871, 2364.32837, 1110.95801, 2877.10400,   0.00000, 0.00000, -90.00000);
