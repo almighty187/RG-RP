@@ -7462,6 +7462,7 @@ CMD:reloadmapping(playerid, params[])
 		SendRconCommand("reloadfs RGHouseInterior");
 		SendRconCommand("reloadfs RGPlayersExterior");
 		SendRconCommand("reloadfs RGServerMaps");
+		SendRconCommand("reloadfs RGGangMaps");
 	}
 	else SendErrorMessage(playerid,"You are not authorized to use this CMD.");
 	return 1;
