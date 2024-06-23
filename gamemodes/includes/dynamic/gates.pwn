@@ -387,7 +387,7 @@ CMD:gnext(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_RED, "* Listing next available gate...");
 		for(new x;x<MAX_GATES;x++)
 		{
-		    if(GateInfo[x][gModel] == 0)
+		    if(GateInfo[x][gModel] == 18631)
 		    {
 		        new string[128];
 		        format(string, sizeof(string), "%d is available to use.", x);
