@@ -367,7 +367,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 								arrGroupLockers[family][i][g_iLockerVW] = 0;
 								DestroyDynamic3DTextLabel(arrGroupLockers[family][i][g_tLocker3DLabel]);
 								DestroyDynamicArea(arrGroupLockers[family][i][g_iLockerAreaID]);
-								format(szMiscArray, sizeof szMiscArray, "%s Locker\n{FFFF00}Press {1FBDFF}~k~~CONVERSATION_YES~ {FFFF00}to use\n ID: %i", arrGroupData[family][g_szGroupName], arrGroupLockers[family][i]);
+								format(szMiscArray, sizeof szMiscArray, "%s Locker\n{FFFF00}Press {1FBDFF}~k~~CONVERSATION_YES~{FFFF00} to use\n ID: %i", arrGroupData[family][g_szGroupName], arrGroupLockers[family][i]);
 								arrGroupLockers[family][i][g_tLocker3DLabel] = CreateDynamic3DTextLabel(szMiscArray, arrGroupData[family][g_hDutyColour] * 256 + 0xFF, arrGroupLockers[family][i][g_fLockerPos][0], arrGroupLockers[family][i][g_fLockerPos][1], arrGroupLockers[family][i][g_fLockerPos][2], 15.0, .testlos = 1, .worldid = arrGroupLockers[family][i][g_iLockerVW]);
 								arrGroupLockers[family][i][g_iLockerAreaID] = CreateDynamicSphere(arrGroupLockers[family][i][g_fLockerPos][0], arrGroupLockers[family][i][g_fLockerPos][1], arrGroupLockers[family][i][g_fLockerPos][2], 3.0, .worldid = arrGroupLockers[family][i][g_iLockerVW]);
 
@@ -1246,7 +1246,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				arrGroupLockers[iGroupID][iLocker][g_iLockerVW] = GetPlayerVirtualWorld(playerid);
 				DestroyDynamic3DTextLabel(arrGroupLockers[iGroupID][iLocker][g_tLocker3DLabel]);
 				DestroyDynamicArea(arrGroupLockers[iGroupID][iLocker][g_iLockerAreaID]);
-				format(szMiscArray, sizeof szMiscArray, "%s Locker\n{FFFF00}Press {1FBDFF}~k~~CONVERSATION_YES~ {FFFF00}to use\n ID: %i", arrGroupData[iGroupID][g_szGroupName], arrGroupLockers[iGroupID][iLocker]);
+				format(szMiscArray, sizeof szMiscArray, "%s Locker\n{FFFF00}Press {1FBDFF}~k~~CONVERSATION_YES~{FFFF00} to use\n ID: %i", arrGroupData[iGroupID][g_szGroupName], arrGroupLockers[iGroupID][iLocker]);
 				arrGroupLockers[iGroupID][iLocker][g_tLocker3DLabel] = CreateDynamic3DTextLabel(szMiscArray, arrGroupData[iGroupID][g_hDutyColour] * 256 + 0xFF, arrGroupLockers[iGroupID][iLocker][g_fLockerPos][0], arrGroupLockers[iGroupID][iLocker][g_fLockerPos][1], arrGroupLockers[iGroupID][iLocker][g_fLockerPos][2], 15.0, .testlos = 1, .worldid = arrGroupLockers[iGroupID][iLocker][g_iLockerVW]);
 				arrGroupLockers[iGroupID][iLocker][g_iLockerAreaID] = CreateDynamicSphere(arrGroupLockers[iGroupID][iLocker][g_fLockerPos][0], arrGroupLockers[iGroupID][iLocker][g_fLockerPos][1], arrGroupLockers[iGroupID][iLocker][g_fLockerPos][2], 3.0, .worldid = arrGroupLockers[iGroupID][iLocker][g_iLockerVW]);
 
