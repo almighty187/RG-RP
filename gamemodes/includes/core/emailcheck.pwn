@@ -55,8 +55,19 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 	{
 		if(!response || isnull(inputtext))
 			ShowPlayerDialogEx(playerid, EMAIL_VALIDATION, DIALOG_STYLE_INPUT, "E-mail Registration - {FF0000}Error", "Please enter a valid e-mail address to associate with your account.", "Submit", "");
-		SetPVarString(playerid, "pEmail", inputtext);
-		InvalidEmailCheck(playerid, inputtext, 2);
+		if(strfind(inputtext, "@") != -1){
+			mysql_escape_string(inputtext, PlayerInfo[playerid][pEmail]);
+			szMiscArray[0] = 0;
+			mysql_format(MainPipeline, szMiscArray, sizeof(szMiscArray), "UPDATE `accounts` SET `Email` = '%s', `EmailConfirmed` = 0 WHERE `id` = %d", inputtext, PlayerInfo[playerid][pId]);
+			mysql_tquery(MainPipeline, szMiscArray, "OnQueryFinish", "i", SENDDATA_THREAD);
+			format(szMiscArray, sizeof(szMiscArray), "Thank you for submitting your email, if you want to change it use /settings");
+			ShowPlayerDialogEx(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "Email Confirmation", szMiscArray, "Okay", "");
+
+
+			SetPVarString(playerid, "pEmail", inputtext);
+		}
+		else ShowPlayerDialogEx(playerid, EMAIL_VALIDATION, DIALOG_STYLE_INPUT, "E-mail Registration - {FF0000}Error", "Please enter a valid e-mail address to associate with your account.", "Submit", "");
+		//InvalidEmailCheck(playerid, inputtext, 2);
 	}
 	return 0;
 }

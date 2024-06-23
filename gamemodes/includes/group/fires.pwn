@@ -90,7 +90,7 @@ public FireTimmer()
 
 hook OnGameModeInit() {
 
-    SetTimer("FireTimmer", 900000, 1);
+    SetTimer("FireTimmer", 6000, 1);
 	iGlobalZoneAreas[0] = CreateDynamicRectangle(gMainZones[0][SAZONE_AREA][0], gMainZones[0][SAZONE_AREA][1], gMainZones[0][SAZONE_AREA][3], gMainZones[0][SAZONE_AREA][4]); // Los Santos
 	iGlobalZoneAreas[1] = CreateDynamicRectangle(gMainZones[6][SAZONE_AREA][0], gMainZones[6][SAZONE_AREA][1], gMainZones[6][SAZONE_AREA][3], gMainZones[6][SAZONE_AREA][4]); // Red County
 	iGlobalZoneAreas[2] = CreateDynamicRectangle(gMainZones[7][SAZONE_AREA][0], gMainZones[7][SAZONE_AREA][1], gMainZones[7][SAZONE_AREA][3], gMainZones[7][SAZONE_AREA][4]); // Flint County
@@ -113,6 +113,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 stock CreateTypeFire(iTypeID) {
 
 	new iTargetID;
+	new playerid;
 	switch(iTypeID) {
 
 		case 0: { // Houses
@@ -127,7 +128,9 @@ stock CreateTypeFire(iTypeID) {
 				Get3DZone(HouseInfo[iTargetID][hExteriorX], HouseInfo[iTargetID][hExteriorY], HouseInfo[iTargetID][hExteriorZ], szLocation, sizeof(szLocation));
 				format(szMiscArray, sizeof(szMiscArray), "**HQ There was a fire reported somewhere in %s.", szLocation);
 				SendGroupMessage(GROUP_TYPE_MEDIC, COLOR_LIGHTRED, szMiscArray);
-				SetPlayerCheckpoint(iTargetID, HouseInfo[iTargetID][hExteriorX], HouseInfo[iTargetID][hExteriorY], HouseInfo[iTargetID][hExteriorZ], 10.0);
+				gPlayerCheckpointStatus[playerid] = CHECKPOINT_BUSINESS;
+				DisablePlayerCheckpoint(playerid);
+				SetPlayerCheckpoint(playerid, HouseInfo[iTargetID][hExteriorX], HouseInfo[iTargetID][hExteriorY], HouseInfo[iTargetID][hExteriorZ], 10.0);
 			}
 		}
 		case 1: { // Businesses
@@ -142,7 +145,9 @@ stock CreateTypeFire(iTypeID) {
 				Get3DZone(Businesses[iTargetID][bExtPos][0], Businesses[iTargetID][bExtPos][1], Businesses[iTargetID][bExtPos][2], szLocation, sizeof(szLocation));
 				format(szMiscArray, sizeof(szMiscArray), "**HQ: There was a fire reported somewhere in %s.", szLocation);
 				SendGroupMessage(GROUP_TYPE_MEDIC, COLOR_LIGHTRED, szMiscArray);
-				SetPlayerCheckpoint(iTargetID, Businesses[iTargetID][bExtPos][0], Businesses[iTargetID][bExtPos][1], Businesses[iTargetID][bExtPos][2], 10.0);
+				gPlayerCheckpointStatus[playerid] = CHECKPOINT_BUSINESS;
+				DisablePlayerCheckpoint(playerid);
+				SetPlayerCheckpoint(playerid, Businesses[iTargetID][bExtPos][0], Businesses[iTargetID][bExtPos][1], Businesses[iTargetID][bExtPos][2], 10.0);
 			}
 		}
 		case 2: { // Random
@@ -154,7 +159,9 @@ stock CreateTypeFire(iTypeID) {
 			Get3DZone(fire_fRandomLocations[iTargetID][0], fire_fRandomLocations[iTargetID][1], fire_fRandomLocations[iTargetID][2], szLocation, sizeof(szLocation));
 			format(szMiscArray, sizeof(szMiscArray), "**HQ There was a fire reported somewhere in %s.", szLocation);
 			SendGroupMessage(GROUP_TYPE_MEDIC, COLOR_LIGHTRED, szMiscArray);
-			SetPlayerCheckpoint(iTargetID, fire_fRandomLocations[iTargetID][0], fire_fRandomLocations[iTargetID][1], fire_fRandomLocations[iTargetID][2], 10.0);
+			gPlayerCheckpointStatus[playerid] = CHECKPOINT_BUSINESS;
+			DisablePlayerCheckpoint(playerid);
+			SetPlayerCheckpoint(playerid, fire_fRandomLocations[iTargetID][0], fire_fRandomLocations[iTargetID][1], fire_fRandomLocations[iTargetID][2], 10.0);
 		}
 	}
 }
