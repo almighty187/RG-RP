@@ -23,7 +23,7 @@ hook OnGameModeInit() {
 
 	
 	// Business & Job related
-	CreateDynamic3DTextLabel("Type /sellfish [amount] to sell your fish to the vendor.", COLOR_YELLOW, 723.3507, -1485.1478, 1.9687, 4); // Marina docks
+	CreateDynamic3DTextLabel("Type /sellfish [amount] to sell your fish to the vendor.", COLOR_YELLOW, 723.3507, -1485.1478, 1.9687, 10); // Marina docks
     CreateDynamic3DTextLabel("Type /getpizza from a Pizzaboy \nto get pizzas for delivery!",COLOR_TWGREEN,2103.6714,-1785.5222,12.9849, 4.0); //getpizza Idlewood
 	//CreateDynamic3DTextLabel("/train\n To change your fightstyle.",COLOR_TWGREEN,757.1866,5.6019,1000.7007,8.0); // Gym /train
     CreateDynamic3DTextLabel("/buyclothes or Press N\n To change your skin.",COLOR_TWGREEN,208.8970,-100.3289,1005.2578,8.0);

@@ -37,7 +37,7 @@ stock IsFamedModel(carid)
 	return 0;
 }
 
-stock GetFamedRankName(i)
+/*stock GetFamedRankName(i)
 {
 	new string[128];
 	switch(i)
@@ -67,6 +67,51 @@ stock GetFamedRankName(i)
 			format(string, sizeof(string), "Vice Famed Chairman");
 		}
 		case 7: 
+		{
+			format(string, sizeof(string), "Famed Chairman");
+		}
+		default:
+		{
+			format(string, sizeof(string), "Unknown");
+		}
+	}
+	return string;
+}*/
+
+stock GetFamedRankName(i)
+{
+	new string[128];
+	switch(i)
+	{
+		case 1: 
+		{
+			format(string, sizeof(string), "Old-School");
+		}
+		case 2: 
+		{
+			format(string, sizeof(string), "Chartered Old-School");
+		}
+		case 3: 
+		{
+			format(string, sizeof(string), "Legacy Old-School");
+		}
+		case 4: 
+		{
+			format(string, sizeof(string), "Famed");
+		}
+		case 5: 
+		{
+			format(string, sizeof(string), "Famed Commissioner");
+		}
+		case 6: 
+		{
+			format(string, sizeof(string), "Famed Moderator");
+		}
+		case 7: 
+		{
+			format(string, sizeof(string), "Vice Famed Chairman");
+		}
+		case 8:
 		{
 			format(string, sizeof(string), "Famed Chairman");
 		}
@@ -132,7 +177,7 @@ CMD:fc(playerid, params[]) {
 
 CMD:fmute(playerid, params[])
 {
-	if(PlayerInfo[playerid][pFamed] >= 4 || PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1)
+	if(PlayerInfo[playerid][pFamed] >= 5 || PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1)
 	{
 	    new string[128], targetid, reason[64];
 	    if(sscanf(params, "us[64]", targetid, reason))
@@ -167,7 +212,7 @@ CMD:fmute(playerid, params[])
 
 CMD:funmute(playerid, params[])
 {
-	if(PlayerInfo[playerid][pFamed] >= 4 || PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1)
+	if(PlayerInfo[playerid][pFamed] >= 5 || PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1)
 	{
 	    new string[128], targetid, reason[64];
 	    if(sscanf(params, "us[64]", targetid, reason))
@@ -202,16 +247,16 @@ CMD:funmute(playerid, params[])
 
 CMD:setfamed(playerid, params[])
 {
-    if(PlayerInfo[playerid][pFamed] >= 6 || PlayerInfo[playerid][pAdmin] >= 1337)
+    if(PlayerInfo[playerid][pFamed] >= 7 || PlayerInfo[playerid][pAdmin] >= 1337)
     {
         new string[128], targetid, level;
 	    if(sscanf(params, "ui", targetid, level)) {
 			SendClientMessageEx(playerid, COLOR_GRAD1, "Usage: /setfamed [player] [level]");
-			SendClientMessageEx(playerid, COLOR_GRAD2, "(1) Old-School - (2) Chartered Old-School - (3) Famed - (4) Famed Commissioner");
-			SendClientMessageEx(playerid, COLOR_GRAD2, "(5) Famed Moderator - (6) Vice-Chairman - (7) Chairman");
+			SendClientMessageEx(playerid, COLOR_GRAD2, "(1) Old-School - (2) Chartered Old-School - (3) Legacy Old-School - (4) Famed");
+			SendClientMessageEx(playerid, COLOR_GRAD2, "(5) Famed Commissioner - (6) Famed Moderator - (7) Vice-Chairman - (8) Chairman");
 			return 1;
 		}
-		if(level > 7) return SendServerMessage(playerid, "Valid Famed levels are 1-7.");
+		if(level > 7) return SendServerMessage(playerid, "Valid Famed levels are 0-8.");
 		if(IsPlayerConnected(targetid))
 		{
 		    if(targetid != INVALID_PLAYER_ID)
@@ -239,7 +284,7 @@ CMD:setfamed(playerid, params[])
 
 CMD:osetfamed(playerid, params[])
 {
-    if(PlayerInfo[playerid][pFamed] >= 6 || PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1)
+    if(PlayerInfo[playerid][pFamed] >= 7 || PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1)
     {
         new string[128], pname[MAX_PLAYER_NAME], level;
 	    if(sscanf(params, "s[32]i", pname, level))
@@ -287,11 +332,12 @@ CMD:famedlocker(playerid, params[]) {
 			case 0: SendClientMessageEx(playerid, COLOR_GRAD2, "You're not part of famed!");
 			case 1: ShowPlayerDialogEx(playerid, DIALOG_LOCKER_OS, DIALOG_STYLE_LIST, "Old-School Locker", "First Aid Kit (Free)\nKevlar Vest ($10000)\nChange Skin ($3,000)\nJob Center", "Select", "Cancel");
 			case 2: ShowPlayerDialogEx(playerid, DIALOG_LOCKER_COS, DIALOG_STYLE_LIST, "Chartered Old-School Locker", "First Aid Kit (Free)\nKevlar Vest ($5000)\nChange Skin ($1,500)\nJob Center", "Select", "Cancel");
-			case 3: ShowPlayerDialogEx(playerid, DIALOG_LOCKER_FAMED, DIALOG_STYLE_LIST, "Famed Locker", "First Aid Kit (Free)\nKevlar Vest (Free)\nWeapons (Free)\nChange Skin (Free)\nJob Center\nFamed Color", "Select", "Cancel");
-            case 4: ShowPlayerDialogEx(playerid, DIALOG_LOCKER_FAMED, DIALOG_STYLE_LIST, "Famed Commissioner Locker", "First Aid Kit (Free)\nKevlar Vest (Free)\nWeapons (Free)\nChange Skin (Free)\nJob Center\nFamed Color", "Select", "Cancel");
-            case 5: ShowPlayerDialogEx(playerid, DIALOG_LOCKER_FAMED, DIALOG_STYLE_LIST, "Famed Moderator Locker", "First Aid Kit (Free)\nKevlar Vest (Free)\nWeapons (Free)\nChange Skin (Free)\nJob Center\nFamed Color", "Select", "Cancel");
-            case 6: ShowPlayerDialogEx(playerid, DIALOG_LOCKER_FAMED, DIALOG_STYLE_LIST, "Famed Vice-Chairman Locker", "First Aid Kit (Free)\nKevlar Vest (Free)\nWeapons (Free)\nChange Skin (Free)\nJob Center\nFamed Color", "Select", "Cancel");
-            case 7: ShowPlayerDialogEx(playerid, DIALOG_LOCKER_FAMED, DIALOG_STYLE_LIST, "Famed Chairman Locker", "First Aid Kit (Free)\nKevlar Vest (Free)\nWeapons (Free)\nChange Skin (Free)\nJob Center\nFamed Color", "Select", "Cancel");
+			case 3: ShowPlayerDialogEx(playerid, DIALOG_LOCKER_FAMED, DIALOG_STYLE_LIST, "Legacy Old-School", "First Aid Kit (Free)\nKevlar Vest (Free)\nWeapons (Free)\nChange Skin (Free)\nJob Center", "Select", "Cancel");
+            case 4: ShowPlayerDialogEx(playerid, DIALOG_LOCKER_FAMED, DIALOG_STYLE_LIST, "Famed", "First Aid Kit (Free)\nKevlar Vest (Free)\nWeapons (Free)\nChange Skin (Free)\nJob Center\nFamed Color", "Select", "Cancel");
+            case 5: ShowPlayerDialogEx(playerid, DIALOG_LOCKER_FAMED, DIALOG_STYLE_LIST, "Famed Commissioner Locker", "First Aid Kit (Free)\nKevlar Vest (Free)\nWeapons (Free)\nChange Skin (Free)\nJob Center\nFamed Color", "Select", "Cancel");
+            case 6: ShowPlayerDialogEx(playerid, DIALOG_LOCKER_FAMED, DIALOG_STYLE_LIST, "Famed Moderator Locker", "First Aid Kit (Free)\nKevlar Vest (Free)\nWeapons (Free)\nChange Skin (Free)\nJob Center\nFamed Color", "Select", "Cancel");
+            case 7: ShowPlayerDialogEx(playerid, DIALOG_LOCKER_FAMED, DIALOG_STYLE_LIST, "Famed Vice-Chairman Locker", "First Aid Kit (Free)\nKevlar Vest (Free)\nWeapons (Free)\nChange Skin (Free)\nJob Center\nFamed Color", "Select", "Cancel");
+            case 8: ShowPlayerDialogEx(playerid, DIALOG_LOCKER_FAMED, DIALOG_STYLE_LIST, "Famed Chairman Locker", "First Aid Kit (Free)\nKevlar Vest (Free)\nWeapons (Free)\nChange Skin (Free)\nJob Center\nFamed Color", "Select", "Cancel");
 		}
 	}
 	else return SendErrorMessage(playerid, "You're not at the famed locker!");
@@ -307,7 +353,7 @@ CMD:famedplate(playerid, params[])
 	if(IsPlayerConnected(playerid))
 	{
 	    if(isnull(params))
-	        return SendSyntaxMessage(playerid, "/famedplate [os/cos/famed/remove]");
+	        return SendSyntaxMessage(playerid, "/famedplate [os/cos/los/remove]");
 
 		inpveh = false;
 	    for(new d = 0 ; d < MAX_PLAYERVEHICLES; d++)
@@ -335,6 +381,14 @@ CMD:famedplate(playerid, params[])
     			    SendClientMessageEx(playerid, COLOR_FAMED, "Your vehicle will now appear with the Chartered Old-School Plate, parking your vehicle momentarily...");
 					cmd_park(playerid, params); //Save a few lines of code here xD
 	            }
+	            else if(strcmp(params, "los", true) == 0)
+	            {
+	                if(PlayerInfo[playerid][pFamed] < 3) return SendClientMessageEx(playerid, COLOR_GRAD2, "You're not a high enough famed member for this plate, sorry.");
+                    format(string, sizeof(string), "{F2B602}LOS");
+					format(PlayerVehicleInfo[playerid][d][pvPlate], 32, "%s", string);
+    			    SendClientMessageEx(playerid, COLOR_FAMED, "Your vehicle will now appear with the Legacy Old-School Plate, parking your vehicle momentarily...");
+					cmd_park(playerid, params); //Save a few lines of code here xD
+	            }
 	            else if(strcmp(params, "famed", true) == 0)
 	            {
 	                if(PlayerInfo[playerid][pFamed] < 3) return SendClientMessageEx(playerid, COLOR_GRAD2, "You're not a high enough famed member for this plate, sorry.");
@@ -350,7 +404,7 @@ CMD:famedplate(playerid, params[])
 					cmd_park(playerid, params); //Save a few lines of code here xD
 	            }
 	            else
-	                return SendSyntaxMessage(playerid, "/famedplate [os/cos/famed/remove]");
+	                return SendSyntaxMessage(playerid, "/famedplate [os/cos/los/remove]");
 			}
 		}
 		
@@ -375,11 +429,12 @@ CMD:fmembers(playerid, params[])
 				{
 					case 1: famedrank = "{228B22}Old-School\n";
 					case 2: famedrank = "{FF7F00}Chartered Old-School\n";
-					case 3: famedrank = "{ADFF2F}Famed\n";
-					case 4: famedrank = "{8F00FF}Famed Commissioner\n";
-					case 5: famedrank = "{8F00FF}Famed Moderator\n";
-					case 6: famedrank = "{8F00FF}Famed Vice-Chairman\n";
-					case 7: famedrank = "{8F00FF}Famed Chairman\n";
+					case 3: famedrank = "{ADFF2F}Legacy Old-School\n";
+					case 4: famedrank = "{8F00FF}Famed\n";
+					case 5: famedrank = "{8F00FF}Famed Commissioner\n";
+					case 6: famedrank = "{8F00FF}Famed Moderator\n";
+					case 7: famedrank = "{8F00FF}Famed Vice-Chairman\n";
+					case 8: famedrank = "{8F00FF}Famed Chairman\n";
 					default: famedrank = "Unknown";
 				}
 				format(string, sizeof(string), "%s\n{FFFFFF}%s\t%s", string, GetPlayerNameEx(i), famedrank);

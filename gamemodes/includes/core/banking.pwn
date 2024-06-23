@@ -211,7 +211,7 @@ PayDay(i) {
 				{
 					pVIPTax = TaxValue - 15;
 					if(pVIPTax < 0) { pVIPTax = 0; }
-					format(string, sizeof(string), "  {FFFFFF}Paycheck: $%s  |  SA Gov Tax: $%s (%d percent) {FFFF00}(Platinum VIP: 15 percent off)", number_format(PlayerInfo[i][pPayCheck]), number_format((PlayerInfo[i][pPayCheck] / 100) * pVIPTax), pVIPTax);
+					format(string, sizeof(string), "  {FFFFFF}Paycheck: $%s  |  SA Gov Tax: $%s (%d percent) {C93CCE}(Platinum VIP: 15 percent off)", number_format(PlayerInfo[i][pPayCheck]), number_format((PlayerInfo[i][pPayCheck] / 100) * pVIPTax), pVIPTax);
 					if(!Bank_TransferCheck((PlayerInfo[i][pPayCheck] / 100) * pVIPTax)) return 1;
 					PlayerInfo[i][pAccount] -= (PlayerInfo[i][pPayCheck] / 100) * pVIPTax;
 					Tax += (PlayerInfo[i][pPayCheck] / 100) * pVIPTax;
@@ -230,7 +230,7 @@ PayDay(i) {
 				{
 					pVIPTax = TRTaxValue - 15;
 					if(pVIPTax < 0) { pVIPTax = 0; }
-					format(string, sizeof(string), "  {FFFFFF}Paycheck: $%s  |  NE Gov Tax: $%s (%d percent) {FFFF00}(Platinum VIP: 15 percent off)", number_format(PlayerInfo[i][pPayCheck]), number_format((PlayerInfo[i][pPayCheck] / 100) * pVIPTax), pVIPTax);
+					format(string, sizeof(string), "  {FFFFFF}Paycheck: $%s  |  NE Gov Tax: $%s (%d percent) {C93CCE}(Platinum VIP: 15 percent off)", number_format(PlayerInfo[i][pPayCheck]), number_format((PlayerInfo[i][pPayCheck] / 100) * pVIPTax), pVIPTax);
 					if(!Bank_TransferCheck((PlayerInfo[i][pPayCheck] / 100) * pVIPTax)) return 1;
 					PlayerInfo[i][pAccount] -= (PlayerInfo[i][pPayCheck] / 100) * pVIPTax;
 					TRTax += (PlayerInfo[i][pPayCheck] / 100) * pVIPTax;
@@ -247,22 +247,22 @@ PayDay(i) {
 				}
 				case 1: {
 					if(interest > 100000) interest = 100000;
-					format(string, sizeof(string), "  {FFFFFF}Balance: $%s  |  Interest rate: 0.1 percent {FFFF00}(Bronze VIP: 100k max)", number_format(PlayerInfo[i][pAccount]));
+					format(string, sizeof(string), "  {FFFFFF}Balance: $%s  |  Interest rate: 0.1 percent {C93CCE}(Bronze VIP: 100k max)", number_format(PlayerInfo[i][pAccount]));
 					SendClientMessageEx(i, COLOR_GRAD1, string);
 				}
 				case 2:	{
 					if(interest > 150000) interest = 150000;
-					format(string, sizeof(string), "  {FFFFFF}Balance: $%s  |  Interest rate: 0.1 percent {FFFF00}(Silver VIP: 150k max)", number_format(PlayerInfo[i][pAccount]));
+					format(string, sizeof(string), "  {FFFFFF}Balance: $%s  |  Interest rate: 0.1 percent {C93CCE}(Silver VIP: 150k max)", number_format(PlayerInfo[i][pAccount]));
 					SendClientMessageEx(i, COLOR_GRAD1, string);
 				}
 				case 3: {
 					if(interest > 200000) interest = 200000;
-					format(string, sizeof(string), "  {FFFFFF}Balance: $%s  |  Interest rate: 0.1 percent {FFFF00}(Gold VIP: 200k max)", number_format(PlayerInfo[i][pAccount]));
+					format(string, sizeof(string), "  {FFFFFF}Balance: $%s  |  Interest rate: 0.1 percent {C93CCE}(Gold VIP: 200k max)", number_format(PlayerInfo[i][pAccount]));
 					SendClientMessageEx(i, COLOR_GRAD1, string);
 				}
 				case 4, 5: {
 					if(interest > 250000) interest = 250000;
-					format(string, sizeof(string), "  {FFFFFF}Balance: $%s  |  Interest rate: 0.1 percent {FFFF00}(Platinum VIP: 250k max)", number_format(PlayerInfo[i][pAccount]));
+					format(string, sizeof(string), "  {FFFFFF}Balance: $%s  |  Interest rate: 0.1 percent {C93CCE}(Platinum VIP: 250k max)", number_format(PlayerInfo[i][pAccount]));
 					SendClientMessageEx(i, COLOR_GRAD1, string);
 				}
 			}

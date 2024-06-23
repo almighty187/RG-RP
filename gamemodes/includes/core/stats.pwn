@@ -76,8 +76,10 @@ stock ShowStats(playerid,targetid)
 				case 2: famedrank = "{FF7F00}Chartered Old-School{FFFFFF}\n";
 				case 3: famedrank = "{FF7F00}Legacy Old-School{FFFFFF}\n";
 				case 4: famedrank = "{ADFF2F}Famed{FFFFFF}\n";
-				case 5: famedrank = "{8F00FF}Famed Vice-Chairman{FFFFFF}\n";
-				case 6: famedrank = "{8F00FF}Famed Chairman{FFFFFF}\n";
+				case 5: famedrank = "{8F00FF}Famed Commissioner{FFFFFF}\n";
+				case 6: famedrank = "{8F00FF}Famed Moderator{FFFFFF}\n";
+				case 7: famedrank = "{8F00FF}Famed Vice-Chairman{FFFFFF}\n";
+				case 8: famedrank = "{8F00FF}Famed Chairman{FFFFFF}\n";
 			}
 		}
 		new dprank[64];
