@@ -3355,6 +3355,7 @@ stock SaveBusinesses()
 		SaveBusiness(i);
 	}
 	ABroadCast(COLOR_LIGHTRED, "Business saving finished.", 4);
+	SendDiscordMessage(4, "Business saving finished");
 	return 1;
 }
 stock SaveBusiness(id)
