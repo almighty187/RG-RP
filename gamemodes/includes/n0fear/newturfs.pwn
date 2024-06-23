@@ -519,7 +519,7 @@ SyncTurfWarsRadar(playerid)
 
 	        if(TurfWars[i][twFlash] == 1)
 	        {
-				/*foreach(new x: Player)
+				foreach(new x: Player)
 				{
 					if(PlayerInfo[playerid][pMember] != INVALID_GROUP_ID && PlayerInfo[x][pMember] != INVALID_GROUP_ID) {
 						if( IsPlayerInDynamicArea(x, TurfWars[i][twAreaId])&& GetPVarInt(x, "Injured") != 1 && GetPlayerState(x) == PLAYER_STATE_ONFOOT && playerTabbed[x] == 0 ) {
@@ -527,17 +527,17 @@ SyncTurfWarsRadar(playerid)
 							SetPlayerMarkerForPlayer( x, playerid, (arrGroupData[PlayerInfo[playerid][pMember]][g_hDutyColour] * 256 + 255));
 						}
 					}
-				}*/
+				}
 	        	GangZoneFlashForPlayer(playerid, TurfWars[i][twGangZoneId], TurfWars[i][twFlashColor] * 256 + 170);
 	        }
 	        else
 	        {
-				/*foreach(new x: Player)
+				foreach(new x: Player)
 				{
 						if( IsPlayerInDynamicArea(x, TurfWars[i][twAreaId]) ) {
 							SetPlayerToTeamColor(x);
 						}
-				}*/
+				}
 	            GangZoneStopFlashForPlayer(playerid, TurfWars[i][twGangZoneId]);
 	        }
 	    }
