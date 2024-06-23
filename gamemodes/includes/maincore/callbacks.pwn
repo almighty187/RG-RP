@@ -625,7 +625,7 @@ public OnPlayerPressButton(playerid, buttonid)
 			MoveDynamicObject(LSPDCellDoor[0],1614.7260,1606.5854,11.0816,2);
 			PlayerPlaySound(playerid, 6400, 0.0, 0.0, 10.0);
 			SetTimer("CloseCellDoorLSPD", 2500, 0);
-			PlaySoundInArea(6000, X, Y, Z, 10.0);
+			PlaySoundInArea(6000, 1614.7260,1606.5854,11.0816, 10.0);
 		}
 		else
 		{
