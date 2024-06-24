@@ -2700,7 +2700,7 @@ new SASDButtons[4], SASDDoors[2]; // New SASD interior vars.
 new rightmovedoor, leftmovedoor, rightdoorout, leftdoorout, rightdoor, leftdoor; // Doors LSPD
 new HospitalRightDoor[2], HospitalLeftDoor[2], HospitalDoor[2]; // Doors Hospital
 new FireStationButtons[10], FireStationGarage[10], FireStationDoor[10], FireStationGarageDoor[10] = 0;
-new LSPDButtons[5], LSPDCellDoor[1];
+new LSPDButtons[10], LSPDCellDoor[3], LSPDDoor[2];
 new GOVButtons[5], GOVDoor[5];
 
 new bool:emailcheck = true;

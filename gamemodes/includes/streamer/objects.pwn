@@ -44,6 +44,8 @@ hook OnGameModeInit() {
 	LSPDCellDoor[0] = CreateDynamicObject(19302,1614.72595,1605.28540,11.08160,0.000000,0.00000,269.29721);
 	leftmovedoor = CreateDynamicObject(1495,1617.656,1579.298,9.776,0.000,0.000,0.000,-1,10,-1,100.0);
 	rightmovedoor = CreateDynamicObject(1495,1617.676,1594.660,9.776,0.000,0.000,0.000,-1,10,-1,100.0);
+	//LSPD Buttons Precinct 2'
+	LSPDDoor[0] = CreateDynamicObject(19859,321.4565100,310.0392200,999.4058200,0.0000000,0.0000000,0.0000000);
 	/* Noose Int Buttons End */
 	sasd1A = CreateDynamicObject(1536,2511.65332031,-1697.00976562,561.79223633,0.00000000,0.00000000,0.00000000); //R6
 	sasd1B = CreateDynamicObject(1536,2514.67211914,-1696.97485352,561.79223633,0.00000000,0.00000000,180.00000000); //object(gen_doorext15) (2)

@@ -633,6 +633,21 @@ public OnPlayerPressButton(playerid, buttonid)
 			return 1;
 		}
 	}
+	if(buttonid == LSPDButtons[2] || buttonid == LSPDButtons[3])
+	{
+		if(IsACop(playerid))
+		{
+		    GetDynamicObjectPos(LSPDDoor[1], X, Y, Z);
+			MoveDynamicObject(LSPDDoor[1],319.9365,310.0392,999.4058,2);
+			PlayerPlaySound(playerid, 6400, 0.0, 0.0, 10.0);
+			SetTimer("CloseLSPDP2Door", 2500, 0);
+		}
+		else
+		{
+			SendErrorMessage(playerid,"Access denied.");
+			return 1;
+		}
+	}
 	if(buttonid == rightdoor)
 	{
 		if(IsACop(playerid))
@@ -643,7 +658,7 @@ public OnPlayerPressButton(playerid, buttonid)
 		}
 		else
 		{
-			SendErrorMessage(playerid," Access denied.");
+			SendErrorMessage(playerid,"Access denied.");
 			return 1;
 		}
 	}
@@ -657,7 +672,7 @@ public OnPlayerPressButton(playerid, buttonid)
 		}
 		else
 		{
-			SendErrorMessage(playerid," Access denied.");
+			SendErrorMessage(playerid,"Access denied.");
 			return 1;
 		}
 	}
@@ -671,7 +686,7 @@ public OnPlayerPressButton(playerid, buttonid)
 		}
 		else
 		{
-			SendErrorMessage(playerid," Access denied.");
+			SendErrorMessage(playerid,"Access denied.");
 			return 1;
 		}
 	}
@@ -685,7 +700,7 @@ public OnPlayerPressButton(playerid, buttonid)
 		}
 		else
 		{
-			SendErrorMessage(playerid," Access denied.");
+			SendErrorMessage(playerid,"Access denied.");
 			return 1;
 		}
 	}
@@ -698,7 +713,7 @@ public OnPlayerPressButton(playerid, buttonid)
 		}
 		else
 		{
-			SendErrorMessage(playerid," Access denied.");
+			SendErrorMessage(playerid,"Access denied.");
 			return 1;
 		}
 	}
@@ -711,7 +726,7 @@ public OnPlayerPressButton(playerid, buttonid)
 		}
 		else
 		{
-			SendErrorMessage(playerid," Access denied.");
+			SendErrorMessage(playerid,"Access denied.");
 			return 1;
 		}
 	}
@@ -725,7 +740,7 @@ public OnPlayerPressButton(playerid, buttonid)
 	    }
 	    else
 	    {
-	        SendErrorMessage(playerid," Access denied.");
+	        SendErrorMessage(playerid,"Access denied.");
 			return 1;
 		}
 	}
@@ -741,7 +756,7 @@ public OnPlayerPressButton(playerid, buttonid)
 	    }
 	    else
 	    {
-	        SendErrorMessage(playerid," Access denied.");
+	        SendErrorMessage(playerid,"Access denied.");
 			return 1;
 		}
 	}
@@ -755,7 +770,7 @@ public OnPlayerPressButton(playerid, buttonid)
 	    }
 	    else
 	    {
-	        SendErrorMessage(playerid," Access denied.");
+	        SendErrorMessage(playerid,"Access denied.");
 			return 1;
 		}
 	}
@@ -769,7 +784,7 @@ public OnPlayerPressButton(playerid, buttonid)
 	    }
 	    else
 	    {
-	        SendErrorMessage(playerid," Access denied.");
+	        SendErrorMessage(playerid,"Access denied.");
 			return 1;
 		}
 	}
@@ -783,7 +798,7 @@ public OnPlayerPressButton(playerid, buttonid)
 	    }
 	    else
 	    {
-	        SendErrorMessage(playerid," Access denied.");
+	        SendErrorMessage(playerid,"Access denied.");
 			return 1;
 		}
 	}
@@ -802,7 +817,7 @@ public OnPlayerPressButton(playerid, buttonid)
 	{
 		if(!IsACop(playerid))
 		{
-			SendErrorMessage(playerid," Access denied.");
+			SendErrorMessage(playerid,"Access denied.");
 			return 1;
 		}
  		MoveDynamicObject(eastlobby1,253.14941406,111.59960938,1002.21502686,4);

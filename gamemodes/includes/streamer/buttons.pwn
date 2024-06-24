@@ -18,7 +18,9 @@ hook OnGameModeInit() {
 	HospitalRightDoor[1] = CreateButton(2376.7104,2652.8284,8001.9141,89.3900);
 	HospitalLeftDoor[0] = CreateButton(2387.9241,2652.9995,8001.9302,89.6871);
 	HospitalLeftDoor[1] = CreateButton(2387.7830,2652.9958,8001.9302,270.1812);
-
+	//LSPD Buttons Precinct 2
+	LSPDButtons[2] = CreateButton(323.2678,310.0272,999.6584);
+	LSPDButtons[3] = CreateButton(321.2209,310.2030,999.6584);
     //LSPD Buttons
     LSPDButtons[1] = CreateButton(1615.7600,1604.4185,11.2540,178.4525);
     LSPDButtons[0] = CreateButton(1614.7122,1603.9988,11.2540,266.5272);
