@@ -269,7 +269,7 @@
 #include "./includes/n0fear/dropweapon.pwn"
 #include "./includes/n0fear/dropdrug.pwn"
 #include "./includes/n0fear/anticbug.pwn"
-#include "./includes/n0fear/checkpointstore.pwn"
+//#include "./includes/n0fear/checkpointstore.pwn"
 #include "./includes/n0fear/bot.pwn"
 //#include "./includes/n0fear/mapper.pwn"
 
