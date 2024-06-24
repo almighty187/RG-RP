@@ -542,7 +542,7 @@ stock Help_ListCat(playerid, dialogid = DIALOG_HELPCATMAIN, response = 0, listit
 				format(string, sizeof(string), "HelpResultCat%i", j);
 				SetPVarInt(playerid, string, 10);
 				j++;
-				format(szMiscArray, sizeof(szMiscArray), "%sSA-MP Operations\n", szMiscArray);
+				format(szMiscArray, sizeof(szMiscArray), "%sAdmin Personnel\n", szMiscArray);
 			}
 			if(Help_Perm(playerid, 1, 11, 1))
 			{
@@ -570,7 +570,7 @@ stock Help_ListCat(playerid, dialogid = DIALOG_HELPCATMAIN, response = 0, listit
 				format(string, sizeof(string), "HelpResultCat%i", j);
 				SetPVarInt(playerid, string, 14);
 				j++;
-				format(szMiscArray, sizeof(szMiscArray), "%sBusiness Moderator\n", szMiscArray);
+				format(szMiscArray, sizeof(szMiscArray), "%sProperty Moderator\n", szMiscArray);
 			}
 			if(Help_Perm(playerid, 1, 15, 1))
 			{
@@ -591,7 +591,7 @@ stock Help_ListCat(playerid, dialogid = DIALOG_HELPCATMAIN, response = 0, listit
 				format(string, sizeof(string), "HelpResultCat%i", j);
 				SetPVarInt(playerid, string, 17);
 				j++;
-				format(szMiscArray, sizeof(szMiscArray), "%sPublic Relations\n", szMiscArray);
+				format(szMiscArray, sizeof(szMiscArray), "%sHelper Management\n", szMiscArray);
 			}
 			if(Help_Perm(playerid, 1, 18, 1))
 			{
