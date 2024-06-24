@@ -190,8 +190,15 @@ hook OnPlayerPickUpDynamicPickup(playerid, pickupid)
 	    	CreateLableText(playerid,"Arrest",string);
         }
     }
-    if(IsPlayerInRangeOfPoint(playerid,2.0,2414.5132,1160.8452,2848.2695)) return CreateLableText(playerid,"Bank"," ~w~Press ~b~Y ~w~to view the menu.");
-    if(IsPlayerInRangeOfPoint(playerid,2.0,2414.6257,1167.5598,2848.4333)) return CreateLableText(playerid,"Bank"," ~w~Press ~b~Y ~w~to view the menu.");
+    for(new b = 0; b < sizeof(BankPoint); b++)
+    {
+	    if(IsPlayerInRangeOfPoint(playerid,3.0,BankPoint[b][0], BankPoint[b][1], BankPoint[b][2]))
+	    {
+	    	CreateLableText(playerid,"Bank"," ~w~Press ~b~Y ~w~to view the menu.");
+    	}
+	}
+	if(IsPlayerInRangeOfPoint(playerid,3.0,723.2262, -1494.0607, 1.9343)) return CreateLableText(playerid,"Boat Shop"," ~w~Type ~g~/boatshop ~w~to buy a boat");
+	if(IsPlayerInRangeOfPoint(playerid,3.0,723.3507, -1485.1478, 1.9687)) return CreateLableText(playerid,"Fish Shop"," ~w~Type ~g~/sellfish ~w~to sell your fish to the vendor.");
     return 1;
 }
 

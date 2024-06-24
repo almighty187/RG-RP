@@ -13,16 +13,17 @@
 #define BANK_LV				4
 #define BANK_DILLIMORE		5
 #define BANK_LASBARANCAS	6
-#define BANK_CUSTOMITNERIOR 7
+#define BANK_CUSTOMITNERIOR 1
 
 new Bankers[15];
 //new BankPoint[12];
 
-new Float:BankPoint[4][3] = {
+new Float:BankPoint[5][3] = {
 {2316.2263,-7.3651, 26.7422},
 {2316.4480,-15.4179,26.7422}, 
-{2414.5132,1160.8452,2848.2695},
-{2414.6257,1167.5598,2848.4333}
+{2414.6306,1160.4001,2847.9624},
+{2414.7219,1168.3464,2847.9624},
+{2414.8220, 1164.5520, 2847.9624}
 
 };
 
@@ -97,6 +98,7 @@ hook OnGameModeInit() {
 
     for(new i = 0; i < sizeof(BankPoint); ++i)
 	{
+	    CreateDynamic3DTextLabel("{FFFFFF}[{0078FF}Bank{FFFFFF}]", 0x0080FFFF, BankPoint[i][0], BankPoint[i][1], BankPoint[i][2]+0.50, 25.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1, 100.0);
 		CreateDynamicPickup(1239, 23, BankPoint[i][0], BankPoint[i][1], BankPoint[i][2], 1);// Bank
 	}
 }

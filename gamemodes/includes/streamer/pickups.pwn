@@ -22,6 +22,8 @@ hook OnGameModeInit() {
 	CreateDynamicPickup(1241, 23, 2946.8672, -1484.9561, 11.0000, 1);// NGGShop - Healthcare
 	CreateDynamicPickup(1239, 23, 2937.2878, -1357.2294, 11.0000, 1);// NGGShop - Gift Reset
 	CreateDynamicPickup(1239, 23, -29.0583, -185.1300, 1003.5469, 1);// 24/7
+	CreateDynamicPickup(1239, 23, 723.2262, -1494.0607, 1.9343, 0);// Boat Shop
+	CreateDynamicPickup(1239, 23, 723.3507, -1485.1478, 1.9687, 0);// Fish Shop
 
 	print("[Streamer] Dynamic Pickups have been loaded.");	
 	return 1;

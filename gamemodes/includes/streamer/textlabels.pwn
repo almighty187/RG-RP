@@ -5,7 +5,8 @@ hook OnGameModeInit() {
 	print("[Streamer] Loading 3D Text Labels...");
 	
 	// General
-	CreateDynamic3DTextLabel("Boat Shop\n/boatshop", COLOR_YELLOW, 723.2262, -1494.0607, 1.9343, 4); // Marina docks
+	CreateDynamic3DTextLabel("{FFFFFF}[{F1BB05}Boat Shop{FFFFFF}]", 0x0080FFFF, 723.2262, -1494.0607, 1.9343+0.50, 25.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1, 100.0);
+	//CreateDynamic3DTextLabel("/boatshop", COLOR_YELLOW, 723.2262, -1494.0607, 1.9343, 4); // Marina docks
 	CreateDynamic3DTextLabel("Paintball Rooms\n\nType /joinarena to choose rooms",COLOR_TWGREEN,1294.5062,-1445.0599,0.4403+0.5,6.0); // Paintball Arena
 	CreateDynamic3DTextLabel("Name Change Point \nType /changename to change your name",COLOR_TWGREEN,1154.7295,-1440.2323,15.7969+0.6,18.0); // Namechange at mall
 	CreateDynamic3DTextLabel("Press F to access to the DOC control panel", COLOR_TWGREEN, 569.0477, 1448.6146, 6000.475+10.6,4.0); // DOC Interior Control Panel
@@ -23,7 +24,8 @@ hook OnGameModeInit() {
 
 	
 	// Business & Job related
-	CreateDynamic3DTextLabel("Type /sellfish [amount] to sell your fish to the vendor.", COLOR_YELLOW, 723.3507, -1485.1478, 1.9687, 10); // Marina docks
+	CreateDynamic3DTextLabel("{FFFFFF}[{F1BB05}Fish Shop{FFFFFF}]", 0x0080FFFF, 723.3507, -1485.1478, 1.9687+0.50, 25.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1, 100.0);
+	//CreateDynamic3DTextLabel("Type /sellfish [amount] to sell your fish to the vendor.", COLOR_YELLOW, 723.3507, -1485.1478, 1.9687, 10); // Marina docks
     CreateDynamic3DTextLabel("Type /getpizza from a Pizzaboy \nto get pizzas for delivery!",COLOR_TWGREEN,2103.6714,-1785.5222,12.9849, 4.0); //getpizza Idlewood
 	//CreateDynamic3DTextLabel("/train\n To change your fightstyle.",COLOR_TWGREEN,757.1866,5.6019,1000.7007,8.0); // Gym /train
     CreateDynamic3DTextLabel("/buyclothes or Press N\n To change your skin.",COLOR_TWGREEN,208.8970,-100.3289,1005.2578,8.0);

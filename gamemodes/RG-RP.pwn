@@ -85,31 +85,6 @@
 #include "./includes/business/businesscore.pwn"
 #include "./includes/business/mailsystem.pwn"
 
-//By N0FeaR
-#include "./includes/n0fear/locations.pwn"
-#include "./includes/n0fear/locate.pwn"
-#include "./includes/n0fear/skill.pwn"
-#include "./includes/n0fear/talkanim.pwn"
-#include "./includes/n0fear/htmhouses.pwn"
-#include "./includes/n0fear/vendingmachine.pwn"
-#include "./includes/n0fear/labeldraw.pwn"
-#include "./includes/n0fear/paperboy.pwn"
-#include "./includes/n0fear/streetsweeper.pwn"
-#include "./includes/n0fear/actors.pwn"
-#include "./includes/n0fear/walkstyle.pwn"
-#include "./includes/n0fear/newturfs.pwn"
-#include "./includes/n0fear/dropweapon.pwn"
-#include "./includes/n0fear/dropdrug.pwn"
-#include "./includes/n0fear/anticbug.pwn"
-#include "./includes/n0fear/checkpointstore.pwn"
-#include "./includes/n0fear/bot.pwn"
-//#include "./includes/n0fear/mapper.pwn"
-
-// 187
-#include "./includes/187/mydrugs.pwn"
-#include "./includes/187/cmdpoints.pwn"
-//#include "./includes/187/rankname.pwn"
-
 //core includes
 #include "./includes/core/acceptcancel.pwn"
 #include "./includes/core/advertisements.pwn"
@@ -278,6 +253,30 @@
 #include "./includes/DBLog.pwn"
 #include "./includes/core/Player_Interact.pwn"
 
+//By N0FeaR
+#include "./includes/n0fear/locations.pwn"
+#include "./includes/n0fear/locate.pwn"
+#include "./includes/n0fear/skill.pwn"
+#include "./includes/n0fear/talkanim.pwn"
+#include "./includes/n0fear/htmhouses.pwn"
+#include "./includes/n0fear/vendingmachine.pwn"
+#include "./includes/n0fear/labeldraw.pwn"
+#include "./includes/n0fear/paperboy.pwn"
+#include "./includes/n0fear/streetsweeper.pwn"
+#include "./includes/n0fear/actors.pwn"
+#include "./includes/n0fear/walkstyle.pwn"
+#include "./includes/n0fear/newturfs.pwn"
+#include "./includes/n0fear/dropweapon.pwn"
+#include "./includes/n0fear/dropdrug.pwn"
+#include "./includes/n0fear/anticbug.pwn"
+#include "./includes/n0fear/checkpointstore.pwn"
+#include "./includes/n0fear/bot.pwn"
+//#include "./includes/n0fear/mapper.pwn"
+
+// 187
+#include "./includes/187/mydrugs.pwn"
+#include "./includes/187/cmdpoints.pwn"
+//#include "./includes/187/rankname.pwn"
 
 // Jingles WIP
 #include "./includes/core/minigame.pwn"

@@ -482,7 +482,7 @@ stock RefreshBusinessPickup(i)
         	DestroyDynamicPickup(Businesses[i][bPickup]);
             Businesses[i][bPickup] = CreateDynamicPickup(1239, 23, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2]);
 	    	DestroyDynamic3DTextLabel(Businesses[i][bDoorText]);
-	    	Businesses[i][bDoorText] = CreateDynamic3DTextLabel("{FFFFFF}[{3366FF}Business{FFFFFF}]", 0x0080FFFF, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2] + 0.75, 25.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1, 100.0);
+	    	Businesses[i][bDoorText] = CreateDynamic3DTextLabel("{FFFFFF}[{3366FF}Business{FFFFFF}]", 0x0080FFFF, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2]+0.50, 25.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1, 100.0);
  		}
         /*if (Businesses[i][bOwner] < 1) {
 			format(szMiscArray,sizeof(szMiscArray),"%s\n\nBusiness For Sale!\nCost: %s\nID: %d", GetBusinessTypeName(Businesses[i][bType]), number_format(Businesses[i][bValue]), i);
