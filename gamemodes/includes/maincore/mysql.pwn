@@ -144,7 +144,7 @@ forward OnQueryFinish(resultid, extraid, handleid);
 public OnQueryFinish(resultid, extraid, handleid)
 {
     new rows, fields, value;
-    szMiscArray[0] = 0;
+    szMiscArray[256] = 0;
 	if(resultid != SENDDATA_THREAD) {
 		if(extraid != INVALID_PLAYER_ID) {
 			if(g_arrQueryHandle{extraid} != -1 && g_arrQueryHandle{extraid} != handleid) return 0;
@@ -266,6 +266,7 @@ public OnQueryFinish(resultid, extraid, handleid)
 				for(new row;row < rows;row++)
 				{
 					cache_get_value_name(row, "Username", szField, MAX_PLAYER_NAME);
+					printf("Username from cache: %s\n", szField); // Debugging line
 
 					if(strcmp(szField, GetPlayerNameExt(extraid), true) != 0)
 					{
@@ -497,7 +498,6 @@ public OnQueryFinish(resultid, extraid, handleid)
 					cache_get_value_name_int(row,  "Table", PlayerInfo[extraid][pTable]);
 					cache_get_value_name_int(row,  "OpiumSeeds", PlayerInfo[extraid][pOpiumSeeds]);
 					cache_get_value_name_int(row,  "RawOpium", PlayerInfo[extraid][pRawOpium]);
-					//PlayerInfo[extraid][pHeroin]				= cache_get_value_name_int(row,  "Heroin", value);
 					cache_get_value_name_int(row,  "Syringe", PlayerInfo[extraid][pSyringes]);
 					cache_get_value_name_int(row,  "Skins", PlayerInfo[extraid][pSkins]);
 					cache_get_value_name_int(row,  "Fitness", PlayerInfo[extraid][pFitness]);
@@ -505,7 +505,6 @@ public OnQueryFinish(resultid, extraid, handleid)
 					cache_get_value_name_int(row,  "Credits", PlayerInfo[extraid][pCredits]);
 					cache_get_value_name_int(row,  "HealthCare", PlayerInfo[extraid][pHealthCare]);
 					cache_get_value_name_int(row,  "TotalCredits", PlayerInfo[extraid][pTotalCredits]);
-					//PlayerInfo[extraid][pReceivedCredits]		= cache_get_value_name_int(row,  "ReceivedCredits", value);
 					cache_get_value_name_int(row,  "RimMod", PlayerInfo[extraid][pRimMod]);
 					cache_get_value_name_int(row,  "Tazer", PlayerInfo[extraid][pHasTazer]);
 					cache_get_value_name_int(row,  "Cuff", PlayerInfo[extraid][pHasCuff]);
@@ -1367,39 +1366,22 @@ public OnQueryFinish(resultid, extraid, handleid)
 	return 1;
 }
 public OnQueryError(errorid, const error[], const callback[], const query[], MySQL:handle) {
-    // Print the error ID to the console
-    printf("[MySQL] Query Error - (ErrorID: %d)", errorid);
-    print("[MySQL] Check mysql_log.txt to review the query that threw the error.");
 
-    // Log the error and the query that caused it
-    SQL_Log(query, error);
+	printf("[MySQL] Query Error - (ErrorID: %d)",  errorid);
+	print("[MySQL] Check mysql_log.txt to review the query that threw the error.");
+	SQL_Log(query, error);
 
+	if(errorid == 2013 || errorid == 2014 || errorid == 2006 || errorid == 2027 || errorid == 2055)	{
+		print("[MySQL] Connection Error Detected in Threaded Query");
+		//mysql_query(query, resultid, extraid);
 
-    // Check if the query is empty
-    if (strlen(query) == 0) {
-        // Log the specific empty query error
-        format(szMiscArray, sizeof(szMiscArray), "MYSQL (THREADED) [%d]: %d, Query was empty, in callback: %s.", iErrorID, errorid, callback);
-        print("[MySQL] The query is empty.");
-    } else {
-        // Handle specific connection errors with appropriate error IDs
-        if (errorid == 2013 || errorid == 2014 || errorid == 2006 || errorid == 2027 || errorid == 2055) {
-            print("[MySQL] Connection Error Detected in Threaded Query");
-            format(szMiscArray, sizeof(szMiscArray), "MYSQL [%d]: %d, %s, in callback: %s.", iErrorID, errorid, error, callback);
-        } else {
-            format(szMiscArray, sizeof(szMiscArray), "MYSQL (THREADED) [%d]: %d, %s, in callback: %s.", iErrorID, errorid, error, callback);
-        }
-
-        // Log the query itself if it is not empty
-        new szQueryMessage[512];
-        format(szQueryMessage, sizeof(szQueryMessage), "     Query: %s", query);
-        SendDiscordMessage(3, szQueryMessage);
-    }
-
-    // Send the error message to Discord
-    SendDiscordMessage(3, szMiscArray);
-
-    // Increment the error ID for future error tracking
-    iErrorID++;
+		format(szMiscArray, sizeof(szMiscArray), "MYSQL [%d]: %d, %s, in callback: %s.", iErrorID, errorid, error, callback);
+	}
+	else format(szMiscArray, sizeof(szMiscArray), "MYSQL (THREADED) [%d]: %d, %s, in callback: %s.", iErrorID, errorid, error, callback);
+	SendDiscordMessage(3, szMiscArray);
+	format(szMiscArray, sizeof(szMiscArray), "Query: %s", query);
+	SendDiscordMessage(3, szMiscArray);
+	iErrorID++;
 }
 /*
 public OnQueryError(errorid, const error[], const callback[], const query[], MySQL:handle) {
@@ -2237,7 +2219,7 @@ stock SavePlayerFloat(query[], sqlid, Value[], Float:Number)
 
 stock g_mysql_SaveAccount(playerid, string[] = "")
 {
-    new query[4048];
+    new query[5048];
 
 	mysql_format(MainPipeline, query, 2048, "UPDATE `accounts` SET `SPos_x` = '%0.2f', `SPos_y` = '%0.2f', `SPos_z` = '%0.2f', `SPos_r` = '%0.2f' WHERE id = '%d'",PlayerInfo[playerid][pPos_x], PlayerInfo[playerid][pPos_y], PlayerInfo[playerid][pPos_z], PlayerInfo[playerid][pPos_r], GetPlayerSQLId(playerid));
 	mysql_tquery(MainPipeline, query, "OnQueryFinish", "i", SENDDATA_THREAD);
@@ -6408,7 +6390,7 @@ public OnLoadPaintballArenas()
 
 stock SavePaintballArena(index)
 {
-	new query[2048];
+	new query[3048];
 	mysql_format(MainPipeline, query, sizeof(query), "UPDATE `arenas` SET `name`='%e',", PaintBallArena[index][pbArenaName]);
 	mysql_format(MainPipeline, query, sizeof(query), "%s `vw`=%d,",query, PaintBallArena[index][pbVirtual]);
 	mysql_format(MainPipeline, query, sizeof(query), "%s `interior`=%d,", query, PaintBallArena[index][pbInterior]);
