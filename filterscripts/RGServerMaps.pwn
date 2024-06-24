@@ -1158,7 +1158,6 @@ public OnFilterScriptInit()
 	SetDynamicObjectMaterial(precinct2, 0, 982, "bar_chainlink", "awirex2", 0x00000000);
 	precinct2 = CreateDynamicObjectEx(19367, 1834.906860, -1411.273559, 14.310647, 0.000000, 0.000000, 0.000000, 300.00, 300.00);
 	SetDynamicObjectMaterial(precinct2, 0, 982, "bar_chainlink", "awirex2", 0x00000000);
-	precinct2 = CreateDynamicObjectEx(968, 1834.945678, -1398.911987, 13.082498, 0.000000, 0.000000, 90.000000, 300.00, 300.00);
 	SetDynamicObjectMaterial(precinct2, 0, -1, "none", "none", 0xFF000000);
 	precinct2 = CreateDynamicObjectEx(19447, 1830.177978, -1391.354858, 14.126376, 0.000000, 0.000000, 90.000000, 300.00, 300.00);
 	SetDynamicObjectMaterial(precinct2, 0, 5449, "chicanotr1_lae", "lasjmfnce1", 0x00000000);
