@@ -261,7 +261,7 @@ public OnQueryFinish(resultid, extraid, handleid)
 		{
 			if(IsPlayerConnected(extraid))
 			{
-   				new szField[MAX_PLAYER_NAME], szResult[64];
+   				new szField[MAX_PLAYER_NAME], szResult[128];
 
 				for(new row;row < rows;row++)
 				{
@@ -682,12 +682,8 @@ public OnQueryFinish(resultid, extraid, handleid)
 					cache_get_value_name(row,  "DedicatedDaymarker", PlayerInfo[extraid][pDedicatedDaymarker]);
 					cache_get_value_name(row,  "DedicatedTimestamp", PlayerInfo[extraid][pDedicatedTimestamp]);
 					cache_get_value_name_int(row, "DedicatedHours", PlayerInfo[extraid][pDedicatedHours]);
-					//cache_get_value_name_int(row, "WalkStyle", PlayerInfo[extraid][pWalkStyle]);
-					cache_get_value_name_int(row, "WalkStyle", value);
-					SetPVarInt(extraid, "WalkStyle", value);
+					cache_get_value_name_int(row, "WalkStyle", value), SetPVarInt(extraid, "WalkStyle", value);
 					cache_get_value_name_int(row, "TurfShow", PlayerInfo[extraid][pTurfShow]);
-					//if(PlayerInfo[extraid][pWalkStyle]) SetPlayerWalkStyle(extraid, PlayerInfo[extraid][pWalkStyle]);
-
 					/*for(new i = 0; i < MAX_POLLS; i++)
 					{
 						format(szField, sizeof(szField), "HasVoted%d", i);
@@ -1371,22 +1367,39 @@ public OnQueryFinish(resultid, extraid, handleid)
 	return 1;
 }
 public OnQueryError(errorid, const error[], const callback[], const query[], MySQL:handle) {
+    // Print the error ID to the console
+    printf("[MySQL] Query Error - (ErrorID: %d)", errorid);
+    print("[MySQL] Check mysql_log.txt to review the query that threw the error.");
 
-	printf("[MySQL] Query Error - (ErrorID: %d)",  errorid);
-	print("[MySQL] Check mysql_log.txt to review the query that threw the error.");
-	SQL_Log(query, error);
+    // Log the error and the query that caused it
+    SQL_Log(query, error);
 
-	if(errorid == 2013 || errorid == 2014 || errorid == 2006 || errorid == 2027 || errorid == 2055)	{
-		print("[MySQL] Connection Error Detected in Threaded Query");
-		//mysql_query(query, resultid, extraid);
 
-		format(szMiscArray, sizeof(szMiscArray), "MYSQL [%d]: %d, %s, in callback: %s.", iErrorID, errorid, error, callback);
-	}
-	else format(szMiscArray, sizeof(szMiscArray), "MYSQL (THREADED) [%d]: %d, %s, in callback: %s.", iErrorID, errorid, error, callback);
-	SendDiscordMessage(3, szMiscArray);
-	format(szMiscArray, sizeof(szMiscArray), "     Query: %s", query);
-	SendDiscordMessage(3, szMiscArray);
-	iErrorID++;
+    // Check if the query is empty
+    if (strlen(query) == 0) {
+        // Log the specific empty query error
+        format(szMiscArray, sizeof(szMiscArray), "MYSQL (THREADED) [%d]: %d, Query was empty, in callback: %s.", iErrorID, errorid, callback);
+        print("[MySQL] The query is empty.");
+    } else {
+        // Handle specific connection errors with appropriate error IDs
+        if (errorid == 2013 || errorid == 2014 || errorid == 2006 || errorid == 2027 || errorid == 2055) {
+            print("[MySQL] Connection Error Detected in Threaded Query");
+            format(szMiscArray, sizeof(szMiscArray), "MYSQL [%d]: %d, %s, in callback: %s.", iErrorID, errorid, error, callback);
+        } else {
+            format(szMiscArray, sizeof(szMiscArray), "MYSQL (THREADED) [%d]: %d, %s, in callback: %s.", iErrorID, errorid, error, callback);
+        }
+
+        // Log the query itself if it is not empty
+        new szQueryMessage[512];
+        format(szQueryMessage, sizeof(szQueryMessage), "     Query: %s", query);
+        SendDiscordMessage(3, szQueryMessage);
+    }
+
+    // Send the error message to Discord
+    SendDiscordMessage(3, szMiscArray);
+
+    // Increment the error ID for future error tracking
+    iErrorID++;
 }
 /*
 public OnQueryError(errorid, const error[], const callback[], const query[], MySQL:handle) {
@@ -2224,7 +2237,7 @@ stock SavePlayerFloat(query[], sqlid, Value[], Float:Number)
 
 stock g_mysql_SaveAccount(playerid, string[] = "")
 {
-    new query[3048];
+    new query[4048];
 
 	mysql_format(MainPipeline, query, 2048, "UPDATE `accounts` SET `SPos_x` = '%0.2f', `SPos_y` = '%0.2f', `SPos_z` = '%0.2f', `SPos_r` = '%0.2f' WHERE id = '%d'",PlayerInfo[playerid][pPos_x], PlayerInfo[playerid][pPos_y], PlayerInfo[playerid][pPos_z], PlayerInfo[playerid][pPos_r], GetPlayerSQLId(playerid));
 	mysql_tquery(MainPipeline, query, "OnQueryFinish", "i", SENDDATA_THREAD);

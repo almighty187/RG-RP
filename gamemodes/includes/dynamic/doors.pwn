@@ -36,6 +36,8 @@ stock CreateDynamicDoor(doorid)
 	if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
 	if(IsValidDynamicArea(DDoorsInfo[doorid][ddAreaID])) DestroyDynamicArea(DDoorsInfo[doorid][ddAreaID]);
 	if(IsValidDynamicArea(DDoorsInfo[doorid][ddAreaID_int])) DestroyDynamicArea(DDoorsInfo[doorid][ddAreaID_int]);
+	DestroyDynamicMapIcon(DDoorsInfo[doorid][dMIcon]);
+	if(DDoorsInfo[doorid][dMapIcon] > 0) DDoorsInfo[doorid][dMIcon]=CreateDynamicMapIcon(DDoorsInfo[doorid][ddExteriorX], DDoorsInfo[doorid][ddExteriorY], DDoorsInfo[doorid][ddExteriorZ], DDoorsInfo[doorid][dMapIcon], COLOR_YELLOW);
 	if(DDoorsInfo[doorid][ddExteriorX] == 0.0) return 1;
 	new string[128];
 	if(DDoorsInfo[doorid][ddType] != 0) format(string, sizeof(string), "%s | Owner: %s\nID: %d", DDoorsInfo[doorid][ddDescription], StripUnderscore(DDoorsInfo[doorid][ddOwnerName]), doorid);
@@ -821,6 +823,7 @@ CMD:ddedit(playerid, params[])
 			DDoorsInfo[doorid][ddExteriorVW] = GetPlayerVirtualWorld(playerid);
 			DDoorsInfo[doorid][ddExteriorInt] = GetPlayerInterior(playerid);
 			SendServerMessage(playerid, "You have changed the exterior!");
+			DestroyDynamicMapIcon(DDoorsInfo[doorid][dMIcon]);
 			DestroyDynamicPickup(DDoorsInfo[doorid][ddPickupID]);
 			if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
 			SaveDynamicDoor(doorid);
@@ -1076,7 +1079,6 @@ CMD:ddedit(playerid, params[])
 			}
 			format(string, sizeof(string), "You have changed the MapIcon to %d.", amount);
 			SendClientMessageEx(playerid, COLOR_WHITE, string);
-
 			SaveDynamicDoor(doorid);
 			CreateDynamicDoor(doorid);
 			format(string, sizeof(string), "%s has edited DoorID %d's MapIcon.", GetPlayerNameEx(playerid), doorid);

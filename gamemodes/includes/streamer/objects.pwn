@@ -120,10 +120,8 @@ hook OnGameModeInit() {
     MoveDynamicObject(BikeParkourObjects[0], 2848.1015625, -2238.1552734, 99.0883789, 0.5, 0.0, 0.0, 90.0);
 	//MoveDynamicObject(BikeParkourObjects[1], 2847.4970703, -2243.1191406, 4901.4877930, 0.5, 0.0, 0.0, 69.7851562);
 	
-	gFerrisWheel = CreateDynamicObject( 18877, gFerrisOrigin[0], gFerrisOrigin[1], gFerrisOrigin[2],
-	  							 0.0, 0.0, -270.0, 300.0 );
-	CreateDynamicObject( 18878, gFerrisOrigin[0], gFerrisOrigin[1], gFerrisOrigin[2],
-	  							 0.0, 0.0, -270.0, 300.0 );
+	gFerrisWheel = CreateDynamicObject( 18877, gFerrisOrigin[0], gFerrisOrigin[1], gFerrisOrigin[2],0.0, 0.0, -270.0, 300.0 );
+	CreateDynamicObject( 18878, gFerrisOrigin[0], gFerrisOrigin[1], gFerrisOrigin[2],0.0, 0.0, -270.0, 300.0 );
  	for(new x;x<10;x++)
     {
         gFerrisCages[x] = CreateDynamicObject( 19316, gFerrisOrigin[0], gFerrisOrigin[1], gFerrisOrigin[2],

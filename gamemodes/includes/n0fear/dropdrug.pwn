@@ -21,7 +21,7 @@ enum ddData
 	Float:ddY,
 	Float:ddZ,
 	dPrint[MAX_PLAYER_NAME],
-	dText,
+	Text3D: dText,
 }
 new DropDrug[MAX_DROP_DRUGS][ddData];
 
@@ -38,27 +38,27 @@ CreateDrop(idx)
     	case 2:
 		{
 			DropDrug[idx][dObject] = CreateDynamicObject(1578, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
-            DropDrug[idx][dText] = CreateDynamic3DTextLabel("[WEED]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ] - 0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[idx][dWorld], -1, -1);
+            DropDrug[idx][dText] = CreateDynamic3DTextLabel("[WEED]\nType /pickitem to pick up package", 0x008000AA, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, DropDrug[idx][dWorld], 150, 150);
 		}
         case 3:
 		{
 			DropDrug[idx][dObject] = CreateDynamicObject(1580, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
-            DropDrug[idx][dText] = CreateDynamic3DTextLabel("[CRACK]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ] - 0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[idx][dWorld], -1, -1);
+            DropDrug[idx][dText] = CreateDynamic3DTextLabel("[CRACK]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[idx][dWorld], -1, -1);
 		}
         case 4:
 		{
 			DropDrug[idx][dObject] = CreateDynamicObject(1575, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
-            DropDrug[idx][dText] = CreateDynamic3DTextLabel("[METH]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ] - 0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[idx][dWorld], -1, -1);
+            DropDrug[idx][dText] = CreateDynamic3DTextLabel("[METH]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[idx][dWorld], -1, -1);
 		}
         case 5:
 		{
 			DropDrug[idx][dObject] = CreateDynamicObject(1576, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
-            DropDrug[idx][dText] = CreateDynamic3DTextLabel("[ECSTASY]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ] - 0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[idx][dWorld], -1, -1);
+            DropDrug[idx][dText] = CreateDynamic3DTextLabel("[ECSTASY]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[idx][dWorld], -1, -1);
   		}
         case 6:
 		{
   			DropDrug[idx][dObject] = CreateDynamicObject(1579, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-1, 0.0, 0.0, 0.0, DropDrug[idx][dWorld]);
-            DropDrug[idx][dText] = CreateDynamic3DTextLabel("[HEROIN]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ] - 0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[idx][dWorld], -1, -1);
+            DropDrug[idx][dText] = CreateDynamic3DTextLabel("[HEROIN]\nType /pickitem to pick up package", COLOR_TWGREEN, DropDrug[idx][ddX], DropDrug[idx][ddY], DropDrug[idx][ddZ]-0.7, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DropDrug[idx][dWorld], -1, -1);
 		}
 	}
 }

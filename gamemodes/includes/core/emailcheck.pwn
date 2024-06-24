@@ -67,7 +67,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			SetPVarString(playerid, "pEmail", inputtext);
 		}
 		else ShowPlayerDialogEx(playerid, EMAIL_VALIDATION, DIALOG_STYLE_INPUT, "E-mail Registration - {FF0000}Error", "Please enter a valid e-mail address to associate with your account.", "Submit", "");
-		//InvalidEmailCheck(playerid, inputtext, 2);
+		InvalidEmailCheck(playerid, inputtext, 2);
 	}
 	return 0;
 }

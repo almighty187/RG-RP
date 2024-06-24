@@ -17,7 +17,7 @@ enum dData
     DropGunVWorld,
     DropGunInterior,
     IsUsed, // Additional flag to mark if the slot is used
-	GunText,
+	Text3D: GunText,
 }
 
 new DropInfo[MAX_DROP_ITEMS][dData];
@@ -28,7 +28,7 @@ new GunObjectIDs[200] = {
     368, 369, 1575
 };
 
-new WeaponNames[][32] = {
+/*new WeaponNames[][32] = {
     "", "Brass Knuckles", "Golf Club", "Nightstick", "Knife", "Baseball Bat", "Shovel", "Pool Cue",
     "Katana", "Chainsaw", "Purple Dildo", "Dildo", "Vibrator", "Silver Vibrator", "Flowers",
     "Cane", "Grenade", "Tear Gas", "Molotov", "Rocket", "Rocket HS", "Freefall Bomb", "Pistol",
@@ -36,7 +36,7 @@ new WeaponNames[][32] = {
     "MP5", "AK47", "M4", "Tec9", "Rifle", "Sniper Rifle", "Rocket Launcher", "Heat-Seeking RPG",
     "Flamethrower", "Minigun", "Satchel Charge", "Detonator", "Spray Can", "Fire Extinguisher",
     "Camera", "Night Vision Goggles", "Thermal Goggles", "Parachute"
-};
+};*/
 
 
 stock GetGunObjectID(WeaponID)
