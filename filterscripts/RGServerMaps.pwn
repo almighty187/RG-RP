@@ -13101,6 +13101,8 @@ stock RemoveBuildingsFromPlayer(playerid)
 {
 	if(GetPVarInt(playerid, "BuildingRemoved") == 0)
 	{
+	    //LSPD Precinct 2
+    	RemoveBuildingForPlayer(playerid, 1738, 322.2109, 317.9219, 998.8047, 0.25);
 	    //Montegomery gas station
 	    RemoveBuildingForPlayer(playerid, 13440, 1282.2422, 369.1406, 28.7578, 0.25);
 		RemoveBuildingForPlayer(playerid, 1308, 1334.4531, 474.0938, 19.2344, 0.25);

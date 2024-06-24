@@ -637,8 +637,8 @@ public OnPlayerPressButton(playerid, buttonid)
 	{
 		if(IsACop(playerid))
 		{
-		    GetDynamicObjectPos(LSPDDoor[1], X, Y, Z);
-			MoveDynamicObject(LSPDDoor[1],319.9365,310.0392,999.4058,2);
+		    GetDynamicObjectPos(LSPDDoor[0], X, Y, Z);
+			MoveDynamicObject(LSPDDoor[0],319.9365,310.0392,999.4058,2);
 			PlayerPlaySound(playerid, 6400, 0.0, 0.0, 10.0);
 			SetTimer("CloseLSPDP2Door", 2500, 0);
 		}

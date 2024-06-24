@@ -7,7 +7,7 @@
 forward CloseLSPDP2Door();
 public CloseLSPDP2Door()
 {
-	MoveDynamicObject(LSPDDoor[1],321.4565100,310.0392200,999.4058200,2);
+	MoveDynamicObject(LSPDDoor[0],321.4565100,310.0392200,999.4058200,2);
 }
 forward GOVDoorClose();
 public GOVDoorClose()
