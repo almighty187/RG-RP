@@ -5512,15 +5512,6 @@ public Group_QueryFinish(iType, iExtraID) {
 
 			if (arrGroupData[iIndex][g_szGroupName][0] && arrGroupData[iIndex][g_fCratePos][0] != 0.0)
 			{
-				/*
-				if(arrGroupData[iIndex][g_iGroupType] == GROUP_TYPE_CRIMINAL)
-				{
-					format(szResult, sizeof szResult, "%s Shipment Delivery Point\n{1FBDFF}/gdelivercrate", arrGroupData[iIndex][g_szGroupName]);
-				}
-				else
-				{
-					format(szResult, sizeof szResult, "%s Crate Delivery Point\n{1FBDFF}/delivercrate", arrGroupData[iIndex][g_szGroupName]);
-				}*/
 				format(szResult, sizeof szResult, "%s Crate Delivery Point\n{1FBDFF}/delivercrate", arrGroupData[iIndex][g_szGroupName]);
 				arrGroupData[iIndex][g_tCrate3DLabel] = CreateDynamic3DTextLabel(szResult, arrGroupData[iIndex][g_hDutyColour] * 256 + 0xFF, arrGroupData[iIndex][g_fCratePos][0], arrGroupData[iIndex][g_fCratePos][1], arrGroupData[iIndex][g_fCratePos][2], 10.0, .testlos = 1, .streamdistance = 20.0);
 			}
