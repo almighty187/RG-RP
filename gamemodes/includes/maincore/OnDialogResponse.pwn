@@ -2451,7 +2451,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			else SendClientMessageEx(playerid, COLOR_WHITE, "This vehicle is currently occupied - it cannot be despawned right now.");
 		}
 		else if(PlayerVehicleInfo[playerid][listitem][pvImpounded]) {
-			SendClientMessageEx(playerid, COLOR_WHITE, "You can not spawn an impounded vehicle. If you wish to reclaim it, do so at the DMV in Idlewood.");
+			SendClientMessageEx(playerid, COLOR_WHITE, "You can not spawn an impounded vehicle. If you wish to reclaim it, do so at the DMV in Dillimore.");
 		}
 		else if(PlayerVehicleInfo[playerid][listitem][pvDisabled]) {
 			SendClientMessageEx(playerid, COLOR_WHITE, "You can not spawn a disabled vehicle. It is disabled due to your VIP level (vehicle restrictions).");
@@ -2664,7 +2664,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				SendClientMessageEx(playerid, COLOR_WHITE, "Hint: Make your way to the checkpoint to find your vehicle!");
 			}
 		}
-		else if(PlayerVehicleInfo[playerid][listitem][pvImpounded]) SendClientMessageEx(playerid, COLOR_WHITE, "You can not track an impounded vehicle. If you wish to reclaim it, do so at the DMV in Idlewood.");
+		else if(PlayerVehicleInfo[playerid][listitem][pvImpounded]) SendClientMessageEx(playerid, COLOR_WHITE, "You can not track an impounded vehicle. If you wish to reclaim it, do so at the DMV in Dillimore.");
 		else if(PlayerVehicleInfo[playerid][listitem][pvDisabled] == 1) SendClientMessageEx(playerid, COLOR_WHITE, "You can not track a disabled vehicle. It is disabled due to your VIP level (vehicle restrictions).");
 		else if(PlayerVehicleInfo[playerid][listitem][pvSpawned] == 0) SendClientMessageEx(playerid, COLOR_WHITE, "You can not track a stored vehicle. Use /vstorage to spawn it.");
 		else SendClientMessageEx(playerid, COLOR_WHITE, "You can not track a non-existent vehicle.");
