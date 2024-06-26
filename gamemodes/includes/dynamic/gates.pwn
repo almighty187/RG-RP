@@ -8,25 +8,25 @@ CMD:gate(playerid, params[])
 		GetDynamicObjectPos(GateInfo[i][gGATE], X, Y, Z);
 		if(GateInfo[i][gGroupID] != -1 && (0 <= PlayerInfo[playerid][pMember] < MAX_GROUPS) && PlayerInfo[playerid][pMember] == GateInfo[i][gGroupID] && IsPlayerInRangeOfPoint(playerid,GateInfo[i][gRange], X, Y, Z) && GetPlayerVirtualWorld(playerid) == GateInfo[i][gVW] && GetPlayerInterior(playerid) == GateInfo[i][gInt])
 		{
-			if(GateInfo[i][gLocked] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "This gate is currently locked.");
+			if(GateInfo[i][gLocked] == 1) return SendErrorMessage(playerid, "This gate is currently locked.");
 			if(GateInfo[i][gAutomate] == 1) return 1;
 			MoveGate(playerid, i);
 		}
 		else if(GateInfo[i][gAllegiance] != 0 && GateInfo[i][gGroupType] != 0 && (0 <= PlayerInfo[playerid][pMember] < MAX_GROUPS) && arrGroupData[PlayerInfo[playerid][pMember]][g_iAllegiance] == GateInfo[i][gAllegiance] && arrGroupData[PlayerInfo[playerid][pMember]][g_iGroupType] == GateInfo[i][gGroupType] && IsPlayerInRangeOfPoint(playerid,GateInfo[i][gRange], X, Y, Z) && GetPlayerVirtualWorld(playerid) == GateInfo[i][gVW] && GetPlayerInterior(playerid) == GateInfo[i][gInt])
 		{
-			if(GateInfo[i][gLocked] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "This gate is currently locked.");
+			if(GateInfo[i][gLocked] == 1) return SendErrorMessage(playerid, "This gate is currently locked.");
 			if(GateInfo[i][gAutomate] == 1) return 1;
 			MoveGate(playerid, i);
 		}
 		else if(GateInfo[i][gAllegiance] != 0 && GateInfo[i][gGroupType] == 0 && (0 <= PlayerInfo[playerid][pMember] < MAX_GROUPS) && arrGroupData[PlayerInfo[playerid][pMember]][g_iAllegiance] == GateInfo[i][gAllegiance] && IsPlayerInRangeOfPoint(playerid,GateInfo[i][gRange], X, Y, Z) && GetPlayerVirtualWorld(playerid) == GateInfo[i][gVW] && GetPlayerInterior(playerid) == GateInfo[i][gInt])
 		{
-			if(GateInfo[i][gLocked] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "This gate is currently locked.");
+			if(GateInfo[i][gLocked] == 1) return SendErrorMessage(playerid, "This gate is currently locked.");
 			if(GateInfo[i][gAutomate] == 1) return 1;
 			MoveGate(playerid, i);
 		}
 		else if(GateInfo[i][gAllegiance] == 0 && GateInfo[i][gGroupType] != 0 && (0 <= PlayerInfo[playerid][pMember] < MAX_GROUPS) && arrGroupData[PlayerInfo[playerid][pMember]][g_iGroupType] == GateInfo[i][gGroupType] && IsPlayerInRangeOfPoint(playerid,GateInfo[i][gRange], X, Y, Z) && GetPlayerVirtualWorld(playerid) == GateInfo[i][gVW] && GetPlayerInterior(playerid) == GateInfo[i][gInt])
 		{
-			if(GateInfo[i][gLocked] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "This gate is currently locked.");
+			if(GateInfo[i][gLocked] == 1) return SendErrorMessage(playerid, "This gate is currently locked.");
 			if(GateInfo[i][gAutomate] == 1) return 1;
 			MoveGate(playerid, i);
 		}
@@ -88,7 +88,7 @@ CMD:movegate(playerid, params[])
 		GetDynamicObjectPos(GateInfo[i][gGATE], X, Y, Z);
 		if(GateInfo[i][gGroupID] == -1 && IsPlayerInRangeOfPoint(playerid,GateInfo[i][gRange], X, Y, Z) && GetPlayerVirtualWorld(playerid) == GateInfo[i][gVW])
 		{
-			if(GateInfo[i][gLocked] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "This gate is currently locked.");
+			if(GateInfo[i][gLocked] == 1) return SendErrorMessage(playerid, "This gate is currently locked.");
 			if(GateInfo[i][gAutomate] == 1) return 1;
 			if(strcmp(params, GateInfo[i][gPass], true) == 0)
 			{
@@ -127,7 +127,7 @@ CMD:admingatepw(playerid, params[])
 
 		if(strlen(pass) > 24)
 		{
-			SendClientMessageEx(playerid, COLOR_GRAD2, " Must be 24 characters or less! ");
+			SendErrorMessage(playerid, "Must be 24 characters or less! ");
 			return 1;
 		}
 		format(string, sizeof(string), "Gate Password for gate %d changed to %s", gateid, pass);
@@ -152,9 +152,9 @@ CMD:housegatepw(playerid, params[])
 CMD:setgatepass(playerid, params[])
 {
 	new Float:X, Float:Y, Float:Z, string[128];
-	if(Homes[playerid] == 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "You don't own a home!");
+	if(Homes[playerid] == 0) return SendErrorMessage(playerid, "You don't own a home!");
 	if(isnull(params)) return SendSyntaxMessage(playerid, "/setgatepass [pass]");
-	if(strlen(params) > 24) return SendClientMessageEx(playerid, COLOR_GRAD2, " Must be 24 characters or less! ");
+	if(strlen(params) > 24) return SendErrorMessage(playerid, "Must be 24 characters or less! ");
 
 	for(new i = 0; i < sizeof(GateInfo); i++)
 	{
@@ -170,7 +170,7 @@ CMD:setgatepass(playerid, params[])
 			}
 		}
 	}
-	SendClientMessageEx(playerid, COLOR_WHITE, "* You're not near a gate that you own!");
+	SendErrorMessage(playerid, "You're not near a gate that you own!");
 	return 1;
 }
 
@@ -246,29 +246,6 @@ CMD:lockgate(playerid, params[])
 	}
 	return 1;
 }
-
-CMD:gotogate(playerid, params[])
-{
-    if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pShopTech] >= 1)
-	{
-		new string[48], gatenum;
-		if(sscanf(params, "d", gatenum)) return SendSyntaxMessage(playerid, "/gotogate [gatenumber]");
-
-		if(gatenum <= 0 || gatenum >= MAX_GATES)
-		{
-			format(string, sizeof(string), "Gate ID must be between 1 and %d.", MAX_GATES - 1);
-			return SendClientMessageEx(playerid, COLOR_GREY, string);
-		}
-		SetPlayerPos(playerid,GateInfo[gatenum][gPosX],GateInfo[gatenum][gPosY],GateInfo[gatenum][gPosZ] + 1);
-		GameTextForPlayer(playerid, "~w~Teleporting", 5000, 1);
-		SetPlayerInterior(playerid, GateInfo[gatenum][gInt]);
-		PlayerInfo[playerid][pInt] = GateInfo[gatenum][gInt];
-		SetPlayerVirtualWorld(playerid,  GateInfo[gatenum][gVW]);
-		PlayerInfo[playerid][pVW] =  GateInfo[gatenum][gVW];
-	}
-	return 1;
-}
-
 CMD:gstatus(playerid, params[])
 {
 	new gateid;
@@ -373,10 +350,7 @@ CMD:gnear(playerid, params[])
 			}
 		}
 	}
-	else
-	{
-	    SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command.");
-	}
+	else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 
@@ -396,11 +370,7 @@ CMD:gnext(playerid, params[])
 			}
 		}
 	}
-	else
-	{
-	    SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command.");
-		return 1;
-	}
+	else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 
@@ -736,11 +706,7 @@ CMD:gedit(playerid, params[])
 		    SendDiscordMessage(8, string);
 		}
 	}
-	else
-	{
-	    SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command.");
-		return 1;
-	}
+	else SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 
@@ -829,7 +795,7 @@ CMD:gedittexture(playerid, params[])
 		    SendDiscordMessage(8, string);
 		}
 	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD2, "You are not authorized to use that command.");
+	else return SendErrorMessage(playerid, "You are not authorized to use that CMD.");
 	return 1;
 }
 

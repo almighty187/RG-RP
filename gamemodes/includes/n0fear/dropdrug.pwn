@@ -80,7 +80,6 @@ LoadDrop()
 			DropDrug[g][ddY] = floatstr(FileCoords[5]);
 			DropDrug[g][ddZ] = floatstr(FileCoords[6]);
 			CreateDrop(g);
-			printf("Loaded drop %d: Type %d, Weapon %d, Ammo %d, World %d, X %.2f, Y %.2f, Z %.2f\n", g, DropDrug[g][dType], DropDrug[g][dWeapon], DropDrug[g][dAmmo], DropDrug[g][dWorld], DropDrug[g][ddX], DropDrug[g][ddY], DropDrug[g][ddZ]);
 			if(DropDrug[g][dWeapon] > 0 && DropDrug[g][ddX] != 0)
 			{
 				CreateDrop(g);
