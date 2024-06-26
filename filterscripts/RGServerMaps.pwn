@@ -1063,9 +1063,9 @@ public OnFilterScriptInit()
 	precinct2 = CreateDynamicObjectEx(2658, 1835.027465, -1434.095336, 15.753275, 0.000000, 90.000000, 90.000000, 300.00, 300.00);
 	SetDynamicObjectMaterial(precinct2, 0, 10101, "2notherbuildsfe", "ferry_build14", 0xFF666633);
 	precinct2 = CreateDynamicObjectEx(19367, 1834.921020, -1434.827514, 16.106618, 0.000000, 0.000000, 0.000000, 300.00, 300.00);
-	SetDynamicObjectMaterialText(precinct2, 0, "SAN ANDREAS", 140, "Ariel", 40, 1, 0xFFFFFFFF, 0x00000000, 1);
+	SetDynamicObjectMaterialText(precinct2, 0, "LOS SANTOS", 140, "Ariel", 40, 1, 0xFFFFFFFF, 0x00000000, 1);
 	precinct2 = CreateDynamicObjectEx(19367, 1834.921020, -1434.827514, 15.896617, 0.000000, 0.000000, 0.000000, 300.00, 300.00);
-	SetDynamicObjectMaterialText(precinct2, 0, "SHERIFF'S DEPARTMENT", 140, "Ariel", 30, 1, 0xFFFFFFFF, 0x00000000, 1);
+	SetDynamicObjectMaterialText(precinct2, 0, "POLICE DEPARTMENT", 140, "Ariel", 30, 1, 0xFFFFFFFF, 0x00000000, 1);
 	precinct2 = CreateDynamicObjectEx(18765, 1820.017700, -1444.236572, 14.991259, 0.000000, 0.000000, 0.000000, 300.00, 300.00);
 	SetDynamicObjectMaterial(precinct2, 0, 4552, "ammu_lan2", "sl_lavicdtwall1", 0x00000000);
 	precinct2 = CreateDynamicObjectEx(18765, 1820.017700, -1434.256347, 14.991259, 0.000000, 0.000000, 0.000000, 300.00, 300.00);
@@ -1162,7 +1162,7 @@ public OnFilterScriptInit()
 	precinct2 = CreateDynamicObjectEx(19447, 1830.177978, -1391.354858, 14.126376, 0.000000, 0.000000, 90.000000, 300.00, 300.00);
 	SetDynamicObjectMaterial(precinct2, 0, 5449, "chicanotr1_lae", "lasjmfnce1", 0x00000000);
 	precinct2 = CreateDynamicObjectEx(19367, 1834.921020, -1434.827514, 15.706619, 0.000000, 0.000000, 0.000000, 300.00, 300.00);
-	SetDynamicObjectMaterialText(precinct2, 0, "GLEN PARK STATION", 140, "Ariel", 20, 1, 0xFFFFFFFF, 0x00000000, 1);
+	SetDynamicObjectMaterialText(precinct2, 0, "GLEN PARK PRECINCT 2", 140, "Ariel", 20, 1, 0xFFFFFFFF, 0x00000000, 1);
 	precinct2 = CreateDynamicObjectEx(18762, 1833.200561, -1419.806152, 17.500642, 90.000000, 0.000000, 90.000000, 300.00, 300.00);
 	SetDynamicObjectMaterial(precinct2, 0, 4552, "ammu_lan2", "sl_lavicdtwall1", 0xFF336633);
 	precinct2 = CreateDynamicObjectEx(18762, 1827.498168, -1419.806152, 17.500642, 90.000000, 0.000000, 90.000000, 300.00, 300.00);
