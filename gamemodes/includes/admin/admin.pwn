@@ -1145,7 +1145,7 @@ CMD:goto(playerid, params[])
 		if (sscanf(params, "u", id))
 	 	{
 		 	SendSyntaxMessage(playerid, "/goto [place]");
-			SendClientMessage(playerid, COLOR_YELLOW, "[PLACE]:{FFFFFF} house, bizz, door, garage, loc, pos, interior, mark, id(playerid)");
+			SendClientMessage(playerid, COLOR_GREEN, "[PLACE]:{FFFFFF} house, bizz, door, garage, gate, loc, pos, interior, mark, id(playerid)");
 			return 1;
 		}
 	    else if (id == INVALID_PLAYER_ID)
@@ -1153,7 +1153,7 @@ CMD:goto(playerid, params[])
 		    if (sscanf(params, "s[24]S()[64]", type, string))
 			{
 			    SendClientMessage(playerid, COLOR_WHITE, "Usage: /goto [playerid/place]");
-				SendClientMessage(playerid, COLOR_WHITE, "[Names]:{FFFFFF} house, bizz, door, pos, interior");
+				SendClientMessage(playerid, COLOR_WHITE, "[Names]:{FFFFFF} house, bizz, door, garage, gate, pos, interior");
 				return 1;
 		    }
 			if (!strcmp(type, "house", true))
@@ -1213,6 +1213,23 @@ CMD:goto(playerid, params[])
 				SetPlayerVirtualWorld(playerid, GarageInfo[id][gar_ExteriorVW]);
 				PlayerInfo[playerid][pVW] = GarageInfo[id][gar_ExteriorVW];
 				if(GarageInfo[id][gar_CustomExterior]) Player_StreamPrep(playerid, GarageInfo[id][gar_ExteriorX], GarageInfo[id][gar_ExteriorY], GarageInfo[id][gar_ExteriorZ], FREEZE_TIME);
+			    return 1;
+			}
+			else if (!strcmp(type, "gate", true))
+			{
+			    if (sscanf(string, "d", id)) return SendSyntaxMessage(playerid, "/goto [garage] [garage ID]");
+			    if(GarageInfo[id][gar_ExteriorX],GateInfo[id][gPosX],GateInfo[id][gPosZ] == 0.0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Gate pos is set to 0 use /gedit to move the gate.");
+				if(id < 0 || id >= MAX_GATES)
+				{
+					format(string, sizeof(string), "Gate ID must be between 1 and %d.", MAX_GATES - 1);
+					return SendClientMessageEx(playerid, COLOR_GREY, string);
+				}
+				SetPlayerPos(playerid,GateInfo[id][gPosX],GateInfo[id][gPosY],GateInfo[id][gPosZ] + 1);
+				GameTextForPlayer(playerid, "~w~Teleporting", 5000, 1);
+				SetPlayerInterior(playerid, GateInfo[id][gInt]);
+				PlayerInfo[playerid][pInt] = GateInfo[id][gInt];
+				SetPlayerVirtualWorld(playerid,  GateInfo[id][gVW]);
+				PlayerInfo[playerid][pVW] =  GateInfo[id][gVW];
 			    return 1;
 			}
 			else if (!strcmp(type, "pos", true))

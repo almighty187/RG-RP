@@ -246,29 +246,6 @@ CMD:lockgate(playerid, params[])
 	}
 	return 1;
 }
-
-CMD:gotogate(playerid, params[])
-{
-    if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pASM] >= 1 || PlayerInfo[playerid][pShopTech] >= 1)
-	{
-		new string[48], gatenum;
-		if(sscanf(params, "d", gatenum)) return SendSyntaxMessage(playerid, "/gotogate [gatenumber]");
-
-		if(gatenum <= 0 || gatenum >= MAX_GATES)
-		{
-			format(string, sizeof(string), "Gate ID must be between 1 and %d.", MAX_GATES - 1);
-			return SendClientMessageEx(playerid, COLOR_GREY, string);
-		}
-		SetPlayerPos(playerid,GateInfo[gatenum][gPosX],GateInfo[gatenum][gPosY],GateInfo[gatenum][gPosZ] + 1);
-		GameTextForPlayer(playerid, "~w~Teleporting", 5000, 1);
-		SetPlayerInterior(playerid, GateInfo[gatenum][gInt]);
-		PlayerInfo[playerid][pInt] = GateInfo[gatenum][gInt];
-		SetPlayerVirtualWorld(playerid,  GateInfo[gatenum][gVW]);
-		PlayerInfo[playerid][pVW] =  GateInfo[gatenum][gVW];
-	}
-	return 1;
-}
-
 CMD:gstatus(playerid, params[])
 {
 	new gateid;
