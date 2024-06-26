@@ -40,7 +40,7 @@ hook OnPlayerEnterCheckpoint(playerid)
 {
 	switch(GetPVarInt(playerid, "Checkpoint"))
 	{
-		case CHECKPOINT_NONE: gPlayerCheckpointStatus[playerid] = CHECKPOINT_NOTHING, ClearCheckpoint(playerid);
+		//case CHECKPOINT_NONE: gPlayerCheckpointStatus[playerid] = CHECKPOINT_NOTHING, ClearCheckpoint(playerid);
         case CHECKPOINT_STORE:
         {
             if(GetPVarInt(playerid, "OCC") == 0)
