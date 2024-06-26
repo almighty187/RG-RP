@@ -128,7 +128,10 @@ SaveActors() {
 	}
 	return fclose(fHandle);
 }
-
+hook OnGameModeInit()
+{
+	LoadActors();
+}
 //here is the command
 CMD:createactor(playerid, params[])
 {
@@ -386,14 +389,6 @@ CMD:aedit(playerid, params[])
         SendErrorMessage(playerid,"You are not authorized to use this CMD.");
     }
     return 1;
-}
-
-hook OnPlayerRequestClass(playerid, classid)
-{
-	SetPlayerPos(playerid, 1958.3783, 1343.1572, 15.3746);
-	SetPlayerCameraPos(playerid, 1958.3783, 1343.1572, 15.3746);
-	SetPlayerCameraLookAt(playerid, 1958.3783, 1343.1572, 15.3746);
-	return 1;
 }
 
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])

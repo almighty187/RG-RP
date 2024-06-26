@@ -15,7 +15,8 @@
 	** Development Staff:
 		187
 */
-
+#pragma warning disable 206
+#pragma warning disable 213
 #include <a_samp>
 #pragma disablerecursion
 
@@ -44,6 +45,8 @@
 #include "./includes/maincore/OnDialogResponse.pwn"
 #include "./includes/maincore/discord.pwn"
 //#include "./includes/maincore/OnPlayerRequestDownload.pwn" This is for 0.3DL we will have it disabled for now
+
+
 
 #if defined AREA_DEBUG
 #include "./includes/areadebug.pwn"
@@ -253,19 +256,20 @@
 #include "./includes/DBLog.pwn"
 #include "./includes/core/Player_Interact.pwn"
 
+
 //By N0FeaR
-#include "./includes/n0fear/locations.pwn"
-#include "./includes/n0fear/locate.pwn"
 #include "./includes/n0fear/skill.pwn"
 #include "./includes/n0fear/talkanim.pwn"
 #include "./includes/n0fear/htmhouses.pwn"
 #include "./includes/n0fear/vendingmachine.pwn"
 #include "./includes/n0fear/labeldraw.pwn"
+#include "./includes/n0fear/newturfs.pwn"
+#include "./includes/n0fear/locations.pwn"
+#include "./includes/n0fear/locate.pwn"
+#include "./includes/n0fear/actors.pwn"
 #include "./includes/n0fear/paperboy.pwn"
 #include "./includes/n0fear/streetsweeper.pwn"
-#include "./includes/n0fear/actors.pwn"
 #include "./includes/n0fear/walkstyle.pwn"
-#include "./includes/n0fear/newturfs.pwn"
 #include "./includes/n0fear/dropweapon.pwn"
 #include "./includes/n0fear/dropdrug.pwn"
 #include "./includes/n0fear/anticbug.pwn"
@@ -286,12 +290,27 @@
 #include "./includes/group/elections.pwn"
 //#include "./includes/events/naturaldisaster.pwn"
 
+
 // Westen WIP
 //#include "./includes/dynamic/dynpolls2.pwn"
 
 // Jason WIP
 //#include "./includes/core/interact.pwn"
-main(){}
+
+#define DEBUG 1 // Set to 1 to enable debug, 0 to disable
+
+#if DEBUG
+#define DEBUG_PRINT(%1) print(%1)
+#else
+#define DEBUG_PRINT(%1)
+#endif
+
+main()
+{
+    DEBUG_PRINT("Main function started");
+    // Your main code here
+}
+
 
 public OnGameModeInit()
 {

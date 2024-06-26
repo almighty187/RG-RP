@@ -489,30 +489,22 @@ CMD:admins(playerid, params[])
 				if(PlayerInfo[i][pBanAppealer] == 2) strcat(szMiscArray, " [DOCI]");
 				if(PlayerInfo[i][pShopTech] == 1) strcat(szMiscArray, " [ST]");
 				if(PlayerInfo[i][pShopTech] == 2) strcat(szMiscArray, " [SST]");
-				if(PlayerInfo[i][pShopTech] == 3) strcat(szMiscArray, " [LST]");
-				if(PlayerInfo[i][pUndercover] == 1) strcat(szMiscArray, " [SO]");
+				if(PlayerInfo[i][pShopTech] == 3) strcat(szMiscArray, " [DOCR]");
+				if(PlayerInfo[i][pUndercover] == 1) strcat(szMiscArray, " [UC]");
 				if(PlayerInfo[i][pUndercover] == 2) strcat(szMiscArray, " [DOSO]");
 				if(PlayerInfo[i][pFactionModerator] == 1) strcat(szMiscArray, " [FMOD]");
-				if(PlayerInfo[i][pFactionModerator] == 2) strcat(szMiscArray, " [ADOFM]");
-				if(PlayerInfo[i][pFactionModerator] == 3) strcat(szMiscArray, " [DOFM]");
+				if(PlayerInfo[i][pFactionModerator] == 2) strcat(szMiscArray, " [DOFM]");
 				if(PlayerInfo[i][pGangModerator] == 1) strcat(szMiscArray, " [GMOD]");
-				if(PlayerInfo[i][pGangModerator] == 2) strcat(szMiscArray, " [ADOGM]");
-				if(PlayerInfo[i][pGangModerator] == 3) strcat(szMiscArray, " [DOGM]");
+				if(PlayerInfo[i][pGangModerator] == 2) strcat(szMiscArray, " [DOGM]");
 				if(PlayerInfo[i][pTogReports]) strcat(szMiscArray, " [SPEC MODE]");
-				if(PlayerInfo[i][pPR] == 1) strcat(szMiscArray, " [HM]");
-				if(PlayerInfo[i][pPR] == 2) strcat(szMiscArray, " [ADOHM]");
-				if(PlayerInfo[i][pPR] == 3) strcat(szMiscArray, " [DOHM]");
-				if(PlayerInfo[i][pHR] == 1) strcat(szMiscArray, " [HR]");
-				if(PlayerInfo[i][pHR] == 2) strcat(szMiscArray, " [ADOHR]");
-				if(PlayerInfo[i][pHR] == 3) strcat(szMiscArray, " [DOHR]");
-				if(PlayerInfo[i][pAP] == 1) strcat(szMiscArray, " [AP]");
-				if(PlayerInfo[i][pAP] == 2) strcat(szMiscArray, " [ADOAP]");
-				if(PlayerInfo[i][pAP] == 3) strcat(szMiscArray, " [DOAP]");
-				if(PlayerInfo[i][pWatchdog] == 4) strcat(szMiscArray, " [DORPI]");
-				if(PlayerInfo[i][pSecurity] >= 1) strcat(szMiscArray, " [SEC]");
-				if(PlayerInfo[i][pBM] == 1) strcat(szMiscArray, " [PM]");
-				if(PlayerInfo[i][pBM] == 2) strcat(szMiscArray, " [ADOPM]");
-				if(PlayerInfo[i][pBM] == 3) strcat(szMiscArray, " [DOPM]");
+				if(PlayerInfo[i][pPR] == 1) strcat(szMiscArray, " [PR]");
+				if(PlayerInfo[i][pPR] == 2) strcat(szMiscArray, " [DOPR]");
+				if(PlayerInfo[i][pHR] >= 1) strcat(szMiscArray, " [HR]");
+				if(PlayerInfo[i][pAP] >= 1) strcat(szMiscArray, " [AP]");
+				if(PlayerInfo[i][pWatchdog] == 4) strcat(szMiscArray, " [DoRPI]");
+				if(PlayerInfo[i][pSecurity] >= 1) strcat(szMiscArray, " [Sec]");
+				if(PlayerInfo[i][pBM] == 1) strcat(szMiscArray, " [BM]");
+				if(PlayerInfo[i][pBM] == 2) strcat(szMiscArray, " [DOBM]");
 				if(PlayerInfo[i][pASM] == 1) strcat(szMiscArray, " [ASM]");
 				SendClientMessageEx(playerid, COLOR_GRAD2, szMiscArray);
 			}
@@ -1145,7 +1137,7 @@ CMD:goto(playerid, params[])
 		if (sscanf(params, "u", id))
 	 	{
 		 	SendSyntaxMessage(playerid, "/goto [place]");
-			SendClientMessage(playerid, COLOR_GREEN, "[PLACE]:{FFFFFF} house, bizz, door, garage, gate, loc, pos, interior, mark, id(playerid)");
+			SendClientMessage(playerid, COLOR_YELLOW, "[PLACE]:{FFFFFF} house, bizz, door, garage, loc, pos, interior, mark, id(playerid)");
 			return 1;
 		}
 	    else if (id == INVALID_PLAYER_ID)
@@ -1153,7 +1145,7 @@ CMD:goto(playerid, params[])
 		    if (sscanf(params, "s[24]S()[64]", type, string))
 			{
 			    SendClientMessage(playerid, COLOR_WHITE, "Usage: /goto [playerid/place]");
-				SendClientMessage(playerid, COLOR_WHITE, "[Names]:{FFFFFF} house, bizz, door, garage, gate, pos, interior");
+				SendClientMessage(playerid, COLOR_WHITE, "[Names]:{FFFFFF} house, bizz, door, pos, interior");
 				return 1;
 		    }
 			if (!strcmp(type, "house", true))
@@ -1213,23 +1205,6 @@ CMD:goto(playerid, params[])
 				SetPlayerVirtualWorld(playerid, GarageInfo[id][gar_ExteriorVW]);
 				PlayerInfo[playerid][pVW] = GarageInfo[id][gar_ExteriorVW];
 				if(GarageInfo[id][gar_CustomExterior]) Player_StreamPrep(playerid, GarageInfo[id][gar_ExteriorX], GarageInfo[id][gar_ExteriorY], GarageInfo[id][gar_ExteriorZ], FREEZE_TIME);
-			    return 1;
-			}
-			else if (!strcmp(type, "gate", true))
-			{
-			    if (sscanf(string, "d", id)) return SendSyntaxMessage(playerid, "/goto [garage] [garage ID]");
-			    if(GarageInfo[id][gar_ExteriorX],GateInfo[id][gPosX],GateInfo[id][gPosZ] == 0.0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Gate pos is set to 0 use /gedit to move the gate.");
-				if(id < 0 || id >= MAX_GATES)
-				{
-					format(string, sizeof(string), "Gate ID must be between 1 and %d.", MAX_GATES - 1);
-					return SendClientMessageEx(playerid, COLOR_GREY, string);
-				}
-				SetPlayerPos(playerid,GateInfo[id][gPosX],GateInfo[id][gPosY],GateInfo[id][gPosZ] + 1);
-				GameTextForPlayer(playerid, "~w~Teleporting", 5000, 1);
-				SetPlayerInterior(playerid, GateInfo[id][gInt]);
-				PlayerInfo[playerid][pInt] = GateInfo[id][gInt];
-				SetPlayerVirtualWorld(playerid,  GateInfo[id][gVW]);
-				PlayerInfo[playerid][pVW] =  GateInfo[id][gVW];
 			    return 1;
 			}
 			else if (!strcmp(type, "pos", true))

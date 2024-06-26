@@ -1,5 +1,11 @@
 InitiateGamemode()
 {
+    new gArray[30];
+        // Correctly bounded loop
+    for (new i = 0; i < sizeof(gArray); i++) {
+        printf("Attempting to access index %d", i);
+        gArray[i] = i; // Safe access within bounds
+    }
 	AddPlayerClass(0, 1715.1201, -1903.1711, 13.5665, 360, 0, 0, 0, 0, 0, 0);
 	
 	SetGameModeText(SERVER_GM_TEXT);
@@ -23,7 +29,6 @@ InitiateGamemode()
 	LoadRelayForLifeTeams();
 	LoadGarages();
 	LoadCrimes();
-	LoadActors();
 
 	/*---[Shop Automation]---*/
 	

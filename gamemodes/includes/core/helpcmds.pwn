@@ -542,7 +542,7 @@ stock Help_ListCat(playerid, dialogid = DIALOG_HELPCATMAIN, response = 0, listit
 				format(string, sizeof(string), "HelpResultCat%i", j);
 				SetPVarInt(playerid, string, 10);
 				j++;
-				format(szMiscArray, sizeof(szMiscArray), "%sAdmin Personnel\n", szMiscArray);
+				format(szMiscArray, sizeof(szMiscArray), "%sSA-MP Operations\n", szMiscArray);
 			}
 			if(Help_Perm(playerid, 1, 11, 1))
 			{

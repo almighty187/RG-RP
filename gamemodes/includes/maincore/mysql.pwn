@@ -173,7 +173,7 @@ public OnQueryFinish(resultid, extraid, handleid)
 						cache_get_value_name(i,  szField, szResult);
 						AmountMade[z] = strval(szResult);
 						//ShopItems[z][sMade] = strval(szResult);
-						printf("TotalSold%d: %d | AmountMade%d: %d", z, AmountSold[z], z, AmountMade[z]);
+						//printf("TotalSold%d: %d | AmountMade%d: %d", z, AmountSold[z], z, AmountMade[z]);
 					}
 					new result[128];
 					cache_get_value_name(i, "TotalSoldMicro", result);
@@ -182,7 +182,7 @@ public OnQueryFinish(resultid, extraid, handleid)
 					sscanf(result, MicroSpecifier, AmountMadeMicro);
 					for(new m = 0; m < MAX_MICROITEMS; m++)
 					{
-						printf("TotalSoldMicro%d: %d | AmountMadeMicro%d: %d", m, AmountSoldMicro[m], m, AmountMadeMicro[m]);
+						//printf("TotalSoldMicro%d: %d | AmountMadeMicro%d: %d", m, AmountSoldMicro[m], m, AmountMadeMicro[m]);
 					}
 					break;
 				}
@@ -206,7 +206,7 @@ public OnQueryFinish(resultid, extraid, handleid)
 					ShopItems[z][sItemPrice] = strval(szResult);
 					Price[z] = strval(szResult);
 					if(ShopItems[z][sItemPrice] == 0) ShopItems[z][sItemPrice] = 99999999;
-					printf("Price%d: %d", z, ShopItems[z][sItemPrice]);
+					//printf("Price%d: %d", z, ShopItems[z][sItemPrice]);
 				}
 				new result[128];
 				cache_get_value_name(i, "MicroPrices", result);
@@ -214,7 +214,7 @@ public OnQueryFinish(resultid, extraid, handleid)
 				for(new m = 0; m < MAX_MICROITEMS; m++)
 				{
 					if(MicroItems[m] == 0) MicroItems[m] = 99999999;
-					printf("MicroPrice%d: %d", m, MicroItems[m]);
+					//printf("MicroPrice%d: %d", m, MicroItems[m]);
 				}
                 //printf("[LOADSHOPDATA] Price0: %d, Price1: %d, Price2: %d, Price3: %d, Price4: %d, Price5: %d, Price6: %d, Price7: %d, Pricr8: %d, Price9: %d, Price10: %d", Price[0], Price[1], Price[2], Price[3], Price[4], Price[5], Price[6], Price[7], Price[8], Price[9], Price[10]);
 				break;
@@ -5512,6 +5512,15 @@ public Group_QueryFinish(iType, iExtraID) {
 
 			if (arrGroupData[iIndex][g_szGroupName][0] && arrGroupData[iIndex][g_fCratePos][0] != 0.0)
 			{
+				/*
+				if(arrGroupData[iIndex][g_iGroupType] == GROUP_TYPE_CRIMINAL)
+				{
+					format(szResult, sizeof szResult, "%s Shipment Delivery Point\n{1FBDFF}/gdelivercrate", arrGroupData[iIndex][g_szGroupName]);
+				}
+				else
+				{
+					format(szResult, sizeof szResult, "%s Crate Delivery Point\n{1FBDFF}/delivercrate", arrGroupData[iIndex][g_szGroupName]);
+				}*/
 				format(szResult, sizeof szResult, "%s Crate Delivery Point\n{1FBDFF}/delivercrate", arrGroupData[iIndex][g_szGroupName]);
 				arrGroupData[iIndex][g_tCrate3DLabel] = CreateDynamic3DTextLabel(szResult, arrGroupData[iIndex][g_hDutyColour] * 256 + 0xFF, arrGroupData[iIndex][g_fCratePos][0], arrGroupData[iIndex][g_fCratePos][1], arrGroupData[iIndex][g_fCratePos][2], 10.0, .testlos = 1, .streamdistance = 20.0);
 			}
