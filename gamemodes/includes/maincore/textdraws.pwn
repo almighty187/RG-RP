@@ -2352,7 +2352,7 @@ stock CreatePlayerTextDraws(playerid)
     PlayerTextDrawSetProportional(playerid,_vhudFlash[playerid], 1);
     PlayerTextDrawSetShadow(playerid, _vhudFlash[playerid], 1);
 
-	_vhudTextFuel[playerid] = CreatePlayerTextDraw(playerid, 495.000000, 133.000000, "~g~Fuel: N/A");
+	_vhudTextFuel[playerid] = CreatePlayerTextDraw(playerid, 495.000000, 133.000000, "~b~Fuel: N/A");
 	PlayerTextDrawBackgroundColor(playerid, _vhudTextFuel[playerid], 255);
 	PlayerTextDrawFont(playerid, _vhudTextFuel[playerid], 1);
 	PlayerTextDrawLetterSize(playerid, _vhudTextFuel[playerid], 0.270000, 2.000000);
@@ -2360,7 +2360,7 @@ stock CreatePlayerTextDraws(playerid)
 	PlayerTextDrawSetOutline(playerid, _vhudTextFuel[playerid], 1);
 	PlayerTextDrawSetProportional(playerid, _vhudTextFuel[playerid], 1);
 
-	_vhudTextSpeed[playerid] = CreatePlayerTextDraw(playerid, 555.000000, 133.000000, "~g~MPH: N/A");
+	_vhudTextSpeed[playerid] = CreatePlayerTextDraw(playerid, 555.000000, 133.000000, "~b~MPH: N/A");
 	PlayerTextDrawBackgroundColor(playerid, _vhudTextSpeed[playerid], 255);
 	PlayerTextDrawFont(playerid, _vhudTextSpeed[playerid], 1);
 	PlayerTextDrawLetterSize(playerid, _vhudTextSpeed[playerid], 0.270000, 2.000000);
@@ -2368,7 +2368,7 @@ stock CreatePlayerTextDraws(playerid)
 	PlayerTextDrawSetOutline(playerid, _vhudTextSpeed[playerid], 1);
 	PlayerTextDrawSetProportional(playerid, _vhudTextSpeed[playerid], 1);
 
-	_vhudSeatBelt[playerid] = CreatePlayerTextDraw(playerid, 555.000000, 150.000000, "~g~SB: ~r~OFF");
+	_vhudSeatBelt[playerid] = CreatePlayerTextDraw(playerid, 555.000000, 150.000000, "~b~SB: ~r~OFF");
 	PlayerTextDrawBackgroundColor(playerid, _vhudSeatBelt[playerid], 255);
 	PlayerTextDrawFont(playerid, _vhudSeatBelt[playerid], 1);
 	PlayerTextDrawLetterSize(playerid, _vhudSeatBelt[playerid], 0.270000, 2.000000);
@@ -2376,7 +2376,7 @@ stock CreatePlayerTextDraws(playerid)
 	PlayerTextDrawSetOutline(playerid, _vhudSeatBelt[playerid], 1);
 	PlayerTextDrawSetProportional(playerid, _vhudSeatBelt[playerid], 1);
 
-	_vhudLights[playerid] = CreatePlayerTextDraw(playerid, 495.000000, 150.000000, "~g~Lights: ~r~OFF");
+	_vhudLights[playerid] = CreatePlayerTextDraw(playerid, 495.000000, 150.000000, "~b~Lights: ~r~OFF");
 	PlayerTextDrawBackgroundColor(playerid, _vhudLights[playerid], 255);
 	PlayerTextDrawFont(playerid, _vhudLights[playerid], 1);
 	PlayerTextDrawLetterSize(playerid, _vhudLights[playerid], 0.270000, 2.000000);
