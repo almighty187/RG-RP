@@ -73,6 +73,7 @@ LoadActors()
 	if (file)
 	{
 		new idx;
+  		printf("[LoadActors] Loading data from database...");
 		while (idx < sizeof(ActorsInfo))
 		{
 			fread(file, strFromFile2);
@@ -93,7 +94,6 @@ LoadActors()
 		  		//if(!IsNull(ActorsInfo[idx][aName]))
 		  		if(strlen(ActorsInfo[idx][aName]) > 0)
 		  		{
-		  		    printf("[LoadActors] Loading data from database...");
 		  		    CreateActors(idx);
 				}
 			}
