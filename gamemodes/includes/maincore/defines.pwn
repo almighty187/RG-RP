@@ -1363,6 +1363,7 @@ native IsValidVehicle(vehicleid);
 #define 		DIALOG_WALKSTYLE     			8041
 #define         DIALOG_FIRESTATIONGARAGE        8042
 #define         DIALOG_FIRESTATIONGARAGE2       8043
+#define         DIALOG_LSPDCELLDOORS            8044
 
 // GangTags
 #define 			GANGTAG_TIME				60000

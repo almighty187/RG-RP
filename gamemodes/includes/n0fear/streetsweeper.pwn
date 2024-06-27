@@ -19,7 +19,7 @@ hook OnPlayerEnterCheckpoint(playerid)
 			}
 			else if(GetPVarInt(playerid, "pSweeperStage") >= 5)
 			{
-			    new value = 500+random(500);
+			    new value = 800+random(800);
 
 		    	SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 

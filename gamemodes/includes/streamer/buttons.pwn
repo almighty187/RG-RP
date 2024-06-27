@@ -21,6 +21,7 @@ hook OnGameModeInit() {
 	//LSPD Buttons Precinct 2
 	LSPDButtons[2] = CreateButton(323.2678,310.0272,999.6584);
 	LSPDButtons[3] = CreateButton(321.2209,310.2030,999.6584,181.7060);
+	LSPDButtons[4] = CreateButton(320.9385,314.1920,999.7902,89.6527);
     //LSPD Buttons
     LSPDButtons[1] = CreateButton(1615.7600,1604.4185,11.2540,178.4525);
     LSPDButtons[0] = CreateButton(1614.7122,1603.9988,11.2540,266.5272);

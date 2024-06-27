@@ -164,18 +164,18 @@ hook OnPlayerPickUpDynamicPickup(playerid, pickupid)
 	    {
 	        switch(DDoorsInfo[d][ddColor])
 			{
-	            case 1: format(string, sizeof(string), " ~r~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
-	            case 2: format(string, sizeof(string), " ~r~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
+	            case 1: format(string, sizeof(string), " ~w~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
+	            case 2: format(string, sizeof(string), " ~p~~h~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
 	            case 3: format(string, sizeof(string), " ~r~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
-	            case 4: format(string, sizeof(string), " ~r~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
-	            case 5: format(string, sizeof(string), " ~r~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
+	            case 4: format(string, sizeof(string), " ~h~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
+	            case 5: format(string, sizeof(string), " ~s~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
 				case 6: format(string, sizeof(string), " ~g~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
-				case 7: format(string, sizeof(string), " ~g~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
+				case 7: format(string, sizeof(string), " ~p~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
 				case 8: format(string, sizeof(string), " ~g~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
-				case 9: format(string, sizeof(string), " ~b~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
-				case 10: format(string, sizeof(string), " ~b~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
-				case 11: format(string, sizeof(string), " ~p~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
-				case 12: format(string, sizeof(string), " ~p~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
+				case 9: format(string, sizeof(string), " ~y~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
+				case 10: format(string, sizeof(string), " ~b~~h~~h~~h~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
+				case 11: format(string, sizeof(string), " ~g~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
+				case 12: format(string, sizeof(string), " ~~b~~h~~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
 				default: format(string, sizeof(string), " ~y~%s~n~ ~w~ID: %d ~n~ ~w~Press ~b~Y ~w~to go inside.", DDoorsInfo[d][ddDescription], d);
 		       
    			}
