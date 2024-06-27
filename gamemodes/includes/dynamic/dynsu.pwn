@@ -181,11 +181,16 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
 						foreach(new p: Player)
 						{
-							if(IsACop(p) && arrGroupData[PlayerInfo[playerid][pMember]][g_iAllegiance] == arrGroupData[PlayerInfo[p][pMember]][g_iAllegiance]) {
+							/*if(IsACop(p) && arrGroupData[PlayerInfo[playerid][pMember]][g_iAllegiance] == arrGroupData[PlayerInfo[p][pMember]][g_iAllegiance]) {
 								format(szMiscArray, sizeof(szMiscArray), "HQ: All units APB (reporter: %s)",GetPlayerNameEx(playerid));
 								SendClientMessageEx(p, TEAM_BLUE_COLOR, szMiscArray);
 								format(szMiscArray, sizeof(szMiscArray), "HQ: Crime: %s, suspect: %s", szCrime, GetPlayerNameEx(iTargetID));
 								SendClientMessageEx(p, TEAM_BLUE_COLOR, szMiscArray);
+							}*/
+							// improved visibility
+							if(IsACop(p) && arrGroupData[PlayerInfo[playerid][pMember]][g_iAllegiance] == arrGroupData[PlayerInfo[p][pMember]][g_iAllegiance]) {
+								SendClientMessageEx(p, TEAM_BLUE_COLOR, "HQ: All units APB (reporter: {808080}%s{2641FE})", GetPlayerNameEx(playerid));
+								SendClientMessageEx(p, TEAM_BLUE_COLOR, "HQ: Crime: {808080}%s{2641FE}, suspect: {808080}%s", szCrime, GetPlayerNameEx(iTargetID));
 							}
 						}
 						PlayerInfo[iTargetID][pDefendTime] = 60;
