@@ -2153,6 +2153,14 @@ CMD:lock(playerid, params[])
 	return 1;
 }
 
+CMD:vs(playerid, params[]) {
+	return cmd_vstorage(playerid, params);
+}
+
+CMD:vst(playerid, params[]) {
+	return cmd_vstorage(playerid, params);
+}
+
 CMD:vstorage(playerid, params[])
 {
 	if(PlayerTied[playerid] != 0 || PlayerCuffed[playerid] != 0 || PlayerInfo[playerid][pJailTime] > 0 || GetPVarInt(playerid, "Injured")) return SendClientMessageEx(playerid, COLOR_GRAD2, "You cannot do this at this time.");
