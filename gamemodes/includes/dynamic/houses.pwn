@@ -920,7 +920,14 @@ CMD:sellmyhouse(playerid, params[])
 	else return SendClientMessageEx(playerid, COLOR_GREY, "You don't own a house.");
     return 1;
 }
-
+CMD:resethouse(playerid, params[])
+{
+	if (PlayerInfo[playerid][pAdmin] >= 4)
+	{
+	    Homes[playerid] = 0;
+ 	}
+	return 1;
+}
 CMD:asellhouse(playerid, params[])
 {
 	if (PlayerInfo[playerid][pAdmin] >= 4)
