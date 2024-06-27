@@ -37,7 +37,7 @@ PayGroupMember(i)
 			arrGroupData[iGroupID][g_iBudget] -= arrGroupData[iGroupID][g_iPaycheck][iRank];
 			//GivePlayerCash(i, arrGroupData[iGroupID][g_iPaycheck][iRank]);
 			GivePlayerCashEx(i, TYPE_BANK, arrGroupData[iGroupID][g_iPaycheck][iRank]);
-			format(szMiscArray,sizeof(szMiscArray)," {%s}%s {FFFFFF}paycheck: $%s", Group_NumToDialogHex(arrGroupData[iGroupID][g_hDutyColour]), arrGroupData[iGroupID][g_szGroupName], number_format(arrGroupData[iGroupID][g_iPaycheck][iRank]));
+			format(szMiscArray,sizeof(szMiscArray)," {%s}%s {FFFFFF}Bonus Paycheck: $%s", Group_NumToDialogHex(arrGroupData[iGroupID][g_hDutyColour]), arrGroupData[iGroupID][g_szGroupName], number_format(arrGroupData[iGroupID][g_iPaycheck][iRank]));
 			SendClientMessageEx(i, COLOR_GRAD2, szMiscArray);
 			format(szMiscArray, sizeof(szMiscArray), "%s has been paid $%s from %s's budget.", GetPlayerNameEx(i), number_format(arrGroupData[iGroupID][g_iPaycheck][iRank]), arrGroupData[iGroupID][g_szGroupName]);
 			GroupPayLog(iGroupID, szMiscArray);

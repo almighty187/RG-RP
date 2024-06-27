@@ -13578,6 +13578,38 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			}
 		}
 	}
+	if(dialogid == DIALOG_LSPDCELLDOORS)
+	{
+		if(response)
+		{
+			switch(listitem)
+			{
+				case 0:
+				{
+				    GetDynamicObjectPos(LSPDCellDoor[1], X, Y, Z);
+					MoveDynamicObject(LSPDCellDoor[1],320.9514,312.9058,999.4304,1);
+					SetTimer("CloseCellDoorLSPD2", 10000, 0);
+					SendServerMessage(playerid, "The cell door will automatically close in 10 seconds!");
+				}
+				case 1:
+				{
+				    GetDynamicObjectPos(LSPDCellDoor[2], X, Y, Z);
+					MoveDynamicObject(LSPDCellDoor[2],320.9496,316.8583,999.4304,1);
+					SetTimer("CloseCellDoorLSPD3", 10000, 0);
+					SendServerMessage(playerid, "The cell door will automatically close in 10 seconds!");
+				}
+				case 2:
+				{
+    				GetDynamicObjectPos(LSPDCellDoor[2], X, Y, Z);
+    				MoveDynamicObject(LSPDCellDoor[1],320.9514,312.9058,999.4304,1);
+					MoveDynamicObject(LSPDCellDoor[2],320.9496,316.8583,999.4304,1);
+					SetTimer("CloseCellDoorLSPD2", 10000, 0);
+					SetTimer("CloseCellDoorLSPD3", 10000, 0);
+					SendServerMessage(playerid, "The cell doors will automatically close in 10 seconds!");
+				}
+			}
+		}
+	}
 	if(dialogid == DIALOG_MEDIC_LIST) {
 		if(response) Medic_GetPatient(playerid, ListItemTrackId[playerid][listitem]);
 	}

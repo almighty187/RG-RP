@@ -4,6 +4,16 @@
  	if(strfind(error, "Streamer_GetIntData: Invalid", true) != -1) return 0;
  	return 1;
 }*/
+forward CloseCellDoorLSPD3();
+public CloseCellDoorLSPD3()
+{
+	MoveDynamicObject(LSPDCellDoor[2],320.9495500,315.3982800,999.4304200,2);
+}
+forward CloseCellDoorLSPD2();
+public CloseCellDoorLSPD2()
+{
+	MoveDynamicObject(LSPDCellDoor[1],320.9513500,311.4257500,999.4304200,2);
+}
 forward CloseLSPDP2Door();
 public CloseLSPDP2Door()
 {

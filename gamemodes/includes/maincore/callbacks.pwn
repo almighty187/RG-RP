@@ -648,6 +648,19 @@ public OnPlayerPressButton(playerid, buttonid)
 			return 1;
 		}
 	}
+	if(buttonid == LSPDButtons[4])
+	{
+		if(IsACop(playerid))
+		{
+			ShowPlayerDialog(playerid, DIALOG_LSPDCELLDOORS, DIALOG_STYLE_LIST, "LSPD Cell Door", "Cell Door 1\nCell Door 2\nOpen Both Cells", "Open", "Exit");
+			PlayerPlaySound(playerid, 6400, 0.0, 0.0, 10.0);
+		}
+		else
+		{
+			SendErrorMessage(playerid,"Access denied.");
+			return 1;
+		}
+	}
 	if(buttonid == rightdoor)
 	{
 		if(IsACop(playerid))
