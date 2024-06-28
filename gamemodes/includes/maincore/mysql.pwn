@@ -2217,7 +2217,7 @@ stock SavePlayerFloat(query[], sqlid, Value[], Float:Number)
 	return 1;
 }
 
-stock g_mysql_SaveAccount(playerid, string[] = "")
+stock g_mysql_SaveAccount(playerid)
 {
     new query[5048];
 
@@ -2611,7 +2611,7 @@ stock g_mysql_SaveAccount(playerid, string[] = "")
 	}
 	SavePlayerString(query, GetPlayerSQLId(playerid), "JailedWeapons", mistring);
 
-	mysql_tquery(MainPipeline, string, "OnQueryFinish", "i", SENDDATA_THREAD);
+	//mysql_tquery(MainPipeline, string, "OnQueryFinish", "i", SENDDATA_THREAD);
 
 	/*for(new idrugs = 0; idrugs < sizeof(Drugs); ++idrugs)
 	{
