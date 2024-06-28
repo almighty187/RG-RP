@@ -26,8 +26,11 @@ AdvanceTutorial(playerid)
 			SetPlayerInterior(playerid, 0);
 			SetPlayerVirtualWorld(playerid, playerid + 1);
 
-			InterpolateCameraPos(playerid, 1333.5521, -1388.1493, 67.2808, 1387.4829, -923.4698, 90.6020, 15000, CAMERA_MOVE);
-			InterpolateCameraLookAt(playerid, 1333.5950, -1387.1521, 67.3258, 1387.7191, -922.5004, 90.4920, 15000, CAMERA_MOVE);
+			//InterpolateCameraPos(playerid, 1333.5521, -1388.1493, 67.2808, 1387.4829, -923.4698, 90.6020, 15000, CAMERA_MOVE);
+			//InterpolateCameraLookAt(playerid, 1333.5950, -1387.1521, 67.3258, 1387.7191, -922.5004, 90.4920, 15000, CAMERA_MOVE);
+			
+			InterpolateCameraPos(playerid, 1379.7037, -911.9236, 90.3238, 966.0190, -966.7051, 70.2507, 15000, CAMERA_MOVE);
+			InterpolateCameraLookAt(playerid, 1379.7037, -911.9236, 90.3238, 966.0190, -966.7051, 70.2507, 15000, CAMERA_MOVE);
 
 			KillTimer(TutorialTime[playerid]);
 			SetPVarInt(playerid, "pTutorialTimer", 10);
@@ -36,8 +39,11 @@ AdvanceTutorial(playerid)
 		}
 		case 1:
 		{
-			InterpolateCameraPos(playerid, 725.9147, -1610.8770, 3.0359, 734.8999, -1962.6320, -6.3299, 15000, CAMERA_MOVE);
-			InterpolateCameraLookAt(playerid, 725.9500, -1611.8734, 3.0057, 734.9311, -1963.6292, -6.5201, 15000, CAMERA_MOVE);
+	 		//InterpolateCameraPos(playerid, 1857.9161, -1774.3829, 44.0898, 734.8999, -1962.6320, -6.3299, 15000, CAMERA_MOVE);
+			//InterpolateCameraLookAt(playerid, 1857.9161, -1774.3829, 44.0898, 734.9311, -1963.6292, -6.5201, 15000, CAMERA_MOVE);
+			
+			InterpolateCameraPos(playerid, 1835.7194, -1752.1326, 41.1492, 2150.9004, -1765.8152, 31.2323, 15000, CAMERA_MOVE);
+			InterpolateCameraLookAt(playerid, 1835.7194, -1752.1326, 41.1492, 2150.9004, -1765.8152, 31.2323, 15000, CAMERA_MOVE);
 
 			KillTimer(TutorialTime[playerid]);
 			SetPVarInt(playerid, "pTutorialTimer", 10);
@@ -46,8 +52,11 @@ AdvanceTutorial(playerid)
 		}
 		case 2:
 		{
-			InterpolateCameraPos(playerid, 1104.7491, -1401.8911, 14.6202, 1145.8008, -1471.2203, 27.1695, 15000, CAMERA_MOVE);
-			InterpolateCameraLookAt(playerid, 1105.5040, -1402.5443, 14.5450, 1145.2341, -1470.3988, 26.7043, 15000, CAMERA_MOVE);
+			//InterpolateCameraPos(playerid, 1104.7491, -1401.8911, 14.6202, 1145.8008, -1471.2203, 27.1695, 15000, CAMERA_MOVE);
+			//InterpolateCameraLookAt(playerid, 1105.5040, -1402.5443, 14.5450, 1145.2341, -1470.3988, 26.7043, 15000, CAMERA_MOVE);
+			
+			InterpolateCameraPos(playerid, 1168.6161, -1401.7990, 23.6686, 1397.6395, -1402.4535, 24.2597, 15000, CAMERA_MOVE);
+			InterpolateCameraLookAt(playerid, 1168.6161, -1401.7990, 23.6686, 1397.6395, -1402.4535, 24.2597, 15000, CAMERA_MOVE);
 
 			KillTimer(TutorialTime[playerid]);
 			SetPVarInt(playerid, "pTutorialTimer", 10);
@@ -84,8 +93,8 @@ AdvanceTutorial(playerid)
 		case 6 .. 10: ShowTutorialDialog(playerid, PlayerInfo[playerid][pTut]);
 		case 11:
 		{
-			InterpolateCameraPos(playerid, 1457.7699, -870.9628, 63.1767, 1525.9520, -805.8469, 72.9416, 15000, CAMERA_MOVE);
-			InterpolateCameraLookAt(playerid, 1458.4862, -870.2654, 63.1212, 1526.6012, -805.0862, 72.9162, 15000, CAMERA_MOVE);
+			InterpolateCameraPos(playerid, 1481.9900, -1161.6862, 33.9542, 1482.7791, -1031.1025, 36.4863, 15000, CAMERA_MOVE);
+			InterpolateCameraLookAt(playerid, 1481.9900, -1161.6862, 33.9542, 1482.7791, -1031.1025, 36.4863, 15000, CAMERA_MOVE);
 
 			ShowTutorialDialog(playerid, 11);
 			SetPlayerInterior(playerid, 0);
@@ -135,7 +144,7 @@ AdvanceTutorial(playerid)
 			SendClientMessageEx(playerid, COLOR_WHITE, "Head the checkpoint on your map to purchase a phone.");
 			SendClientMessageEx(playerid, COLOR_GREY, "-----------------------------");
 
-			SetPlayerCheckpoint(playerid, 999.6548,-919.9871,42.3281, 5.0);
+			SetPlayerCheckpoint(playerid, 2158.0908,-1733.6814,12.9163, 5.0);
 		}
 		case 18:
 		{
