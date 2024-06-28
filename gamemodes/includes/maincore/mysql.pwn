@@ -710,10 +710,10 @@ public OnQueryFinish(resultid, extraid, handleid)
 					/*cache_get_value_name(row,  "ToggledChats", szResult);
 					sscanf(szResult, "p<|>e<dddddddddddddddddddd>", PlayerInfo[extraid][pToggledChats]);*/
 
-					for(new c = 0; c < MAX_CHATSETS; c++) {
+					/*for(new c = 0; c < MAX_CHATSETS; c++) {
 						format(szMiscArray, sizeof(szMiscArray), "ChatTog%d", c);
 						cache_get_value_name_int(row, szMiscArray, PlayerInfo[extraid][pToggledChats][c]);
-					}
+					}*/
 					cache_get_value_name_int(row, "FlagCredits", PlayerInfo[extraid][pFlagCredits]);
 					cache_get_value_name_int(row, "FlagClaimed", PlayerInfo[extraid][pFlagClaimed]);
 					
