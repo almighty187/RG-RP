@@ -590,7 +590,7 @@ public OnPlayerPressButton(playerid, buttonid)
 	}
     if(buttonid == HospitalLeftDoor[0] || buttonid == HospitalLeftDoor[1])
 	{
-		if(IsAMedic(playerid))
+		if(IsAMedic(playerid) || IsACop(playerid))
 		{
 			MoveDynamicObject(HospitalDoor[1],2387.8667,2649.4907,8000.1504,2);
 			PlayerPlaySound(playerid, 6400, 0.0, 0.0, 10.0);
@@ -604,7 +604,7 @@ public OnPlayerPressButton(playerid, buttonid)
 	}
     if(buttonid == HospitalRightDoor[0] || buttonid ==  HospitalRightDoor[1])
 	{
-		if(IsAMedic(playerid))
+		if(IsAMedic(playerid) || IsACop(playerid))
 		{
 			MoveDynamicObject(HospitalDoor[0],2376.6492,2649.4067,8000.1216,2);
 			PlayerPlaySound(playerid, 6400, 0.0, 0.0, 10.0);
