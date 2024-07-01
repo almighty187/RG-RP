@@ -66,7 +66,7 @@ stock GivePlayerStoreItem(playerid, type, business, item, price)
   		case ITEM_CONDOM:
 		{
 			Condom[playerid]++;
-			SendClientMessageEx(playerid, COLOR_GRAD4, "Condom Purchased.");
+			SendClientMessageEx(playerid, COLOR_GRAD4, "Condom purchased.");
 		}
   		case ITEM_MUSICPLAYER:
 		{
@@ -84,7 +84,7 @@ stock GivePlayerStoreItem(playerid, type, business, item, price)
   		case ITEM_CIGAR:
 		{
 			PlayerInfo[playerid][pCigar] = 10;
-			SendClientMessageEx(playerid, COLOR_GRAD4, "10 cigars purchased.");
+			SendClientMessageEx(playerid, COLOR_GRAD4, "10 Cigars purchased.");
 			SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Type /usecigar to use your cigars. Left mouse button to smoke it, F to throw it away.");
 		}
   		case ITEM_SPRUNK:
@@ -96,7 +96,7 @@ stock GivePlayerStoreItem(playerid, type, business, item, price)
   		case ITEM_VEHICLELOCK:
 		{
 			PlayerInfo[playerid][pLock] = 1;
-			SendClientMessageEx(playerid, COLOR_GRAD4, "Vehicle Lock purchased.");
+			SendClientMessageEx(playerid, COLOR_GRAD4, "Vehicle lock purchased.");
 			SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Type /lock to lock your vehicle.");
 		}
 		case ITEM_SPRAYCAN:
@@ -488,19 +488,6 @@ stock RefreshBusinessPickup(i)
 	    	DestroyDynamic3DTextLabel(Businesses[i][bDoorText]);
 	    	Businesses[i][bDoorText] = CreateDynamic3DTextLabel("{FFFFFF}[{3366FF}Business{FFFFFF}]", 0x0080FFFF, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2]+0.50, 25.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1, 100.0);
  		}
-        /*if (Businesses[i][bOwner] < 1) {
-			format(szMiscArray,sizeof(szMiscArray),"%s\n\nBusiness For Sale!\nCost: %s\nID: %d", GetBusinessTypeName(Businesses[i][bType]), number_format(Businesses[i][bValue]), i);
-		}
-		else {
-		    if(Businesses[i][bType] != BUSINESS_TYPE_GYM) {
-				format(szMiscArray,sizeof(szMiscArray),"%s\n\n%s [Owner: %s]\nID: %d", GetBusinessTypeName(Businesses[i][bType]), Businesses[i][bName], StripUnderscore(Businesses[i][bOwnerName]), i);
-			}
-			else {
-			    format(szMiscArray,sizeof(szMiscArray),"%s\n\n%s [Owner: %s]\nID: %d\nGym Entrance: $%s", GetBusinessTypeName(Businesses[i][bType]), Businesses[i][bName], StripUnderscore(Businesses[i][bOwnerName]), i, number_format(Businesses[i][bGymEntryFee]));
-			}
-		}
-		Businesses[i][bDoorText] =	CreateDynamic3DTextLabel(szMiscArray, BUSINESS_NAME_COLOR, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2] + 0.85, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1);
-		Businesses[i][bStateText] =	CreateDynamic3DTextLabel((Businesses[i][bStatus]) ? ("Open") : ("Closed"), (Businesses[i][bStatus]) ? BUSINESS_OPEN_COLOR : BUSINESS_CLOSED_COLOR, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2] + 1.05, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1);*/
 		if(Businesses[i][bSupplyPos][0] != 0.0)
 		{
 			format(szMiscArray,sizeof(szMiscArray),"%s\nSupply Delivery Point", Businesses[i][bName]);
