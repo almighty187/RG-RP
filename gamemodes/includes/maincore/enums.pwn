@@ -319,6 +319,7 @@ enum eBiz {
 	bTotalProfits,
 	Text3D: bStateText,
 	Text3D: bDoorText,
+	Text3d: bDoorText2,
 	Text3D: bSupplyText,
 	bPickup,
 	bPickup_int,

@@ -450,6 +450,7 @@ stock CreateDynamicGasPump(iPlayerID = INVALID_PLAYER_ID, iBusiness, iPump)
 
 stock RefreshBusinessPickup(i)
 {
+	DestroyDynamic3DTextLabel(Businesses[i][bDoorText2]);
 	DestroyDynamic3DTextLabel(Businesses[i][bDoorText]);
   	//DestroyDynamic3DTextLabel(Businesses[i][bStateText]);
   	DestroyDynamic3DTextLabel(Businesses[i][bSupplyText]);
@@ -477,7 +478,10 @@ stock RefreshBusinessPickup(i)
 			DestroyDynamicPickup(Businesses[i][bPickup]);
         	Businesses[i][bPickup] = CreateDynamicPickup(1274, 23, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2]);
 	    	DestroyDynamic3DTextLabel(Businesses[i][bDoorText]);
+	    	DestroyDynamic3DTextLabel(Businesses[i][bDoorText2]);
 	    	Businesses[i][bDoorText] = CreateDynamic3DTextLabel("{FFFFFF}[{3366FF}Business{FFFFFF}]", 0x0080FFFF, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2] + 0.75, 25.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1, 100.0);
+	    	format(szMiscArray,sizeof(szMiscArray),"{FFFFFF}%s\nBusiness For {33AA33}Sale{FFFFFF}!\nCost: {33AA33}%s{FFFFFF}\nID: %d", GetBusinessTypeName(Businesses[i][bType]), number_format(Businesses[i][bValue]), i);
+	    	Businesses[i][bDoorText2] = CreateDynamic3DTextLabel(szMiscArray, COLOR_WHITE, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2], 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1);
         } else if (Businesses[i][bOwned] == 1) {
         	DestroyDynamicPickup(Businesses[i][bPickup]);
             Businesses[i][bPickup] = CreateDynamicPickup(1239, 23, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2]);
