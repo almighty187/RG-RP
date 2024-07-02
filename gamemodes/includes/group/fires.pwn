@@ -110,7 +110,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 	return 0;
 }
 
-stock CreateTypeFire(iTypeID) {
+/*stock CreateTypeFire(iTypeID) {
 
 	new iTargetID;
 	new playerid;
@@ -164,7 +164,62 @@ stock CreateTypeFire(iTypeID) {
 			SetPlayerCheckpoint(playerid, fire_fRandomLocations[iTargetID][0], fire_fRandomLocations[iTargetID][1], fire_fRandomLocations[iTargetID][2], 10.0);
 		}
 	}
+}*/
+stock CreateTypeFire(iTypeID, playerid) {
+
+    new iTargetID;
+    switch(iTypeID) {
+
+        case 0: // Houses
+        {
+            iTargetID = Fire_GetRandomValidID(iTypeID);
+            if(iTargetID != -1 && iTargetID < sizeof(HouseInfo)) {
+
+                new szLocation[MAX_ZONE_NAME];
+                CreateStructureFire(HouseInfo[iTargetID][hExteriorX], HouseInfo[iTargetID][hExteriorY], HouseInfo[iTargetID][hExteriorZ], HouseInfo[iTargetID][hExtVW]);
+                CreateStructureFire(HouseInfo[iTargetID][hInteriorX], HouseInfo[iTargetID][hInteriorY], HouseInfo[iTargetID][hInteriorZ], HouseInfo[iTargetID][hIntVW]);
+                arrFires[iTargetID][fire_iTypeID] = iTypeID;
+                Get3DZone(HouseInfo[iTargetID][hExteriorX], HouseInfo[iTargetID][hExteriorY], HouseInfo[iTargetID][hExteriorZ], szLocation, sizeof(szLocation));
+                format(szMiscArray, sizeof(szMiscArray), "**HQ There was a fire reported somewhere in %s.", szLocation);
+                SendGroupMessage(GROUP_TYPE_MEDIC, COLOR_LIGHTRED, szMiscArray);
+                DisablePlayerCheckpoint(playerid);
+                SetPlayerCheckpoint(playerid, HouseInfo[iTargetID][hExteriorX], HouseInfo[iTargetID][hExteriorY], HouseInfo[iTargetID][hExteriorZ], 10.0);
+            }
+        }
+        case 1: // Businesses
+        {
+            iTargetID = Fire_GetRandomValidID(iTypeID);
+            if(iTargetID != -1 && iTargetID < sizeof(Businesses)) {
+
+                new szLocation[MAX_ZONE_NAME];
+                CreateStructureFire(Businesses[iTargetID][bExtPos][0], Businesses[iTargetID][bExtPos][1], Businesses[iTargetID][bExtPos][2], 0);
+                CreateStructureFire(Businesses[iTargetID][bIntPos][0], Businesses[iTargetID][bIntPos][1], Businesses[iTargetID][bIntPos][2], Businesses[iTargetID][bVW]);
+                arrFires[iTargetID][fire_iTypeID] = iTypeID;
+                Get3DZone(Businesses[iTargetID][bExtPos][0], Businesses[iTargetID][bExtPos][1], Businesses[iTargetID][bExtPos][2], szLocation, sizeof(szLocation));
+                format(szMiscArray, sizeof(szMiscArray), "**HQ: There was a fire reported somewhere in %s.", szLocation);
+                SendGroupMessage(GROUP_TYPE_MEDIC, COLOR_LIGHTRED, szMiscArray);
+                DisablePlayerCheckpoint(playerid);
+                SetPlayerCheckpoint(playerid, Businesses[iTargetID][bExtPos][0], Businesses[iTargetID][bExtPos][1], Businesses[iTargetID][bExtPos][2], 10.0);
+            }
+        }
+        case 2: // Random
+        {
+            new szLocation[MAX_ZONE_NAME];
+            iTargetID = random(sizeof(fire_fRandomLocations));
+            if (iTargetID >= 0 && iTargetID < sizeof(fire_fRandomLocations)) {
+                CreateStructureFire(fire_fRandomLocations[iTargetID][0], fire_fRandomLocations[iTargetID][1], fire_fRandomLocations[iTargetID][2], 0);
+                arrFires[iTargetID][fire_iTypeID] = iTypeID;
+                Get3DZone(fire_fRandomLocations[iTargetID][0], fire_fRandomLocations[iTargetID][1], fire_fRandomLocations[iTargetID][2], szLocation, sizeof(szLocation));
+                format(szMiscArray, sizeof(szMiscArray), "**HQ There was a fire reported somewhere in %s.", szLocation);
+                SendGroupMessage(GROUP_TYPE_MEDIC, COLOR_LIGHTRED, szMiscArray);
+                DisablePlayerCheckpoint(playerid);
+                SetPlayerCheckpoint(playerid, fire_fRandomLocations[iTargetID][0], fire_fRandomLocations[iTargetID][1], fire_fRandomLocations[iTargetID][2], 10.0);
+            }
+        }
+    }
 }
+
+
 
 stock Fire_GetRandomValidID(iTypeID) {
 
