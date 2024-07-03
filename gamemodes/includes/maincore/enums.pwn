@@ -1559,6 +1559,7 @@ enum ddInfo
 	ddAreaID,
 	ddAreaID_int,
 	Text3D: ddTextID,
+	Text3D: ddTextID2,
 	ddCustomInterior,
 	ddExteriorVW,
 	ddExteriorInt,
