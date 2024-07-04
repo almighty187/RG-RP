@@ -6,7 +6,6 @@ stock SaveGarages()
 	{
 		SaveGarage(i);
 	}
-	SendDiscordMessage(4, "Garage saving finished");
 	return 1;
 }
 

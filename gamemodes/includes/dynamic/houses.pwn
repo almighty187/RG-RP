@@ -575,7 +575,6 @@ stock SaveHouses()
 		SaveHouse(i);
 	}
 	ABroadCast(COLOR_LIGHTRED, "House saving finished.", 4);
-	SendDiscordMessage(4, "House saving finished");
 	return 1;
 }
 
