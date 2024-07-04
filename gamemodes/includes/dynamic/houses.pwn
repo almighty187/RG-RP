@@ -315,7 +315,7 @@ public OnLoadHouse(index)
 			format(szField, sizeof(szField), "LinkedDoor%d", i);
 			cache_get_value_name_int(row, szField, HouseInfo[index][LinkedDoor][i]);
 		}
-		
+		ReloadHouseText2(index);
 		cache_get_value_name_int(row, "LinkedGarage0", HouseInfo[index][LinkedGarage][0]);
 		cache_get_value_name_int(row, "LinkedGarage1", HouseInfo[index][LinkedGarage][1]);
 
@@ -435,7 +435,6 @@ public OnLoadHouses()
 	if(i > 0) printf("[LoadHouses] %d houses rehashed/loaded.", i);
 	else printf("[LoadHouses] Failed to load any houses.");
 }
-
 stock ReloadHouseText(houseid)
 {
 	if (HouseInfo[houseid][hOwned] == 0) {
@@ -445,16 +444,20 @@ stock ReloadHouseText(houseid)
 	    DestroyDynamic3DTextLabel(HouseInfo[houseid][hTextID]);
 	    HouseInfo[houseid][hTextID] = CreateDynamic3DTextLabel("{FFFFFF}[{FF6347}Property{FFFFFF}]", 0x00AE00FF, HouseInfo[houseid][hExteriorX], HouseInfo[houseid][hExteriorY], HouseInfo[houseid][hExteriorZ] + 0.75, 25.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, HouseInfo[houseid][hExtVW], HouseInfo[houseid][hExtIW], -1, 100.0);
 	}
-
-	/*if(HouseInfo[houseid][hOwned])
-	{
-		if(HouseInfo[houseid][hRentable]) format(string, sizeof(string), "This house is owned by\n%s\nRent: $%s\nLevel: %d\nID: %d\nType /rentroom to rent a room", StripUnderscore(HouseInfo[houseid][hOwnerName]), number_format(HouseInfo[houseid][hRentFee]), HouseInfo[houseid][hLevel], houseid);
-		else format(string, sizeof(string), "This house is owned by\n%s\nLevel: %d\nID: %d", StripUnderscore(HouseInfo[houseid][hOwnerName]), HouseInfo[houseid][hLevel], houseid);
-	}
-	else format(string, sizeof(string), "This house is for sale!\n\n Description: %s\nCost: $%s\n Level: %d\nID: %d\nTo buy this house type /buyhouse", HouseInfo[houseid][hDescription], number_format(HouseInfo[houseid][hValue]), HouseInfo[houseid][hLevel], houseid);
-	UpdateDynamic3DTextLabelText(HouseInfo[houseid][hTextID], HouseInfo[houseid][hInactive] ? COLOR_LIGHTBLUE : COLOR_GREEN, string);*/
 }
-
+stock ReloadHouseText2(houseid)
+{
+	new string[258];
+	DestroyDynamic3DTextLabel(HouseInfo[houseid][hTextID2]);
+	if(HouseInfo[houseid][hOwned])
+	{
+		if(HouseInfo[houseid][hRentable]) format(string, sizeof(string), "{FF6347}This house is owned by\n{FFFFFF}%s\nRent: $%s\nLevel: %d\nID: %d\nType /rentroom to rent a room", StripUnderscore(HouseInfo[houseid][hOwnerName]), number_format(HouseInfo[houseid][hRentFee]), HouseInfo[houseid][hLevel], houseid);
+		else format(string, sizeof(string), "{FF6347}This house is owned by\n{FFFFFF}%s\nLevel: %d\nID: %d", StripUnderscore(HouseInfo[houseid][hOwnerName]), HouseInfo[houseid][hLevel], houseid);
+	}
+	else format(string, sizeof(string), "{339900}This house is for sale{FFFFFF}\n\n Description: %s\nCost: {339900}${FFFFFF}%s\n Level: %d\nID: %d\nTo buy this house type /buyhouse", HouseInfo[houseid][hDescription], number_format(HouseInfo[houseid][hValue]), HouseInfo[houseid][hLevel], houseid);
+	HouseInfo[houseid][hTextID2] = CreateDynamic3DTextLabel(string, 0x00AE00FF, HouseInfo[houseid][hExteriorX], HouseInfo[houseid][hExteriorY], HouseInfo[houseid][hExteriorZ], 30.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, HouseInfo[houseid][hExtVW], HouseInfo[houseid][hExtIW], -1, 100.0);
+	//UpdateDynamic3DTextLabelText(HouseInfo[houseid][hTextID], HouseInfo[houseid][hInactive] ? COLOR_LIGHTBLUE : COLOR_GREEN, string);
+}
 stock ReloadHousePickup(houseid)
 {
 	/*if(IsValidDynamicPickup(HouseInfo[houseid][hPickupID])) DestroyDynamicPickup(HouseInfo[houseid][hPickupID]), HouseInfo[houseid][hPickupID] = -1;
@@ -719,6 +722,7 @@ CMD:buyhouse(playerid, params[])
 					PlayerInfo[playerid][pVW] = HouseInfo[h][hIntVW];
 					SetPlayerVirtualWorld(playerid,HouseInfo[h][hIntVW]);
 					ReloadHouseText(h);
+					ReloadHouseText2(h);
 					ReloadHousePickup2(h);
 					format(string,sizeof(string),"%s(%d) (IP: %s) has bought house ID %d for $%d.",GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), GetPlayerIpEx(playerid),h,HouseInfo[h][hValue]);
 					Log("logs/house.log", string);
@@ -1058,6 +1062,7 @@ CMD:hname(playerid, params[])
 	HouseInfo[houseid][hOwned] = 1;
 	SendClientMessageEx(playerid, COLOR_WHITE, string);
 	ReloadHouseText(houseid);
+	ReloadHouseText2(houseid);
 	SaveHouse(houseid);
 
 	format(string, sizeof(string), "%s has edited HouseID %d's Owner to %s.", GetPlayerNameEx(playerid), houseid, ownername);
@@ -1227,6 +1232,8 @@ CMD:hedit(playerid, params[])
 		SendClientMessageEx( playerid, COLOR_WHITE, "You have changed the exterior!" );
 		SaveHouse(houseid);
 		ReloadHousePickup(houseid);
+		ReloadHouseText(houseid);
+		ReloadHouseText2(houseid);
 	}
 	else if(strcmp(choice, "VW", true) == 0)
 	{
@@ -1247,6 +1254,7 @@ CMD:hedit(playerid, params[])
 		format(string, sizeof(string), "You have set the house level to %d.", amount);
 		SendClientMessageEx(playerid, COLOR_WHITE, string);
 		ReloadHouseText(houseid);
+		ReloadHouseText2(houseid);
 		format(string, sizeof(string), "%s has edited HouseID %d's Level to %d.", GetPlayerNameEx(playerid), houseid, amount);
 		Log("logs/hedit.log", string);
 		SendDiscordMessage(8, string);
@@ -1257,6 +1265,7 @@ CMD:hedit(playerid, params[])
 		format(string, sizeof(string), "You have set the houses price to $%d.", amount );
 		SendClientMessageEx(playerid, COLOR_WHITE, string);
 		ReloadHouseText(houseid);
+		ReloadHouseText2(houseid);
 		format(string, sizeof(string), "%s has edited HouseID %d's Price to $%d.", GetPlayerNameEx(playerid), amount);
 		Log("logs/hedit.log", string);
 		SendDiscordMessage(8, string);
@@ -1361,6 +1370,7 @@ CMD:shophouse(playerid, params[])
 		format(string, sizeof(string), "You have set the house level to %d.", amount);
 		SendClientMessageEx(playerid, COLOR_WHITE, string);
 		ReloadHouseText(houseid);
+		ReloadHouseText2(houseid);
 	}
 	else if(strcmp(choice, "price", true) == 0)
 	{
@@ -1368,6 +1378,7 @@ CMD:shophouse(playerid, params[])
 		format(string, sizeof(string), "You have set the houses price to $%d.", amount );
 		SendClientMessageEx(playerid, COLOR_WHITE, string);
 		ReloadHouseText(houseid);
+		ReloadHouseText2(houseid);
 	}
 	else if(strcmp(choice, "class", true) == 0)
 	{
@@ -1419,6 +1430,7 @@ CMD:shophousename(playerid, params[])
 	DestroyDynamicPickup(HouseInfo[houseid][hPickupID]);
 	HouseInfo[houseid][hPickupID] = CreateDynamicPickup(1273, 23, HouseInfo[houseid][hExteriorX], HouseInfo[houseid][hExteriorY], HouseInfo[houseid][hExteriorZ], .worldid = HouseInfo[houseid][hExtVW], .interiorid = HouseInfo[houseid][hExtIW]);
 	ReloadHouseText(houseid);
+	ReloadHouseText2(houseid);
 
 	SaveHouse(houseid);
 	format(string, sizeof(string), "[SHOPHOUSE] %s modified Owner on house %d to %s - Invoice %s", GetPlayerNameEx(playerid), houseid, ownername, invoice);
@@ -1471,6 +1483,7 @@ CMD:setrentable(playerid, params[])
 				{
 					HouseInfo[i][hRentable] = 1;
 					ReloadHouseText(i);
+					ReloadHouseText2(i);
 					ReloadHousePickup2(i);
 					return SendClientMessageEx(playerid, COLOR_WHITE, "This house is now rentable.");
 				}
@@ -1478,6 +1491,7 @@ CMD:setrentable(playerid, params[])
 				{
 					HouseInfo[i][hRentable] = 0;
 					ReloadHouseText(i);
+					ReloadHouseText2(i);
 					ReloadHousePickup2(i);
 					return SendClientMessageEx(playerid, COLOR_WHITE, "This house is no longer rentable." );
 				}
@@ -1508,6 +1522,7 @@ CMD:setrent(playerid, params[])
 					SendClientMessageEx(playerid, COLOR_WHITE, string);
 
 					ReloadHouseText(i);
+					ReloadHouseText2(i);
 					return 1;
 				}
 			}

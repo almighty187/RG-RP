@@ -1497,6 +1497,7 @@ enum hInfo
 	hPickupID,
 	hPickupID_int,
 	Text3D: hTextID,
+	Text3D: hTextID2,
 	Text3D:hTextID_int,
 	hCustomExterior,
 	Float: hMailX,
