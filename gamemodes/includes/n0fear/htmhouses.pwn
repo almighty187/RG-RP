@@ -223,6 +223,7 @@ CMD:removehouse(playerid, params[])
 	SaveHouse(houseid);
 	ReloadHousePickup(houseid);
 	ReloadHousePickup2(houseid);
+	ReloadHouseText2(houseid);
 	format(string, sizeof(string), "You have deleted house id %d.", houseid);
 	SendClientMessageEx(playerid, COLOR_WHITE, string);
 	format(string, sizeof(string), "%s has deleted house id %d", GetPlayerNameEx(playerid), houseid);

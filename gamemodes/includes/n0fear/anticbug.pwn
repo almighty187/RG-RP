@@ -50,7 +50,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					pCBugging[playerid] = true;
 
 					GameTextForPlayer(playerid, "~r~~h~DON'T C-BUG!", 3000, 4);
-					ApplyAnimation(playerid, "SWORD", "sword_block", 4.0, 0, 0, 0, 0, 0, 1);
+					ApplyAnimation(playerid, "SWORD", "sword_block", 4.0, 0, 0, 0, 0, 1, 0);
 	                format(string,sizeof(string),"{AA3333}AdmWarning{FFFF00}: %s (ID: %d) may possibly doing the C bug", GetPlayerNameEx(playerid), playerid);
 					ABroadCast(COLOR_YELLOW, string, 2);
 					format(string,sizeof(string),"AdmWarning: %s(%d) (ID: %d) may possibly doing the C bug", GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), playerid);

@@ -447,14 +447,19 @@ stock ReloadHouseText(houseid)
 }
 stock ReloadHouseText2(houseid)
 {
-	new string[258];
+	new string[258], price[50];
+	if(HouseInfo[houseid][hValue] <= 1) {
+	    price = "Donated";
+	} else {
+	    format(price, 50, "%s", number_format(HouseInfo[houseid][hValue]));
+	}
 	DestroyDynamic3DTextLabel(HouseInfo[houseid][hTextID2]);
 	if(HouseInfo[houseid][hOwned])
 	{
-		if(HouseInfo[houseid][hRentable]) format(string, sizeof(string), "{FF6347}This house is owned by\n{FFFFFF}%s\nRent: $%s\nLevel: %d\nID: %d\nType /rentroom to rent a room", StripUnderscore(HouseInfo[houseid][hOwnerName]), number_format(HouseInfo[houseid][hRentFee]), HouseInfo[houseid][hLevel], houseid);
-		else format(string, sizeof(string), "{FF6347}This house is owned by\n{FFFFFF}%s\nLevel: %d\nID: %d", StripUnderscore(HouseInfo[houseid][hOwnerName]), HouseInfo[houseid][hLevel], houseid);
+		if(HouseInfo[houseid][hRentable]) format(string, sizeof(string), "{FF6347}This house is owned by{FFFFFF}:\n\n%s\nRent: {339900}${FFFFFF}%s\nValue: {339900}${FFFFFF}%s\nLevel: %d\nID: %d\nType /rentroom to rent a room", StripUnderscore(HouseInfo[houseid][hOwnerName]), price, number_format(HouseInfo[houseid][hValue]), HouseInfo[houseid][hLevel], houseid);
+		else format(string, sizeof(string), "{FF6347}This house is owned by{FFFFFF}:\n\n%s\nValue: {339900}${FFFFFF}%s\nLevel: %d\nID: %d", StripUnderscore(HouseInfo[houseid][hOwnerName]), price, HouseInfo[houseid][hLevel], houseid);
 	}
-	else format(string, sizeof(string), "{339900}This house is for sale{FFFFFF}\n\n Description: %s\nCost: {339900}${FFFFFF}%s\n Level: %d\nID: %d\nTo buy this house type /buyhouse", HouseInfo[houseid][hDescription], number_format(HouseInfo[houseid][hValue]), HouseInfo[houseid][hLevel], houseid);
+	else format(string, sizeof(string), "{339900}This house is for sale{FFFFFF}\n\n Description: %s\nPrice: {339900}${FFFFFF}%s\n Level: %d\nID: %d\nTo buy this house type /buyhouse", HouseInfo[houseid][hDescription], number_format(HouseInfo[houseid][hValue]), HouseInfo[houseid][hLevel], houseid);
 	HouseInfo[houseid][hTextID2] = CreateDynamic3DTextLabel(string, 0x00AE00FF, HouseInfo[houseid][hExteriorX], HouseInfo[houseid][hExteriorY], HouseInfo[houseid][hExteriorZ], 30.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, HouseInfo[houseid][hExtVW], HouseInfo[houseid][hExtIW], -1, 100.0);
 	//UpdateDynamic3DTextLabelText(HouseInfo[houseid][hTextID], HouseInfo[houseid][hInactive] ? COLOR_LIGHTBLUE : COLOR_GREEN, string);
 }
