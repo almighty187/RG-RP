@@ -1927,6 +1927,7 @@ enum garInfo
 	gar_Pass[24],
 	gar_Locked,
 	Text3D: gar_TextID,
+	Text3D: gar_TextID2,
 	gar_AreaID,
 	gar_AreaID_int,
 	gar_PickupID,

@@ -48,7 +48,7 @@ hook OnGameModeInit()
 hook OnPlayerPickUpDynamicPickup(playerid, pickupid)
 {
     new string[512];
-	for(new h = 0; h < sizeof(HouseInfo); h++)
+	/*for(new h = 0; h < sizeof(HouseInfo); h++)
     {
         if(IsPlayerInRangeOfPoint(playerid,2.0,HouseInfo[h][hExteriorX],HouseInfo[h][hExteriorY],HouseInfo[h][hExteriorZ]))
         {
@@ -181,7 +181,7 @@ hook OnPlayerPickUpDynamicPickup(playerid, pickupid)
    			}
       		CreateLableText(playerid,"Door",string);
 		}
-	}
+	}*/
 	for(new a = 0; a < sizeof(ArrestPoints); a++)
     {
 	    if(IsPlayerInRangeOfPoint(playerid,3.0,ArrestPoints[a][arrestPosX],ArrestPoints[a][arrestPosY],ArrestPoints[a][arrestPosZ]))
