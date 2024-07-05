@@ -94,6 +94,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
 	        {
 	            if (GetPlayerVirtualWorld(playerid) == DropInfo[i][DropGunVWorld] && GetPlayerInterior(playerid) == DropInfo[i][DropGunInterior])
 	            {
+	            	if(PlayerInfo[playerid][pWRestricted] != 0 || PlayerInfo[playerid][pConnectHours] < 2) return SendClientMessageEx(playerid, COLOR_GRAD1, "You cannot use this while having a weapon restriction.");
 	                new sendername[MAX_PLAYER_NAME], string[128]; // Adjust size as needed
 	                GetPlayerName(playerid, sendername, sizeof(sendername));
 	                DestroyDynamicObject(DropObject[i]);
@@ -143,6 +144,7 @@ CMD:pickupgun(playerid, params[])
         {
             if (GetPlayerVirtualWorld(playerid) == DropInfo[i][DropGunVWorld] && GetPlayerInterior(playerid) == DropInfo[i][DropGunInterior])
             {
+                if(PlayerInfo[playerid][pWRestricted] != 0 || PlayerInfo[playerid][pConnectHours] < 2) return SendClientMessageEx(playerid, COLOR_GRAD1, "You cannot use this command while having a weapon restriction.");
                 GetPlayerName(playerid, sendername, sizeof(sendername));
                 DestroyDynamicObject(DropObject[i]);
                 DestroyDynamic3DTextLabel(DropInfo[i][GunText]);

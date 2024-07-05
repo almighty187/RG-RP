@@ -5166,7 +5166,7 @@ CMD:dvstorage(playerid, params[])
 	{
 		if(PlayerInfo[playerid][pLeader] == iGroupID)
 		{
-			if(IsPlayerInRangeOfPoint(playerid, 100.0, arrGroupData[iGroupID][g_fGaragePos][0], arrGroupData[iGroupID][g_fGaragePos][1], arrGroupData[iGroupID][g_fGaragePos][2]))
+			if(IsPlayerInRangeOfPoint(playerid, 99999999999.0, arrGroupData[iGroupID][g_fGaragePos][0], arrGroupData[iGroupID][g_fGaragePos][1], arrGroupData[iGroupID][g_fGaragePos][2]))
 			{
 				new vstring[3000];
 				for(new i; i < MAX_DYNAMIC_VEHICLES; i++)
