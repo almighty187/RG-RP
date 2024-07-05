@@ -190,7 +190,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 							// improved visibility
 							if(IsACop(p) && arrGroupData[PlayerInfo[playerid][pMember]][g_iAllegiance] == arrGroupData[PlayerInfo[p][pMember]][g_iAllegiance]) {
 								SendClientMessageEx(p, TEAM_BLUE_COLOR, "HQ: All units APB (reporter: {FFFFFF}%s{2641FE})", GetPlayerNameEx(playerid));
-								SendClientMessageEx(p, TEAM_BLUE_COLOR, "HQ: Crime: {FFFFFF}%s{2641FE}, suspect: {FFFFFF}%s", szCrime, GetPlayerNameEx(iTargetID));
+								SendClientMessageEx(p, TEAM_BLUE_COLOR, "HQ: Crime: {FFFFFF}%s,{2641FE} suspect: {FFFFFF}%s", szCrime, GetPlayerNameEx(iTargetID));
 							}
 						}
 						PlayerInfo[iTargetID][pDefendTime] = 60;

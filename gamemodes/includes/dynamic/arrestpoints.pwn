@@ -25,6 +25,78 @@ public OnLoadArrestPoint(index)
     szMiscArray[0] = 0;
     cache_get_row_count(rows);
 
+    for (new row = 0; row < rows; row++)
+    {
+        cache_get_value_name_int(row, "id", ArrestPoints[index][arrestSQLId]);
+        cache_get_value_name_float(row, "PosX", ArrestPoints[index][arrestPosX]);
+        cache_get_value_name_float(row, "PosY", ArrestPoints[index][arrestPosY]);
+        cache_get_value_name_float(row, "PosZ", ArrestPoints[index][arrestPosZ]);
+        cache_get_value_name_int(row, "VW", ArrestPoints[index][arrestVW]);
+        cache_get_value_name_int(row, "Int", ArrestPoints[index][arrestInt]);
+        cache_get_value_name_int(row, "Type", ArrestPoints[index][arrestType]);
+
+        if (ArrestPoints[index][arrestPosX] != 0)
+        {
+            switch (ArrestPoints[index][arrestType])
+            {
+                case 0:
+                {
+                    format(szMiscArray, sizeof(szMiscArray), "/arrest\nArrest Point #%d", index);
+                    format(szMiscArray, sizeof(szMiscArray), "/arrest\nArrest Point #%d", index);
+                    ArrestPoints[index][arrestTextID] = CreateDynamic3DTextLabel(szMiscArray, COLOR_DBLUE, ArrestPoints[index][arrestPosX], ArrestPoints[index][arrestPosY], ArrestPoints[index][arrestPosZ] + 0.6, 4.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, ArrestPoints[index][arrestVW], ArrestPoints[index][arrestInt], -1);
+                    ArrestPoints[index][arrestPickupID] = CreateDynamicPickup(1247, 23, ArrestPoints[index][arrestPosX], ArrestPoints[index][arrestPosY], ArrestPoints[index][arrestPosZ], ArrestPoints[index][arrestVW]);
+                    break;
+                }
+                case 2:
+                {
+                    format(szMiscArray, sizeof(szMiscArray), "/docarrest\nArrest Point #%d", index);
+                    ArrestPoints[index][arrestTextID] = CreateDynamic3DTextLabel(szMiscArray, COLOR_DBLUE, ArrestPoints[index][arrestPosX], ArrestPoints[index][arrestPosY], ArrestPoints[index][arrestPosZ] + 0.6, 4.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, ArrestPoints[index][arrestVW], ArrestPoints[index][arrestInt], -1);
+                    ArrestPoints[index][arrestPickupID] = CreateDynamicPickup(1247, 23, ArrestPoints[index][arrestPosX], ArrestPoints[index][arrestPosY], ArrestPoints[index][arrestPosZ], ArrestPoints[index][arrestVW]);
+                    break;
+                }
+                case 3:
+                {
+                    format(szMiscArray, sizeof(szMiscArray), "/warrantarrest\nArrest Point #%d", index);
+                    ArrestPoints[index][arrestTextID] = CreateDynamic3DTextLabel(szMiscArray, COLOR_DBLUE, ArrestPoints[index][arrestPosX], ArrestPoints[index][arrestPosY], ArrestPoints[index][arrestPosZ] + 0.6, 4.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, ArrestPoints[index][arrestVW], ArrestPoints[index][arrestInt], -1);
+                    ArrestPoints[index][arrestPickupID] = CreateDynamicPickup(1247, 23, ArrestPoints[index][arrestPosX], ArrestPoints[index][arrestPosY], ArrestPoints[index][arrestPosZ], ArrestPoints[index][arrestVW]);
+                    break;
+                }
+                case 4:
+                {
+                    format(szMiscArray, sizeof(szMiscArray), "/jarrest\nArrest Point #%d", index);
+                    ArrestPoints[index][arrestTextID] = CreateDynamic3DTextLabel(szMiscArray, COLOR_DBLUE, ArrestPoints[index][arrestPosX], ArrestPoints[index][arrestPosY], ArrestPoints[index][arrestPosZ] + 0.6, 4.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, ArrestPoints[index][arrestVW], ArrestPoints[index][arrestInt], -1);
+                    ArrestPoints[index][arrestPickupID] = CreateDynamicPickup(1247, 23, ArrestPoints[index][arrestPosX], ArrestPoints[index][arrestPosY], ArrestPoints[index][arrestPosZ], ArrestPoints[index][arrestVW]);
+                    break;
+                }
+            }
+        }
+    }
+    return 1;
+}
+
+// Example calling function'
+forward LoadAllArrestPoints();
+public LoadAllArrestPoints()
+{
+    for (new i = 0; i < MAX_ARRESTPOINTS; i++) { // Ensure loop range is correct
+        printf("Calling OnLoadArrestPoint with index: %d", i);
+        OnLoadArrestPoint(i);
+    }
+}
+/*forward OnLoadArrestPoint(index);
+public OnLoadArrestPoint(index)
+{
+    // Ensure the index is within the valid range
+    if (index < 0 || index >= MAX_ARRESTPOINTS)
+    {
+        printf("Error: Index out of bounds. Index: %d, Maximum allowed: %d", index, MAX_ARRESTPOINTS - 1);
+        return 0;
+    }
+
+    new rows;
+    szMiscArray[0] = 0;
+    cache_get_row_count(rows);
+
     for (new row; row < rows; row++)
     {
         cache_get_value_name_int(row, "id", ArrestPoints[index][arrestSQLId]);
@@ -72,7 +144,7 @@ public OnLoadArrestPoint(index)
     }
     return 1;
 }
-/*forward OnLoadArrestPoint(index);
+forward OnLoadArrestPoint(index);
 public OnLoadArrestPoint(index)
 {
 	new rows;
@@ -131,21 +203,21 @@ public OnLoadArrestPoints()
 
 	while(i < rows)
 	{
-		/*ArrestPoints[i][arrestSQLId] = cache_get_field_content_int(i, "id", MainPipeline);
-		ArrestPoints[i][arrestPosX] = cache_get_field_content_float(i, "PosX", MainPipeline);
-		ArrestPoints[i][arrestPosY] = cache_get_field_content_float(i, "PosY", MainPipeline);
-		ArrestPoints[i][arrestPosZ] = cache_get_field_content_float(i, "PosZ", MainPipeline);
-		ArrestPoints[i][arrestVW] = cache_get_field_content_int(i, "VW", MainPipeline); 
-		ArrestPoints[i][arrestInt] = cache_get_field_content_int(i, "Int", MainPipeline); 
-		ArrestPoints[i][arrestType] = cache_get_field_content_int(i, "Type", MainPipeline); 
-		ArrestPoints[i][jailVW] = cache_get_field_content_int(i, "jailVW", MainPipeline); 
-		ArrestPoints[i][jailInt] = cache_get_field_content_int(i, "jailInt", MainPipeline);
-		ArrestPoints[i][JailPos1][0] = cache_get_field_content_float(i, "jailpos1x", MainPipeline);
-		ArrestPoints[i][JailPos1][1] = cache_get_field_content_float(i, "jailpos1y", MainPipeline);
-		ArrestPoints[i][JailPos1][2] = cache_get_field_content_float(i, "jailpos1z", MainPipeline);
-		ArrestPoints[i][JailPos2][0] = cache_get_field_content_float(i, "jailpos2x", MainPipeline);
-		ArrestPoints[i][JailPos2][1] = cache_get_field_content_float(i, "jailpos2y", MainPipeline);
-		ArrestPoints[i][JailPos2][2] = cache_get_field_content_float(i, "jailpos2z", MainPipeline);
+		/*ArrestPoints[i][arrestSQLId] = cache_get_value_name_int(i, "id", MainPipeline);
+		ArrestPoints[i][arrestPosX] = cache_get_value_name_float(i, "PosX", MainPipeline);
+		ArrestPoints[i][arrestPosY] = cache_get_value_name_float(i, "PosY", MainPipeline);
+		ArrestPoints[i][arrestPosZ] = cache_get_value_name_float(i, "PosZ", MainPipeline);
+		ArrestPoints[i][arrestVW] = cache_get_value_name_int(i, "VW", MainPipeline);
+		ArrestPoints[i][arrestInt] = cache_get_value_name_int(i, "Int", MainPipeline);
+		ArrestPoints[i][arrestType] = cache_get_value_name_int(i, "Type", MainPipeline);
+		ArrestPoints[i][jailVW] = cache_get_value_name_int(i, "jailVW", MainPipeline);
+		ArrestPoints[i][jailInt] = cache_get_value_name_int(i, "jailInt", MainPipeline);
+		ArrestPoints[i][JailPos1][0] = cache_get_value_name_float(i, "jailpos1x", MainPipeline);
+		ArrestPoints[i][JailPos1][1] = cache_get_value_name_float(i, "jailpos1y", MainPipeline);
+		ArrestPoints[i][JailPos1][2] = cache_get_value_name_float(i, "jailpos1z", MainPipeline);
+		ArrestPoints[i][JailPos2][0] = cache_get_value_name_float(i, "jailpos2x", MainPipeline);
+		ArrestPoints[i][JailPos2][1] = cache_get_value_name_float(i, "jailpos2y", MainPipeline);
+		ArrestPoints[i][JailPos2][2] = cache_get_value_name_float(i, "jailpos2z", MainPipeline);
 		if(ArrestPoints[i][arrestPosX] != 0)
 		{
 			switch(ArrestPoints[i][arrestType])

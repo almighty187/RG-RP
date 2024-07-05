@@ -5064,12 +5064,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 					//new rand = random(sizeof(LSPDJailSpawns));
 					//SetPlayerFacingAngle(suspect, LSPDJailSpawns[rand][3]);
 					//SetPlayerPos(suspect, LSPDJailSpawns[rand][0], LSPDJailSpawns[rand][1], LSPDJailSpawns[rand][2]);
-					switch(random(2)) {
-						case 0: {
+					switch(random(2))
+					{
+						case 0:
+						{
 							SetPlayerPos(suspect, ArrestPoints[GetArrestPointID(playerid)][JailPos1][0], ArrestPoints[GetArrestPointID(playerid)][JailPos1][1], ArrestPoints[GetArrestPointID(playerid)][JailPos1][2]);
 							Player_StreamPrep(suspect, ArrestPoints[GetArrestPointID(playerid)][JailPos1][0], ArrestPoints[GetArrestPointID(playerid)][JailPos1][1], ArrestPoints[GetArrestPointID(playerid)][JailPos1][2], FREEZE_TIME);
 						}
-						case 1: {
+						case 1:
+						{
 							SetPlayerPos(suspect, ArrestPoints[GetArrestPointID(playerid)][JailPos2][0], ArrestPoints[GetArrestPointID(playerid)][JailPos2][1], ArrestPoints[GetArrestPointID(playerid)][JailPos2][2]);
 							Player_StreamPrep(suspect, ArrestPoints[GetArrestPointID(playerid)][JailPos2][0], ArrestPoints[GetArrestPointID(playerid)][JailPos2][1], ArrestPoints[GetArrestPointID(playerid)][JailPos2][2], FREEZE_TIME);
 						}

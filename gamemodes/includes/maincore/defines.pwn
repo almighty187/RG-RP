@@ -136,7 +136,7 @@ native IsValidVehicle(vehicleid);
 #define 		MAX_3DLABELS 				(500)
 #define 		MAX_SPEEDCAMERAS			(50)
 #define 		MAX_PAYNSPRAYS				(25)
-#define 		MAX_ARRESTPOINTS			(30)
+#define 		MAX_ARRESTPOINTS			(50)
 #define 		MAX_IMPOUNDPOINTS			(20)
 #define 		MAX_DRUGS					(1000)
 #define         NATION_SAN_ANDREAS		 	0
