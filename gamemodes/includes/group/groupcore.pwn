@@ -671,7 +671,7 @@ Group_ReturnAllegiance(iAllegianceID) {
 
 	switch(iAllegianceID) {
 		case 1: szResult = "San Andreas";
-		case 2: szResult = "New Robada";
+		case 2: szResult = "New Eire";
 	}
 	return szResult;
 }
@@ -5410,7 +5410,7 @@ CMD:showbadge(playerid, params[])
 				SendClientMessageEx(giveplayerid, COLOR_WHITE, string);
 				switch(arrGroupData[PlayerInfo[playerid][pMember]][g_iAllegiance]) {
 					case 1: SendClientMessageEx(giveplayerid, COLOR_WHITE, "Under the Authority of the San Andreas Government.");
-					case 2: SendClientMessageEx(giveplayerid, COLOR_WHITE, "Under the Authority of the Nation of New Robada.");
+					case 2: SendClientMessageEx(giveplayerid, COLOR_WHITE, "Under the Authority of the Nation of New Eire.");
 				}
 				if(IsACop(playerid)) SendClientMessageEx(giveplayerid, COLOR_WHITE, "Official has the authority to arrest.");
 				else if(arrGroupData[PlayerInfo[playerid][pMember]][g_iGroupType] != 2) SendClientMessageEx(giveplayerid, COLOR_WHITE, "Official has the authority to assist in arrests.");
@@ -6649,7 +6649,7 @@ CMD:factions(playerid, params[])
 	return 1;
 }
 
-CMD:groups(playerid, params[])
+/*CMD:groups(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 2) return SendClientMessage(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
 
@@ -6691,7 +6691,7 @@ CMD:groups(playerid, params[])
 		if(iCount == 0) SendClientMessageEx(playerid, COLOR_GRAD3, "There are no players online in this gang.");
 	}
 	return 1;
-}
+}*/
 
 //CMD:families(playerid, params[]) return cmd_orgs(playerid, params);
 CMD:orgs(playerid, params[])

@@ -244,7 +244,7 @@ CMD:travel(playerid, params[])
 						SetPVarInt(playerid, "tpJustEntered", 1);
 					SetVehicleZAngle(tmpcar, 14.1091);
 					fVehSpeed[playerid] = 0.0;
-					SendServerMessage(playerid, "Famed: You have traveled to the front of the New Robada famed lounge.");
+					SendServerMessage(playerid, "Famed: You have traveled to the front of the New Eire famed lounge.");
 					SetPlayerInterior(playerid,0);
 					PlayerInfo[playerid][pInt] = 0;
 					SetPlayerVirtualWorld(playerid, 0);
