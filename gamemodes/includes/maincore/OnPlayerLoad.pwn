@@ -756,7 +756,7 @@ public OnPlayerLoad(playerid)
 	TogglePlayerSpectating(playerid, 0);
 	format(string, sizeof(string), "~w~Welcome,~n~~g~%s!", GetPlayerNameEx(playerid));
 	GameTextForPlayer(playerid, string, 5000, 1);
-	SendClientMessageEx(playerid, COLOR_WHITE, GlobalMOTD);
+	SendClientMessageEx(playerid, COLOR_YELLOW, GlobalMOTD);
 
 	/*if(PlayerInfo[playerid][pAdmin] > 0) {
 		if(PlayerInfo[playerid][pAdmin] >= 2) SendClientMessageEx(playerid, COLOR_YELLOW, HMOTD);

@@ -6604,6 +6604,94 @@ CMD:families(playerid, params[])
 	}
 	return 1;
 }
+CMD:factions(playerid, params[])
+{
+	if(isnull(params))
+	{
+		szMiscArray[0] = 0;
+		SendClientMessage(playerid, COLOR_GRAD2, "USAGE: /factions [id]");
+		for(new i = 0; i < MAX_GROUPS; i++)
+		{
+			if(arrGroupData[i][g_iGroupType] != GROUP_TYPE_CRIMINAL && strlen(arrGroupData[i][g_szGroupName]) > 0)
+			{
+				new iMemberCount = 0;
+				foreach(new x: Player)
+				{
+					if(PlayerInfo[x][pMember] == i) iMemberCount++;
+				}
+
+				format(szMiscArray, sizeof szMiscArray, "** {%s}%s {FFFFFF}(%d) | Slot Holder: %s | Total Members: %d | Members Online: %d", Group_NumToDialogHex(arrGroupData[i][g_hDutyColour]), arrGroupData[i][g_szGroupName], i, arrGroupData[i][g_SlotHolder], arrGroupData[i][g_iMemberCount], iMemberCount);
+				SendClientMessage(playerid, COLOR_WHITE, szMiscArray);
+			}
+		}
+	}
+	else
+	{
+		new grp = strval(params);
+		if(grp < 0 || grp > MAX_GROUPS || strlen(arrGroupData[grp][g_szGroupName]) == 0) return SendClientMessage(playerid, COLOR_GRAD2, "Invalid group ID specified.");
+
+		if(arrGroupData[grp][g_iGroupType] == GROUP_TYPE_CRIMINAL) return SendClientMessage(playerid, COLOR_GRAD2, "That group is not a faction.");
+
+		new iCount = 0;
+
+		foreach(new i: Player)
+		{
+			if(PlayerInfo[i][pMember] == grp)
+			{
+				format(szMiscArray, sizeof szMiscArray, "** %s (ID: %d) - %s (%d)", GetPlayerNameEx(i), i, arrGroupRanks[grp][PlayerInfo[i][pRank]], PlayerInfo[i][pRank]);
+				SendClientMessage(playerid, COLOR_WHITE, szMiscArray);
+				iCount++;
+			}
+		}
+
+		if(iCount == 0) SendClientMessage(playerid, COLOR_GRAD3, "There are no players online in this faction.");
+	}
+	return 1;
+}
+
+CMD:groups(playerid, params[])
+{
+	if(PlayerInfo[playerid][pAdmin] < 2) return SendClientMessage(playerid, COLOR_GRAD2, "You are not authorized to use this command.");
+
+	if(isnull(params))
+	{
+		szMiscArray[0] = 0;
+		SendClientMessage(playerid, COLOR_GRAD2, "USAGE: /groups [id]");
+		for(new i = 0; i < MAX_GROUPS; i++)
+		{
+			if(strlen(arrGroupData[i][g_szGroupName]) > 0)
+			{
+				new iMemberCount = 0;
+				foreach(new x: Player)
+				{
+					if(PlayerInfo[x][pMember] == i) iMemberCount++;
+				}
+
+				format(szMiscArray, sizeof szMiscArray, "** {%s}%s {FFFFFF}(%d) | Slot Holder: %s | Total Members: %d | Members Online: %d", Group_NumToDialogHex(arrGroupData[i][g_hDutyColour]), arrGroupData[i][g_szGroupName], i, arrGroupData[i][g_SlotHolder], arrGroupData[i][g_iMemberCount], iMemberCount);
+				SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
+			}
+		}
+	}
+	else
+	{
+		new grp = strval(params);
+		if(grp < 0 || grp > MAX_GROUPS || strlen(arrGroupData[grp][g_szGroupName]) == 0) return SendClientMessage(playerid, COLOR_GRAD2, "Invalid group ID specified.");
+		new iCount = 0;
+
+		foreach(new i: Player)
+		{
+			if(PlayerInfo[i][pMember] == grp)
+			{
+				format(szMiscArray, sizeof szMiscArray, "** %s (ID: %d) - %s (%d)", GetPlayerNameEx(i), i, arrGroupRanks[grp][PlayerInfo[i][pRank]], PlayerInfo[i][pRank]);
+				SendClientMessageEx(playerid, COLOR_WHITE, szMiscArray);
+				iCount++;
+			}
+		}
+
+		if(iCount == 0) SendClientMessageEx(playerid, COLOR_GRAD3, "There are no players online in this gang.");
+	}
+	return 1;
+}
 
 //CMD:families(playerid, params[]) return cmd_orgs(playerid, params);
 CMD:orgs(playerid, params[])
