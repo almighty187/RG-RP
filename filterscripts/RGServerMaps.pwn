@@ -21567,6 +21567,8 @@ stock RemoveBuildingsFromPlayer(playerid)
 		RemoveBuildingForPlayer(playerid, 1438, -77.4219, -1165.5547, 1.0234, 0.25);
 
 		// neaf removed objects
+		RemoveBuildingForPlayer(playerid, 17067, -588.7500, -1046.1797, 22.2891, 0.25);
+		RemoveBuildingForPlayer(playerid, 696, -603.2969, -1054.7969, 27.5234, 0.25);
 		RemoveBuildingForPlayer(playerid, 785, -594.9141, -1954.3984, 31.5625, 0.25);
 		RemoveBuildingForPlayer(playerid, 785, -635.9219, -1923.8828, 8.8125, 0.25);
 		RemoveBuildingForPlayer(playerid, 785, -535.4766, -1851.0703, 8.8125, 0.25);
