@@ -248,7 +248,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				PlayerInfo[playerid][pNation] = listitem;
 				switch(listitem) {
 					case 0: SendServerMessage(playerid, "You are now a citizen of San Andreas.");
-					case 1: SendServerMessage(playerid, "You are now a citizen of New Eire.");
+					case 1: SendServerMessage(playerid, "You are now a citizen of New Robada.");
 				}
 			}
 			else
@@ -258,7 +258,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				PlayerInfo[playerid][pNation] = rand;
 				switch(rand) {
 					case 0: SendServerMessage(playerid, "You are now a citizen of San Andreas.");
-					case 1: SendServerMessage(playerid, "You are now a citizen of New Eire.");
+					case 1: SendServerMessage(playerid, "You are now a citizen of New Robada.");
 				}
 			}
 		}

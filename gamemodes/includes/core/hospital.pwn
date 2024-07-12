@@ -413,9 +413,9 @@ ReturnDeliveryPoint(iDPID)
 
 ReturnDeliveryPointNation(point)
 {
-	// if you're going to add a new hospital delivery point, add the corresponding hospital ID to here if it is a New Eire hospital.
+	// if you're going to add a new hospital delivery point, add the corresponding hospital ID to here if it is a New Robada hospital.
 	// 0 = San Andreas
-	// 1 = New Eire
+	// 1 = New Robada
 	
 	new nation;
 	switch(point)

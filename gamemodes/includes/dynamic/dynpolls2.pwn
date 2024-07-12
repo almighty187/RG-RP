@@ -73,7 +73,7 @@ stock ShowPlayerEditPollDialog(playerid)
 
 	new szNation[25];
 	if(PollInfo[iPollID][poll_iNation] == 0) format(szNation, sizeof szNation, "San Andreas");
-	else if(PollInfo[iPollID][poll_iNation] == 1) format(szNation, sizeof szNation, "New Eire");
+	else if(PollInfo[iPollID][poll_iNation] == 1) format(szNation, sizeof szNation, "New Robada");
 	else format(szNation, sizeof szNation, "None");
 
 	format(szMiscArray, sizeof szMiscArray, "{FFFFFF}Title: {5EC7EB}%s\n{FFFFFF}No. of Options: {5EC7EB}%d\n{FFFFFF}Edit Options\nEdit Position\nType: {5EC7EB}%s (%d)\n{FFFFFF}Type Rank: {5EC7EB}%d{FFFFFF}\nType ID (group/business): {5EC7EB}%d\n{FFFFFF}Nation: {5EC7EB}%s\n{FFFFFF}Expiration Date: {5EC7EB}%s",
@@ -401,7 +401,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				}
 				case 7:
 				{
-					ShowPlayerDialogEx(playerid, DIALOG_EDIT_NATION, DIALOG_STYLE_LIST, "Editing Nation Restriction", "No Nation Restriction\nSan Andreas\nNew Eire", "Edit", "Cancel");
+					ShowPlayerDialogEx(playerid, DIALOG_EDIT_NATION, DIALOG_STYLE_LIST, "Editing Nation Restriction", "No Nation Restriction\nSan Andreas\nNew Robada", "Edit", "Cancel");
 				}
 				case 8: ShowPlayerDialogEx(playerid, DIALOG_EDIT_EXPIRATIONDATE, DIALOG_STYLE_INPUT, "Editing Expiration Date", "Input the desired amount of days at which you want the poll to expire (note - this is from the creation date).", "Edit", "Cancel");
 			}
@@ -920,7 +920,7 @@ CMD:vote(playerid, params[])
 				if(PollInfo[iPollID][poll_iNation] != -1)
 				{
 					if(PollInfo[iPollID][poll_iNation] == 0 && PlayerInfo[playerid][pNation] != 0) return SendClientMessage(playerid, COLOR_GRAD2, "This poll is restricted to San Andreas - you cannot vote in it.");
-					else if(PollInfo[iPollID][poll_iNation] == 1 && PlayerInfo[playerid][pNation] != 1) return SendClientMessage(playerid, COLOR_GRAD2, "This poll is restricted to New Eire - you cannot vote in it.");
+					else if(PollInfo[iPollID][poll_iNation] == 1 && PlayerInfo[playerid][pNation] != 1) return SendClientMessage(playerid, COLOR_GRAD2, "This poll is restricted to New Robada - you cannot vote in it.");
 				}
 
 				if(iCanUse) // Just in case?
@@ -982,7 +982,7 @@ CMD:polls(playerid, params[]) {
             	
             	if(PollInfo[i][poll_iNation] == -1) format(szNation, sizeof szNation, "None");
             	else if(PollInfo[i][poll_iNation] == 0) format(szNation, sizeof szNation, "San Andreas");
-            	else if(PollInfo[i][poll_iNation] == 1) format(szNation, sizeof szNation, "New Eire");
+            	else if(PollInfo[i][poll_iNation] == 1) format(szNation, sizeof szNation, "New Robada");
 
                 iPollCount++;
                 format(szMiscArray, sizeof(szMiscArray), "Poll ID: %d | Title / Topic: %s | No. of Options: %d | Placed By: %s (Unique Key: %s) | Nation: %s", i, PollInfo[i][poll_szTitle], PollInfo[i][poll_iOptions], PollInfo[i][poll_szPlacedBy], PollInfo[i][poll_szUniqueKey], szNation);

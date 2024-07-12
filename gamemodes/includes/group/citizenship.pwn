@@ -158,7 +158,7 @@ NationSel_HandleNationSelection(playerid)
 			if(floatround(diff) >= 30)
 			{
 				AddNationQueue(playerid, 1, 1);
-				SendClientMessageEx(playerid, COLOR_RED, "The nation of New Eire is currently full. You have been placed into a queue to join.");
+				SendClientMessageEx(playerid, COLOR_RED, "The nation of New Robada is currently full. You have been placed into a queue to join.");
 				switch(random(2))
 				{
 					case 0:
@@ -217,7 +217,7 @@ stock GetPlayerNation(playerid) {
 	szMiscArray[0] = 0;
 	switch(PlayerInfo[playerid][pNation]) {
 		case 0: szMiscArray = "San Andreas";
-		case 1: szMiscArray = "New Eire";
+		case 1: szMiscArray = "New Robada";
 		case 2: szMiscArray = "None";
 	}
 	return szMiscArray;
@@ -228,7 +228,7 @@ CMD:apply(playerid, params[])
 	new choice[3];
 	if(sscanf(params, "s[3]", choice))
 	{
-		SendSyntaxMessage(playerid, "/apply [SA|NE]");
+		SendSyntaxMessage(playerid, "/apply [SA|NR]");
 		return 1;
 	}
 	if(PlayerInfo[playerid][pFreezeBank] || PlayerInfo[playerid][pFreezeHouse] || PlayerInfo[playerid][pFreezeCar]) {
@@ -240,9 +240,9 @@ CMD:apply(playerid, params[])
 		if(PlayerInfo[playerid][pNation] == 0) return SendClientMessageEx(playerid, COLOR_GREY, "You're currently part of San Andreas.");
 		CheckNationQueue(playerid, 0);
 	}
-	else if(strcmp(choice, "NE", true) == 0)
+	else if(strcmp(choice, "nr", true) == 0)
 	{
-		if(PlayerInfo[playerid][pNation] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "You're currently part of New Eire.");
+		if(PlayerInfo[playerid][pNation] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "You're currently part of New Robada.");
 		CheckNationQueue(playerid, 1);
 	}
 	return 1;
@@ -297,7 +297,7 @@ CMD:deport(playerid, params[])
 						SetPlayerFacingAngle(giveplayerid, 180.0);
 					}
 				}
-				SendServerMessage(giveplayerid, "You have been deported back to New Eire.");
+				SendServerMessage(giveplayerid, "You have been deported back to New Robada.");
 			}
 			else if(PlayerInfo[playerid][pNation] == 1 && PlayerInfo[giveplayerid][pNation] == 0)
 			{

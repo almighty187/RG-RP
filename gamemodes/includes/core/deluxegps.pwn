@@ -345,7 +345,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				}
 				case 2: {
 					SetPVarInt(playerid, "gpsUsingID", 0);
-					ShowPlayerDialogEx(playerid, DIALOG_GPS_TWO, DIALOG_STYLE_LIST, "General Locations", "Faction HQs\nBanks\nVIP Areas\nHospitals\nNew Eire\nMiscellaneous", "Okay", "Cancel");
+					ShowPlayerDialogEx(playerid, DIALOG_GPS_TWO, DIALOG_STYLE_LIST, "General Locations", "Faction HQs\nBanks\nVIP Areas\nHospitals\nNew Robada\nMiscellaneous", "Okay", "Cancel");
 				}
 				case 3: {
 					SetPVarInt(playerid, "gpsUsingID", 1);
@@ -385,7 +385,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 						}
 						case 4:
 						{
-							ShowPlayerDialogEx(playerid, DIALOG_GPS_GEN, DIALOG_STYLE_LIST, "New Eire", "Flint Hospital\nBayside Apartments\nBayside VIP\nCapitol\nTRES HQ\n\
+							ShowPlayerDialogEx(playerid, DIALOG_GPS_GEN, DIALOG_STYLE_LIST, "New Robada", "Flint Hospital\nBayside Apartments\nBayside VIP\nCapitol\nTRES HQ\n\
 								TRAF HQ\nTRES Recruitment\nEl Quebrados Hospital\nLas Barranca Bank\nFort Carsonal Hospital", "Okay", "Cancel");
 						}
 						case 5: 
