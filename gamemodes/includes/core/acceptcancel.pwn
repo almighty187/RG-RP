@@ -2339,7 +2339,7 @@ CMD:cancel(playerid, params[])
 	if(strcmp(choice, "objectives", true) == 0 && PlayerInfo[playerid][pTut] >= 15)
 	{
 		SendClientMessageEx(playerid, COLOR_GREY, "-----------------------------");
-		SendClientMessageEx(playerid, COLOR_WHITE, "You have canceled the objectives tutorial. Welcome to Next Generation Gaming!");
+		SendClientMessageEx(playerid, COLOR_WHITE, "You have canceled the objectives tutorial. Welcome to Rebound Gaming!");
 		SendClientMessageEx(playerid, COLOR_GREY, "-----------------------------");
 		PlayerInfo[playerid][pTut] = -1;
 		DisablePlayerCheckpoint(playerid);

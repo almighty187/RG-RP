@@ -61,7 +61,7 @@ stock ShopTechBroadCast(color,string[])
 stock Player_KillCheckPoint(playerid) {
 	if(PlayerInfo[playerid][pTut] != -1) {
 		SendClientMessageEx(playerid, COLOR_GREY, "-----------------------------");
-		SendClientMessageEx(playerid, COLOR_WHITE, "You have canceled the objectives tutorial. Welcome to Next Generation Gaming!");
+		SendClientMessageEx(playerid, COLOR_WHITE, "You have canceled the objectives tutorial. Welcome to Rebound Gaming!");
 		SendClientMessageEx(playerid, COLOR_GREY, "-----------------------------");
 		PlayerInfo[playerid][pTut] = -1;
 	}

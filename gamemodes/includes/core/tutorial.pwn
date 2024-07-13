@@ -250,7 +250,7 @@ ShowTutorialDialog(playerid, stage)
 			strcat(szMiscArray, "{F69500}Roleplay{FFFFFF}\n\n");
 			strcat(szMiscArray, "In order to roleplay, you should create a character. Every character should have a story, every character needs a story! Who are they? Where do\n");
 			strcat(szMiscArray, "they come from? Why are they in San Andreas? That's all up to you!\n\n");
-			strcat(szMiscArray, "But first you should get to know some of the terminology we use at Next Generation Gaming.\n\n");
+			strcat(szMiscArray, "But first you should get to know some of the terminology we use at Rebound Gaming.\n\n");
 			strcat(szMiscArray, "\t{FF0000}In Character (IC){FFFFFF}: Anything that constitutes your character, or involves them. This is accomponied by the in-game text chat, radio's, cell phones, etc.\n");
 			strcat(szMiscArray, "\t\tExample: Your character is talking to another character. You might say \"Hi, what's your name?\" This conversation is in character.\n\n");
 			strcat(szMiscArray, "\t{FF0000}Out Of Character (OOC){FFFFFF}: This is you speaking, not your character! Anything that has to do with you personally is considered out of character. Out of\n");
@@ -291,7 +291,7 @@ ShowTutorialDialog(playerid, stage)
 			szMiscArray = "{FFFFFF}_______________________________________________________________________________________________________________________________________________________\n\n\n";
 			strcat(szMiscArray, "{F69500}Groups{FFFFFF}\n\n");
 			strcat(szMiscArray, "It's fun to be a civilian, but it's more fun to join a group.\n\n");
-			strcat(szMiscArray, "\tAt Next Generation Gaming, we offer more of a diverse selection of groups that players can join. There are many different types of groups:\n");
+			strcat(szMiscArray, "\tAt Rebound Gaming, we offer more of a diverse selection of groups that players can join. There are many different types of groups:\n");
 			strcat(szMiscArray, "\t{FF0000}Government (GOV){FFFFFF}: The government imposes new laws and manages the budget of San Andreas.\n");
 			strcat(szMiscArray, "\t{FF0000}Judicial (JUD){FFFFFF}: They manage the constitution of San Andreas and manage court cases against people and agencies.\n");
 			strcat(szMiscArray, "\t{FF0000}Law Enforcement Agency (LEA){FFFFFF}: They enfroce the laws written by the government and arrest violators of the law.\n");
@@ -349,7 +349,7 @@ ShowTutorialDialog(playerid, stage)
 		{
 			szMiscArray = "{FFFFFF}_______________________________________________________________________________________________________________________________________________________\n\n\n";
 			strcat(szMiscArray, "{F69500}Useful Commands{FFFFFF}\n\n");
-			strcat(szMiscArray, "At Next Generation Gaming, we have a lot of commands you can use to enhance your experience. You may use /help to refer to some of these.\n\n");
+			strcat(szMiscArray, "At Rebound Gaming, we have a lot of commands you can use to enhance your experience. You may use /help to refer to some of these.\n\n");
 			strcat(szMiscArray, "\t{FF0000}/newb(ie){FFFFFF} - Ask a question, and one of our Advisors will answer it!\n");
 			strcat(szMiscArray, "\t{FF0000}/(cancel)report{FFFFFF} - Contact an administrator if you need one or report another player for breaking the rules.\n");
 			strcat(szMiscArray, "\t{FF0000}/stats{FFFFFF} - View various information attached to your account.\n");

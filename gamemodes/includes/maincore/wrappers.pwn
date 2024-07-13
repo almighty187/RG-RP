@@ -11,7 +11,7 @@
 //--------------------------------[WRAPPERS.PWN]--------------------------------
 
 
- * Copyright (c) 2016, Next Generation Gaming, LLC
+ * Copyright (c) 2016, Rebound Gaming, LLC
  *
  * All rights reserved.
  *

@@ -10,7 +10,7 @@
 			|__/  \__/ \______/         |__/  |__/|__/
 
                   Next Generation RolePlay Animations
-		(created by Next Generation Gaming Development Team)
+		(created by Rebound Gaming Development Team)
 
 		Combined Credits:
 		(***) GhoulSlayeR

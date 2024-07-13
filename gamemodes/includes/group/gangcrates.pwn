@@ -9,15 +9,15 @@
 	| $$ \  $$|  $$$$$$/        | $$  | $$| $$
 	|__/  \__/ \______/         |__/  |__/|__/
 
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
+				Rebound Gaming, LLC
+	(created by Rebound Gaming Development Team)
 
 	Developers:
 		- Dom
 		- Jingles
 		- Miguel
 		
-	* Copyright (c) 2016, Next Generation Gaming, LLC
+	* Copyright (c) 2016, Rebound Gaming, LLC
 	*
 	* All rights reserved.
 	*

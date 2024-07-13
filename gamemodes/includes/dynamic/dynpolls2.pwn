@@ -4,7 +4,7 @@
 ALTER TABLE `accounts` ADD `PollKeyA` VARCHAR(128) NOT NULL AFTER `GuardsGiven`, ADD `PollKeyB` VARCHAR(128) NOT NULL AFTER `PollKeyA`, ADD `PollKeyC` VARCHAR(128) NOT NULL AFTER `PollKeyB`; */
 
 /*
-	Next Generation Gaming Development Team
+	Rebound Gaming Development Team
 
 	Project Name: Dynamic Polling System
 	Author: Westen (westen@ng-gaming.net)

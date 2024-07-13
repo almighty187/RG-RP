@@ -11,10 +11,10 @@
 
 						Judicial Group Type
 
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
+				Rebound Gaming, LLC
+	(created by Rebound Gaming Development Team)
 					
-	* Copyright (c) 2016, Next Generation Gaming, LLC
+	* Copyright (c) 2016, Rebound Gaming, LLC
 	*
 	* All rights reserved.
 	*
@@ -56,10 +56,10 @@ stock JudgeOnlineCheck()
 
 					Offline Warranting
 
-				Next Generation Gaming, LLC
-	(created by Next Generation Gaming Development Team)
+				Rebound Gaming, LLC
+	(created by Rebound Gaming Development Team)
 
-	* Copyright (c) 2016, Next Generation Gaming, LLC
+	* Copyright (c) 2016, Rebound Gaming, LLC
 */
 
 // Created by Bohemoth
