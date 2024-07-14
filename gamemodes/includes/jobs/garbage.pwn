@@ -192,7 +192,7 @@ public GarbageJobLoad(playerid)
 	}
 	else
 	{
-	    SetPlayerCheckpoint(playerid, 2520.4834,-2089.1470,13.5469, 4.0); // return to hq
+	    SetPlayerCheckpoint(playerid, 2188.2346, -1977.3616, 13.5527, 4.0); // return to hq
 	    SendClientMessageEx(playerid, COLOR_WHITE, "Your garbage truck is full, make your way back to headquarters.");
 	}
     return 1;
