@@ -255,7 +255,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 				case 1:
 				{
 					format(szMiscArray, sizeof(szMiscArray), "{80FF00}%s - {FF0000}EDIT NATION", arrCrimeData[iEditCrime][c_szName]);
-					ShowPlayerDialogEx(playerid, DIALOG_CRIMES_NATION, DIALOG_STYLE_LIST, szMiscArray, "San Andreas\nNew Robada", "Select", "Cancel");
+					ShowPlayerDialogEx(playerid, DIALOG_CRIMES_NATION, DIALOG_STYLE_LIST, szMiscArray, "San Andreas\nNew Eire", "Select", "Cancel");
 				}
 				case 2:
 				{
