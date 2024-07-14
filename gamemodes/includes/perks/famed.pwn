@@ -256,7 +256,7 @@ CMD:setfamed(playerid, params[])
 			SendClientMessageEx(playerid, COLOR_GRAD2, "(5) Famed Commissioner - (6) Famed Moderator - (7) Vice-Chairman - (8) Chairman");
 			return 1;
 		}
-		if(level > 7) return SendServerMessage(playerid, "Valid Famed levels are 0-8.");
+		if(level > 8) return SendServerMessage(playerid, "Valid Famed levels are 0-8.");
 		if(IsPlayerConnected(targetid))
 		{
 		    if(targetid != INVALID_PLAYER_ID)

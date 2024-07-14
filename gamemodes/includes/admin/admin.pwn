@@ -1227,13 +1227,14 @@ CMD:goto(playerid, params[])
 			}
 			else if (!strcmp(type, "pos", true))
 			{
-				new Float: pos[3], int;
-				if(sscanf(string, "fffd", pos[0], pos[1], pos[2], int))
-				   return SendSyntaxMessage(playerid, "/goto [pos] [x coordinate] [y coordinate] [z coordinate] [interior]");
+				new Float: pos[3], int, vw;
+				if(sscanf(string, "fffdd", pos[0], pos[1], pos[2], int, vw))
+				   return SendSyntaxMessage(playerid, "/goto [pos] [x coordinate] [y coordinate] [z coordinate] [interior] [virtual world]");
 
 				SendClientMessage(playerid, COLOR_GREY, "You have been teleported to the coordinates specified.");
 				SetPlayerPos(playerid, pos[0], pos[1], pos[2]);
 				SetPlayerInterior(playerid, int);
+				SetPlayerVirtualWorld(playerid, vw);
 			}
 			else if (!strcmp(type, "interior", true))
 			{
@@ -4254,7 +4255,7 @@ CMD:serverstats(playerid, params[])
 
 	while(x < MAX_VEHICLES) if(GetVehicleModel(++x)) ++iVehCount;
 
-	format(string,sizeof(string),"Server Statistics - Version %s (recorded since the 20th of August, 2010).",SERVER_GM_TEXT);
+	format(string,sizeof(string),"Server Statistics - Version %s (recorded since the 13th of July, 2024).",SERVER_GM_TEXT);
 	SendClientMessageEx(playerid, COLOR_WHITE, string);
 	format(string, sizeof(string), "* Objects: %d | Pickups: %d | Map icons: %d | 3D text labels: %d | Text draws: %d | Loaded houses: %d",CountDynamicObjects(),CountDynamicPickups(),CountDynamicMapIcons(),CountDynamic3DTextLabels(),textdrawscount,MAX_HOUSES);
 	SendClientMessageEx(playerid, COLOR_GREY, string);

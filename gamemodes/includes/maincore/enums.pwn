@@ -2234,6 +2234,7 @@ new const g_arrLocationData[][e_LocationData] = {
     {"San Fierro", -1605.0, 720.0, 12.0},
 	{"Las Venturas", 1699.2, 1435.1, 10.7},
 	{"Los Santos VIP Lounge", 1810.39, -1601.15, 13.54},
+	{"LS Docks", 2693.8335,-2496.5542,13.6641},
 	{"All Saints General Hospital", 1192.78, -1292.68, 13.38},
 	{"County General Hospital", 2000.05, -1409.36, 16.99},
 	{"Ganton GYM", 2227.60, -1674.89, 14.62},
