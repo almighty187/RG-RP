@@ -179,7 +179,7 @@ CMD:speedopos(playerid, params[])
 		}
 		
 		PlayerTextDrawDestroy(playerid, _vhudTextFuel[playerid]);
-		_vhudTextFuel[playerid] = CreatePlayerTextDraw(playerid, TPosX[0], TPosY[0], "~w~Fuel: N/A");
+		_vhudTextFuel[playerid] = CreatePlayerTextDraw(playerid, TPosX[0], TPosY[0], "~b~Fuel: N/A");
 		PlayerTextDrawBackgroundColor(playerid, _vhudTextFuel[playerid], 255);
 		PlayerTextDrawFont(playerid, _vhudTextFuel[playerid], 1);
 		PlayerTextDrawLetterSize(playerid, _vhudTextFuel[playerid], 0.270000, 2.000000);
@@ -188,7 +188,7 @@ CMD:speedopos(playerid, params[])
 		PlayerTextDrawSetProportional(playerid, _vhudTextFuel[playerid], 1);
 
 		PlayerTextDrawDestroy(playerid, _vhudTextSpeed[playerid]);
-		_vhudTextSpeed[playerid] = CreatePlayerTextDraw(playerid, TPosX[1], TPosY[0], "~w~MPH: N/A");
+		_vhudTextSpeed[playerid] = CreatePlayerTextDraw(playerid, TPosX[1], TPosY[0], "~b~MPH: N/A");
 		PlayerTextDrawBackgroundColor(playerid, _vhudTextSpeed[playerid], 255);
 		PlayerTextDrawFont(playerid, _vhudTextSpeed[playerid], 1);
 		PlayerTextDrawLetterSize(playerid, _vhudTextSpeed[playerid], 0.270000, 2.000000);
@@ -197,7 +197,7 @@ CMD:speedopos(playerid, params[])
 		PlayerTextDrawSetProportional(playerid, _vhudTextSpeed[playerid], 1);
 
 		PlayerTextDrawDestroy(playerid, _vhudSeatBelt[playerid]);
-		_vhudSeatBelt[playerid] = CreatePlayerTextDraw(playerid, TPosX[1], TPosY[1], "~w~SB: ~r~OFF");
+		_vhudSeatBelt[playerid] = CreatePlayerTextDraw(playerid, TPosX[1], TPosY[1], "~b~SB: ~r~OFF");
 		PlayerTextDrawBackgroundColor(playerid, _vhudSeatBelt[playerid], 255);
 		PlayerTextDrawFont(playerid, _vhudSeatBelt[playerid], 1);
 		PlayerTextDrawLetterSize(playerid, _vhudSeatBelt[playerid], 0.270000, 2.000000);
@@ -206,7 +206,7 @@ CMD:speedopos(playerid, params[])
 		PlayerTextDrawSetProportional(playerid, _vhudSeatBelt[playerid], 1);
 
 		PlayerTextDrawDestroy(playerid, _vhudLights[playerid]);
-		_vhudLights[playerid] = CreatePlayerTextDraw(playerid, TPosX[0], TPosY[1], "~w~Lights: ~r~OFF");
+		_vhudLights[playerid] = CreatePlayerTextDraw(playerid, TPosX[0], TPosY[1], "~b~Lights: ~r~OFF");
 		PlayerTextDrawBackgroundColor(playerid, _vhudLights[playerid], 255);
 		PlayerTextDrawFont(playerid, _vhudLights[playerid], 1);
 		PlayerTextDrawLetterSize(playerid, _vhudLights[playerid], 0.270000, 2.000000);

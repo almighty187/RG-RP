@@ -12,15 +12,15 @@ hook OnGameModeInit() {
 	CreateDynamic3DTextLabel("Press F to access to the DOC control panel", COLOR_TWGREEN, 569.0477, 1448.6146, 6000.475+10.6,4.0); // DOC Interior Control Panel
 
 	// VIP Dedicated Famed aka perk related
-    CreateDynamic3DTextLabel("To change your number type /vipnum",COLOR_TWGREEN,2549.548095, 1404.047729, 7699.584472+0.6,4.0); // LS VIP Lounge
-    CreateDynamic3DTextLabel("Type /travel\nTo exit the VIP garage with your vehicle",COLOR_TWGREEN,-4429.944824, 905.032470, 987.078186+0.5,13.0);// LS VIP Lounge garage travel
-    CreateDynamic3DTextLabel("/viplocker\nTo open the VIP locker.",COLOR_TWGREEN,2555.747314, 1404.106079, 7699.584472+0.6,4.0);/// LS VIP Lounge locker
-	CreateDynamic3DTextLabel("/getgift\nTo reach inside.",COLOR_TWGREEN,2546.611572, 1403.323608, 7700.768066,8.0);/// LS VIP Lounge
-	CreateDynamic3DTextLabel("/dplocker\nTo open the Dedicated locker.",COLOR_TWGREEN,166.6540, -2001.0413, 3499.6482+0.6,4.0);/// Dedicated Locker
-	CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_TWGREEN,2561.3562,1404.1563,7699.5845+0.6,4.0); // LS VIP Lounge
+    CreateDynamic3DTextLabel("To change your number type /vipnum",COLOR_TWPURPLE,2549.548095, 1404.047729, 7699.584472+0.6,4.0); // LS VIP Lounge
+    CreateDynamic3DTextLabel("Type /travel\nTo exit the VIP garage with your vehicle",COLOR_TWPURPLE,-4429.944824, 905.032470, 987.078186+0.5,13.0);// LS VIP Lounge garage travel
+    CreateDynamic3DTextLabel("/viplocker\nTo open the VIP locker.",COLOR_TWPURPLE,2555.747314, 1404.106079, 7699.584472+0.6,4.0);/// LS VIP Lounge locker
+	CreateDynamic3DTextLabel("/getgift\nTo reach inside.",COLOR_TWPURPLE,2546.611572, 1403.323608, 7700.768066,8.0);/// LS VIP Lounge
+	CreateDynamic3DTextLabel("/dplocker\nTo open the Dedicated locker.",COLOR_TWPURPLE,166.6540, -2001.0413, 3499.6482+0.6,4.0);/// Dedicated Locker
+	CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_TWPURPLE,2561.3562,1404.1563,7699.5845+0.6,4.0); // LS VIP Lounge
 	CreateDynamic3DTextLabel("Famed Locker \nType /famedlocker to access the locker", COLOR_FAMED,901.4825,1429.7404,-82.3235+0.6,4.0); // Famed Locker
 	//CreateDynamic3DTextLabel("Famed Locker \nType /famedlocker to access the locker", COLOR_FAMED,901.3110,1430.1034,-82.3256+0.6,4.0); // Famed Locker
-	CreateDynamic3DTextLabel("Famed Locker \nType /famedlocker to access the locker",COLOR_TWGREEN,901.3110,1430.1034,-82.3256,15.0); // Famed Locker
+	CreateDynamic3DTextLabel("Famed Locker \nType /famedlocker to access the locker",COLOR_FAMED,901.3110,1430.1034,-82.3256,15.0); // Famed Locker
 
 	
 	// Business & Job related
