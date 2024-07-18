@@ -592,7 +592,7 @@ CMD:loadshipment(playerid, params[])
 				{
 				    return SendServerMessage(playerid, "That vehicle is already loaded.");
 				}
-				if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 440 || GetVehicleModel(GetPlayerVehicleID(playerid)) == 413) // Level Three Vehicle Check
+				/*if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 440 || GetVehicleModel(GetPlayerVehicleID(playerid)) == 413) // Level Three Vehicle Check
 				{
 					if(PlayerInfo[playerid][pTruckSkill] < 100) 
 					{
@@ -605,7 +605,7 @@ CMD:loadshipment(playerid, params[])
 					{
 						return SendServerMessage(playerid, "Only level 5 Shipment Contractors may use this vehicle.");
 					}
-				}
+				}*/
 	            if(!IsABoat(vehicleid))
 	            {
 		            SetPlayerCheckpoint(playerid,2432.0771,-2114.6887,13.6101, 4);

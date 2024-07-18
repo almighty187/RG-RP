@@ -18,11 +18,8 @@ hook OnGameModeInit() {
 	CreateDynamic3DTextLabel("/getgift\nTo reach inside.",COLOR_TWPURPLE,2546.611572, 1403.323608, 7700.768066,8.0);/// LS VIP Lounge
 	CreateDynamic3DTextLabel("/dplocker\nTo open the Dedicated locker.",COLOR_TWPURPLE,166.6540, -2001.0413, 3499.6482+0.6,4.0);/// Dedicated Locker
 	CreateDynamic3DTextLabel("/buytoys\n To buy some accessories.",COLOR_TWPURPLE,2561.3562,1404.1563,7699.5845+0.6,4.0); // LS VIP Lounge
-	CreateDynamic3DTextLabel("Famed Locker \nType /famedlocker to access the locker", COLOR_FAMED,901.4825,1429.7404,-82.3235+0.6,4.0); // Famed Locker
-	//CreateDynamic3DTextLabel("Famed Locker \nType /famedlocker to access the locker", COLOR_FAMED,901.3110,1430.1034,-82.3256+0.6,4.0); // Famed Locker
-	CreateDynamic3DTextLabel("Famed Locker \nType /famedlocker to access the locker",COLOR_FAMED,901.3110,1430.1034,-82.3256,15.0); // Famed Locker
+	CreateDynamic3DTextLabel("Famed Locker \nType /famedlocker to access the locker", COLOR_TWPURPLE,901.4825,1429.7404,-82.3235+0.6,4.0); // Famed Locker
 
-	
 	// Business & Job related
 	CreateDynamic3DTextLabel("{FFFFFF}[{F1BB05}Fish Shop{FFFFFF}]", 0x0080FFFF, 723.3507, -1485.1478, 1.9687+0.50, 25.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1, 100.0);
 	//CreateDynamic3DTextLabel("Type /sellfish [amount] to sell your fish to the vendor.", COLOR_YELLOW, 723.3507, -1485.1478, 1.9687, 10); // Marina docks
