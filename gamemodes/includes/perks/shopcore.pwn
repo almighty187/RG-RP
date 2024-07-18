@@ -997,7 +997,7 @@ CMD:rentacar(playerid, params[])
     if(ShopClosed == 1)
 	    return SendClientMessageEx(playerid, COLOR_GREY, "The shop is currently closed.");
 
-    if(IsPlayerInRangeOfPoint(playerid, 4, 1102.8999, -1440.1669, 15.7969) || IsPlayerInRangeOfPoint(playerid, 4, 1796.0620, -1588.5571, 13.4951))
+    if(IsPlayerInRangeOfPoint(playerid, 4, 1102.8999, -1440.1669, 15.7969) || IsPlayerInRangeOfPoint(playerid, 4 1715.0919, -1879.8853, 13.5665) || IsPlayerInRangeOfPoint(playerid, 4, 1796.0620, -1588.5571, 13.4951))
 	{
 		if(GetPVarInt(playerid, "PinConfirmed"))
 		{

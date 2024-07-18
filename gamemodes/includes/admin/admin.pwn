@@ -252,7 +252,7 @@ CMD:givegun(playerid, params[])
             { SendClientMessageEx(playerid, COLOR_GRAD1, "Invalid weapon ID!"); return 1; }
         if(IsPlayerConnected(playa))
 		{
-            if((PlayerInfo[playa][pConnectHours] < 2 || PlayerInfo[playa][pWRestricted] > 0) && gun != 46 && gun != 43) return SendClientMessageEx(playerid, COLOR_GRAD2, "That person is currently restricted from carrying weapons");
+            if((PlayerInfo[playa][pConnectHours] < 1 || PlayerInfo[playa][pWRestricted] > 0) && gun != 46 && gun != 43) return SendClientMessageEx(playerid, COLOR_GRAD2, "That person is currently restricted from carrying weapons");
 			if(PlayerInfo[playa][pAccountRestricted] != 0) return SendClientMessageEx(playerid, COLOR_GRAD1, "You cannot do this to someone that has his account restricted!");
 		    if(playa != INVALID_PLAYER_ID && gun <= 20 || gun >= 22) {
                 PlayerInfo[playa][pGuns][GetWeaponSlot(gun)] = gun;

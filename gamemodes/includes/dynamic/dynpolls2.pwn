@@ -886,7 +886,7 @@ CMD:viewpollresults(playerid, params[])
 CMD:vote(playerid, params[])
 {
 	new iPollID = -1;
-	if(PlayerInfo[playerid][pConnectHours] < 2) return SendClientMessage(playerid, COLOR_GRAD2, "You do not have enough playing hours to vote in this poll.");
+	if(PlayerInfo[playerid][pConnectHours] < 1) return SendClientMessage(playerid, COLOR_GRAD2, "You do not have enough playing hours to vote in this poll.");
 	for(new i = 0; i < MAX_POLLS; i++)
 	{
 		if(IsPlayerInRangeOfPoint(playerid, 2.0, PollInfo[i][poll_fLocation][0], PollInfo[i][poll_fLocation][1], PollInfo[i][poll_fLocation][2]) && GetPlayerInterior(playerid) == PollInfo[i][poll_iInterior] && GetPlayerVirtualWorld(playerid) == PollInfo[i][poll_iVirtualWorld])

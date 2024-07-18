@@ -331,7 +331,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 				}
 				return 1;
 			}
-			if((PlayerInfo[playerid][pWRestricted] > 0 || PlayerInfo[playerid][pConnectHours] < 2) && (weaponid != 0 && weaponid != 46))
+			if((PlayerInfo[playerid][pWRestricted] > 0 || PlayerInfo[playerid][pConnectHours] < 1) && (weaponid != 0 && weaponid != 46))
 			{
 				if(gettime() > GetPVarInt(playerid, "WepResWarn"))
 				{

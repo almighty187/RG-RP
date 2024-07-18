@@ -1724,7 +1724,7 @@ CMD:tazer(playerid, params[])
 	if(IsACop(playerid))
 	{
 		new string[128];
-		if(PlayerInfo[playerid][pConnectHours] < 2 || PlayerInfo[playerid][pWRestricted] > 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "You cannot use this as you are currently restricted from possessing weapons!");
+		if(PlayerInfo[playerid][pConnectHours] < 1 || PlayerInfo[playerid][pWRestricted] > 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "You cannot use this as you are currently restricted from possessing weapons!");
 
 		if(IsPlayerInAnyVehicle(playerid))
 		{

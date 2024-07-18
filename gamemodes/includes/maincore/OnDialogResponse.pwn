@@ -2760,7 +2760,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: You do not have any tokens!");
 			return 1;
 		}
-		if(PlayerInfo[playerid][pConnectHours] < 2 || PlayerInfo[playerid][pWRestricted] > 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "You cannot use this as you are currently restricted from possessing weapons!");
+		if(PlayerInfo[playerid][pConnectHours] < 1 || PlayerInfo[playerid][pWRestricted] > 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "You cannot use this as you are currently restricted from possessing weapons!");
 		//if(!CanGetVIPWeapon(playerid) && (listitem < 4 || listitem == 8)) return SendClientMessageEx(playerid, COLOR_WHITE, "You can no longer withdraw anymore VIP weapons today, wait until tomorrow!");
 		switch( listitem )
 		{
@@ -2969,7 +2969,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 	if(dialogid == 3498) //Famed Weapon Locker
 	{
 		if(!response) return SendClientMessageEx(playerid, COLOR_GRAD2, "You exited the famed locker.");
-		if(PlayerInfo[playerid][pConnectHours] < 2 || PlayerInfo[playerid][pWRestricted] > 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "You cannot use this as you are currently restricted from possessing weapons!");
+		if(PlayerInfo[playerid][pConnectHours] < 1 || PlayerInfo[playerid][pWRestricted] > 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "You cannot use this as you are currently restricted from possessing weapons!");
 
 		switch(listitem)
 		{

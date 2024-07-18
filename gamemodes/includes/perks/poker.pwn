@@ -1748,7 +1748,7 @@ LeavePokerTable(playerid) {
 
 CMD:jointable(playerid, params[])
 {
-	if(PlayerInfo[playerid][pConnectHours] < 2) {
+	if(PlayerInfo[playerid][pConnectHours] < 1) {
 	    SendClientMessageEx(playerid, COLOR_GREY, "You need 2 playing hours to join a poker table.");
 	    return 1;
 	}

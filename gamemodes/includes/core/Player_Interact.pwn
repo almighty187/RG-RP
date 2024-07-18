@@ -660,7 +660,7 @@ Interact_GivePlayerValidWeapon(playerid, giveplayerid, weaponid, saleprice = 0) 
 	if(PlayerInfo[playerid][pGuns][GetWeaponSlot(weaponid)] != weaponid) return SendClientMessageEx(playerid, COLOR_GREY, "You don't have a weapon in your possession.");
 	if(weaponid == WEAPON_KNIFE) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot give knives!");
 	if(GetPVarType(giveplayerid, "IsInArena") || GetPVarInt(giveplayerid, "EventToken") != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot do this right now!");
-	if(PlayerInfo[giveplayerid][pConnectHours] < 2 || PlayerInfo[giveplayerid][pWRestricted] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "That person is currently restricted from carrying weapons");
+	if(PlayerInfo[giveplayerid][pConnectHours] < 1 || PlayerInfo[giveplayerid][pWRestricted] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "That person is currently restricted from carrying weapons");
 
 
 	if(saleprice != 0 && (GetPlayerCash(giveplayerid) < saleprice || saleprice < 0)) return SendClientMessage(giveplayerid, COLOR_GRAD2, "You do not have enough money");

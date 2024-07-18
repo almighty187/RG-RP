@@ -534,9 +534,9 @@ task ProductionUpdate[300000]()
 		{
 			SendClientMessageEx(i, COLOR_LIGHTBLUE, "Need help? The Helpers are here to help you. (/requesthelp to get help)");
 		}
-		if(PlayerInfo[i][pConnectHours] < 2) {
+		if(PlayerInfo[i][pConnectHours] < 1) {
 			SendClientMessageEx(i, COLOR_LIGHTRED, "Due to an increase in new playing accounts being created for Death Matching.");
-			SendClientMessageEx(i, COLOR_LIGHTRED, "Weapons for new players are restricted for the first two hours of game play.");
+			SendClientMessageEx(i, COLOR_LIGHTRED, "Weapons for new players are restricted for the first hour of game play.");
 		}
 
 		/*if(PlayerInfo[i][pFishes] >= 5) {

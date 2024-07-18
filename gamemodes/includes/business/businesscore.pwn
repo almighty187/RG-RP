@@ -2605,7 +2605,7 @@ CMD:addmaterials(playerid, params[])
 	if (InBusiness(playerid) != PlayerInfo[playerid][pBusiness]) {
 		return SendClientMessageEx(playerid, COLOR_GREY, "You are not inside the business!");
 	}
-	if(PlayerInfo[buyerid][pConnectHours] < 2 || PlayerInfo[buyerid][pWRestricted] > 0) {
+	if(PlayerInfo[buyerid][pConnectHours] < 1 || PlayerInfo[buyerid][pWRestricted] > 0) {
 		return SendClientMessageEx(playerid, COLOR_GREY, "That player is currently weapon restricted!");
 	}	
 	new b = InBusiness(playerid);

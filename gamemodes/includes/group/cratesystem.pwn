@@ -870,7 +870,7 @@ CMD:crate(playerid, params[]) {
 			if(!CrateFacility[facility][cfActive]) return SendSyntaxMessage(playerid, "This facility is currently not in operation!");
 			if(CrateFacility[facility][cfProdReady] < 1) return SendSyntaxMessage(playerid, "This facility has no crates available to load!");
 			if(CrateBeingProcessed[facility] > 0) return SendSyntaxMessage(playerid, "Please wait a crate is being procssed!");
-			if(PlayerInfo[playerid][pConnectHours] < 25)
+			if(PlayerInfo[playerid][pConnectHours] < 15)
 		    {
 				format(string, sizeof(string), "{AA3333}AdmWarning{FFFF00}: %s has attempted to load a crate with only %d playing hours.", GetPlayerNameEx(playerid), PlayerInfo[playerid][pConnectHours]);
 				ABroadCast(COLOR_YELLOW, string, 4);

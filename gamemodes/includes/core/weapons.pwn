@@ -596,7 +596,7 @@ CMD:giveweapon(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_GRAD1, "You can not give weapons to players outside your faction!");
 		return 1;
 	}
-	if(PlayerInfo[giveplayerid][pConnectHours] < 2 || PlayerInfo[giveplayerid][pWRestricted] > 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "That person is currently restricted from possessing weapons");
+	if(PlayerInfo[giveplayerid][pConnectHours] < 1 || PlayerInfo[giveplayerid][pWRestricted] > 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "That person is currently restricted from possessing weapons");
 	if(IsPlayerInAnyVehicle(giveplayerid)) return SendClientMessageEx(playerid, COLOR_GRAD2, "Please exit the vehicle, before using this command.");
 	if(strcmp(weapon, "sdpistol", true) == 0)
 	{

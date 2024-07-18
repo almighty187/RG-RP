@@ -88,7 +88,7 @@ CMD:sellgun(playerid, params[])
 		{
 			if(IsPlayerInAnyVehicle(id)) return SendErrorMessage(playerid, "You cannot sell a gun to someone in a vehicle!");
 			if(!ProxDetectorS(8.0, playerid, id)) return SendErrorMessage(playerid, "You are not near that player.");
-			if(PlayerInfo[id][pConnectHours] < 2 || PlayerInfo[id][pWRestricted] > 0) return SendErrorMessage(playerid, "That player is currently weapon restricted!");
+			if(PlayerInfo[id][pConnectHours] < 1 || PlayerInfo[id][pWRestricted] > 0) return SendErrorMessage(playerid, "That player is currently weapon restricted!");
 
 			if(strcmp(weapon, "Flowers", true) == 0 && PlayerInfo[playerid][pArmsSkill] >= 0)
 			{

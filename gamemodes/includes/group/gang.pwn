@@ -1413,7 +1413,7 @@ CMD:gangnpchelp(playerid, params[])
 }
 CMD:armsdealer(playerid, params[])
 {
-	if(PlayerInfo[playerid][pConnectHours] < 2 || PlayerInfo[playerid][pWRestricted] > 0) return SendClientMessage(playerid, COLOR_GREY, "You are either weapon restricted or you played less than two playing hours.");
+	if(PlayerInfo[playerid][pConnectHours] < 1 || PlayerInfo[playerid][pWRestricted] > 0) return SendClientMessage(playerid, COLOR_GREY, "You are either weapon restricted or you played less than two playing hours.");
 
 	for(new i = 0; i < MAX_GROUPS; i ++)
 	{

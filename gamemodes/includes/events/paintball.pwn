@@ -3423,7 +3423,7 @@ CMD:switchteam(playerid, params[])
 CMD:joinarena(playerid, params[])
 {
     if(!GetPVarType(playerid, "IsInArena")) {
-        if(PlayerInfo[playerid][pConnectHours] < 2) {
+        if(PlayerInfo[playerid][pConnectHours] < 1) {
             SendClientMessageEx(playerid, COLOR_WHITE, "You are unable to join a Paintball Match due to your weapon restriction.");
             return 1;
         }
