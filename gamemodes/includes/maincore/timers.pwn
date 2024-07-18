@@ -410,6 +410,7 @@ task SyncTime[60000]()
 				WDReportHourCount[i] = 0;
 			}
 			if(PlayerInfo[i][pLevel] <= 5) SendClientMessageEx(i, COLOR_LIGHTBLUE, "Need to travel somewhere and don't have wheels? Use '/service taxi' to call a cab!");
+			if(PlayerInfo[i][pLevel] <= 5) SendClientMessageEx(i, COLOR_LIGHTBLUE, "Don't know your way around the map? Use /map & /mygps to see locations!");
 			if(PlayerInfo[i][pDonateRank] >= 3)
 			{
 				sscanf(PlayerInfo[i][pBirthDate], "p<->iii", byear, bmonth, bday);
