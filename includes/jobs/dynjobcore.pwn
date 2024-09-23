@@ -132,8 +132,7 @@ public UpdateJobPoint(id)
 	JobData[id][jAreaID] = CreateDynamicSphere(JobData[id][jPos][0], JobData[id][jPos][1], JobData[id][jPos][2], 3.0, .worldid = JobData[id][jVw], .interiorid = JobData[id][jInt]);
 	JobData[id][jMapMarker] = CreateDynamicMapIcon(JobData[id][jPos][0], JobData[id][jPos][1], JobData[id][jPos][2], (JobData[id][jMarkerID] < 5 || JobData[id][jMarkerID] > 63) ? 56 : JobData[id][jMarkerID], 0, .streamdistance = 500.0, .style = MAPICON_GLOBAL);
 	JobData[id][jPickupID] = CreateDynamicPickup(1239, 23, JobData[id][jPos][0], JobData[id][jPos][1], JobData[id][jPos][2], .worldid = JobData[id][jVw], .interiorid = JobData[id][jInt], .streamdistance = 200.0);
-	format(szMiscArray, sizeof szMiscArray, "\n\n{FF0000}%s {FFFF00}({FFFFFF}ID: %i{FFFF00})\n{FFFF00}Press {00FFFF}~k~~CONVERSATION_YES~ {FFFF00}to obtain the job.", GetJobName(JobData[id][jType]), id);
-	//format(szMiscArray, sizeof szMiscArray, "{FFFF00}Job Point ({FFFFFF}ID: %i{FFFF00})\n\n{FF0000}%s\n{FFFF00}Press {00FFFF}~k~~CONVERSATION_YES~ {FFFF00}to obtain the job.", id, GetJobName(JobData[id][jType]));
+	format(szMiscArray, sizeof szMiscArray, "{33AA33}Job Point ({FFFFFF}ID: %i{33AA33})\n\nName: {FFFFFF}%s\n{33AA33}Press {FFFFFF}~k~~CONVERSATION_YES~ {33AA33}to obtain the job.", id, GetJobName(JobData[id][jType]));
 	JobData[id][jTextID] = CreateDynamic3DTextLabel(szMiscArray, COLOR_YELLOW, JobData[id][jPos][0], JobData[id][jPos][1], JobData[id][jPos][2]+0.6, 10.0, .testlos = 1, .worldid = JobData[id][jVw], .interiorid = JobData[id][jInt], .streamdistance = 10.0);
 	return 1;
 }
