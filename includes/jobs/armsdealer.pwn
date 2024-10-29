@@ -27,63 +27,62 @@ CMD:sellgun(playerid, params[])
 			{
 				case 0 .. 49: // level 1
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD1, "flowers(100)    knuckles(100)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "bat(100)            cane(100)");
-					SendClientMessageEx(playerid, COLOR_GRAD1, "shovel(100)         club(100)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "pool(100)         katana(100)");
-					SendClientMessageEx(playerid, COLOR_GRAD1, "dildo(100)           9mm(500)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "sdpistol(1000)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "flowers (100)    knuckles (100)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "bat (100)        cane (100)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "shovel (100)     club (100)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "pool (100)       katana (100)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "dildo (100)      9mm (500)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "sdpistol (1000)");
 				}
 				case 50 .. 199: // level 2
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD1, "flowers(100)    knuckles(100)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "bat(100)            cane(100)");
-					SendClientMessageEx(playerid, COLOR_GRAD1, "shovel(100)         club(100)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "pool(100)         katana(100)");
-					SendClientMessageEx(playerid, COLOR_GRAD1, "dildo(100)           9mm(500)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "sdpistol(1000)  shotgun(4000)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "mp5(2500)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "flowers (100)    knuckles (100)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "bat (100)        cane (100)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "shovel (100)     club (100)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "pool (100)       katana (100)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "dildo (100)      9mm (500)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "sdpistol (1000)  shotgun (4000)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "mp5 (2500)");
 				}
 				case 200 .. 699: // level 3
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD1, "flowers(100)    knuckles(100)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "bat(100)            cane(100)");
-					SendClientMessageEx(playerid, COLOR_GRAD1, "shovel(100)         club(100)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "pool(100)         katana(100)");
-					SendClientMessageEx(playerid, COLOR_GRAD1, "dildo(100)           9mm(500)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "sdpistol(1000)  shotgun(4000)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "mp5(2500)		 rifle(3000)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "flowers (100)    knuckles (100)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "bat (100)        cane (100)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "shovel (100)     club (100)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "pool (100)       katana (100)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "dildo (100)      9mm (500)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "sdpistol (1000)  shotgun (4000)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "mp5 (2500)       rifle (3000)");
 				}
-				case 700 .. 1199:// Level 4 
+				case 700 .. 1199: // level 4
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD1, "flowers(100)    knuckles(100)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "bat(100)            cane(100)");
-					SendClientMessageEx(playerid, COLOR_GRAD1, "shovel(100)         club(100)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "pool(100)         katana(100)");
-					SendClientMessageEx(playerid, COLOR_GRAD1, "dildo(100)           9mm(500)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "sdpistol(1000)  shotgun(4000)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "mp5(2500)		 rifle(3000)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "tec9(3000)       	uzi(2500)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "flowers (100)    knuckles (100)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "bat (100)        cane (100)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "shovel (100)     club (100)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "pool (100)       katana (100)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "dildo (100)      9mm (500)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "sdpistol (1000)  shotgun (4000)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "mp5 (2500)       rifle (3000)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "tec9 (3000)      uzi (2500)");
 				}
 				default:
 				{
-					SendClientMessageEx(playerid, COLOR_GRAD1, "flowers(100)    knuckles(100)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "bat(100)            cane(100)");
-					SendClientMessageEx(playerid, COLOR_GRAD1, "shovel(100)         club(100)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "pool(100)         katana(100)");
-					SendClientMessageEx(playerid, COLOR_GRAD1, "dildo(100)           9mm(500)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "sdpistol(1000)  shotgun(4000)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "mp5(2500)		  rifle(3000)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "tec9(3000)        	uzi(2500)");
-					SendClientMessageEx(playerid, COLOR_WHITE, "deagle(5000)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "flowers (100)    knuckles (100)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "bat (100)        cane (100)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "shovel (100)     club (100)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "pool (100)       katana (100)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "dildo (100)      9mm (500)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "sdpistol (1000)  shotgun (4000)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "mp5 (2500)       rifle (3000)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "tec9 (3000)      uzi (2500)");
+					SendClientMessageEx(playerid, COLOR_GRAD1, "deagle (5000)");
 				}
 			}
-			if(PlayerInfo[playerid][pArmsSkill] >= 1200) SendClientMessageEx(playerid, COLOR_WHITE, "ak47(10000) - Requires Gold VIP");
+			if(PlayerInfo[playerid][pArmsSkill] >= 1200) SendClientMessageEx(playerid, COLOR_WHITE, "ak47 (10000) - Requires Gold VIP");
 			SendClientMessageEx(playerid, COLOR_GREEN, "-------------------------------------");
 			SendSyntaxMessage(playerid, "/sellgun [playerid] [weapon]");
 			return 1;
 		}
-
 		if(IsPlayerConnected(id))
 		{
 			if(IsPlayerInAnyVehicle(id)) return SendErrorMessage(playerid, "You cannot sell a gun to someone in a vehicle!");
